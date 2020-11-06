@@ -91,8 +91,10 @@ namespace InventoryControl.Product
                 tableContent["Sum"].Add((data.salePrice*row.NumberToSell).ToString());
             }
 
+            var numberColumn = new PdfColumn(gfx, "№", Enumerable.Range(1, saleProducts.Length).Select(n => n.ToString()).ToList());
+
             double columnOffset = 20;
-            columnOffset += new PdfColumn(gfx, "№", Enumerable.Range(1, saleProducts.Length).Select(n => n.ToString()).ToList())
+            columnOffset += numberColumn
                 .Draw(columnOffset, y, 20, XStringFormats.Center);
             columnOffset += new PdfColumn(gfx, "Наименование", tableContent["Title"])
                 .Draw(columnOffset, y, page.Width - columnOffset - 180 - 20, XStringFormats.CenterLeft);
@@ -107,25 +109,24 @@ namespace InventoryControl.Product
             columnOffset += new PdfColumn(gfx, "Сумма", tableContent["Sum"])
                 .Draw(columnOffset, y, 50, XStringFormats.CenterRight);
 
-            y = page.Height - 20;
-
+            y += numberColumn.Height + 5;
             double sum = 0.0;
             foreach (var sumStr in tableContent["Sum"])
             {
                 sum += Double.Parse(sumStr, System.Globalization.CultureInfo.InvariantCulture);
             }
             gfx.DrawString("Всего наименований " + tableContent["Id"].Count + " на сумму " + sum + "\u20BD",
-                    new XFont("Times New Roman", 18, XFontStyle.Bold),
-                    XBrushes.Black, 25, y);
+                    new XFont("Times New Roman", 12, XFontStyle.Bold),
+                    XBrushes.Black, page.Width-20, y, XStringFormats.TopRight);
         }
     }
     class PdfColumn
     {
         public double Height
         { 
-            get { return CellHeight * content.Count; } 
+            get { return CellHeight * (content.Count+1); } 
         }
-        public double CellHeight { get; }
+        public double CellHeight { set; get; }
 
         private readonly string header;
         private readonly ImmutableList<string> content;
@@ -144,13 +145,13 @@ namespace InventoryControl.Product
             //Draw
             for (int i = 0; i < content.Count; i++)
             {
-                XFont font = i==0 ? new XFont("Times New Roman", 9,XFontStyle.Bold) : new XFont("Times New Roman", 9);
+                XFont font = i==0 ? new XFont("Times New Roman", 9, XFontStyle.Bold) : new XFont("Times New Roman", 9);
                 XStringFormat contentAlignment = i==0 ? XStringFormats.Center : cellContentAlignment;
-                double cellHeight = font.Height; 
+                CellHeight = font.Height; 
 
                 gfx.DrawString(content[i], font, XBrushes.Black,
-                new XRect(x+paddingH/2, y + cellHeight *i, width-paddingH, cellHeight), contentAlignment);
-                gfx.DrawRectangle(XPens.Black, XBrushes.Transparent, x, y + cellHeight * i, width, cellHeight);
+                new XRect(x+paddingH/2, y + CellHeight * i, width-paddingH, CellHeight), contentAlignment);
+                gfx.DrawRectangle(XPens.Black, XBrushes.Transparent, x, y + CellHeight * i, width, CellHeight);
             }
             return width;
         }
