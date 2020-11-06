@@ -88,7 +88,7 @@ namespace InventoryControl.Product
                 tableContent["Measurement"].Add(data.Measurement);
                 tableContent["Weight"].Add(data.Weight);
                 tableContent["Price"].Add(data.SalePrice);
-                tableContent["Sum"].Add(data.getSaleSum(row.NumberToSell));
+                tableContent["Sum"].Add((data.salePrice*row.NumberToSell).ToString());
             }
 
             double columnOffset = 20;

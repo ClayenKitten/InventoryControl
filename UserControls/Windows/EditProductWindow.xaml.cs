@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,29 +12,25 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
-namespace InventoryControl.UserControls
+namespace InventoryControl.UserControls.Windows
 {
     /// <summary>
-    /// Interaction logic for ProductDataGrid.xaml
+    /// Interaction logic for CreateProduct.xaml
     /// </summary>
-    public partial class ProductDataGrid : UserControl
+    public partial class EditProductWindow : MetroWindow
     {
-
-        public ProductDataGrid()
+        ProductData productData;
+        public EditProductWindow(ProductData changedProduct)
         {
             InitializeComponent();
 
-            
-        }
-        
-
-        private void SendButtonClicked(object sender, RoutedEventArgs e)
-        {
-            var t = (MainWindow)this.Parent;
-            t.SendButtonClicked(sender, e);
+            if(changedProduct == null)
+            {
+                productData = ProductDatabase.CreateProduct();
+            }
         }
     }
 }

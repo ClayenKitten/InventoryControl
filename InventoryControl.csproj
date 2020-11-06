@@ -180,25 +180,18 @@
     </ApplicationDefinition>
     <Compile Include="Product\ProductDatabase.cs" />
     <Compile Include="Product\Receipt.cs" />
-    <Compile Include="UserControls\ProductDataGrid.xaml.cs">
-      <DependentUpon>ProductDataGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SellingListControl.xaml.cs">
       <DependentUpon>SellingListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Windows\CreateProduct.xaml.cs">
-      <DependentUpon>CreateProduct.xaml</DependentUpon>
+    <Compile Include="UserControls\Windows\EditProductWindow.xaml.cs">
+      <DependentUpon>EditProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
-    <Page Include="UserControls\ProductDataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\SellingListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Windows\CreateProduct.xaml">
+    <Page Include="UserControls\Windows\EditProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

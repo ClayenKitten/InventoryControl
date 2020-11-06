@@ -113,7 +113,7 @@ namespace InventoryControl
         }
         private void AddProductClick(object sender, RoutedEventArgs e)
         {
-            //new UserControls.Windows.CreateProduct(null).ShowDialog();
+            new UserControls.Windows.EditProductWindow(null).ShowDialog();
         }
         public void SendButtonClicked(object sender, RoutedEventArgs e)
         {

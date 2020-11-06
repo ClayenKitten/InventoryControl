@@ -14,6 +14,10 @@ namespace InventoryControl
         {
             
         }
+        static public ProductData CreateProduct()
+        {
+            return new ProductData(15214, "", null, "кг", null, 1.5);
+        }
         static public int GetProductNumber(int productId)
         {
             var con = Connect();
@@ -40,11 +44,10 @@ namespace InventoryControl
                 (
                     rdr.GetInt32(0),                                    //UUID of product
                     rdr.GetString(1),                                   //Title of product
-                    GetProductNumber(productId),                        //Number of products
                     rdr.IsDBNull(2) ? null : (double?)rdr.GetDouble(2), //Weight
                     Measurement.FromInt(rdr.GetInt32(3)),               //Measurement displaystring
                     rdr.IsDBNull(4) ? null : (double?)rdr.GetDouble(4), //Purchase price
-                    rdr.IsDBNull(5) ? null : (double?)rdr.GetDouble(5)  //Sale price
+                    rdr.GetDouble(5)                                    //Sale price
                 );
                 rdr.Close();
                 return productData;

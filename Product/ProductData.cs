@@ -9,13 +9,12 @@ namespace InventoryControl
 {
     public class ProductData
     {
-        private readonly double? weight;
-        private readonly double? purchasePrice;
-        private readonly double? salePrice;
+        public readonly double? weight;
+        public readonly double? purchasePrice;
+        public readonly double salePrice;
 
         public int Id { get; }
         public String Title { get; }
-        public int Number { get; }
         public String Weight 
         {   get 
             {
@@ -40,30 +39,25 @@ namespace InventoryControl
         {
             get
             {
-                if (salePrice.HasValue)
-                    return salePrice.Value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
-                else
-                    return "";
+                return salePrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
+        public int Number
+        {
+            get
+            {
+                return ProductDatabase.GetProductNumber(Id);
             }
         }
 
-
-        public ProductData(int id, String title, int number, double? weight, String measurement, double? purchasePrice, double? salePrice)
+        public ProductData(int id, String title, double? weight, String measurement, double? purchasePrice, double salePrice)
         {
             this.Id = id;
             this.Title = title;
-            this.Number = number;
             this.weight = weight;
             this.Measurement = measurement.ToString();
             this.purchasePrice = purchasePrice;
             this.salePrice = salePrice;
-        }
-        public string getSaleSum(int number)
-        {
-            if (salePrice.HasValue)
-                return (salePrice.Value * number).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
-            else
-                return "";
         }
     }
     public class Measurement
