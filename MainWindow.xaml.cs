@@ -23,7 +23,7 @@ namespace InventoryControl
         {
             InitializeComponent();
 
-            for (int z = 0; z < 17; z++)
+            for (int z = 0; z < ProductDatabase.GetProductsNumber(); z++)
             {
                 Products.Add(ProductDatabase.GetProductData(z));
             }
@@ -33,9 +33,9 @@ namespace InventoryControl
             firstColumn.SortDirection = ListSortDirection.Ascending;
             MainDataGrid.Columns.Add(firstColumn);
             MainDataGrid.Columns.Add(GenerateColumn("Наименование", "Наименование", "Title", "12*"));
-            MainDataGrid.Columns.Add(GenerateColumn("Кол.", "Количество", "Number", "2*"));
-            MainDataGrid.Columns.Add(GenerateColumn("Вес", "Вес", "Weight", "3*"));
-            MainDataGrid.Columns.Add(GenerateColumn("Ед. изм.", "Единица измерения", "Measurement", "3*"));
+            MainDataGrid.Columns.Add(GenerateColumn("Кол.", "Количество упаковок", "Number", "2*"));
+            MainDataGrid.Columns.Add(GenerateColumn("Вес", "Вес упаковки", "Weight", "3*"));
+            MainDataGrid.Columns.Add(GenerateColumn("Ед. изм.", "Единица измерения (тип упаковки)", "Measurement", "3*"));
             MainDataGrid.Columns.Add(GenerateColumn("Закуп. цена", "Закупочная цена", "PurchasePrice", "4*"));
             MainDataGrid.Columns.Add(GenerateColumn("Прод. цена", "Продажная цена", "SalePrice", "4*"));
 

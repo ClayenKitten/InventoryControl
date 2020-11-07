@@ -58,7 +58,13 @@ namespace InventoryControl
                 return null;
             }
         }
-
+        static public int GetProductsNumber()
+        {
+            var con = Connect();
+            var value = (int)new SQLiteCommand("SELECT COUNT(*) FROM Storage_Main", con).ExecuteScalar();
+            con.Close();
+            return value;
+        }
         static public SQLiteConnection Connect()
         {
             SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
