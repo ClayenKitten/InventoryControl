@@ -178,6 +178,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Product\Measurement.cs" />
     <Compile Include="Product\ProductDatabase.cs" />
     <Compile Include="Product\Receipt.cs" />
     <Compile Include="UserControls\SellingListControl.xaml.cs">
@@ -228,7 +229,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Database.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />

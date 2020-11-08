@@ -7,27 +7,32 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
-        Title="Добавить/изменить продукт" Height="200" Width="800">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Добавить/изменить продукт" Height="150" Width="400">
+    <mah:MetroWindow.Resources>
+    </mah:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <DataGrid 
-            CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"
-            CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Grid.Column="1" Grid.Row="1"
-                Style="{StaticResource MahApps.Styles.Button.Square}" BorderBrush="#FFCCCCCC" BorderThickness="0,1,1,1">
-            <iconPacks:PackIconFontAwesome Kind="CheckSquareSolid" Width="32" Height="32" />
+        <TextBox  Grid.Column="0" Grid.Row="0" x:Name="titleTB" mah:TextBoxHelper.Watermark="Наименование *" Grid.ColumnSpan="2"
+                    MaxLines="1" ToolTip="Наименование товара"/>
+        <TextBox  Grid.Column="0" Grid.Row="1" x:Name="weightTB" mah:TextBoxHelper.Watermark="Вес штуки/упаковки (кг)" 
+                    PreviewTextInput="DoubleValidation" KeyUp="RemoveSpacesKeyUp" MaxLines="1" ToolTip="Вес штуки/упаковки (кг)"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" x:Name="packingCB" SelectedIndex="0" ToolTip="Единица измерения"/>
+        <TextBox  Grid.Column="0" Grid.Row="2" x:Name="purchasePriceTB" mah:TextBoxHelper.Watermark="Цена покупки" 
+                    PreviewTextInput="DoubleValidation" KeyUp="RemoveSpacesKeyUp" MaxLines="1" ToolTip="Цена покупки"/>
+        <TextBox  Grid.Column="1" Grid.Row="2" x:Name="salePriceTB" mah:TextBoxHelper.Watermark="Цена продажи *" 
+                    PreviewTextInput="DoubleValidation" KeyUp="RemoveSpacesKeyUp" MaxLines="1" ToolTip="Цена продажи"/>
+        <Button   Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Click="Confirm_Click">
+            <TextBlock Text="Подтвердить"/>
         </Button>
     </Grid>
 </mah:MetroWindow>

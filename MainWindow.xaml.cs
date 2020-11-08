@@ -18,28 +18,22 @@ namespace InventoryControl
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public List<ProductData> Products = new List<ProductData>();
         public MainWindow()
         {
             InitializeComponent();
-
-            for (int z = 0; z < ProductDatabase.GetProductsNumber(); z++)
-            {
-                Products.Add(ProductDatabase.GetProductData(z));
-            }
-            MainDataGrid.ItemsSource = Products;
 
             var firstColumn = GenerateColumn("N", "Номер по прайсу", "Id", "3*");
             firstColumn.SortDirection = ListSortDirection.Ascending;
             MainDataGrid.Columns.Add(firstColumn);
             MainDataGrid.Columns.Add(GenerateColumn("Наименование", "Наименование", "Title", "12*"));
             MainDataGrid.Columns.Add(GenerateColumn("Кол.", "Количество упаковок", "Number", "2*"));
-            MainDataGrid.Columns.Add(GenerateColumn("Вес", "Вес упаковки", "Weight", "3*"));
-            MainDataGrid.Columns.Add(GenerateColumn("Ед. изм.", "Единица измерения (тип упаковки)", "Measurement", "3*"));
+            MainDataGrid.Columns.Add(GenerateColumn("Вес", "Вес упаковки", "Weight", "60"));
+            MainDataGrid.Columns.Add(GenerateColumn("Ед", "Единица измерения (тип упаковки)", "Packing", "45"));
             MainDataGrid.Columns.Add(GenerateColumn("Закуп. цена", "Закупочная цена", "PurchasePrice", "4*"));
             MainDataGrid.Columns.Add(GenerateColumn("Прод. цена", "Продажная цена", "SalePrice", "4*"));
 
             MainDataGrid.Columns[0].DisplayIndex = MainDataGrid.Columns.Count - 1;
+            this.UpdateItems();
         }
         private DataGridColumn GenerateColumn(String headerTitle, String headerTooltip, String Id, String width)
         {
@@ -66,6 +60,10 @@ namespace InventoryControl
 
             return column;
         }
+        public void UpdateItems()
+        {
+            MainDataGrid.ItemsSource = ProductDatabase.GetProductData();
+        }
         private void MakeSearch(string searchString)
         {
             int sortIndex = 0;
@@ -81,7 +79,7 @@ namespace InventoryControl
             }
 
             var filtered =  new List<ProductData>();
-            foreach (ProductData product in Products)
+            foreach (ProductData product in ProductDatabase.GetProductData())
             {
                 String search = Searchbox.Text.ToLower().Replace('ё', 'е').Trim();
                 String title = product.Title.ToLower().Replace('ё', 'е').Trim();
@@ -107,13 +105,22 @@ namespace InventoryControl
         }
         private void SaveBackupButtonClick(object sender=null, RoutedEventArgs e=null)
         {
-            
             System.IO.Directory.CreateDirectory("Backups");
             File.Copy("Database.db", "Backups\\"+DateTime.Now.ToString("YY-MM-dd HH-mm-dd") + ".db", true);
         }
         private void AddProductClick(object sender, RoutedEventArgs e)
         {
             new UserControls.Windows.EditProductWindow(null).ShowDialog();
+            UpdateItems();
+        }
+        private void EditProductClick(object sender, RoutedEventArgs e)
+        {
+            var s = (MenuItem)sender;
+            var contextMenu = (ContextMenu)s.Parent;
+            var row = (DataGridRow)contextMenu.PlacementTarget;
+            var id = ((ProductData)MainDataGrid.Items.GetItemAt(row.GetIndex())).Id;
+            new UserControls.Windows.EditProductWindow(id).ShowDialog();
+            UpdateItems();
         }
         public void SendButtonClicked(object sender, RoutedEventArgs e)
         {

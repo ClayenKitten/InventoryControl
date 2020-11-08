@@ -85,7 +85,7 @@ namespace InventoryControl.Product
                 tableContent["Id"].Add(row.Id.ToString());
                 tableContent["Title"].Add(data.Title);
                 tableContent["Number"].Add(row.NumberToSell.ToString());
-                tableContent["Measurement"].Add(data.Measurement);
+                tableContent["Measurement"].Add(data.Packing);
                 tableContent["Weight"].Add(data.Weight);
                 tableContent["Price"].Add(data.SalePrice);
                 tableContent["Sum"].Add((data.salePrice*row.NumberToSell).ToString());

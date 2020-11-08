@@ -11,6 +11,7 @@ namespace InventoryControl
     {
         public readonly double? weight;
         public readonly double? purchasePrice;
+        public readonly int packing;
         public readonly double salePrice;
 
         public int Id { get; }
@@ -24,7 +25,13 @@ namespace InventoryControl
                     return "";
             } 
         }
-        public String Measurement { get; }
+        public String Packing
+        {
+            get 
+            {
+                return Measurement.FromInt(packing);
+            }
+        }
         public String PurchasePrice
         {
             get
@@ -50,31 +57,14 @@ namespace InventoryControl
             }
         }
 
-        public ProductData(int id, String title, double? weight, String measurement, double? purchasePrice, double salePrice)
+        public ProductData(int id, String title, double? weight, int measurement, double? purchasePrice, double salePrice)
         {
             this.Id = id;
             this.Title = title;
             this.weight = weight;
-            this.Measurement = measurement.ToString();
+            this.packing = measurement;
             this.purchasePrice = purchasePrice;
             this.salePrice = salePrice;
-        }
-    }
-    public class Measurement
-    {
-        public static readonly String Kilogram = "кг";
-        public static readonly String Piece = "шт";
-        public static String FromInt(int value)
-        {
-            switch (value)
-            {
-                case 0:
-                    return Kilogram;
-                case 1:
-                    return Piece;
-                default:
-                    return "WRONG MEASUREMENT NUMBER";
-            }
         }
     }
 }

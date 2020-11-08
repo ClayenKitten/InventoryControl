@@ -14,9 +14,27 @@ namespace InventoryControl
         {
             
         }
-        static public ProductData CreateProduct()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Id of created product</returns>
+        static public int CreateProduct(String title, double? weight, int measurement, double? purchasePrice, double? salePrice)
         {
-            return new ProductData(15214, "", null, "кг", null, 1.5);
+            var con = Connect();
+            new SQLiteCommand(
+                "INSERT INTO ProductsDictionary(Title,Weight,Packing,PurchasePrice,SalePrice)" +
+                $"VALUES('{title}',{weight},{measurement},{purchasePrice},{salePrice});",
+                con).ExecuteScalar();
+            return 0;
+        }
+        static public int EditProduct(String title, double? weight, int measurement, double? purchasePrice, double? salePrice)
+        {
+            var con = Connect();
+            new SQLiteCommand(
+                $"UPDATE ProductsDictionary SET Title='{title}',Weight={weight}," +
+                $"Packing={measurement},PurchasePrice={purchasePrice},SalePrice={salePrice} WHERE Id=24;",
+                con).ExecuteScalar();
+            return 0;
         }
         static public int GetProductNumber(int productId)
         {
@@ -45,7 +63,7 @@ namespace InventoryControl
                     rdr.GetInt32(0),                                    //UUID of product
                     rdr.GetString(1),                                   //Title of product
                     rdr.IsDBNull(2) ? null : (double?)rdr.GetDouble(2), //Weight
-                    Measurement.FromInt(rdr.GetInt32(3)),               //Measurement displaystring
+                    rdr.GetInt32(3),                                    //Measurement displaystring
                     rdr.IsDBNull(4) ? null : (double?)rdr.GetDouble(4), //Purchase price
                     rdr.GetDouble(5)                                    //Sale price
                 );
@@ -58,14 +76,47 @@ namespace InventoryControl
                 return null;
             }
         }
+        static public List<ProductData> GetProductData()
+        {
+            List<ProductData> output = new List<ProductData>();
+            var con = Connect();
+
+            var rdr = new SQLiteCommand("SELECT * FROM ProductsDictionary", con).ExecuteReader(CommandBehavior.CloseConnection);
+            while (rdr.Read())
+            {
+                output.Add(new ProductData
+                (
+                    rdr.GetInt32(0),                                    //UUID of product
+                    rdr.GetString(1),                                   //Title of product
+                    rdr.IsDBNull(2) ? null : (double?)rdr.GetDouble(2), //Weight
+                    rdr.GetInt32(3),                                    //Measurement displaystring
+                    rdr.IsDBNull(4) ? null : (double?)rdr.GetDouble(4), //Purchase price
+                    rdr.GetDouble(5)                                    //Sale price
+                ));
+            }
+            rdr.Close();
+            return output;
+        }
         static public int GetProductsNumber()
         {
             var con = Connect();
-            var value = (int)new SQLiteCommand("SELECT COUNT(*) FROM Storage_Main", con).ExecuteScalar();
+            var value = (long)new SQLiteCommand("SELECT COUNT(*) FROM Storage_Main", con).ExecuteScalar();
             con.Close();
-            return value;
+            return (int)value;
         }
-        static public SQLiteConnection Connect()
+        static public List<String> GetPointsOfSales()
+        {
+            var con = Connect();
+            var rdr = new SQLiteCommand("SELECT Title FROM PointsOfSale", con).ExecuteReader();
+            var itemsSource = new List<String>();
+            while (rdr.Read())
+            {
+                itemsSource.Add(rdr.GetString(0));
+            }
+            con.Close();
+            return itemsSource;
+        }
+        static private SQLiteConnection Connect()
         {
             SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
             builder.FailIfMissing = true;

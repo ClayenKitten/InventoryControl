@@ -43,14 +43,7 @@ namespace InventoryControl.UserControls
             SaleProducts.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) => { UpdateItemsSource(); };
             
             //Set points of sale combobox items
-            var rdr = new SQLiteCommand("SELECT Title FROM PointsOfSale", ProductDatabase.Connect())
-                .ExecuteReader(CommandBehavior.CloseConnection);
-            var itemsSource = new List<String>();
-            while(rdr.Read())
-            {
-                itemsSource.Add(rdr.GetString(0));
-            }
-            storeDecideCombobox.ItemsSource = itemsSource;
+            storeDecideCombobox.ItemsSource = ProductDatabase.GetPointsOfSales();
         }
 
         private void CloseButtonClicked(object sender, RoutedEventArgs e)

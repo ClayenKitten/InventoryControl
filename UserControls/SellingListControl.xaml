@@ -33,22 +33,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <!--<Style x:Key="saleProductRow" TargetType="{x:Type DataGridRow}">
-            <Setter Property="ContextMenu">
-                <Setter.Value>
-                    <ContextMenu>
-                        <MenuItem Header="Удалить">
-                            <EventSetter Event="Click" Handler="SaleProductRemoved"/>
-                        </MenuItem>
-                    </ContextMenu>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-        
-        <ContextMenu x:Key="productRowContextMenu">
-            <MenuItem Header="Удалить"/>
-        </ContextMenu>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,15 +24,104 @@ namespace InventoryControl.UserControls.Windows
     /// </summary>
     public partial class EditProductWindow : MetroWindow
     {
-        ProductData productData;
-        public EditProductWindow(ProductData changedProduct)
+        int? Id;
+        public EditProductWindow(int? id)
         {
             InitializeComponent();
 
-            if(changedProduct == null)
+            packingCB.ItemsSource = Measurement.GetPossibleValues();
+            titleTB.Focus();
+            if(id.HasValue)
             {
-                productData = ProductDatabase.CreateProduct();
+                var productData = ProductDatabase.GetProductData(id.Value);
+                titleTB.Text = productData.Title;
+                weightTB.Text = productData.weight.ToString();
+                packingCB.SelectedIndex = productData.packing;
+                purchasePriceTB.Text = productData.purchasePrice.ToString();
+                salePriceTB.Text = productData.salePrice.ToString();
             }
+            Id = id;
+        }
+
+        private void Confirm()
+        {
+            
+        }
+
+        private void IntValidation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text) & !e.Text.StartsWith("0");
+        }
+        private void DoubleValidation(object sender, TextCompositionEventArgs e)
+        {
+            var text = ((TextBox)sender).Text+e.Text;
+            try
+            {
+                if ((text.Contains(".") & text.Contains(",")))
+                {
+                    e.Handled = true;
+                    return;
+                }
+               
+                Double.Parse(text, CultureInfo.InvariantCulture);
+                e.Handled = false;
+            }
+            catch(FormatException)
+            {
+                e.Handled = true;
+            }
+        }
+        private void RemoveSpacesKeyUp(object sender, KeyEventArgs e)
+        {
+            ((TextBox)sender).Text = ((TextBox)sender).Text.Replace(" ", "");
+        }
+        private void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            double? ToNullableDouble(string value)
+            {
+                double? converted;
+                if (value == "")
+                {
+                    converted = null;
+                }
+                else
+                {
+                    converted = Convert.ToDouble(value, CultureInfo.InvariantCulture);
+                }
+                return converted;
+            }
+
+            //Check for bad options
+            if
+            (
+                titleTB.Text == "" ||
+                packingCB.SelectedIndex < 0 ||
+                packingCB.SelectedIndex > 1
+            )
+            {
+                return;
+            }
+            
+            if (!this.Id.HasValue)
+                ProductDatabase.CreateProduct
+                (
+                    titleTB.Text,
+                    ToNullableDouble(weightTB.Text),
+                    packingCB.SelectedIndex,
+                    ToNullableDouble(purchasePriceTB.Text),
+                    ToNullableDouble(salePriceTB.Text)
+                );
+            else
+                ProductDatabase.EditProduct
+                (
+                    titleTB.Text,
+                    ToNullableDouble(weightTB.Text),
+                    packingCB.SelectedIndex,
+                    ToNullableDouble(purchasePriceTB.Text),
+                    ToNullableDouble(salePriceTB.Text)
+                );
+            DialogResult = true;
         }
     }
 }
