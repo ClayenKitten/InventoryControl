@@ -18,29 +18,51 @@ namespace InventoryControl.UserControls
     /// <summary>
     /// Interaction logic for SellingListControl.xaml
     /// </summary>
-    public partial class SellingListControl : UserControl
+    public partial class OrderControl : UserControl
     {
         public ObservableCollection<SaleProductData> SaleProducts{ get; set; }
 
-        public void UpdateItemsSource() 
+        public void UpdateButtonsState() 
         {
-            SellingDataGrid.ItemsSource = SaleProducts;
-            SellingDataGrid.Items.Refresh();
-
             if (SaleProducts.Count > 0)
             {
                 printButton.IsEnabled = true;
+                confirmButton.IsEnabled = true;
             }
             else
             {
                 printButton.IsEnabled = false;
+                confirmButton.IsEnabled = false;
             }
         }
-        public SellingListControl()
+        public OrderControl()
         {
             InitializeComponent();
             SaleProducts = new ObservableCollection<SaleProductData>();
-            SaleProducts.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) => { UpdateItemsSource(); };
+            SellingDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = SaleProducts });
+            SaleProducts.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
+            {
+                UpdateButtonsState();
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    var addedId = ((SaleProductData)e.NewItems[0]).Id;
+                    for (int i = 0; i < SellingDataGrid.Items.Count; i++)
+                    {
+                        var saleProductData = (SaleProductData)SellingDataGrid.Items[i];
+                        if (saleProductData.Id == addedId)
+                        {
+                            SellingDataGrid.Focus();
+                            SellingDataGrid.CurrentCell = new DataGridCellInfo(SellingDataGrid.Items[i], SellingDataGrid.Columns[2]);
+                            SellingDataGrid.BeginEdit();
+                            return;
+                        }
+                    }
+                }
+                else if (e.Action == NotifyCollectionChangedAction.Remove)
+                {
+                    
+                }
+            };
             
             //Set points of sale combobox items
             storeDecideCombobox.ItemsSource = ProductDatabase.GetPointsOfSales();
@@ -48,12 +70,15 @@ namespace InventoryControl.UserControls
 
         private void CloseButtonClicked(object sender, RoutedEventArgs e)
         {
-            
+            ((MainWindow)App.Current.MainWindow).SetOrderControl(false, false);
         }
-
         private void PrintButtonClicked(object sender, RoutedEventArgs e)
-        {;
+        {
             new Product.Receipt(0, DateTime.Today, storeDecideCombobox.SelectedValue.ToString(), SaleProducts.ToList());
+        }
+        private void ConfirmButtonClicked(object sender, RoutedEventArgs e)
+        {
+            
         }
         private void SellingDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
@@ -89,16 +114,10 @@ namespace InventoryControl.UserControls
         public String Title { get; set; }
         public Int32 NumberToSell { get; set;  }
 
-        private SaleProductData(Int32 id, String title, Int32 numberToSell)
+        public SaleProductData(Int32 id, Int32 numberToSell)
         {
             this.Id = id;
-            this.Title = title;
-            this.NumberToSell = numberToSell;
-        }
-        public SaleProductData(ProductData productData, Int32 numberToSell)
-        {
-            this.Id = productData.Id;
-            this.Title = productData.Title;
+            this.Title = ProductDatabase.GetProductData(Id).Title;
             this.NumberToSell = numberToSell;
         }
     }

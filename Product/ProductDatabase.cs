@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
+using System.Web.ClientServices.Providers;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace InventoryControl
 {
@@ -18,21 +21,69 @@ namespace InventoryControl
         /// 
         /// </summary>
         /// <returns>Id of created product</returns>
-        static public int CreateProduct(String title, double? weight, int measurement, double? purchasePrice, double? salePrice)
+        /// <exception cref="ArgumentException"
+        static public int CreateOrEditProduct(int? id, String title, String weightIn, int measurement, String purchasePriceIn, String salePrice)
+        {
+            string Format(string value, bool isOptional = false)
+            {
+                var Value = value.Replace(",", ".");
+                if (Double.TryParse(Value, NumberStyles.Float, CultureInfo.InvariantCulture.NumberFormat, out double Parsed))
+                {
+                    return Math.Round(Parsed, 2).ToString(CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    if (isOptional)
+                        return "null";
+                    else
+                        throw new ArgumentException();
+                }
+            }
+            //Validate
+            if (title == "" || salePrice == "")
+                throw new ArgumentException("Necessary string is empty");
+            String weight = Format(weightIn, true);
+            String purchasePrice = Format(purchasePriceIn, true);
+            //Execute
+            if (id.HasValue)
+            {
+                EditProduct(id.Value, title, weight, measurement, purchasePrice, Format(salePrice));
+            }
+            else
+            {
+                CreateProduct(title, weight, measurement, purchasePrice, Format(salePrice));
+            }
+
+            return 0;
+        }
+        static private int CreateProduct(String title, String weight, int measurement, String purchasePrice, String salePrice)
         {
             var con = Connect();
             new SQLiteCommand(
                 "INSERT INTO ProductsDictionary(Title,Weight,Packing,PurchasePrice,SalePrice)" +
-                $"VALUES('{title}',{weight},{measurement},{purchasePrice},{salePrice});",
+                $"VALUES(" +
+                $"'{title}'," +
+                $"{weight}," +
+                $"{measurement}," +
+                $"{purchasePrice}," +
+                $"{salePrice}" +
+                $");",
                 con).ExecuteScalar();
             return 0;
         }
-        static public int EditProduct(String title, double? weight, int measurement, double? purchasePrice, double? salePrice)
+        static private int EditProduct(int id, String title, String weight, int measurement, String purchasePrice, String salePrice)
         {
             var con = Connect();
             new SQLiteCommand(
-                $"UPDATE ProductsDictionary SET Title='{title}',Weight={weight}," +
-                $"Packing={measurement},PurchasePrice={purchasePrice},SalePrice={salePrice} WHERE Id=24;",
+                $"UPDATE ProductsDictionary SET " +
+
+                $"Title='{title}'," +
+                $"Weight={weight}," +
+                $"Packing={measurement}," +
+                $"PurchasePrice={purchasePrice}," +
+                $"SalePrice={salePrice} " +
+                
+                $"WHERE Id={id};",
                 con).ExecuteScalar();
             return 0;
         }

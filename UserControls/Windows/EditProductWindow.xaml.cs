@@ -61,11 +61,12 @@ namespace InventoryControl.UserControls.Windows
                 if ((text.Contains(".") & text.Contains(",")))
                 {
                     e.Handled = true;
-                    return;
                 }
-               
-                Double.Parse(text, CultureInfo.InvariantCulture);
-                e.Handled = false;
+                else
+                {
+                    Double.Parse(text, CultureInfo.InvariantCulture);
+                    e.Handled = false;
+                }
             }
             catch(FormatException)
             {
@@ -78,19 +79,6 @@ namespace InventoryControl.UserControls.Windows
         }
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            double? ToNullableDouble(string value)
-            {
-                double? converted;
-                if (value == "")
-                {
-                    converted = null;
-                }
-                else
-                {
-                    converted = Convert.ToDouble(value, CultureInfo.InvariantCulture);
-                }
-                return converted;
-            }
 
             //Check for bad options
             if
@@ -102,25 +90,24 @@ namespace InventoryControl.UserControls.Windows
             {
                 return;
             }
-            
-            if (!this.Id.HasValue)
-                ProductDatabase.CreateProduct
+
+            try
+            {
+                ProductDatabase.CreateOrEditProduct
                 (
-                    titleTB.Text,
-                    ToNullableDouble(weightTB.Text),
-                    packingCB.SelectedIndex,
-                    ToNullableDouble(purchasePriceTB.Text),
-                    ToNullableDouble(salePriceTB.Text)
+                    Id, 
+                    titleTB.Text, 
+                    weightTB.Text, 
+                    packingCB.SelectedIndex, 
+                    purchasePriceTB.Text, 
+                    salePriceTB.Text
                 );
-            else
-                ProductDatabase.EditProduct
-                (
-                    titleTB.Text,
-                    ToNullableDouble(weightTB.Text),
-                    packingCB.SelectedIndex,
-                    ToNullableDouble(purchasePriceTB.Text),
-                    ToNullableDouble(salePriceTB.Text)
-                );
+            }
+            catch(ArgumentException)
+            {
+                MessageBox.Show("Не все обязательные поля заполнены","Невозможно сохранить изменения", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             DialogResult = true;
         }
     }

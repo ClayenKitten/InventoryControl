@@ -181,14 +181,14 @@
     <Compile Include="Product\Measurement.cs" />
     <Compile Include="Product\ProductDatabase.cs" />
     <Compile Include="Product\Receipt.cs" />
-    <Compile Include="UserControls\SellingListControl.xaml.cs">
-      <DependentUpon>SellingListControl.xaml</DependentUpon>
+    <Compile Include="UserControls\OrderControl.xaml.cs">
+      <DependentUpon>OrderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Windows\EditProductWindow.xaml.cs">
       <DependentUpon>EditProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
-    <Page Include="UserControls\SellingListControl.xaml">
+    <Page Include="UserControls\OrderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
