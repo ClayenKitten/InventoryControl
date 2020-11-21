@@ -1,4 +1,4 @@
-﻿using InventoryControl.UserControls;
+﻿using InventoryControl.UserControls.OrderControl;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System;
@@ -19,7 +19,7 @@ namespace InventoryControl.Product
         readonly DateTime dateTime = DateTime.Now;
         readonly String pointOfSales = "";
 
-        public Receipt(int receiptNumber, DateTime dateTime, String pointOfSales, List<SaleProductData> saleProducts)
+        public Receipt(int receiptNumber, DateTime dateTime, String pointOfSales, List<OrderProductData> saleProducts)
         {
             PdfDocument document = new PdfDocument();
             this.number = receiptNumber;
@@ -46,7 +46,7 @@ namespace InventoryControl.Product
             document.Save(filename);
             Process.Start(filename);
         }
-        void DrawPage(PdfPage page, SaleProductData[] saleProducts)
+        void DrawPage(PdfPage page, OrderProductData[] saleProducts)
         {
             XGraphics gfx = XGraphics.FromPdfPage(page);
             XFont fontMain = new XFont("Times New Roman", 12);
@@ -88,7 +88,8 @@ namespace InventoryControl.Product
                 tableContent["Measurement"].Add(data.Packing);
                 tableContent["Weight"].Add(data.Weight);
                 tableContent["Price"].Add(data.SalePrice);
-                tableContent["Sum"].Add((data.salePrice*row.NumberToSell).ToString());
+                tableContent["Sum"].Add((data.salePrice*row.NumberToSell)
+                    .ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
             }
 
             var numberColumn = new PdfColumn(gfx, "№", Enumerable.Range(1, saleProducts.Length).Select(n => n.ToString()).ToList());

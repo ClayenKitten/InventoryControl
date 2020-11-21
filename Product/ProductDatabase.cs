@@ -11,11 +11,12 @@ using System.Globalization;
 
 namespace InventoryControl
 {
-    class ProductDatabase
+    static class ProductDatabase
     {
-        public ProductDatabase()
+        public static event EventHandler DatabaseChanged;
+        private static void OnDatabaseChanged(EventArgs e)
         {
-            
+            DatabaseChanged.Invoke(typeof(ProductDatabase), e);
         }
         /// <summary>
         /// 
@@ -46,15 +47,9 @@ namespace InventoryControl
             String purchasePrice = Format(purchasePriceIn, true);
             //Execute
             if (id.HasValue)
-            {
-                EditProduct(id.Value, title, weight, measurement, purchasePrice, Format(salePrice));
-            }
+                return EditProduct(id.Value, title, weight, measurement, purchasePrice, Format(salePrice));
             else
-            {
-                CreateProduct(title, weight, measurement, purchasePrice, Format(salePrice));
-            }
-
-            return 0;
+                return CreateProduct(title, weight, measurement, purchasePrice, Format(salePrice));
         }
         static private int CreateProduct(String title, String weight, int measurement, String purchasePrice, String salePrice)
         {
@@ -69,6 +64,8 @@ namespace InventoryControl
                 $"{salePrice}" +
                 $");",
                 con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
             return 0;
         }
         static private int EditProduct(int id, String title, String weight, int measurement, String purchasePrice, String salePrice)
@@ -85,7 +82,24 @@ namespace InventoryControl
                 
                 $"WHERE Id={id};",
                 con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
             return 0;
+        }
+        
+        static public void AddProductNumber(int productId, int Number)
+        {
+            int number = GetProductNumber(productId);
+            var con = Connect();
+
+            
+            new SQLiteCommand(
+                $"UPDATE Storage_Main "+
+                $"SET Number = Number {(Number<0?"-":"+")} {Math.Abs(Number)} "+
+                $"WHERE Id = {productId};",
+                con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
         }
         static public int GetProductNumber(int productId)
         {
@@ -101,6 +115,7 @@ namespace InventoryControl
                 return 0;
             }
         }
+
         static public ProductData GetProductData(int productId)
         {
             var con = Connect();
@@ -167,6 +182,7 @@ namespace InventoryControl
             con.Close();
             return itemsSource;
         }
+        
         static private SQLiteConnection Connect()
         {
             SQLiteConnectionStringBuilder builder = new SQLiteConnectionStringBuilder();
@@ -189,10 +205,7 @@ namespace InventoryControl
         }
         static private void CreateTables(SQLiteConnection connection)
         {
-            new SQLiteCommand(
-            "CREATE TABLE IF NOT EXISTS\"PointsOfSale\"(\"Id\"INTEGER NOT NULL UNIQUE,\"Title\"TEXT NOT NULL UNIQUE,PRIMARY KEY(\"Id\" AUTOINCREMENT));" +
-            "CREATE TABLE IF NOT EXISTS\"ProductsDictionary\"(\"Id\"INTEGER NOT NULL UNIQUE, \"Title\"TEXT NOT NULL, \"Weight\"REAL, \"Packing\"INTEGER NOT NULL, \"PurchasePrice\"INTEGER, \"SalePrice\"INTEGER, PRIMARY KEY(\"Id\" AUTOINCREMENT));" +
-            "CREATE TABLE IF NOT EXISTS\"Storage_Main\"(\"Id\"INTEGER NOT NULL UNIQUE, \"Number\"INTEGER NOT NULL, PRIMARY KEY(\"Id\" AUTOINCREMENT));", connection).ExecuteScalar();
+            //TODO
         }
     }
 }

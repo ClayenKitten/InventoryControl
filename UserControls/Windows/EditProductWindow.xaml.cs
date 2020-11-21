@@ -79,33 +79,19 @@ namespace InventoryControl.UserControls.Windows
         }
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-
             //Check for bad options
-            if
-            (
-                titleTB.Text == "" ||
-                packingCB.SelectedIndex < 0 ||
-                packingCB.SelectedIndex > 1
-            )
-            {
+            if(titleTB.Text == "" || packingCB.SelectedIndex < 0 || packingCB.SelectedIndex > 1)
                 return;
-            }
-
             try
             {
-                ProductDatabase.CreateOrEditProduct
-                (
-                    Id, 
-                    titleTB.Text, 
-                    weightTB.Text, 
-                    packingCB.SelectedIndex, 
-                    purchasePriceTB.Text, 
-                    salePriceTB.Text
+                ProductDatabase.CreateOrEditProduct(
+                    Id, titleTB.Text, weightTB.Text, packingCB.SelectedIndex, 
+                    purchasePriceTB.Text, salePriceTB.Text
                 );
             }
             catch(ArgumentException)
             {
-                MessageBox.Show("Не все обязательные поля заполнены","Невозможно сохранить изменения", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Не все обязательные поля заполнены","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             DialogResult = true;

@@ -7,8 +7,7 @@
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:local="clr-namespace:InventoryControl"
                 xmlns:util="clr-namespace:InventoryControl.Util"
-                xmlns:cctrl="clr-namespace:InventoryControl.UserControls"
-                mc:Ignorable="d"
+                mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Система Складского Учёта" MinWidth="800" MinHeight="600" WindowStartupLocation="CenterScreen">
     <mah:MetroWindow.Resources>
         <Style TargetType="MenuItem" BasedOn="{StaticResource MahApps.Styles.MenuItem}" x:Key="MenuItemCheckable">
@@ -44,8 +43,7 @@
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
-            <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                  BorderBrush="Black" BorderThickness="0,1,0,1">
+            <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,1,0,1">
                 <MenuItem Header="Склад">
                     <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Click="AddProductClick"/>
                     <Separator/>
@@ -74,7 +72,7 @@
                 <TextBox.Style>
                     <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
                         <Setter Property="BorderThickness" Value="1,1,0,1"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                     </Style>
                 </TextBox.Style>
@@ -83,7 +81,7 @@
             <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
                     HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
                     Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                    SelectionUnit="FullRow" SelectionMode="Single"
+                    SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding DataGridContent}"
                     CanUserSortColumns="True" AutoGenerateColumns="False"
                     CanUserAddRows="False">
                 <DataGrid.Resources>
@@ -105,6 +103,6 @@
         </Grid>
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="7" x:Name="ViewsSplitter"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"  Visibility="Collapsed"
-                      BorderBrush="Black" BorderThickness="1,1,1,0"/>
+                      BorderBrush="{StaticResource BorderColor}" BorderThickness="1,1,1,0"/>
     </Grid>
 </mah:MetroWindow>

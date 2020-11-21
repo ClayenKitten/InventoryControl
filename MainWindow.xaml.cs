@@ -10,7 +10,10 @@ using Microsoft.Win32;
 using System.Linq;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
-using InventoryControl.UserControls;
+using InventoryControl.UserControls.OrderControl;
+using System.Collections.Specialized;
+using System.Windows.Data;
+using InventoryControl.Util;
 
 namespace InventoryControl
 {
@@ -19,10 +22,12 @@ namespace InventoryControl
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public ObservableCollection<ProductData> DataGridContent { get; set; }
+        
         public MainWindow()
         {
+            DataGridContent = new ObservableCollection<ProductData>(ProductDatabase.GetProductData());
             InitializeComponent();
-
             var firstColumn = GenerateColumn("N", "Номер по прайсу", "Id", "3*");
             firstColumn.SortDirection = ListSortDirection.Ascending;
             MainDataGrid.Columns.Add(firstColumn);
@@ -32,7 +37,15 @@ namespace InventoryControl
             MainDataGrid.Columns.Add(GenerateColumn("Ед", "Единица измерения (тип упаковки)", "Packing", "45"));
             MainDataGrid.Columns.Add(GenerateColumn("Закуп. цена", "Закупочная цена", "PurchasePrice", "4*"));
             MainDataGrid.Columns.Add(GenerateColumn("Прод. цена", "Продажная цена", "SalePrice", "4*"));
-            this.UpdateItems();
+
+            ProductDatabase.DatabaseChanged += (object sender, EventArgs e) =>
+            {
+                DataGridContent.Clear();
+                foreach (var productData in ProductDatabase.GetProductData())
+                {
+                    DataGridContent.Add(productData);
+                }
+            };
         }
         private DataGridColumn GenerateColumn(String headerTitle, String headerTooltip, String Id, String width)
         {
@@ -59,38 +72,23 @@ namespace InventoryControl
 
             return column;
         }
-        public void UpdateItems()
-        {
-            MainDataGrid.ItemsSource = ProductDatabase.GetProductData();
-        }
         private void MakeSearch(string searchString)
         {
-            int sortIndex = 0;
-            ListSortDirection? direction = null;
-            for (int i = 0; i < MainDataGrid.Columns.Count; i++)
-            {
-                if (MainDataGrid.Columns[i].SortDirection != null)
-                {
-                    sortIndex = i;
-                    direction = MainDataGrid.Columns[i].SortDirection;
-                    break;
-                }
-            }
-
-            var filtered =  new List<ProductData>();
+            DataGridContent.Clear();
             foreach (ProductData product in ProductDatabase.GetProductData())
             {
                 String search = Searchbox.Text.ToLower().Replace('ё', 'е').Trim();
                 String title = product.Title.ToLower().Replace('ё', 'е').Trim();
 
-                if (title.Contains(search)) { filtered.Add(product); }
+                if (title.Contains(search))
+                {
+                    DataGridContent.Add(product);
+                }
             }
-            MainDataGrid.ItemsSource = filtered;
-            MainDataGrid.Columns[sortIndex].SortDirection = direction;
         }
-        public void SetOrderControl(bool IsEnabled, bool Direction)
+        public void SetOrderControl(OrderControl orderControl)
         {
-            if (!IsEnabled)
+            if (orderControl == null)
             {
                 ViewsSplitter.Visibility = Visibility.Collapsed;
                 try
@@ -110,11 +108,9 @@ namespace InventoryControl
                 columnDefinition.Width = new GridLength(1, GridUnitType.Star);
                 MainWindowGrid.ColumnDefinitions.Add(columnDefinition);
 
-                MainWindowGrid.Children.Add(new OrderControl());
+                MainWindowGrid.Children.Add(orderControl);
                 MainWindowGrid.Children[2].SetValue(FrameworkElement.NameProperty, "SellingList");
                 MainWindowGrid.Children[2].SetValue(Grid.ColumnProperty, 2);
-
-                Console.WriteLine(((OrderControl)MainWindowGrid.Children[2]).Name);
             }
         }
         public OrderControl GetOrderControl()
@@ -137,19 +133,25 @@ namespace InventoryControl
             openFileDialog.Filter = "Database (*.db)|*.db|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                SaveBackupButtonClick();
                 File.Copy(openFileDialog.FileName, "Database.db", true);
             }
         }
-        private void SaveBackupButtonClick(object sender=null, RoutedEventArgs e=null)
+        private void SaveBackupButtonClick(object sender, RoutedEventArgs e)
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = AppContext.BaseDirectory + "Backups\\";
+            saveFileDialog.Filter = "Database (*.db)|*.db|All files (*.*)|*.*";
+            saveFileDialog.ValidateNames = true;
+            saveFileDialog.FileName = DateTime.Now.ToString("YY-MM-dd HH-mm-dd") + ".db";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.Copy("Database.db",  saveFileDialog.FileName);
+            }
             System.IO.Directory.CreateDirectory("Backups");
-            File.Copy("Database.db", "Backups\\"+DateTime.Now.ToString("YY-MM-dd HH-mm-dd") + ".db", true);
         }
         private void AddProductClick(object sender, RoutedEventArgs e)
         {
             new UserControls.Windows.EditProductWindow(null).ShowDialog();
-            UpdateItems();
         }
         private void EditProductClick(object sender, RoutedEventArgs e)
         {
@@ -158,26 +160,24 @@ namespace InventoryControl
             var row = (DataGridRow)contextMenu.PlacementTarget;
             var id = ((ProductData)MainDataGrid.Items.GetItemAt(row.GetIndex())).Id;
             new UserControls.Windows.EditProductWindow(id).ShowDialog();
-            UpdateItems();
         }
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (MainWindowGrid.Children.Count <= 2)
                 return;
-            var SellingList = (OrderControl)MainWindowGrid.Children[2];
+            var orderControl = (OrderControl)MainWindowGrid.Children[2];
 
             var row = ((DataGridRow)sender);
             var id = ((ProductData)row.Item).Id;
 
-            foreach (var saleProduct in SellingList.SaleProducts)
+            foreach (var saleProduct in orderControl.OrderProducts)
             {
                 if (saleProduct.Id == id)
                     return;
             }
-            SellingList.SaleProducts.Add(new SaleProductData(id, 1));
+            orderControl.OrderProducts.Add(new OrderProductData(id, GetOrderControl().IsBuying));
         }
-
-        private void SellingView_Click(object sender, RoutedEventArgs e){ SetOrderControl(true, false);}
-        private void BuyingView_Click(object sender, RoutedEventArgs e) { SetOrderControl(true, true); }
+        private void SellingView_Click(object sender, RoutedEventArgs e){ SetOrderControl(new OrderControl(false)); }
+        private void BuyingView_Click(object sender, RoutedEventArgs e) { SetOrderControl(new OrderControl(true));  }
     }
 }

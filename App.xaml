@@ -12,36 +12,23 @@
                 <!-- Theme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="BorderColor" Opacity="1" Color="Black"/>
             <!--Cell-->
             <Style TargetType="DataGridCell" x:Key="DataGridCellDefaultStyle" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
                 <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type DataGridCell}">
-                            <Border BorderBrush="Black" BorderThickness="0.1">
-                                <Grid Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" />
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                
-                
-            </Style>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0.1">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellDefaultStyle}"/>
-            <!--Header-->
-            <!--<Style TargetType="DataGridColumnHeader" x:Key="DefaultColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="ContentTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DefaultColumnHeader}"/>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
