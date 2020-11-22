@@ -179,5 +179,10 @@ namespace InventoryControl
         }
         private void SellingView_Click(object sender, RoutedEventArgs e){ SetOrderControl(new OrderControl(false)); }
         private void BuyingView_Click(object sender, RoutedEventArgs e) { SetOrderControl(new OrderControl(true));  }
+
+        private void EditPointsOfSalesClick(object sender, RoutedEventArgs e)
+        {
+            new UserControls.Windows.EditPointsOfSales().ShowDialog();
+        }
     }
 }

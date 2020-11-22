@@ -72,7 +72,7 @@
                     <MenuItem Header="Статистика" Icon="{iconPacks:FontAwesome Kind=ChartAreaSolid}" IsEnabled="False"/>
                 </MenuItem>
                 <MenuItem Header="Настройки">
-                    <MenuItem Header="Точки сбыта" Icon="{iconPacks:Material Kind=PointOfSale}" IsEnabled="False"/>
+                    <MenuItem Header="Торговые точки" Icon="{iconPacks:Material Kind=PointOfSale}" Click="EditPointsOfSalesClick"/>
                 </MenuItem>
             </Menu>
             <TextBox Grid.Row="0" Grid.Column="1"

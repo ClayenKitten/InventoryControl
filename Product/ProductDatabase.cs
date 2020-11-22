@@ -18,11 +18,6 @@ namespace InventoryControl
         {
             DatabaseChanged.Invoke(typeof(ProductDatabase), e);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Id of created product</returns>
-        /// <exception cref="ArgumentException"
         static public int CreateOrEditProduct(int? id, String title, String weightIn, int measurement, String purchasePriceIn, String salePrice)
         {
             string Format(string value, bool isOptional = false)
@@ -170,6 +165,22 @@ namespace InventoryControl
             con.Close();
             return (int)value;
         }
+
+        static public void AddPointOfSales(String title) 
+        {
+            var con = Connect(); 
+            new SQLiteCommand($"INSERT INTO PointsOfSale(Title) VALUES('{title}');", con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
+        }
+        static public void DeletePointOfSales(String title)
+        {
+            var con = Connect();
+            new SQLiteCommand($"DELETE FROM PointsOfSale WHERE Title == '{title}';", con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
+        }
+
         static public List<String> GetPointsOfSales()
         {
             var con = Connect();
