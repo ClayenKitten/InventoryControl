@@ -181,6 +181,9 @@
     <Compile Include="Product\Measurement.cs" />
     <Compile Include="Product\ProductDatabase.cs" />
     <Compile Include="Product\Receipt.cs" />
+    <Compile Include="UserControls\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\OrderControl\BottomControls\IBottomControl.cs" />
     <Compile Include="UserControls\OrderControl\OrderControl.xaml.cs">
       <DependentUpon>OrderControl.xaml</DependentUpon>
@@ -198,6 +201,10 @@
       <DependentUpon>EditProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
+    <Page Include="UserControls\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\OrderControl\OrderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

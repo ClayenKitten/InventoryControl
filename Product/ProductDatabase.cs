@@ -14,7 +14,7 @@ namespace InventoryControl
     static class ProductDatabase
     {
         public static event EventHandler DatabaseChanged;
-        private static void OnDatabaseChanged(EventArgs e)
+        public static void OnDatabaseChanged(EventArgs e)
         {
             DatabaseChanged.Invoke(typeof(ProductDatabase), e);
         }

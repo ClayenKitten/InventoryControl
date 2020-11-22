@@ -86,9 +86,9 @@ namespace InventoryControl
                 }
             }
         }
-        public void SetOrderControl(OrderControl orderControl)
+        public void SetOrderControl(bool? isBuying)
         {
-            if (orderControl == null)
+            if (!isBuying.HasValue)
             {
                 ViewsSplitter.Visibility = Visibility.Collapsed;
                 try
@@ -108,7 +108,7 @@ namespace InventoryControl
                 columnDefinition.Width = new GridLength(1, GridUnitType.Star);
                 MainWindowGrid.ColumnDefinitions.Add(columnDefinition);
 
-                MainWindowGrid.Children.Add(orderControl);
+                MainWindowGrid.Children.Add(new OrderControl(isBuying.Value));
                 MainWindowGrid.Children[2].SetValue(FrameworkElement.NameProperty, "SellingList");
                 MainWindowGrid.Children[2].SetValue(Grid.ColumnProperty, 2);
             }
@@ -126,33 +126,6 @@ namespace InventoryControl
         }
 
         private void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) { MakeSearch(Searchbox.Text); }
-        private void LoadBackupButtonClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = AppContext.BaseDirectory+"Backups\\";
-            openFileDialog.Filter = "Database (*.db)|*.db|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                File.Copy(openFileDialog.FileName, "Database.db", true);
-            }
-        }
-        private void SaveBackupButtonClick(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = AppContext.BaseDirectory + "Backups\\";
-            saveFileDialog.Filter = "Database (*.db)|*.db|All files (*.*)|*.*";
-            saveFileDialog.ValidateNames = true;
-            saveFileDialog.FileName = DateTime.Now.ToString("YY-MM-dd HH-mm-dd") + ".db";
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                File.Copy("Database.db",  saveFileDialog.FileName);
-            }
-            System.IO.Directory.CreateDirectory("Backups");
-        }
-        private void AddProductClick(object sender, RoutedEventArgs e)
-        {
-            new UserControls.Windows.EditProductWindow(null).ShowDialog();
-        }
         private void EditProductClick(object sender, RoutedEventArgs e)
         {
             var s = (MenuItem)sender;
@@ -176,13 +149,6 @@ namespace InventoryControl
                     return;
             }
             orderControl.OrderProducts.Add(new OrderProductData(id, GetOrderControl().IsBuying));
-        }
-        private void SellingView_Click(object sender, RoutedEventArgs e){ SetOrderControl(new OrderControl(false)); }
-        private void BuyingView_Click(object sender, RoutedEventArgs e) { SetOrderControl(new OrderControl(true));  }
-
-        private void EditPointsOfSalesClick(object sender, RoutedEventArgs e)
-        {
-            new UserControls.Windows.EditPointsOfSales().ShowDialog();
         }
     }
 }
