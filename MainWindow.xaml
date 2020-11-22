@@ -7,8 +7,17 @@
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:local="clr-namespace:InventoryControl"
                 xmlns:util="clr-namespace:InventoryControl.Util"
-                mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Система Складского Учёта" MinWidth="800" MinHeight="600" WindowStartupLocation="CenterScreen">
+                mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        x:Name="MainMetroWindow" Title="Система Складского Учёта"
+        MinWidth="800" MinHeight="600" WindowStartupLocation="CenterScreen">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconMaterial
+                Kind="Dolly" Foreground="{StaticResource MahApps.Brushes.IdealForeground}"
+                Height="22" Margin="4" Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Height}"
+            />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
     <mah:MetroWindow.Resources>
         <Style TargetType="MenuItem" BasedOn="{StaticResource MahApps.Styles.MenuItem}" x:Key="MenuItemCheckable">
             <Setter Property="IsCheckable" Value="True"/>
