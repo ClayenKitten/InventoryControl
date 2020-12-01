@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using InventoryControl.Data;
 
 namespace InventoryControl.UserControls.OrderControl
 {
@@ -22,11 +23,7 @@ namespace InventoryControl.UserControls.OrderControl
     {
         public string Title { get; set; }
         public bool IsBuying { get; }
-        public ObservableCollection<OrderProductData> OrderProducts
-        { 
-            get;
-            set;
-        }
+        public ObservableCollection<OrderProductData> OrderProducts { get; set; }
         
         public OrderControl(bool isBuying)
         {
@@ -50,14 +47,14 @@ namespace InventoryControl.UserControls.OrderControl
                 {
                     foreach (var saleProduct in OrderProducts)
                     {
-                        ProductDatabase.AddProductNumber(saleProduct.Id, saleProduct.NumberToSell);
+                        Database.AddProductNumber(saleProduct.Id, saleProduct.NumberToSell);
                     }
                 }
                 else
                 {
                     foreach (var saleProduct in OrderProducts)
                     {
-                        ProductDatabase.AddProductNumber(saleProduct.Id, -saleProduct.NumberToSell);
+                        Database.AddProductNumber(saleProduct.Id, -saleProduct.NumberToSell);
                     }
                 }
                 ((MainWindow)App.Current.MainWindow).SetOrderControl(null);
@@ -96,17 +93,6 @@ namespace InventoryControl.UserControls.OrderControl
                     SellingDataGrid.SelectedCells.Remove(e.AddedCells[0]);
                     SellingDataGrid.CommitEdit();
                 }
-                else
-                {
-                    //var dataTemplate = ((DataGridTemplateColumn)cell.Column).CellTemplate;
-                    //var NUD = (NumericUpDown)dataTemplate.Template;
-                    SellingDataGrid.BeginEdit();
-                    //DataGridRow row = SellingDataGrid.ItemContainerGenerator.ContainerFromIndex
-                    //(SellingDataGrid.SelectedIndex) as DataGridRow;
-                    //var i = 2;
-                    //NumericUpDown ele = ((ContentPresenter)(SellingDataGrid.Columns[i].GetCellContent(row))).Content as NumericUpDown;
-                    //Console.WriteLine(ele.Value);
-                }
             }
         }
         private void SellingDataGrid_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -124,13 +110,13 @@ namespace InventoryControl.UserControls.OrderControl
     public class OrderProductData
     {
         public Int32 Id { get; }
-        public String Title { get { return ProductDatabase.GetProductData(Id).Title; } }
+        public String Title { get { return Database.GetProductData(Id).Title; } }
         public Int32 NumberToSell { set; get; }
         public Int32 Maximum 
         {
             get
-            { 
-                return isBuying ? Int32.MaxValue : ProductDatabase.GetProductNumber(Id); 
+            {
+                return isBuying ? Int32.MaxValue : Database.GetProductNumber(Id); 
             }
         }
 

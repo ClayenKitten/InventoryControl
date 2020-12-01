@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryControl
+namespace InventoryControl.Data
 {
     public class ProductData
     {
@@ -53,7 +53,7 @@ namespace InventoryControl
         {
             get
             {
-                return ProductDatabase.GetProductNumber(Id);
+                return Database.GetProductNumber(Id);
             }
         }
 

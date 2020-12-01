@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using InventoryControl.Data;
 
 namespace InventoryControl.UserControls.OrderControl
 {
@@ -18,7 +19,7 @@ namespace InventoryControl.UserControls.OrderControl
         public SaleControls()
         {
             InitializeComponent();
-            storeDecideCombobox.ItemsSource = ProductDatabase.GetPointsOfSales();
+            storeDecideCombobox.ItemsSource = Database.GetPointsOfSales();
         }
         public void SetButtonsEnabled(bool isEnabled)
         {

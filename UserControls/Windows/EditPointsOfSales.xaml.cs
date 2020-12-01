@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InventoryControl.Data;
 
 namespace InventoryControl.UserControls.Windows
 {
@@ -36,7 +37,7 @@ namespace InventoryControl.UserControls.Windows
         {
             InitializeComponent();
 
-            foreach(var title in ProductDatabase.GetPointsOfSales())
+            foreach(var title in Database.GetPointsOfSales())
             {
                 PointsOfSales.Add(new PointOfSale(title));
             }
@@ -46,13 +47,13 @@ namespace InventoryControl.UserControls.Windows
                 if (e.Action == NotifyCollectionChangedAction.Remove)
                 {
                     String DeletedPointOfSale = ((PointOfSale)e.OldItems[0]).Title;
-                    ProductDatabase.DeletePointOfSales(DeletedPointOfSale);
+                    Database.DeletePointOfSales(DeletedPointOfSale);
                 }
             };
         }
         private void ConfirmButtonClicked(object sender, RoutedEventArgs e)
         {
-            ProductDatabase.AddPointOfSales(AddValueTextBox.Text);
+            Database.AddPointOfSales(AddValueTextBox.Text);
             PointsOfSales.Add(new PointOfSale(AddValueTextBox.Text));
             AddValueTextBox.Clear();
         }

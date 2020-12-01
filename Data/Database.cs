@@ -9,14 +9,14 @@ using System.Web.ClientServices.Providers;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace InventoryControl
+namespace InventoryControl.Data
 {
-    static class ProductDatabase
+    static class Database
     {
         public static event EventHandler DatabaseChanged;
         public static void OnDatabaseChanged(EventArgs e)
         {
-            DatabaseChanged.Invoke(typeof(ProductDatabase), e);
+            DatabaseChanged.Invoke(typeof(Database), e);
         }
         static public int CreateOrEditProduct(int? id, String title, String weightIn, int measurement, String purchasePriceIn, String salePrice)
         {
@@ -165,7 +165,7 @@ namespace InventoryControl
             con.Close();
             return (int)value;
         }
-
+        //Points of sales
         static public void AddPointOfSales(String title) 
         {
             var con = Connect(); 
@@ -180,7 +180,6 @@ namespace InventoryControl
             con.Close();
             OnDatabaseChanged(new EventArgs());
         }
-
         static public List<String> GetPointsOfSales()
         {
             var con = Connect();
@@ -192,6 +191,22 @@ namespace InventoryControl
             }
             con.Close();
             return itemsSource;
+        }
+        //Turnover
+        static public void SaveTurnover(TurnoverData turnoverData)
+        {
+            var con = Connect();
+            new SQLiteCommand(
+                "INSERT INTO ProductTransfers(Date,Direction,From,To)" +
+                $"VALUES(" +
+                $"'{turnoverData.DateTime.Ticks}'," +
+                $"{(int)turnoverData.Direction}," +
+                $"{turnoverData.From}," +
+                $"{turnoverData.To}" +
+                $");",
+                con).ExecuteScalar();
+            con.Close();
+            OnDatabaseChanged(new EventArgs());
         }
         
         static private SQLiteConnection Connect()

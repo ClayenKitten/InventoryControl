@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using InventoryControl.Data;
 
 namespace InventoryControl.UserControls.Windows
 {
@@ -33,7 +34,7 @@ namespace InventoryControl.UserControls.Windows
             titleTB.Focus();
             if(id.HasValue)
             {
-                var productData = ProductDatabase.GetProductData(id.Value);
+                var productData = Database.GetProductData(id.Value);
                 titleTB.Text = productData.Title;
                 weightTB.Text = productData.weight.ToString();
                 packingCB.SelectedIndex = productData.packing;
@@ -84,7 +85,7 @@ namespace InventoryControl.UserControls.Windows
                 return;
             try
             {
-                ProductDatabase.CreateOrEditProduct(
+                Database.CreateOrEditProduct(
                     Id, titleTB.Text, weightTB.Text, packingCB.SelectedIndex, 
                     purchasePriceTB.Text, salePriceTB.Text
                 );

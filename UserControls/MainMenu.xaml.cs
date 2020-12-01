@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InventoryControl.Data;
 
 namespace InventoryControl.UserControls
 {
@@ -39,7 +40,7 @@ namespace InventoryControl.UserControls
             {
                 File.Copy(openFileDialog.FileName, "Database.db", true);
             }
-            ProductDatabase.OnDatabaseChanged(new EventArgs());
+            Database.OnDatabaseChanged(new EventArgs());
         }
         private void SaveBackupButtonClick(object sender, RoutedEventArgs e)
         {

@@ -14,6 +14,7 @@ using InventoryControl.UserControls.OrderControl;
 using System.Collections.Specialized;
 using System.Windows.Data;
 using InventoryControl.Util;
+using InventoryControl.Data;
 
 namespace InventoryControl
 {
@@ -26,7 +27,7 @@ namespace InventoryControl
         
         public MainWindow()
         {
-            DataGridContent = new ObservableCollection<ProductData>(ProductDatabase.GetProductData());
+            DataGridContent = new ObservableCollection<ProductData>(Database.GetProductData());
             InitializeComponent();
             var firstColumn = GenerateColumn("N", "Номер по прайсу", "Id", "3*");
             firstColumn.SortDirection = ListSortDirection.Ascending;
@@ -38,10 +39,10 @@ namespace InventoryControl
             MainDataGrid.Columns.Add(GenerateColumn("Закуп. цена", "Закупочная цена", "PurchasePrice", "4*"));
             MainDataGrid.Columns.Add(GenerateColumn("Прод. цена", "Продажная цена", "SalePrice", "4*"));
 
-            ProductDatabase.DatabaseChanged += (object sender, EventArgs e) =>
+            Database.DatabaseChanged += (object sender, EventArgs e) =>
             {
                 DataGridContent.Clear();
-                foreach (var productData in ProductDatabase.GetProductData())
+                foreach (var productData in Database.GetProductData())
                 {
                     DataGridContent.Add(productData);
                 }
@@ -75,7 +76,7 @@ namespace InventoryControl
         private void MakeSearch(string searchString)
         {
             DataGridContent.Clear();
-            foreach (ProductData product in ProductDatabase.GetProductData())
+            foreach (ProductData product in Database.GetProductData())
             {
                 String search = Searchbox.Text.ToLower().Replace('ё', 'е').Trim();
                 String title = product.Title.ToLower().Replace('ё', 'е').Trim();

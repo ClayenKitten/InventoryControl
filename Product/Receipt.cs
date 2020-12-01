@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryControl.Data;
 
 namespace InventoryControl.Product
 {
@@ -81,7 +82,7 @@ namespace InventoryControl.Product
             saleProducts = saleProducts.OrderBy((p) => p.Title).ToArray();
             foreach (var row in saleProducts)
             {
-                ProductData data = ProductDatabase.GetProductData(row.Id);
+                ProductData data = Database.GetProductData(row.Id);
                 tableContent["Id"].Add(row.Id.ToString());
                 tableContent["Title"].Add(data.Title);
                 tableContent["Number"].Add(row.NumberToSell.ToString());

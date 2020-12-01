@@ -178,8 +178,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\TurnoverData.cs" />
     <Compile Include="Product\Measurement.cs" />
-    <Compile Include="Product\ProductDatabase.cs" />
+    <Compile Include="Data\Database.cs" />
     <Compile Include="Product\Receipt.cs" />
     <Compile Include="UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -239,7 +240,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Product\ProductData.cs" />
+    <Compile Include="Data\ProductData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
