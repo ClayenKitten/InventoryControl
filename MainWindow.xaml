@@ -25,72 +25,34 @@
             <Setter Property="StaysOpenOnClick" Value="True"/>
         </Style>
 
-        <ContextMenu x:Key="HeaderContextMenu">
-            <MenuItem Header="Здесь будет выбор колонок"/>
-        </ContextMenu>
-        <ContextMenu x:Key="RowContextMenu">
-            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
-            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" Click="EditProductClick"/>
-            <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
-        </ContextMenu>
-        <DataTemplate x:Key="HighlightTextBlockDataTemplate">
-            <util:HighlightTextBlock Text="{Binding Path=Title}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}" HighlightBrush="Orange"/>
-        </DataTemplate>
-
     </mah:MetroWindow.Resources>
     <Grid x:Name="MainWindowGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" MinWidth="500"/>
+            <ColumnDefinition Width="3*" MinWidth="400"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20*"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
 
-            <ucontrols:MainMenu/>
-
-            <TextBox Grid.Row="0" Grid.Column="1"
-                    KeyUp="SearchBox_KeyUp" Name="Searchbox"
-                    mah:TextBoxHelper.Watermark="Поиск...">
-                <TextBox.Style>
-                    <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
-                        <Setter Property="BorderThickness" Value="1,1,0,1"/>
-                        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-
-            <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
-                    HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                    SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding DataGridContent}"
-                    CanUserSortColumns="True" AutoGenerateColumns="False"
-                    CanUserAddRows="False">
-                <DataGrid.Resources>
-                    <Style TargetType="Button" x:Key="ControllingButton" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
-                        <Setter Property="BorderThickness" Value="0.1"/>
-                        <Setter Property="ToolTipService.BetweenShowDelay" Value="60"/>
-                        <Setter Property="ToolTipService.InitialShowDelay" Value="60"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
-                        <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
-                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="7" x:Name="ViewsSplitter"
+        <ucontrols:MainMenu Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="Searchbox" Grid.Row="0" Grid.Column="1" 
+                     KeyUp="SearchBox_KeyUp" mah:TextBoxHelper.Watermark="Поиск...">
+            <TextBox.Style>
+                <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
+                    <Setter Property="BorderThickness" Value="1,1,0,1"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <ucontrols:StorageDatagrid x:Name="MainStorageDataGrid" 
+                Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
+        <GridSplitter Grid.Column="2" Grid.RowSpan="2"  ShowsPreview="False" Width="7" x:Name="ViewsSplitter"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"  Visibility="Collapsed"
                       BorderBrush="{StaticResource BorderColor}" BorderThickness="1,1,1,0"/>
     </Grid>
