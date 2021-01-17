@@ -5,7 +5,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using InventoryControl.Data;
+using InventoryControl.Model;
+using InventoryControl.Model.Counterparty;
 
 namespace InventoryControl.UserControls.OrderControl
 {
@@ -19,7 +20,7 @@ namespace InventoryControl.UserControls.OrderControl
         public SaleControls()
         {
             InitializeComponent();
-            storeDecideCombobox.ItemsSource = Database.GetPointsOfSales();
+            storeDecideCombobox.ItemsSource = CounterpartyMapper.GetPurchasersNames();
         }
         public void SetButtonsEnabled(bool isEnabled)
         {

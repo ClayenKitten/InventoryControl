@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using InventoryControl.UserControls;
 using InventoryControl.UserControls.OrderControl;
+using InventoryControl.Panel;
 
 namespace InventoryControl
 {
@@ -12,9 +13,11 @@ namespace InventoryControl
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public IPanel OpenedPanel { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
+            this.SetPanel(new EmptyPanel());
         }
 
         private const int OrderControlColumnIndex = 3;
@@ -33,46 +36,20 @@ namespace InventoryControl
                 }
             }*/
         }
-        public void SetOrderControl(bool? isBuying)
+        public void SetOrderControl(bool? isBuying) {}
+        public OrderControl GetOrderControl() 
         {
-            if (!isBuying.HasValue)
-            {
-                ViewsSplitter.Visibility = Visibility.Collapsed;
-                try
-                {
-                    MainWindowGrid.ColumnDefinitions.RemoveAt(OrderControlColumnIndex);
-                    MainWindowGrid.Children.RemoveAt(OrderControlColumnIndex);
-                }
-                catch (IndexOutOfRangeException) { }
+            return null;
+        }
 
+        public void SetPanel<T>(T panel) where T : UIElement, IPanel
+        {
+            if (OpenedPanel != null && OpenedPanel.Close())
                 return;
-            }
-            else if (MainWindowGrid.ColumnDefinitions.Count == OrderControlColumnIndex)
-            {
-                ViewsSplitter.Visibility = Visibility.Visible;
-
-                var columnDefinition = new ColumnDefinition();
-                columnDefinition.Width = new GridLength(1, GridUnitType.Star);
-                MainWindowGrid.ColumnDefinitions.Add(columnDefinition);
-
-                MainWindowGrid.Children.Add(new OrderControl(isBuying.Value));
-                MainWindowGrid.Children[OrderControlColumnIndex].SetValue(FrameworkElement.NameProperty, "SellingList");
-                MainWindowGrid.Children[OrderControlColumnIndex].SetValue(Grid.RowSpanProperty, 2);
-                MainWindowGrid.Children[OrderControlColumnIndex].SetValue(Grid.ColumnProperty, OrderControlColumnIndex);
-            }
+            PanelContainer.Children.Clear();
+            PanelContainer.Children.Add(panel);
+            PanelColumn.MinWidth = panel.MinWidth;
+            OpenedPanel = panel;
         }
-        public OrderControl GetOrderControl()
-        {
-            if (MainWindowGrid.Children.Count == OrderControlColumnIndex + 1)
-            {
-                return (OrderControl)MainWindowGrid.Children[OrderControlColumnIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) { MakeSearch(Searchbox.Text); }
     }
 }

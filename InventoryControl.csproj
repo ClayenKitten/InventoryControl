@@ -43,6 +43,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,6 +57,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DocumentationFile>
     </DocumentationFile>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>DE8F071966D50A37510289324954084030F1E498</ManifestCertificateThumbprint>
@@ -81,7 +83,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -92,7 +94,7 @@
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -178,10 +180,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\TurnoverData.cs" />
-    <Compile Include="Product\Measurement.cs" />
-    <Compile Include="Data\Database.cs" />
+    <Compile Include="Model\Util\Measurements\Piece.cs" />
+    <Compile Include="Model\Util\Measurements\Weight.cs" />
+    <Compile Include="Model\Counterparty\CounterpartyData.cs" />
+    <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
+    <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
+    <Compile Include="Model\Product\ProductDataMapper.cs" />
+    <Compile Include="Model\Product\Presenters\ProductPresenter.cs" />
+    <Compile Include="Model\Storage\StorageData.cs" />
+    <Compile Include="Model\Storage\StorageDataMapper.cs" />
+    <Compile Include="Model\Transaction\TransactionData.cs" />
+    <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
+    <Compile Include="Panel\EditProductPanel.xaml.cs">
+      <DependentUpon>EditProductPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panel\EmptyPanel.xaml.cs">
+      <DependentUpon>EmptyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panel\IPanel.cs" />
+    <Compile Include="Model\Util\Unit.cs" />
+    <Compile Include="Model\Database.cs" />
     <Compile Include="Product\Receipt.cs" />
+    <Compile Include="UserControls\AdvancedTextbox.xaml.cs">
+      <DependentUpon>AdvancedTextbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -198,13 +220,23 @@
     <Compile Include="UserControls\StorageDatagrid.xaml.cs">
       <DependentUpon>StorageDatagrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Windows\EditPointsOfSales.xaml.cs">
-      <DependentUpon>EditPointsOfSales.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Windows\EditProductWindow.xaml.cs">
       <DependentUpon>EditProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
+    <Compile Include="Model\Util\Measurements\Money.cs" />
+    <Page Include="Panel\EditProductPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Panel\EmptyPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AdvancedTextbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,10 +257,6 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="UserControls\Windows\EditPointsOfSales.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\Windows\EditProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -247,7 +275,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ProductData.cs" />
+    <Compile Include="Model\Product\ProductData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -265,9 +293,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Database.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

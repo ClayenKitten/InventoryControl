@@ -1,18 +1,9 @@
-﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using InventoryControl.Data;
+using InventoryControl.Model.Product;
 
 namespace InventoryControl.UserControls.OrderControl
 {
@@ -47,14 +38,14 @@ namespace InventoryControl.UserControls.OrderControl
                 {
                     foreach (var saleProduct in OrderProducts)
                     {
-                        Database.AddProductNumber(saleProduct.Id, saleProduct.NumberToSell);
+                        throw new NotImplementedException();
                     }
                 }
                 else
                 {
                     foreach (var saleProduct in OrderProducts)
                     {
-                        Database.AddProductNumber(saleProduct.Id, -saleProduct.NumberToSell);
+                        throw new NotImplementedException();
                     }
                 }
                 ((MainWindow)App.Current.MainWindow).SetOrderControl(null);
@@ -110,23 +101,22 @@ namespace InventoryControl.UserControls.OrderControl
     public class OrderProductData
     {
         public Int32 Id { get; }
-        public String Title { get { return Database.GetProductData(Id).Title; } }
+        public String Title { get; }
         public Int32 NumberToSell { set; get; }
         public Int32 Maximum 
         {
             get
             {
-                return isBuying ? Int32.MaxValue : Database.GetProductNumber(Id); 
+                //TODO
+                throw new NotImplementedException();
             }
         }
 
-        private bool isBuying;
-
-        public OrderProductData(Int32 id, bool isBuying)
+        public OrderProductData(Int32 id)
         {
             this.Id = id;
+            this.Title = new ProductPresenter(ProductDataMapper.Read(this.Id)).Title;
             this.NumberToSell = 0;
-            this.isBuying = isBuying;
         }
     }
 }

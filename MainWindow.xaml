@@ -6,6 +6,7 @@
                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:local="clr-namespace:InventoryControl"
+                xmlns:panel="clr-namespace:InventoryControl.Panel"
                 xmlns:ucontrols="clr-namespace:InventoryControl.UserControls"
                 xmlns:util="clr-namespace:InventoryControl.Util"
                 mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}" 
@@ -29,17 +30,16 @@
     <Grid x:Name="MainWindowGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MinWidth="400"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="0" x:Name="PanelColumn"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ucontrols:MainMenu Grid.Row="0" Grid.Column="0"/>
-        <TextBox x:Name="Searchbox" Grid.Row="0" Grid.Column="1" 
+        <ucontrols:MainMenu Grid.Column="0" Grid.Row="0"/>
+        <!--<TextBox x:Name="Searchbox" Grid.Row="0" Grid.Column="1" 
                      KeyUp="SearchBox_KeyUp" mah:TextBoxHelper.Watermark="Поиск...">
             <TextBox.Style>
                 <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
@@ -48,12 +48,11 @@
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
             </TextBox.Style>
-        </TextBox>
-        <ucontrols:StorageDatagrid x:Name="MainStorageDataGrid" 
-                Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-                HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
-        <GridSplitter Grid.Column="2" Grid.RowSpan="2"  ShowsPreview="False" Width="7" x:Name="ViewsSplitter"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch"  Visibility="Collapsed"
-                      BorderBrush="{StaticResource BorderColor}" BorderThickness="1,1,1,0"/>
+        </TextBox>-->
+        <ucontrols:StorageDatagrid x:Name="MainStorageDataGrid" Grid.Column="0" Grid.Row="1" StorageId="1"
+            HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
+        <GridSplitter Grid.Column="1" Grid.RowSpan="2"  ShowsPreview="False" Width="5" x:Name="ViewsSplitter"
+            HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+        <Grid x:Name="PanelContainer" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"/>
     </Grid>
 </mah:MetroWindow>

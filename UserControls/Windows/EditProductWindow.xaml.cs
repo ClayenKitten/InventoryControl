@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using InventoryControl.Data;
+using InventoryControl.Model;
 
 namespace InventoryControl.UserControls.Windows
 {
@@ -25,23 +25,9 @@ namespace InventoryControl.UserControls.Windows
     /// </summary>
     public partial class EditProductWindow : MetroWindow
     {
-        int? Id;
-        public EditProductWindow(int? id)
+        public EditProductWindow()
         {
             InitializeComponent();
-
-            packingCB.ItemsSource = Measurement.GetPossibleValues();
-            titleTB.Focus();
-            if(id.HasValue)
-            {
-                var productData = Database.GetProductData(id.Value);
-                titleTB.Text = productData.Title;
-                weightTB.Text = productData.weight.ToString();
-                packingCB.SelectedIndex = productData.packing;
-                purchasePriceTB.Text = productData.purchasePrice.ToString();
-                salePriceTB.Text = productData.salePrice.ToString();
-            }
-            Id = id;
         }
 
         private void Confirm()
@@ -80,22 +66,7 @@ namespace InventoryControl.UserControls.Windows
         }
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            //Check for bad options
-            if(titleTB.Text == "" || packingCB.SelectedIndex < 0 || packingCB.SelectedIndex > 1)
-                return;
-            try
-            {
-                Database.CreateOrEditProduct(
-                    Id, titleTB.Text, weightTB.Text, packingCB.SelectedIndex, 
-                    purchasePriceTB.Text, salePriceTB.Text
-                );
-            }
-            catch(ArgumentException)
-            {
-                MessageBox.Show("Не все обязательные поля заполнены","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            DialogResult = true;
+            throw new NotImplementedException();
         }
     }
 }

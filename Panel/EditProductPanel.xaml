@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="InventoryControl.Panel.EditProductPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:InventoryControl.UserControls"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:InventoryControl.Panel"
+             mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,1" 
+            Background="{StaticResource MahApps.Brushes.Accent}">
+            <TextBlock Text="{Binding Header}" FontWeight="Bold" Padding="9,0,0,0" FontSize="18"
+                       VerticalAlignment="Center" Foreground="White"/>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <Grid Margin="5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <uc:AdvancedTextbox x:Name="TitleAT" Grid.Row="0" Grid.ColumnSpan="2" Label="Наименование" Margin="5"/>
+                <uc:AdvancedTextbox x:Name="AmountAT" Grid.Row="1" Grid.Column="0" Label="Количество" Margin="5"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="MeasurementCB" Grid.Row="1" Grid.Column="1" Height="27" ItemsSource="{Binding PossibleMeasurments}" SelectedIndex="0"/>
+                </StackPanel>
+                <uc:AdvancedTextbox x:Name="BuyPriceAT" Grid.Row="2" Grid.Column="0" Label="Закупочная цена" Margin="5"/>
+                <uc:AdvancedTextbox x:Name="SalePriceAT" Grid.Row="2" Grid.Column="1" Label="Продажная цена" Margin="5"/>
+
+                <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
+
+                <uc:AdvancedTextbox x:Name="WeightAT" Grid.Row="4" Grid.ColumnSpan="2" Label="Вес упаковки" Margin="5"/>
+            </Grid>
+        </ScrollViewer>
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Подтвердить" Style="{StaticResource MahApps.Styles.Button.Flat}" Click="ConfirmClick"/>
+    </Grid>
+</UserControl>

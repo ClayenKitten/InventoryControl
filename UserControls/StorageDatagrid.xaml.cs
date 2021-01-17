@@ -1,4 +1,7 @@
-﻿using InventoryControl.Data;
+﻿using InventoryControl.Model;
+using InventoryControl.Model.Product;
+using InventoryControl.Model.Storage;
+using InventoryControl.Panel;
 using InventoryControl.UserControls;
 using InventoryControl.UserControls.OrderControl;
 using System;
@@ -25,21 +28,27 @@ namespace InventoryControl.UserControls
     public partial class StorageDatagrid : UserControl
     {
         public ObservableCollection<ProductData> DataGridContent { get; set; }
-        public String HighlightPhrase { get; set; }
 
+
+        public int StorageId { get; set; }
+        public static readonly DependencyProperty StorageIdDependencyProperty =
+            DependencyProperty.Register("StorageId", typeof(int),
+            typeof(StorageDatagrid));
+
+        public String HighlightPhrase { get; set; }
         public static readonly DependencyProperty HighlightPhraseProperty =
             DependencyProperty.Register("HighlightPhrase", typeof(string),
-            typeof(StorageDatagrid), new PropertyMetadata(""));
+            typeof(StorageDatagrid));
 
         public StorageDatagrid()
         {
-            DataGridContent = new ObservableCollection<ProductData>(Database.GetProductData());
+            DataGridContent = new ObservableCollection<ProductData>(StorageDataMapper.GetProductsInStorage(this.StorageId));
             InitializeComponent();
             
             Database.DatabaseChanged += (object sender, EventArgs e) =>
             {
                 DataGridContent.Clear();
-                foreach (var productData in Database.GetProductData())
+                foreach (var productData in StorageDataMapper.GetProductsInStorage(this.StorageId))
                 {
                     DataGridContent.Add(productData);
                 }
@@ -54,22 +63,22 @@ namespace InventoryControl.UserControls
             var orderControl = (OrderControl.OrderControl)MainWindow.MainWindowGrid.Children[2];
 
             var row = ((DataGridRow)sender);
-            var id = ((ProductData)row.Item).Id;
+            var id = ((ProductData)row.Item).id;
 
             foreach (var saleProduct in orderControl.OrderProducts)
             {
                 if (saleProduct.Id == id)
                     return;
             }
-            orderControl.OrderProducts.Add(new OrderProductData(id, MainWindow.GetOrderControl().IsBuying));
+            orderControl.OrderProducts.Add(new OrderProductData(id));
         }
         private void EditProductClick(object sender, RoutedEventArgs e)
         {
-            var s = (MenuItem)sender;
-            var contextMenu = (ContextMenu)s.Parent;
+            var contextMenu = (ContextMenu)((MenuItem)sender).Parent;
             var row = (DataGridRow)contextMenu.PlacementTarget;
-            var id = ((ProductData)MainDataGrid.Items.GetItemAt(row.GetIndex())).Id;
-            new UserControls.Windows.EditProductWindow(id).ShowDialog();
+            var id = ((ProductData)MainDataGrid.Items.GetItemAt(row.GetIndex())).id;
+
+            ((MainWindow)App.Current.MainWindow).SetPanel(new EditProductPanel(id));
         }
     }
 }

@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:InventoryControl.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,1,0,1">
+    <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1">
         <MenuItem Header="Склад">
             <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Click="AddProductClick"/>
             <Separator/>

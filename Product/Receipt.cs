@@ -9,7 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InventoryControl.Data;
+using InventoryControl.Model;
+using System.Globalization;
+using InventoryControl.Model.Product;
 
 namespace InventoryControl.Product
 {
@@ -82,15 +84,16 @@ namespace InventoryControl.Product
             saleProducts = saleProducts.OrderBy((p) => p.Title).ToArray();
             foreach (var row in saleProducts)
             {
-                ProductData data = Database.GetProductData(row.Id);
+                ProductData productData = ProductDataMapper.Read(row.Id);
+                IProductPresenter presenter = new ProductPresenter(productData);
+
                 tableContent["Id"].Add(row.Id.ToString());
-                tableContent["Title"].Add(data.Title);
+                tableContent["Title"].Add(presenter.Title);
                 tableContent["Number"].Add(row.NumberToSell.ToString());
-                tableContent["Measurement"].Add(data.Packing);
-                tableContent["Weight"].Add(data.Weight);
-                tableContent["Price"].Add(data.SalePrice);
-                tableContent["Sum"].Add((data.salePrice*row.NumberToSell)
-                    .ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
+                tableContent["Measurement"].Add(presenter.Measurement);
+                tableContent["Weight"].Add(presenter.Packing);
+                tableContent["Price"].Add(presenter.SalePrice);
+                tableContent["Sum"].Add((productData.SalePrice*row.NumberToSell).GetFormattedValue());
             }
 
             var numberColumn = new PdfColumn(gfx, "№", Enumerable.Range(1, saleProducts.Length).Select(n => n.ToString()).ToList());
