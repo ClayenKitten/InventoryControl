@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InventoryControl.UserControls"
+             xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="150" d:DesignWidth="200">
     <Grid>
@@ -13,6 +14,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="{Binding Label}" x:Name="LabelTextBlock"/>
-        <TextBox Grid.Row="2" Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" x:Name="InnerTextbox"/>
+        <TextBox Grid.Row="2" VerticalAlignment="Center" x:Name="InnerTextbox">
+            <TextBox.Text>
+                <Binding Path="Value" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <vm:RealValidationRule x:Name="validationRule"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>

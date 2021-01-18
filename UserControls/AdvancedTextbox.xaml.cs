@@ -4,12 +4,6 @@ using System.Windows.Controls;
 
 namespace InventoryControl.UserControls
 {
-    public enum TextboxValidationType
-    {
-        Text,
-        Integer,
-        Float,
-    }
     /// <summary>
     /// Interaction logic for AdvancedTextbox.xaml
     /// </summary>
@@ -44,14 +38,18 @@ namespace InventoryControl.UserControls
         private static DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(String), typeof(AdvancedTextbox), new PropertyMetadata(""));
 
-        public TextboxValidationType InputType { get; set; }
-        private static DependencyProperty InputTypeProperty =
-            DependencyProperty.Register("InputType", typeof(TextboxValidationType), typeof(AdvancedTextbox),
-                new PropertyMetadata(TextboxValidationType.Text));
+        public ValidationRule ValidationRule { get; set; }
+        private static DependencyProperty ValidationRuleProperty =
+            DependencyProperty.Register("ValidationRule", typeof(ValidationRule), typeof(AdvancedTextbox));
+
+        public bool IsRequired { get; set; }
+        private static DependencyProperty IsRequiredProperty =
+            DependencyProperty.Register("IsRequired", typeof(bool), typeof(AdvancedTextbox), new PropertyMetadata(false));
 
         public AdvancedTextbox()
         {
             InitializeComponent();
+            this.validationRule.NotNull = IsRequired;
         }
     }
 }

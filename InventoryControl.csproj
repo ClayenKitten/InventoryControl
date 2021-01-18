@@ -225,6 +225,8 @@
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
     <Compile Include="Model\Util\Measurements\Money.cs" />
+    <Compile Include="ViewModel\ValidationRules\RealValidationRule.cs" />
+    <Compile Include="ViewModel\ValidationRules\IntegerValidationRule.cs" />
     <Page Include="Panel\EditProductPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -316,7 +318,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
