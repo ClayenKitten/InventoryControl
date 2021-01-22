@@ -45,8 +45,6 @@
                 <sc:AdvancedTextbox x:Name="SalePriceAT" Grid.Row="2" Grid.Column="1" Label="Продажная цена" Margin="5"/>
 
                 <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
-
-                <sc:AdvancedTextbox x:Name="WeightAT" Grid.Row="4" Grid.ColumnSpan="2" Label="Вес упаковки" Margin="5"/>
             </Grid>
         </ScrollViewer>
         <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Подтвердить" Style="{StaticResource MahApps.Styles.Button.Flat}" Click="ConfirmClick"/>

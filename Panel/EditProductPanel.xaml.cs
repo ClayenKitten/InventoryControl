@@ -29,14 +29,11 @@ namespace InventoryControl.Panel
             InitializeComponent();
             this.productData = ProductDataMapper.Read(productId);
 
-            var presenter = new ProductPresenter(this.productData);
-
-            TitleAT.Value = presenter.Name;
-            AmountAT.Value = presenter.Packing;
+            TitleAT.Value = productData.Name;
+            AmountAT.Value = productData.Measurement.GetFormattedValue();
             MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
-            BuyPriceAT.Value = presenter.PurchasePrice;
-            SalePriceAT.Value = presenter.SalePrice;
-            WeightAT.Value = presenter.Packing;
+            BuyPriceAT.Value = productData.PurchasePrice.GetFormattedValue();
+            SalePriceAT.Value = productData.SalePrice.GetFormattedValue();
         }
 
         int IPanel.MinWidth { get { return 250; } }

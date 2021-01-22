@@ -110,7 +110,7 @@ namespace InventoryControl.UserControls
         {
             var contextMenu = (ContextMenu)((MenuItem)sender).Parent;
             var row = (DataGridRow)contextMenu.PlacementTarget;
-            var id = ((ProductData)MainDataGrid.Items.GetItemAt(row.GetIndex())).Id;
+            var id = ((StockProductPresenter)MainDataGrid.Items.GetItemAt(row.GetIndex())).Product.Id;
 
             ((MainWindow)App.Current.MainWindow).SetPanel(new EditProductPanel(id));
         }
