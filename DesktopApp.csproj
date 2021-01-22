@@ -201,9 +201,6 @@
     <Compile Include="Model\Util\Unit.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Product\Receipt.cs" />
-    <Compile Include="UserControls\AdvancedTextbox.xaml.cs">
-      <DependentUpon>AdvancedTextbox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -225,17 +222,11 @@
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
     <Compile Include="Model\Util\Measurements\Money.cs" />
-    <Compile Include="ViewModel\ValidationRules\RealValidationRule.cs" />
-    <Compile Include="ViewModel\ValidationRules\IntegerValidationRule.cs" />
     <Page Include="Panel\EditProductPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Panel\EmptyPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AdvancedTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +309,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModel\" />
     <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
