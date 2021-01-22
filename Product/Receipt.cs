@@ -88,7 +88,7 @@ namespace InventoryControl.Product
                 IProductPresenter presenter = new ProductPresenter(productData);
 
                 tableContent["Id"].Add(row.Id.ToString());
-                tableContent["Title"].Add(presenter.Title);
+                tableContent["Title"].Add(presenter.Name);
                 tableContent["Number"].Add(row.NumberToSell.ToString());
                 tableContent["Measurement"].Add(presenter.Measurement);
                 tableContent["Weight"].Add(presenter.Packing);

@@ -8,8 +8,10 @@ namespace InventoryControl.Model.Product
 {
     public class ProductPresenter : IProductPresenter
     {
-        private readonly ProductData productData;
-        public string Title { get { return productData.Name; } }
+        public readonly ProductData productData;
+
+        public int Id { get { return productData.Id; } }
+        public string Name { get { return productData.Name; } }
         public string PurchasePrice
         {
             get

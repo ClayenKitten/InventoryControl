@@ -115,7 +115,7 @@ namespace InventoryControl.UserControls.OrderControl
         public OrderProductData(Int32 id)
         {
             this.Id = id;
-            this.Title = new ProductPresenter(ProductDataMapper.Read(this.Id)).Title;
+            this.Title = new ProductPresenter(ProductDataMapper.Read(this.Id)).Name;
             this.NumberToSell = 0;
         }
     }

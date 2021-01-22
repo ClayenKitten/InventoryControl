@@ -51,16 +51,17 @@ namespace InventoryControl.Model.Product
         
         public static ProductData Read(int id)
         {
-            const string commandText = "SELECT * FROM ProductsDictionary WHERE Id=$id";
+            const string commandText = "SELECT * FROM Product WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             if (rdr.Read())
                 return new ProductData
                 (
+                    id:             rdr.GetInt32(0),
                     title:          rdr.GetString(1),
-                    purchasePrice:  rdr.GetDouble(4),
-                    salePrice:      rdr.GetDouble(5),
-                    unit:           rdr.GetInt32(3),
-                    value:          rdr.GetDouble(2)
+                    purchasePrice:  0.5,//rdr.GetDouble(4),
+                    salePrice:      1.2,//rdr.GetDouble(5),
+                    unit:           rdr.GetInt32(2),
+                    value:          rdr.GetDouble(3)
                 );
             else
                 throw new KeyNotFoundException();

@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="InventoryControl.UserControls.StorageViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ucontrols="clr-namespace:InventoryControl.UserControls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:InventoryControl.UserControls" xmlns:util="clr-namespace:InventoryControl.Util"
+             mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ContextMenu x:Key="HeaderContextMenu">
+            <MenuItem Header="Здесь будет выбор колонок"/>
+        </ContextMenu>
+        <ContextMenu x:Key="RowContextMenu">
+            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
+            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" Click="EditProductClick"/>
+            <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="StorageSelector" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"
+            ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
+            SelectedValue="{Binding StorageId, Mode=TwoWay}" SelectedValuePath="Id"
+            SelectionChanged="StorageSelector_SelectionChanged"/>
+        <TextBox  x:Name="Searchbox" Grid.Column="1" KeyUp="Searchbox_KeyUp" mah:TextBoxHelper.Watermark="Поиск...">
+            <TextBox.Style>
+                <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
+            HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
+            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding DataGridContent}"
+            CanUserSortColumns="True" AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            Grid.ColumnSpan="2" Grid.Row="1">
+            <DataGrid.Resources>
+                <Style TargetType="Button" x:Key="ControllingButton" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+                    <Setter Property="BorderThickness" Value="0.1"/>
+                    <Setter Property="ToolTipService.BetweenShowDelay" Value="60"/>
+                    <Setter Property="ToolTipService.InitialShowDelay" Value="60"/>
+                </Style>
+                <Style x:Key="RightAlignedCell" TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellDefaultStyle}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Арт." ToolTipService.ToolTip="Артикул товара" 
+                    MinWidth="70" Width="70" MaxWidth="70" CanUserReorder="False"
+                    Binding="{Binding Id}" SortDirection="Ascending"/>
+                <DataGridTemplateColumn
+                    Header="Наименование" ToolTipService.ToolTip="Наименование" 
+                    MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Title">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <util:HighlightTextBlock Text="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Header="Кол" ToolTipService.ToolTip="Количество товара в одном месте"
+                    MinWidth="50" Width="1*"
+                    Binding="{Binding Packing}" SortMemberPath="weight" CellStyle="{StaticResource RightAlignedCell}"/>
+                <DataGridTextColumn
+                    Header="Ед" ToolTipService.ToolTip="Единица измерения" 
+                    MinWidth="50" Width="1*"
+                    Binding="{Binding Measurement}"/>
+                <DataGridTextColumn 
+                    Header="Закуп. цена" ToolTipService.ToolTip="Закупочная цена"
+                    MinWidth="50" Width="2*"
+                    Binding="{Binding PurchasePrice}" SortMemberPath="purchasePrice" CellStyle="{StaticResource RightAlignedCell}"/>
+                <DataGridTextColumn 
+                    Header="Прод. цена" ToolTipService.ToolTip="Продажная цена"
+                    MinWidth="50" Width="2*"
+                    Binding="{Binding SalePrice}" SortMemberPath="salePrice" CellStyle="{StaticResource RightAlignedCell}"/>
+                <DataGridTextColumn 
+                    Header="Ост" ToolTipService.ToolTip="Остаток на выбранном складе" 
+                    MinWidth="50" Width="*" 
+                    Binding="{Binding Remain}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StatusBar x:Name="StorageStatusBar" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
+            <StatusBarItem Padding="0">
+                <Button x:Name="ReloadContent"
+                    Height="30" Width="30" Margin="0" Padding="0"
+                    Focusable="False" BorderThickness="0" Content="{iconPacks:FontAwesome Kind=SyncSolid}"
+                    Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}"
+                    Style="{StaticResource MahApps.Styles.Button.MetroSquare}"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right" Margin="0,0,5,0">
+                <TextBlock>
+                    <Run Text="Наименований: "/>
+                    <Run Text="{Binding DataGridContent.Count, Mode=OneWay}"/>
+                    <Run Text="   |   "/>
+                    <Run Text="Закупочная сумма: "/>
+                    <Run Text="{Binding PurchaseSum, Mode=OneWay}"/>
+                    <Run Text="   |   "/>
+                    <Run Text="Продажная сумма: "/>
+                    <Run Text="{Binding SaleSum, Mode=OneWay}"/>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl>

@@ -31,7 +31,7 @@ namespace InventoryControl.Panel
 
             var presenter = new ProductPresenter(this.productData);
 
-            TitleAT.Value = presenter.Title;
+            TitleAT.Value = presenter.Name;
             AmountAT.Value = presenter.Packing;
             MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
             BuyPriceAT.Value = presenter.PurchasePrice;

@@ -8,7 +8,7 @@ namespace InventoryControl.Model.Product
 {
     public interface IProductPresenter
     {
-        public string Title { get; }
+        public string Name { get; }
         public string PurchasePrice { get; }
         public string SalePrice { get; }
         public string Measurement { get; }
