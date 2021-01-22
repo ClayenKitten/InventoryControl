@@ -21,21 +21,7 @@ namespace InventoryControl
         }
 
         private const int OrderControlColumnIndex = 3;
-        private void MakeSearch(string searchString)
-        {
-            throw new NotImplementedException();
-            /*DataGridContent.Clear();
-            foreach (ProductData product in Database.GetProductData())
-            {
-                String search = Searchbox.Text.ToLower().Replace('ё', 'е').Trim();
-                String title = product.Title.ToLower().Replace('ё', 'е').Trim();
-
-                if (title.Contains(search))
-                {
-                    DataGridContent.Add(product);
-                }
-            }*/
-        }
+        
         public void SetOrderControl(bool? isBuying) {}
         public OrderControl GetOrderControl() 
         {

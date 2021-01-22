@@ -114,10 +114,24 @@ namespace InventoryControl.UserControls
 
             ((MainWindow)App.Current.MainWindow).SetPanel(new EditProductPanel(id));
         }
-        
+
+        private void MakeSearch(string searchString)
+        {
+            DataGridContent.Clear();
+            foreach (ProductData product in StorageDataMapper.GetProductsInStorage(storageId))
+            {
+                String search = searchString.ToLower().Replace('ё', 'е').Replace(" ", "").Trim();
+                String title = product.Name.ToLower().Replace('ё', 'е').Replace(" ","").Trim();
+
+                if (title.Contains(search))
+                {
+                    DataGridContent.Add(new StockProductPresenter(product, storageId));
+                }
+            }
+        }
         private void Searchbox_KeyUp(object sender, KeyEventArgs e)
         {
-
+            MakeSearch(Searchbox.Text);
         }
         private void StorageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
