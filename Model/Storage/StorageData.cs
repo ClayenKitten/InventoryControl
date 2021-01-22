@@ -15,7 +15,7 @@ namespace InventoryControl.Model.Storage
         public StorageData(int id, string name)
         {
             this.Id = id;
-            this.Name = Name;
+            this.Name = name;
         }
     }
 }
