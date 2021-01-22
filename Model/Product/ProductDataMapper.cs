@@ -57,7 +57,7 @@ namespace InventoryControl.Model.Product
                 return new ProductData
                 (
                     id:             rdr.GetInt32(0),
-                    title:          rdr.GetString(1),
+                    name:          rdr.GetString(1),
                     unit:           rdr.GetInt32(2),
                     value:          rdr.GetDouble(3),
                     purchasePrice:  rdr.GetDouble(4),

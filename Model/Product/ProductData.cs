@@ -13,10 +13,10 @@ namespace InventoryControl.Model.Product
         public int Article { get; set; }
 
         //Database-oriented constructor
-        public ProductData(int id, string title, double purchasePrice, double salePrice, double value, int unit, int article)
+        public ProductData(int id, string name, double purchasePrice, double salePrice, double value, int unit, int article)
         {
             this.Id = id;
-            this.Name = title;
+            this.Name = name;
             this.PurchasePrice = new Money((decimal)purchasePrice);
             this.SalePrice = new Money((decimal)salePrice);
 
