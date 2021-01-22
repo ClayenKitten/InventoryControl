@@ -78,8 +78,6 @@ namespace InventoryControl.UserControls
             if(e.Property == StorageIdProperty) 
             { 
                 UpdateContent();
-                SaleSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
-                PurchaseSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
             }
         }
         private void UpdateContent()
@@ -89,6 +87,8 @@ namespace InventoryControl.UserControls
             {
                 DataGridContent.Add(new StockProductPresenter(product, storageId));
             }
+            SaleSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
+            PurchaseSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
         }
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -138,6 +138,11 @@ namespace InventoryControl.UserControls
         private void StorageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
+        }
+
+        private void ReloadContent_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateContent();
         }
     }
 }
