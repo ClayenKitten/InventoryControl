@@ -121,10 +121,10 @@
                     <Run Text="{Binding DataGridContent.Count, Mode=OneWay}"/>
                     <Run Text="   |   "/>
                     <Run Text="Закупочная сумма: "/>
-                    <Run Text="{Binding PurchaseSum, Mode=OneWay}"/>
+                    <Run x:Name="PurchaseSumRun" Text="{Binding PurchaseSum, Mode=OneWay, UpdateSourceTrigger=Explicit}"/>
                     <Run Text="   |   "/>
                     <Run Text="Продажная сумма: "/>
-                    <Run Text="{Binding SaleSum, Mode=OneWay}"/>
+                    <Run x:Name="SaleSumRun" Text="{Binding SaleSum, Mode=OneWay, UpdateSourceTrigger=Explicit}"/>
                 </TextBlock>
             </StatusBarItem>
         </StatusBar>

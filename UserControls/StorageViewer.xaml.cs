@@ -8,6 +8,7 @@ using InventoryControl.UserControls.OrderControl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace InventoryControl.UserControls
     /// <summary>
     /// Interaction logic for StorageViewer.xaml
     /// </summary>
-    public partial class StorageViewer : UserControl
+    public partial class StorageViewer : UserControl, INotifyPropertyChanged
     {
         public ObservableCollection<StockProductPresenter> DataGridContent { get; set; } = new ObservableCollection<StockProductPresenter>();
 
@@ -35,7 +36,9 @@ namespace InventoryControl.UserControls
         public static readonly DependencyProperty StorageIdProperty =
             DependencyProperty.Register("StorageId", typeof(int),
             typeof(StorageViewer));
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public StorageData Storage { get { return StorageDataMapper.GetStorage(storageId); } }
         public List<StorageData> AllStoragesList { get { return StorageDataMapper.GetAllStorages(); } }
         //Statusbar values
@@ -69,14 +72,14 @@ namespace InventoryControl.UserControls
         {
             InitializeComponent();
         }
-
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
             if(e.Property == StorageIdProperty) 
             { 
                 UpdateContent();
-                
+                SaleSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
+                PurchaseSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
             }
         }
         private void UpdateContent()
