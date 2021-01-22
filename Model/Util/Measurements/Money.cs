@@ -66,6 +66,27 @@ namespace InventoryControl.Model.Util
             return new Money(a.value / b);
         }
 
+        public static implicit operator Money(int v)
+        {
+            return new Money((Decimal)v);
+        }
+        public static implicit operator Money(double v)
+        {
+            return new Money((Decimal)v);
+        }
+        public static implicit operator Money(decimal v)
+        {
+            return new Money((Decimal)v);
+        }
+        public static implicit operator Money(long v)
+        {
+            return new Money((Decimal)v);
+        }
+        public static implicit operator Money(float v)
+        {
+            return new Money((Decimal)v);
+        }
+
         public int CompareTo(object obj)
         {
             return value.CompareTo(obj);
