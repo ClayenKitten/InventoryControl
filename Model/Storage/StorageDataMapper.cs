@@ -46,6 +46,20 @@ namespace InventoryControl.Model.Storage
             Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
         }
 
+        public static List<StorageData> GetAllStorages()
+        {
+            var res = new List<StorageData>();
+            const string commandText =
+            @"
+                SELECT * FROM Storage
+            ";
+            using var rdr = Database.CommitReaderTransaction(commandText);
+            while(rdr.Read())
+            {
+                res.Add(new StorageData(rdr.GetInt32(1), rdr.GetString(2)));
+            }
+            return res;
+        }
         public static List<ProductData> GetProductsInStorage(int storageId)
         {
             var res = new List<ProductData>();
@@ -69,7 +83,6 @@ namespace InventoryControl.Model.Storage
             }
             return res;
         }
-
         public static int GetProductAmount(int productId, int storageId)
         {
             const string commandText =
