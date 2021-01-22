@@ -10,9 +10,9 @@ namespace InventoryControl.Model.Storage
     public class StorageData
     {
         public int Id { get; private set; }
-        public String Name { set; get; }
+        public string Name { set; get; }
         
-        public StorageData(int id, String name)
+        public StorageData(int id, string name)
         {
             this.Id = id;
             this.Name = Name;
