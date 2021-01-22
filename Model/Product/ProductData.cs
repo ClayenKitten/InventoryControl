@@ -6,12 +6,14 @@ namespace InventoryControl.Model.Product
     public class ProductData
     {
         public int Id { get; }
-        public string Name { get; set; }
-        public Money PurchasePrice { get; set; }
-        public Money SalePrice { get; set; }
+        public string Name { get; }
+        public Money PurchasePrice { get; }
+        public Money SalePrice { get; }
         public IMeasurement Measurement { get; set; }
+        public int Article { get; set; }
 
-        public ProductData(int id, string title, double purchasePrice, double salePrice, double value, int unit)
+        //Database-oriented constructor
+        public ProductData(int id, string title, double purchasePrice, double salePrice, double value, int unit, int article)
         {
             this.Id = id;
             this.Name = title;
@@ -22,6 +24,8 @@ namespace InventoryControl.Model.Product
                 this.Measurement = new Weight((decimal)value);
             else if (unit == Unit.Piece.value)
                 this.Measurement = new Piece((int)value);
+
+            this.Article = article;
         }
     }
 }

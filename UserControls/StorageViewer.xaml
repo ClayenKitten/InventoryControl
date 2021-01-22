@@ -75,7 +75,7 @@
                 <DataGridTextColumn
                     Header="Арт." ToolTipService.ToolTip="Артикул товара" 
                     MinWidth="70" Width="70" MaxWidth="70" CanUserReorder="False"
-                    Binding="{Binding Id}" SortDirection="Ascending"/>
+                    Binding="{Binding Article}" SortDirection="Ascending"/>
                 <DataGridTemplateColumn
                     Header="Наименование" ToolTipService.ToolTip="Наименование" 
                     MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Title">

@@ -13,5 +13,6 @@ namespace InventoryControl.Model.Product
         public string SalePrice { get; }
         public string Measurement { get; }
         public string Packing { get; }
+        public string Article { get; }
     }
 }

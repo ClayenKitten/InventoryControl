@@ -42,6 +42,7 @@ namespace InventoryControl.Model.Product
                 return Product.Measurement.GetPostfix();
             }
         }
+        public string Article { get { return Product.Article.ToString(); } }
         public int Remain
         {
             get

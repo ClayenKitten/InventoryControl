@@ -61,7 +61,8 @@ namespace InventoryControl.Model.Product
                     purchasePrice:  0.5,//rdr.GetDouble(4),
                     salePrice:      1.2,//rdr.GetDouble(5),
                     unit:           rdr.GetInt32(2),
-                    value:          rdr.GetDouble(3)
+                    value:          rdr.GetDouble(3),
+                    article:        rdr.GetInt32(6)
                 );
             else
                 throw new KeyNotFoundException();

@@ -40,6 +40,7 @@ namespace InventoryControl.Model.Product
                 return productData.Measurement.GetPostfix();
             }
         }
+        public string Article { get { return productData.Article.ToString(); } }
 
         public ProductPresenter(ProductData productData)
         {
