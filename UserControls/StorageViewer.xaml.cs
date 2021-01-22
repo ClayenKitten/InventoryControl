@@ -85,7 +85,6 @@ namespace InventoryControl.UserControls
         private void UpdateContent()
         {
             DataGridContent.Clear();
-            Debug.WriteLine(storageId);
             foreach (var product in StorageDataMapper.GetProductsInStorage(storageId))
             {
                 DataGridContent.Add(new StockProductPresenter(product, storageId));
