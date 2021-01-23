@@ -216,9 +216,6 @@
     <Compile Include="View\StorageViewer.xaml.cs">
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Windows\EditProductWindow.xaml.cs">
-      <DependentUpon>EditProductWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
     <Compile Include="Model\Util\Measurements\Money.cs" />
     <Page Include="Panel\EditProductPanel.xaml">
@@ -248,10 +245,6 @@
     <Page Include="View\StorageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="UserControls\Windows\EditProductWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
