@@ -23,7 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InventoryControl.UserControls
+namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for StorageViewer.xaml
@@ -96,7 +96,7 @@ namespace InventoryControl.UserControls
 
             if (MainWindow.MainWindowGrid.Children.Count <= 2)
                 return;
-            var orderControl = (OrderControl.OrderControl)MainWindow.MainWindowGrid.Children[2];
+            var orderControl = (OrderControl)MainWindow.MainWindowGrid.Children[2];
 
             var row = ((DataGridRow)sender);
             var id = ((ProductData)row.Item).Id;

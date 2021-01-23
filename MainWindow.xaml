@@ -9,6 +9,7 @@
                 xmlns:panel="clr-namespace:InventoryControl.Panel"
                 xmlns:ucontrols="clr-namespace:InventoryControl.UserControls"
                 xmlns:util="clr-namespace:InventoryControl.Util"
+                xmlns:view="clr-namespace:InventoryControl.View"
                 mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}" 
         x:Name="MainMetroWindow" Title="Система Складского Учёта"
         MinWidth="800" MinHeight="600" WindowStartupLocation="CenterScreen">
@@ -39,7 +40,7 @@
         </Grid.RowDefinitions>
 
         <ucontrols:MainMenu Grid.Column="0" Grid.Row="0"/>
-        <ucontrols:StorageViewer x:Name="MainStorageDataGrid" Grid.Column="0" Grid.Row="1" StorageId="1"/>
+        <view:StorageViewer x:Name="MainStorageDataGrid" Grid.Column="0" Grid.Row="1" StorageId="1"/>
         <GridSplitter Grid.Column="1" Grid.RowSpan="2"  ShowsPreview="False" Width="5" x:Name="ViewsSplitter"
             HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
         <Grid x:Name="PanelContainer" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"/>

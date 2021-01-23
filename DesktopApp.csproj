@@ -213,7 +213,7 @@
     <Compile Include="UserControls\OrderControl\BottomControls\SaleControls.xaml.cs">
       <DependentUpon>SaleControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\StorageViewer.xaml.cs">
+    <Compile Include="View\StorageViewer.xaml.cs">
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Windows\EditProductWindow.xaml.cs">
@@ -245,7 +245,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\StorageViewer.xaml">
+    <Page Include="View\StorageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
@@ -309,7 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
-    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedControls\SharedControls.csproj">
