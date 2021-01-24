@@ -37,7 +37,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ucontrols:MainMenu Grid.Column="0" Grid.Row="0"/>
+        <view:MainMenu Grid.Column="0" Grid.Row="0"/>
         <view:DividedPanel Grid.Row="1">
             <view:StorageViewer StorageId="2"/>
         </view:DividedPanel>

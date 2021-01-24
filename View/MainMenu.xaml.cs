@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using InventoryControl.Model;
 using InventoryControl.Panel;
 
-namespace InventoryControl.UserControls
+namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for MainMenu.xaml
