@@ -35,7 +35,7 @@ namespace InventoryControl.View
         public int StorageId { get; set; }
         public static readonly DependencyProperty StorageIdProperty =
             DependencyProperty.Register("StorageId", typeof(int),
-            typeof(StorageViewer));
+            typeof(StorageViewer), new PropertyMetadata(-1));
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -71,6 +71,11 @@ namespace InventoryControl.View
         public StorageViewer()
         {
             InitializeComponent();
+        }
+        public StorageViewer(int index)
+        {
+            InitializeComponent();
+            SetValue(StorageIdProperty, index);
         }
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {

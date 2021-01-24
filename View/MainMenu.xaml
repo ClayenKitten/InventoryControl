@@ -5,45 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:local="clr-namespace:InventoryControl.UserControls"
-             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:InventoryControl.ViewModel"
+             mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext><vm:PanelManager/></UserControl.DataContext>
     <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1">
         <MenuItem Header="Склад">
-            <MenuItem Header="Просмотр" Icon="{iconPacks:FontAwesome Kind=DollySolid}"/>
-            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=EditSolid}"/>
+            <MenuItem Header="Просмотр" Icon="{iconPacks:FontAwesome Kind=DollySolid}" Command="{Binding OpenStorageView}"/>
+            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=EditSolid}" Command="{Binding OpenStorageEdit}"/>
         </MenuItem>
         <MenuItem Header="Оборот">
             <MenuItem Header="Оформить накладную" Icon="{iconPacks:FontAwesome Kind=FileInvoiceSolid}">
-                <MenuItem Header="Продажа" Click="SellingView_Click"/>
-                <MenuItem Header="Покупка" Click="BuyingView_Click"/>
+                <MenuItem Header="Продажа" Command="{Binding OpenSell}"/>
+                <MenuItem Header="Покупка" Command="{Binding OpenBuy}"/>
             </MenuItem>
             <MenuItem Header="Оформить возврат" Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="False"/>
             <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
+            <Separator/>
+            <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}" Command="{Binding OpenInvoiceEditor}"/>
         </MenuItem>
         <MenuItem Header="Прайс-лист">
-            <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Click="AddProductClick"/>
-            <MenuItem Header="Список товаров" Icon="{iconPacks:Material Kind=ClipboardListOutline}"/>
+            <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Command="{Binding OpenProductViewAdd}"/>
+            <MenuItem Header="Список товаров" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>
             <Separator/>
-            <MenuItem Header="Ценники" Icon="{iconPacks:Material Kind=Receipt}"/>
+            <MenuItem Header="Ценники" Icon="{iconPacks:Material Kind=Receipt}" Command="{Binding OpenReceiptEditor}"/>
         </MenuItem>
         <MenuItem Header="Контрагенты">
-            <MenuItem Header="Поставщики" Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}"/>
-            <MenuItem Header="Покупатели" Icon="{iconPacks:Material Kind=TruckDelivery}"/>
+            <MenuItem Header="Поставщики" Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" Command="{Binding OpenSuppliers}"/>
+            <MenuItem Header="Покупатели" Icon="{iconPacks:Material Kind=TruckDelivery}" Command="{Binding OpenBuyers}"/>
             <Separator/>
-            <MenuItem Header="Точки сбыта" Icon="{iconPacks:Material Kind=PointOfSale}"/>
-        </MenuItem>
-        <MenuItem Header="Отчёты">
-            <MenuItem Header="Приход-расход товаров" Icon="{iconPacks:FontAwesome Kind=ExchangeAltSolid}" IsEnabled="False"/>
-            <MenuItem Header="Статистика" Icon="{iconPacks:FontAwesome Kind=ChartAreaSolid}" IsEnabled="False"/>
+            <MenuItem Header="Точки сбыта" Icon="{iconPacks:Material Kind=PointOfSale}" Command="{Binding OpenPointsOfSales}"/>
         </MenuItem>
         <MenuItem Header="Прочее">
-            <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}"/>
-            <Separator/>
             <MenuItem Header="Загрузить резервную копию" Icon="{iconPacks:FontAwesome Kind=FileImportSolid}" Click="LoadBackupButtonClick"/>
             <MenuItem Header="Создать резервную копию" Icon="{iconPacks:FontAwesome Kind=FileExportSolid}" Click="SaveBackupButtonClick"/>
             <Separator/>
-            <MenuItem Header="Настройки" Icon="{iconPacks:FontAwesome Kind=CogsSolid}"/>
+            <MenuItem Header="Настройки" Icon="{iconPacks:FontAwesome Kind=CogsSolid}" Command="{Binding OpenSettings}"/>
         </MenuItem>
     </Menu>
 </UserControl>

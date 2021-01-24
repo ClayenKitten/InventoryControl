@@ -38,7 +38,7 @@
         </Grid.RowDefinitions>
 
         <view:MainMenu Grid.Column="0" Grid.Row="0"/>
-        <view:DividedPanel Grid.Row="1">
+        <view:DividedPanel Grid.Row="1" x:Name="Panel">
             <view:StorageViewer StorageId="2"/>
         </view:DividedPanel>
     </Grid>
