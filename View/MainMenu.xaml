@@ -9,6 +9,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1">
+        <MenuItem Header="Склад">
+            <MenuItem Header="Просмотр" Icon="{iconPacks:FontAwesome Kind=DollySolid}"/>
+            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=EditSolid}"/>
+        </MenuItem>
         <MenuItem Header="Оборот">
             <MenuItem Header="Оформить накладную" Icon="{iconPacks:FontAwesome Kind=FileInvoiceSolid}">
                 <MenuItem Header="Продажа" Click="SellingView_Click"/>
