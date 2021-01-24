@@ -213,6 +213,7 @@
     <Compile Include="UserControls\OrderControl\BottomControls\SaleControls.xaml.cs">
       <DependentUpon>SaleControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DividedPanel.cs" />
     <Compile Include="View\StorageViewer.xaml.cs">
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>

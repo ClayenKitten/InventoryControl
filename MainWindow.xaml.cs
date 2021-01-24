@@ -17,7 +17,6 @@ namespace InventoryControl
         public MainWindow()
         {
             InitializeComponent();
-            this.SetPanel(new EmptyPanel());
         }
 
         private const int OrderControlColumnIndex = 3;
@@ -30,12 +29,7 @@ namespace InventoryControl
 
         public void SetPanel<T>(T panel) where T : UIElement, IPanel
         {
-            if (OpenedPanel != null && OpenedPanel.Close())
-                return;
-            PanelContainer.Children.Clear();
-            PanelContainer.Children.Add(panel);
-            PanelColumn.MinWidth = panel.MinWidth;
-            OpenedPanel = panel;
+            throw new NotImplementedException();
         }
     }
 }
