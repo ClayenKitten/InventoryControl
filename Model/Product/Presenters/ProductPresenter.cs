@@ -46,5 +46,9 @@ namespace InventoryControl.Model.Product
         {
             this.productData = productData;
         }
+        public static implicit operator ProductPresenter(ProductData productData)
+        {
+            return new ProductPresenter(productData);
+        }
     }
 }
