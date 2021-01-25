@@ -59,6 +59,7 @@ namespace InventoryControl.ViewModel
                 case (PanelManager.STORAGEEDIT):
                     break;
                 case (PanelManager.PRODUCTVIEW):
+                    window.Panel.SetControl(new ProductDictionaryViewer());
                     break;
                 case (PanelManager.PRODUCTVIEWADD):
                     break;
