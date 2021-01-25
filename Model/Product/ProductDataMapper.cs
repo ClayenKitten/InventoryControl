@@ -67,7 +67,18 @@ namespace InventoryControl.Model.Product
             else
                 throw new KeyNotFoundException();
         }
-        
+        public static List<ProductData> GetFullDictionary()
+        {
+            var dictionary = new List<ProductData>();
+            const string commandText = "SELECT Product.Id FROM Product";
+            using var rdr = Database.CommitReaderTransaction(commandText);
+            while (rdr.Read())
+            {
+                dictionary.Add(ProductDataMapper.Read(rdr.GetInt32(0)));
+            }
+            return dictionary;
+        }
+
         public static void Delete(int id)
         {
             const string commandText = "DELETE * FROM ProductsDictionary WHERE Id=$id";
