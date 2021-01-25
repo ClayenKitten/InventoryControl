@@ -13,6 +13,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="BorderColor" Opacity="1" Color="Black"/>
+            <Style x:Key="DataGridColumnHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
             <!--Cell-->
             <Style TargetType="DataGridCell" x:Key="DataGridCellDefaultStyle" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
                 <Setter Property="TextBlock.TextAlignment" Value="Center"/>
