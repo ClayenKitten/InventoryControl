@@ -13,7 +13,6 @@ namespace InventoryControl
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public IPanel OpenedPanel { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -25,11 +24,6 @@ namespace InventoryControl
         public OrderControl GetOrderControl() 
         {
             return null;
-        }
-
-        public void SetPanel<T>(T panel) where T : UIElement, IPanel
-        {
-            throw new NotImplementedException();
         }
     }
 }

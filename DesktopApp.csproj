@@ -193,7 +193,6 @@
     <Compile Include="Panel\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Panel\IPanel.cs" />
     <Compile Include="Model\Util\Unit.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Product\Receipt.cs" />

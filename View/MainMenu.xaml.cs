@@ -28,10 +28,6 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        private void AddProductClick(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)App.Current.MainWindow).SetPanel(new EditProductPanel());
-        }
         private void LoadBackupButtonClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

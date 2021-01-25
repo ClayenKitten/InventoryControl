@@ -119,7 +119,7 @@ namespace InventoryControl.View
             var row = (DataGridRow)contextMenu.PlacementTarget;
             var id = ((StockProductPresenter)MainDataGrid.Items.GetItemAt(row.GetIndex())).Product.Id;
 
-            ((MainWindow)App.Current.MainWindow).SetPanel(new EditProductPanel(id));
+            throw new NotImplementedException();
         }
 
         private void MakeSearch(string searchString)

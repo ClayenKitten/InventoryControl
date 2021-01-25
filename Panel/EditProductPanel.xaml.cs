@@ -10,7 +10,7 @@ namespace InventoryControl.Panel
     /// <summary>
     /// Interaction logic for EditProductPanel.xaml
     /// </summary>
-    public partial class EditProductPanel : UserControl, IPanel
+    public partial class EditProductPanel : UserControl
     {
         private ProductData productData;
         public String Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
@@ -35,20 +35,6 @@ namespace InventoryControl.Panel
             BuyPriceAT.Value = productData.PurchasePrice.GetFormattedValue();
             SalePriceAT.Value = productData.SalePrice.GetFormattedValue();
         }
-
-        int IPanel.MinWidth { get { return 250; } }
-
-        public bool Close()
-        {
-            var r = MessageBox.Show("Закрыть панель?", "Изменения не сохранены", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-            return r == MessageBoxResult.No;
-        }
-
-        public bool Collapse()
-        {
-            throw new NotImplementedException();
-        }
-
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             
