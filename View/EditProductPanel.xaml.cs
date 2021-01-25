@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace InventoryControl.Panel
+namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for EditProductPanel.xaml

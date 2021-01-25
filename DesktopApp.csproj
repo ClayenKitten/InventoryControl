@@ -190,7 +190,7 @@
     <Compile Include="Model\Storage\StorageDataMapper.cs" />
     <Compile Include="Model\Transaction\TransactionData.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
-    <Compile Include="Panel\EditProductPanel.xaml.cs">
+    <Compile Include="View\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Util\Unit.cs" />
@@ -221,7 +221,7 @@
     </Compile>
     <Compile Include="Util\HighlightTextBlock.cs" />
     <Compile Include="Model\Util\Measurements\Money.cs" />
-    <Page Include="Panel\EditProductPanel.xaml">
+    <Page Include="View\EditProductPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

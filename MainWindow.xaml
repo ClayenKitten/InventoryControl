@@ -6,7 +6,6 @@
                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:local="clr-namespace:InventoryControl"
-                xmlns:panel="clr-namespace:InventoryControl.Panel"
                 xmlns:ucontrols="clr-namespace:InventoryControl.UserControls"
                 xmlns:util="clr-namespace:InventoryControl.Util"
                 xmlns:view="clr-namespace:InventoryControl.View"

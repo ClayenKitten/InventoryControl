@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using InventoryControl.UserControls;
 using InventoryControl.UserControls.OrderControl;
-using InventoryControl.Panel;
 
 namespace InventoryControl
 {

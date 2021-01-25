@@ -2,7 +2,6 @@
 using InventoryControl.Model.Product;
 using InventoryControl.Model.Storage;
 using InventoryControl.Model.Util;
-using InventoryControl.Panel;
 using InventoryControl.UserControls;
 using InventoryControl.UserControls.OrderControl;
 using System;
