@@ -8,43 +8,43 @@ namespace InventoryControl.Model.Product
 {
     public class ProductPresenter : IProductPresenter
     {
-        public readonly ProductData productData;
+        public readonly ProductData Product;
 
-        public int Id { get { return productData.Id; } }
-        public string Name { get { return productData.Name; } }
+        public int Id { get { return Product.Id; } }
+        public string Name { get { return Product.Name; } }
         public string PurchasePrice
         {
             get
             {
-                return productData.PurchasePrice.ToString();
+                return Product.PurchasePrice.ToString();
             }
         }
         public string SalePrice
         {
             get
             {
-                return productData.SalePrice.ToString();
+                return Product.SalePrice.ToString();
             }
         }
         public string Packing
         {
             get
             {
-                return productData.Measurement.GetFormattedValue();
+                return Product.Measurement.GetFormattedValue();
             }
         }
         public string Measurement
         {
             get
             {
-                return productData.Measurement.GetPostfix();
+                return Product.Measurement.GetPostfix();
             }
         }
-        public string Article { get { return productData.Article.ToString(); } }
+        public string Article { get { return Product.Article.ToString(); } }
 
         public ProductPresenter(ProductData productData)
         {
-            this.productData = productData;
+            this.Product = productData;
         }
         public static implicit operator ProductPresenter(ProductData productData)
         {
