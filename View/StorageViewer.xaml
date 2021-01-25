@@ -33,15 +33,8 @@
             ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
             SelectedValue="{Binding StorageId, Mode=TwoWay}" SelectedValuePath="Id"
             SelectionChanged="StorageSelector_SelectionChanged"/>
-        <TextBox  x:Name="Searchbox" Grid.Column="1" KeyUp="Searchbox_KeyUp" mah:TextBoxHelper.Watermark="Поиск...">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MahApps.Styles.TextBox.Search}" TargetType="TextBox">
-                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                    <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
+        <TextBox  x:Name="Searchbox" Grid.Column="1" KeyUp="Searchbox_KeyUp" mah:TextBoxHelper.Watermark="Поиск..." 
+                  Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
             SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding DataGridContent}"

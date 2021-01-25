@@ -13,6 +13,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="BorderColor" Opacity="1" Color="Black"/>
+            <Style TargetType="TextBox" x:Key="SearchTextbox" BasedOn="{StaticResource MahApps.Styles.TextBox.Search}">
+                <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
             <Style x:Key="DataGridColumnHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
