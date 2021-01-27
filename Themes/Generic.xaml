@@ -9,7 +9,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Grid x:Name="MainGrid" Background="Red"/>
+                    <Grid x:Name="MainGrid"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
