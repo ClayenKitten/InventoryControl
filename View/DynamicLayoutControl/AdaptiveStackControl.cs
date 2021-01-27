@@ -11,6 +11,7 @@ namespace InventoryControl.View
     /// </summary>
     public class AdaptiveStackControl : Control
     {
+        const double RESIZERLENGTH = 5.0;
         public AdaptiveStackScheme Scheme { get; set; }
         public List<UIElement> Content { get; } = new List<UIElement>();
 
@@ -45,41 +46,58 @@ namespace InventoryControl.View
             //Generate grid structure
             if (Scheme.Orientation == Orientation.Horizontal)
             {
-                foreach (var schemeElem in Scheme)
+                for (int i = 0; i < Scheme.Count; i++)
                 {
                     MainGrid.ColumnDefinitions.Add(
                         new ColumnDefinition()
                         {
-                            Width = new GridLength(schemeElem.LengthRatio, GridUnitType.Star),
-                            MinWidth = schemeElem.MinLength,
-                            MaxWidth = schemeElem.MaxLength
+                            Width = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star),
+                            MinWidth = Scheme[i].MinLength,
+                            MaxWidth = Scheme[i].MaxLength
                         }
                     );
+                    if(Scheme[i].HasResizer && i != Scheme.Count-1)
+                        MainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(RESIZERLENGTH) });
                 }
             }
             else if (Scheme.Orientation == Orientation.Vertical)
             {
-                foreach (var schemeElem in Scheme)
+                for (int i = 0; i < Scheme.Count; i++)
                 {
                     MainGrid.RowDefinitions.Add(
                         new RowDefinition()
                         {
-                            Height = new GridLength(schemeElem.LengthRatio, GridUnitType.Star),
-                            MinHeight = schemeElem.MinLength,
-                            MaxHeight = schemeElem.MaxLength
+                            Height = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star),
+                            MinHeight = Scheme[i].MinLength,
+                            MaxHeight = Scheme[i].MaxLength
                         }
                     );
+                    if (Scheme[i].HasResizer && i != Scheme.Count - 1)
+                        MainGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(RESIZERLENGTH) });
                 }
             }
             //Add content
-            for (int i=0; i < Content.Count; i++)
+            var property = Scheme.Orientation == Orientation.Horizontal ?
+                            Grid.ColumnProperty : Grid.RowProperty;
+            int resizableElementsCount = 0;
+            int contentIndex = 0;
+            foreach(var schemeElem in Scheme)
             {
-                if (Scheme.Orientation == Orientation.Horizontal)
-                    Content[i].SetValue(Grid.ColumnProperty, i);
-                else if (Scheme.Orientation == Orientation.Vertical)
-                    Content[i].SetValue(Grid.RowProperty, i);
-                MainGrid.Children.Add(Content[i]);
-                
+                //Check if element in content exists
+                if (contentIndex < Content.Count)
+                {
+                    Content[contentIndex].SetValue(property, contentIndex + resizableElementsCount);
+                    MainGrid.Children.Add(Content[contentIndex]);
+                }
+                //Add resizers
+                if (schemeElem.HasResizer && contentIndex != Scheme.Count-1)
+                {
+                    resizableElementsCount++;
+                    var splitter = new GridSplitter();
+                    splitter.SetValue(property, contentIndex + resizableElementsCount);
+                    MainGrid.Children.Add(splitter);
+                }
+                contentIndex++;
             }
         }
     }
