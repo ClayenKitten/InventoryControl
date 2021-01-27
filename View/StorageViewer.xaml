@@ -58,7 +58,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Артикул" ToolTipService.ToolTip="Артикул товара" 
-                    MinWidth="100" Width="100" MaxWidth="100" CanUserReorder="False"
+                    MinWidth="100" Width="1*" MaxWidth="150" CanUserReorder="False"
                     Binding="{Binding Article}" SortDirection="Ascending"/>
                 <DataGridTemplateColumn
                     Header="Наименование" ToolTipService.ToolTip="Наименование" 
