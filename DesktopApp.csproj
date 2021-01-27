@@ -191,7 +191,7 @@
     <Compile Include="Model\Transaction\TransactionData.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
     <Compile Include="View\DynamicLayoutControl\DynamicLayoutControl.cs" />
-    <Compile Include="View\DynamicLayoutControl\ResizableStackControl.cs" />
+    <Compile Include="View\DynamicLayoutControl\DynamicLayoutScheme.cs" />
     <Compile Include="View\DynamicLayoutControl\DynamicLayoutSchemeElement.cs" />
     <Compile Include="View\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
