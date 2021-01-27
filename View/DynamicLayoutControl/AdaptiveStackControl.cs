@@ -51,9 +51,7 @@ namespace InventoryControl.View
                     MainGrid.ColumnDefinitions.Add(
                         new ColumnDefinition()
                         {
-                            Width = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star),
-                            MinWidth = Scheme[i].MinLength,
-                            MaxWidth = Scheme[i].MaxLength
+                            Width = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star)
                         }
                     );
                     if(Scheme[i].HasResizer && i != Scheme.Count-1)
@@ -68,8 +66,6 @@ namespace InventoryControl.View
                         new RowDefinition()
                         {
                             Height = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star),
-                            MinHeight = Scheme[i].MinLength,
-                            MaxHeight = Scheme[i].MaxLength
                         }
                     );
                     if (Scheme[i].HasResizer && i != Scheme.Count - 1)

@@ -15,8 +15,6 @@ namespace InventoryControl.View
     {
         public bool HasResizer { get; }
         public int LengthRatio { get; }
-        public int MinLength { get; }
-        public int MaxLength { get; }
 
         /// <summary>
         /// Basic constructor
@@ -25,12 +23,10 @@ namespace InventoryControl.View
         /// <param name="lengthRatio">Ratio of adaptive side</param>
         /// <param name="minLength">Min length of adaptive side</param>
         /// <param name="maxLength">Max length of adaptive side</param>
-        public AdaptiveStackSchemeElement(bool hasResizer, int lengthRatio, int minLength=0, int maxLength=int.MaxValue)
+        public AdaptiveStackSchemeElement(bool hasResizer, int lengthRatio)
         {
             this.HasResizer = hasResizer;
             this.LengthRatio = lengthRatio;
-            this.MinLength = minLength;
-            this.MaxLength = maxLength;
         }
     }
 }

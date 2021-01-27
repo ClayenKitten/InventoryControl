@@ -19,8 +19,8 @@ namespace InventoryControl
 
             var initPanel = new AdaptiveStackControl(
                 new AdaptiveStackScheme(Orientation.Horizontal,
-                    new AdaptiveStackSchemeElement(true, 1, 1),
-                    new AdaptiveStackSchemeElement(true, 1, 1)
+                    new AdaptiveStackSchemeElement(true, 1),
+                    new AdaptiveStackSchemeElement(true, 1)
                 ),
                 new StorageViewer(0)
             );
