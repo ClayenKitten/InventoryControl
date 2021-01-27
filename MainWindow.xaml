@@ -6,7 +6,6 @@
                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:local="clr-namespace:InventoryControl"
-                xmlns:ucontrols="clr-namespace:InventoryControl.UserControls"
                 xmlns:util="clr-namespace:InventoryControl.Util"
                 xmlns:view="clr-namespace:InventoryControl.View"
                 mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}" 
@@ -37,8 +36,5 @@
         </Grid.RowDefinitions>
 
         <view:MainMenu Grid.Column="0" Grid.Row="0"/>
-        <view:DividedPanel Grid.Row="1" x:Name="Panel">
-            <view:StorageViewer StorageId="2"/>
-        </view:DividedPanel>
     </Grid>
 </mah:MetroWindow>

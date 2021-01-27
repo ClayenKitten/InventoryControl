@@ -56,7 +56,7 @@ namespace InventoryControl.View
         {
             throw new NotImplementedException();
         }
-        private void SellingView_Click(object sender, RoutedEventArgs e) { ((MainWindow)Window.GetWindow(this)).SetOrderControl(false); }
-        private void BuyingView_Click(object sender, RoutedEventArgs e) { ((MainWindow)Window.GetWindow(this)).SetOrderControl(true); }
+        private void SellingView_Click(object sender, RoutedEventArgs e) { throw new NotImplementedException(); }
+        private void BuyingView_Click(object sender, RoutedEventArgs e) { throw new NotImplementedException(); }
     }
 }

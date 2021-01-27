@@ -62,6 +62,7 @@ namespace InventoryControl.ViewModel
                     window.Panel.SetControl(new ProductDictionaryViewer());
                     break;
                 case (PanelManager.PRODUCTVIEWADD):
+                    window.Panel.SetControl(new ProductDictionaryViewer(), new EditProductPanel());
                     break;
                 default:
                     throw new NotImplementedException();

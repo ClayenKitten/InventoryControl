@@ -2,8 +2,6 @@
 using InventoryControl.Model.Product;
 using InventoryControl.Model.Storage;
 using InventoryControl.Model.Util;
-using InventoryControl.UserControls;
-using InventoryControl.UserControls.OrderControl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -93,24 +91,6 @@ namespace InventoryControl.View
             }
             SaleSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
             PurchaseSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
-        }
-        private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var MainWindow = (MainWindow)App.Current.MainWindow;    
-
-            if (MainWindow.MainWindowGrid.Children.Count <= 2)
-                return;
-            var orderControl = (OrderControl)MainWindow.MainWindowGrid.Children[2];
-
-            var row = ((DataGridRow)sender);
-            var id = ((ProductData)row.Item).Id;
-
-            foreach (var saleProduct in orderControl.OrderProducts)
-            {
-                if (saleProduct.Id == id)
-                    return;
-            }
-            orderControl.OrderProducts.Add(new OrderProductData(id));
         }
         private void EditProductClick(object sender, RoutedEventArgs e)
         {
