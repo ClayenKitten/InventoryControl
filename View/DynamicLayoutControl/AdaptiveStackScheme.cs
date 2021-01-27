@@ -9,6 +9,7 @@ namespace InventoryControl.View
     public class AdaptiveStackScheme : IEnumerable<AdaptiveStackSchemeElement>
     {
         public Orientation Orientation { get; }
+        public int Count { get { return value.Count; } }
         private List<AdaptiveStackSchemeElement> value { get; }
 
         public AdaptiveStackScheme(Orientation orientation, List<AdaptiveStackSchemeElement> value)
