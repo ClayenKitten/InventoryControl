@@ -17,11 +17,11 @@ namespace InventoryControl
         {
             InitializeComponent();
 
-            var initPanel = new DynamicLayoutControl(
-                new DynamicLayoutScheme(Orientation.Horizontal,
-                    new DynamicLayoutSchemeElement(true, 1, 1)
+            var initPanel = new AdaptiveStackControl(
+                new AdaptiveStackScheme(Orientation.Horizontal,
+                    new AdaptiveStackSchemeElement(true, 1, 1),
+                    new AdaptiveStackSchemeElement(true, 1, 1)
                 ),
-                new UIElement(),
                 new StorageViewer(0)
             );
             initPanel.SetValue(Grid.RowProperty, 1);

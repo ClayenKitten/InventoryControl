@@ -5,7 +5,7 @@
     xmlns:view="clr-namespace:InventoryControl.View">
 
 
-    <Style TargetType="{x:Type view:DynamicLayoutControl}">
+    <Style TargetType="{x:Type view:AdaptiveStackControl}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
