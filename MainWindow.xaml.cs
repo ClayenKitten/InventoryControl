@@ -17,13 +17,7 @@ namespace InventoryControl
         {
             InitializeComponent();
 
-            var initPanel = new AdaptiveStackControl(
-                new AdaptiveStackScheme(Orientation.Horizontal,
-                    new AdaptiveStackSchemeElement(true, 1),
-                    new AdaptiveStackSchemeElement(true, 1)
-                ),
-                new StorageViewer(0)
-            );
+            var initPanel = new AdaptiveStackControl(AdaptiveStackScheme.SINGLE, new StorageViewer(0));
             initPanel.SetValue(Grid.RowProperty, 1);
             MainWindowGrid.Children.Add(initPanel);
         }

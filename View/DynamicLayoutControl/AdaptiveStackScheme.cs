@@ -8,6 +8,33 @@ namespace InventoryControl.View
 {
     public class AdaptiveStackScheme : IEnumerable<AdaptiveStackSchemeElement>
     {
+        public static AdaptiveStackScheme SINGLE
+        {
+            get
+            {
+                return new AdaptiveStackScheme(Orientation.Horizontal,
+                new AdaptiveStackSchemeElement(false, 1));
+            }
+        }
+        public static AdaptiveStackScheme DIVIDED
+        {
+            get 
+            {
+                return new AdaptiveStackScheme(Orientation.Horizontal,
+                new AdaptiveStackSchemeElement(true, 1),
+                new AdaptiveStackSchemeElement(false, 1));
+            }
+        }
+        public static AdaptiveStackScheme PRIORITIZED
+        {
+            get
+            {
+                return new AdaptiveStackScheme(Orientation.Horizontal,
+                new AdaptiveStackSchemeElement(true, 2),
+                new AdaptiveStackSchemeElement(false, 1));
+            }
+        }
+
         public Orientation Orientation { get; }
         public int Count { get { return value.Count; } }
         private List<AdaptiveStackSchemeElement> value { get; }
