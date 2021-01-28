@@ -23,15 +23,9 @@ namespace InventoryControl.View
         }
         protected override Size MeasureOverride(Size constraint)
         {
-            double width = 0;
-            double height = 0;
-            foreach(var elem in Content)
-            {
-                elem.Measure(constraint);
-                width += elem.DesiredSize.Width;
-                height += elem.DesiredSize.Height;
-            }
-            return new Size(width, height);
+            Grid MainGrid = Template.FindName("MainGrid", this) as Grid;
+            MainGrid.Measure(constraint);
+            return MainGrid.DesiredSize;
         }
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
