@@ -11,9 +11,12 @@ namespace InventoryControl.View
     /// </summary>
     public class AdaptiveStackControl : Control
     {
-        const double RESIZERLENGTH = 5.0;
         public AdaptiveStackScheme Scheme { get; set; }
         public List<UIElement> Content { get; } = new List<UIElement>();
+
+        const double RESIZERLENGTH = 5.0;
+
+        private Grid mainGrid { get { return Template.FindName("MainGrid", this) as Grid; } }
 
         public AdaptiveStackControl(AdaptiveStackScheme scheme, params UIElement[] content)
         {
@@ -23,47 +26,44 @@ namespace InventoryControl.View
         }
         protected override Size MeasureOverride(Size constraint)
         {
-            Grid MainGrid = Template.FindName("MainGrid", this) as Grid;
-            MainGrid.Measure(constraint);
-            return MainGrid.DesiredSize;
+            mainGrid.Measure(constraint);
+            return mainGrid.DesiredSize;
         }
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            Grid MainGrid = Template.FindName("MainGrid", this) as Grid;
-            MainGrid.Arrange(new Rect(arrangeBounds));
+            mainGrid.Arrange(new Rect(arrangeBounds));
             return arrangeBounds;
         }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            Grid MainGrid = Template.FindName("MainGrid", this) as Grid;
             //Generate grid structure
             if (Scheme.Orientation == Orientation.Horizontal)
             {
                 for (int i = 0; i < Scheme.Count; i++)
                 {
-                    MainGrid.ColumnDefinitions.Add(
+                    mainGrid.ColumnDefinitions.Add(
                         new ColumnDefinition()
                         {
                             Width = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star)
                         }
                     );
                     if(Scheme[i].HasResizer && i != Scheme.Count-1)
-                        MainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(RESIZERLENGTH) });
+                        mainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(RESIZERLENGTH) });
                 }
             }
             else if (Scheme.Orientation == Orientation.Vertical)
             {
                 for (int i = 0; i < Scheme.Count; i++)
                 {
-                    MainGrid.RowDefinitions.Add(
+                    mainGrid.RowDefinitions.Add(
                         new RowDefinition()
                         {
                             Height = new GridLength(Scheme[i].LengthRatio, GridUnitType.Star),
                         }
                     );
                     if (Scheme[i].HasResizer && i != Scheme.Count - 1)
-                        MainGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(RESIZERLENGTH) });
+                        mainGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(RESIZERLENGTH) });
                 }
             }
             //Add content
@@ -77,7 +77,7 @@ namespace InventoryControl.View
                 if (contentIndex < Content.Count)
                 {
                     Content[contentIndex].SetValue(property, contentIndex + resizableElementsCount);
-                    MainGrid.Children.Add(Content[contentIndex]);
+                    mainGrid.Children.Add(Content[contentIndex]);
                 }
                 //Add resizers
                 if (schemeElem.HasResizer && contentIndex != Scheme.Count-1)
@@ -85,7 +85,7 @@ namespace InventoryControl.View
                     resizableElementsCount++;
                     var splitter = new GridSplitter();
                     splitter.SetValue(property, contentIndex + resizableElementsCount);
-                    MainGrid.Children.Add(splitter);
+                    mainGrid.Children.Add(splitter);
                 }
                 contentIndex++;
             }
