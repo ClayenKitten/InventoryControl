@@ -21,6 +21,16 @@ namespace InventoryControl
             initPanel.SetValue(Grid.RowProperty, 1);
             MainWindowGrid.Children.Add(initPanel);
         }
-        public DividedPanel Panel { get; set; }
+        public void SetPanel(AdaptiveStackControl content)
+        {
+            content.SetValue(Grid.RowProperty, 1);
+            if (MainWindowGrid.Children.Count < 2)
+                MainWindowGrid.Children.Add(content);
+            else
+            {
+                MainWindowGrid.Children.RemoveAt(1);
+                MainWindowGrid.Children.Add(content);
+            }
+        }
     }
 }

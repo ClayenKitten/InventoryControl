@@ -54,15 +54,24 @@ namespace InventoryControl.ViewModel
             switch(PanelName)
             {
                 case (PanelManager.STORAGEVIEW):
-                    window.Panel.SetControl(new StorageViewer(0));
+                    window.SetPanel(
+                        new AdaptiveStackControl(AdaptiveStackScheme.SINGLE,
+                        new StorageViewer(0))
+                    );
                     break;
                 case (PanelManager.STORAGEEDIT):
                     break;
                 case (PanelManager.PRODUCTVIEW):
-                    window.Panel.SetControl(new ProductDictionaryViewer());
+                    window.SetPanel(
+                        new AdaptiveStackControl(AdaptiveStackScheme.SINGLE,
+                        new ProductDictionaryViewer())
+                    );
                     break;
                 case (PanelManager.PRODUCTVIEWADD):
-                    window.Panel.SetControl(new ProductDictionaryViewer(), new EditProductPanel());
+                    window.SetPanel(
+                        new AdaptiveStackControl(AdaptiveStackScheme.PRIORITIZED, 
+                        new ProductDictionaryViewer(), new EditProductPanel())
+                    );
                     break;
                 default:
                     throw new NotImplementedException();

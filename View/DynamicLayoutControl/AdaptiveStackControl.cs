@@ -20,9 +20,12 @@ namespace InventoryControl.View
 
         public AdaptiveStackControl(AdaptiveStackScheme scheme, params UIElement[] content)
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(AdaptiveStackControl), new FrameworkPropertyMetadata(typeof(AdaptiveStackControl)));
             this.Scheme = scheme;
             this.Content = new List<UIElement>(content);
+        }
+        static AdaptiveStackControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AdaptiveStackControl), new FrameworkPropertyMetadata(typeof(AdaptiveStackControl)));
         }
         protected override Size MeasureOverride(Size constraint)
         {
