@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
-    class ProductDictionaryViewModel : INotifyPropertyChanged
+    class ProductDictionaryViewerVM : INotifyPropertyChanged
     {
         public ObservableCollection<ProductPresenter> Content
         {
@@ -26,7 +26,7 @@ namespace InventoryControl.ViewModel
                 return res;
             }
         }
-        public ProductDictionaryViewModel()
+        public ProductDictionaryViewerVM()
         {
             GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }

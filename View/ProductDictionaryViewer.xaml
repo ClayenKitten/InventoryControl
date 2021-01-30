@@ -10,7 +10,7 @@
              xmlns:util="clr-namespace:InventoryControl.Util"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext><vm:ProductDictionaryViewModel/></UserControl.DataContext>
+    <UserControl.DataContext><vm:ProductDictionaryViewerVM/></UserControl.DataContext>
     <UserControl.Resources>
         <CollectionViewSource x:Key="cvsProduct" Source="{Binding Content}" Filter="CollectionViewSource_Filter"/>
     </UserControl.Resources>
