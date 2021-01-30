@@ -5,19 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              xmlns:util="clr-namespace:InventoryControl.Util"
-             mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext><vm:StorageViewerVM/></UserControl.DataContext>
     <UserControl.Resources>
         <ContextMenu x:Key="HeaderContextMenu">
             <MenuItem Header="Здесь будет выбор колонок"/>
         </ContextMenu>
         <ContextMenu x:Key="RowContextMenu">
             <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
-            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" Click="EditProductClick"/>
+            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
+                      Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
             <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
         </ContextMenu>
-    </UserControl.Resources>
+        <CollectionViewSource x:Key="cvsProduct" Source="{Binding Content}" Filter="CollectionViewSource_Filter"/>
+        </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -30,16 +35,22 @@
         </Grid.RowDefinitions>
         <ComboBox x:Name="StorageSelector" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"
             ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
-            SelectedValue="{Binding StorageId, Mode=TwoWay}" SelectedValuePath="Id"
-            SelectionChanged="StorageSelector_SelectionChanged"/>
-        <TextBox  x:Name="Searchbox" Grid.Column="1" KeyUp="Searchbox_KeyUp" mah:TextBoxHelper.Watermark="Поиск..." 
+            SelectedValue="{Binding StorageId, Mode=TwoWay}" SelectedValuePath="Id">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
+                  Text="{Binding SearchString, Mode=OneWayToSource}"
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
-            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding DataGridContent}"
+            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Content}"
             CanUserSortColumns="True" AutoGenerateColumns="False"
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-            Grid.ColumnSpan="2" Grid.Row="1">
+            Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}">
             <DataGrid.Resources>
                 <Style TargetType="Button" x:Key="ControllingButton" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
                     <Setter Property="BorderThickness" Value="0.1"/>
@@ -94,7 +105,7 @@
         <StatusBar x:Name="StorageStatusBar" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
             <StatusBarItem Padding="0">
                 <Button x:Name="ReloadContent"
-                    Height="30" Width="30" Margin="0" Padding="0" Click="ReloadContent_Click"
+                    Height="30" Width="30" Margin="0" Padding="0" Command="vm:GlobalCommands.ModelUpdated"
                     Focusable="False" BorderThickness="0" Content="{iconPacks:FontAwesome Kind=SyncSolid}"
                     Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}"
                     Style="{StaticResource MahApps.Styles.Button.MetroSquare}"/>
@@ -102,7 +113,7 @@
             <StatusBarItem HorizontalAlignment="Right" Margin="0,0,5,0">
                 <TextBlock>
                     <Run Text="Наименований: "/>
-                    <Run Text="{Binding DataGridContent.Count, Mode=OneWay}"/>
+                    <Run Text="{Binding Content.Count, Mode=OneWay}"/>
                     <Run Text="   |   "/>
                     <Run Text="Закупочная сумма: "/>
                     <Run x:Name="PurchaseSumRun" Text="{Binding PurchaseSum, Mode=OneWay, UpdateSourceTrigger=Explicit}"/>

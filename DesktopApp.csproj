@@ -192,6 +192,7 @@
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
+    <Compile Include="ViewModel\StorageViewerVM.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackControl.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackScheme.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackSchemeElement.cs" />

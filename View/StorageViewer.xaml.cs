@@ -2,6 +2,7 @@
 using InventoryControl.Model.Product;
 using InventoryControl.Model.Storage;
 using InventoryControl.Model.Util;
+using InventoryControl.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,108 +26,25 @@ namespace InventoryControl.View
     /// <summary>
     /// Interaction logic for StorageViewer.xaml
     /// </summary>
-    public partial class StorageViewer : UserControl, INotifyPropertyChanged
+    public partial class StorageViewer : UserControl
     {
-        public ObservableCollection<StockProductPresenter> DataGridContent { get; set; } = new ObservableCollection<StockProductPresenter>();
-
-        public int StorageId { get; set; }
-        public static readonly DependencyProperty StorageIdProperty =
-            DependencyProperty.Register("StorageId", typeof(int),
-            typeof(StorageViewer), new PropertyMetadata(-1));
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public StorageData Storage { get { return StorageDataMapper.GetStorage(storageId); } }
-        public List<StorageData> AllStoragesList { get { return StorageDataMapper.GetAllStorages(); } }
-        //Statusbar values
-        private int storageId { get { return (int)GetValue(StorageIdProperty); } }
-        public string SaleSum
-        {
-            get 
-            {
-                Money sum = 0.0M;
-                foreach(var product in DataGridContent)
-                {
-                    sum += product.Product.SalePrice * product.Remain;
-                }
-                return sum.ToString();
-            }
-        }
-        public string PurchaseSum
-        {
-            get
-            {
-                Money sum = 0.0M;
-                foreach (var product in DataGridContent)
-                {
-                    sum += product.Product.PurchasePrice * product.Remain;
-                }
-                return sum.ToString();
-            }
-        }
-
         public StorageViewer()
         {
             InitializeComponent();
         }
-        public StorageViewer(int index)
+        public StorageViewer(int storageId) : this()
         {
-            InitializeComponent();
-            SetValue(StorageIdProperty, index);
-        }
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
-            if(e.Property == StorageIdProperty) 
-            { 
-                UpdateContent();
-            }
-        }
-        private void UpdateContent()
-        {
-            DataGridContent.Clear();
-            foreach (var product in StorageDataMapper.GetProductsInStorage(storageId))
-            {
-                DataGridContent.Add(new StockProductPresenter(product, storageId));
-            }
-            SaleSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
-            PurchaseSumRun.GetBindingExpression(Run.TextProperty).UpdateTarget();
-        }
-        private void EditProductClick(object sender, RoutedEventArgs e)
-        {
-            var contextMenu = (ContextMenu)((MenuItem)sender).Parent;
-            var row = (DataGridRow)contextMenu.PlacementTarget;
-            var id = ((StockProductPresenter)MainDataGrid.Items.GetItemAt(row.GetIndex())).Product.Id;
-
-            throw new NotImplementedException();
+            ((StorageViewerVM)this.DataContext).StorageId = storageId;
         }
 
-        private void MakeSearch(string searchString)
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
-            DataGridContent.Clear();
-            foreach (ProductData product in StorageDataMapper.GetProductsInStorage(storageId))
-            {
-                String search = searchString.ToLower().Replace('ё', 'е').Replace(" ", "").Trim();
-                String title = product.Name.ToLower().Replace('ё', 'е').Replace(" ","").Trim();
+            var searchString = ((StorageViewerVM)this.DataContext).SearchString;
 
-                if (title.Contains(search))
-                {
-                    DataGridContent.Add(new StockProductPresenter(product, storageId));
-                }
-            }
-        }
-        private void Searchbox_KeyUp(object sender, KeyEventArgs e)
-        {
-            MakeSearch(Searchbox.Text);
-        }
-        private void StorageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
+            string productName = ((ProductPresenter)e.Item).Name.ToLower().Replace('ё', 'е');
+            searchString = searchString.ToLower().Replace('ё', 'е');
 
-        private void ReloadContent_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateContent();
+            e.Accepted = productName.Contains(searchString);
         }
     }
 }

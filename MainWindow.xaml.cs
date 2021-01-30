@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using InventoryControl.View;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using InventoryControl.ViewModel;
 
 namespace InventoryControl
 {
@@ -20,6 +21,19 @@ namespace InventoryControl
             var initPanel = new AdaptiveStackControl(AdaptiveStackScheme.SINGLE, new StorageViewer(0));
             initPanel.SetValue(Grid.RowProperty, 1);
             MainWindowGrid.Children.Add(initPanel);
+
+            GlobalCommands.EditProduct.Executed += (productId) =>
+            {
+                this.SetPanel
+                (
+                    new AdaptiveStackControl
+                    (
+                        AdaptiveStackScheme.PRIORITIZED,
+                        new ProductDictionaryViewer(),
+                        new EditProductPanel((int)productId)
+                    )
+                );
+            };
         }
         public void SetPanel(AdaptiveStackControl content)
         {
