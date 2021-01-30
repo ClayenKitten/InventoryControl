@@ -13,6 +13,11 @@
     <UserControl.DataContext><vm:ProductDictionaryViewerVM/></UserControl.DataContext>
     <UserControl.Resources>
         <CollectionViewSource x:Key="cvsProduct" Source="{Binding Content}" Filter="CollectionViewSource_Filter"/>
+        <ContextMenu x:Key="RowContextMenu">
+            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
+                      Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
+            <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
+        </ContextMenu>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,6 +37,11 @@
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" 
                   ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
                   ItemsSource="{Binding Source={StaticResource cvsProduct}}" AutoGenerateColumns="False">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Артикул" MinWidth="100" Width="100" MaxWidth="100" Binding="{Binding Article}"/>
                 <DataGridTemplateColumn Header="Наименование" MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name">

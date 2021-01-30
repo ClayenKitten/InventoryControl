@@ -16,7 +16,7 @@
             <MenuItem Header="Здесь будет выбор колонок"/>
         </ContextMenu>
         <ContextMenu x:Key="RowContextMenu">
-            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
+            <MenuItem Header="Показать в прайс-листе" Icon="{iconPacks:Material Kind=ClipboardListOutline}" IsEnabled="False"/>
             <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
                       Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
             <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
