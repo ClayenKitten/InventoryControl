@@ -1,7 +1,9 @@
 ﻿using InventoryControl.Model;
 using InventoryControl.Model.Product;
+using InventoryControl.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,7 +39,21 @@ namespace InventoryControl.View
         }
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            
+            int id = ProductDataMapper.Create();
+            ProductDataMapper.Update
+            (
+                new ProductData
+                (
+                    id: id,
+                    name: TitleAT.Value,
+                    purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
+                    salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
+                    value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                    unit: new Unit(MeasurementCB.SelectedIndex).value,
+                    article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
+                )
+            );
+            GlobalCommands.ModelUpdated.Execute(null);            
         }
     }
 }

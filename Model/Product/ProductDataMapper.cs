@@ -13,39 +13,35 @@ namespace InventoryControl.Model.Product
         {
             const string commandText =
             @"
-                INSERT INTO ProductsDictionary DEFAULT VALUES; 
-                SELECT Id FROM ProductsDictionary 
+                INSERT INTO Product DEFAULT VALUES; 
+                SELECT Id FROM Product
                 WHERE ROWID = last_insert_rowid();
             ";
-            return (int)Database.CommitScalarTransaction(commandText);
-        }
-        public static int Create(ProductData product)
-        {
-            var id = ProductDataMapper.Create();
-            ProductDataMapper.Update(id, product);
-            return id;
+            return (int)(long)Database.CommitScalarTransaction(commandText);
         }
 
-        public static void Update(int id, ProductData product)
+        public static void Update(ProductData product)
         {
             const string commandText =
             @"
-                UPDATE ProductsDictionary SET
+                UPDATE Product SET
 
                 Title=$name,
                 Measurement=$unit,
                 Packing=$packing,
                 PurchasePrice=$purchasePrice,
-                SalePrice=$salePrice
+                SalePrice=$salePrice,
+                Article=$article
                 WHERE Id=$id;
             ";
             Database.CommitNonQueryTransaction(commandText,
                 new SQLiteParameter("$name", product.Name),
                 new SQLiteParameter("$unit", product.Measurement.GetUnit().value),
                 new SQLiteParameter("$packing", product.Measurement.GetRawValue()),
-                new SQLiteParameter("$purchasePrice", product.PurchasePrice),
-                new SQLiteParameter("$salePrice", product.SalePrice),
-                new SQLiteParameter("$id", id)
+                new SQLiteParameter("$purchasePrice", product.PurchasePrice.GetFormattedValue()),
+                new SQLiteParameter("$salePrice", product.SalePrice.GetFormattedValue()),
+                new SQLiteParameter("$article", product.Article),
+                new SQLiteParameter("$id", product.Id)
             );
         }
         
@@ -81,7 +77,7 @@ namespace InventoryControl.Model.Product
 
         public static void Delete(int id)
         {
-            const string commandText = "DELETE * FROM ProductsDictionary WHERE Id=$id";
+            const string commandText = "DELETE * FROM Product WHERE Id=$id";
             Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
         }
     }

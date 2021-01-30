@@ -190,6 +190,8 @@
     <Compile Include="Model\Storage\StorageDataMapper.cs" />
     <Compile Include="Model\Transaction\TransactionData.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
+    <Compile Include="ViewModel\Command\EventCommand.cs" />
+    <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackControl.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackScheme.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackSchemeElement.cs" />

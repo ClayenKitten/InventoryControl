@@ -28,8 +28,9 @@ namespace InventoryControl.ViewModel
         }
         public ProductDictionaryViewModel()
         {
-            
+            GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }
+
         private void DataGrid_Filter(object sender, FilterEventArgs e)
         {
             if ((e.Item as ProductPresenter).Name.Contains(SearchString))
@@ -50,8 +51,7 @@ namespace InventoryControl.ViewModel
 
         public void OnPropertyChanged([CallerMemberName]string property = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(property));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }
