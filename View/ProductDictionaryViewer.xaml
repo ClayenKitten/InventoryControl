@@ -34,7 +34,7 @@
                   ItemsSource="{Binding Source={StaticResource cvsProduct}}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Артикул" MinWidth="100" Width="100" MaxWidth="100" Binding="{Binding Article}"/>
-                <DataGridTemplateColumn Header="Наименование" MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Title">
+                <DataGridTemplateColumn Header="Наименование" MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <util:HighlightTextBlock Text="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
