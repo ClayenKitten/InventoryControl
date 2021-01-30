@@ -60,7 +60,7 @@ namespace InventoryControl.ViewModel
 
         public StorageViewerVM()
         {
-            GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Content")); };
+            GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
