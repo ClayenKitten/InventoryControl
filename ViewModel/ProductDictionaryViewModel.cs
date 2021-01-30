@@ -4,16 +4,55 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
     class ProductDictionaryViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<ProductPresenter> Content { get; set; }
+        public ObservableCollection<ProductPresenter> Content
+        {
+            get
+            {
+                ObservableCollection<ProductPresenter> res = new ObservableCollection<ProductPresenter>();
+                foreach (var product in ProductDataMapper.GetFullDictionary())
+                {
+                    res.Add(new ProductPresenter(product));
+                }
+                return res;
+            }
+        }
+        public ProductDictionaryViewModel()
+        {
+            
+        }
+        private void DataGrid_Filter(object sender, FilterEventArgs e)
+        {
+            if ((e.Item as ProductPresenter).Name.Contains(SearchString))
+                e.Accepted = true;
+        }
 
+        private string searchString;
+        public string SearchString 
+        {
+            get { return searchString; }
+            set
+            {
+                searchString = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Content");
+            }
+        }
+
+        public void OnPropertyChanged([CallerMemberName]string property = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(property));
+        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
