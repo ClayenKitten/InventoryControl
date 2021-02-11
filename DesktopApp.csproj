@@ -190,6 +190,7 @@
     <Compile Include="Model\Storage\StorageDataMapper.cs" />
     <Compile Include="Model\Transaction\TransactionData.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
+    <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="ViewModel\StorageViewerVM.cs" />
