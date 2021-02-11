@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
@@ -28,7 +29,17 @@ namespace InventoryControl.ViewModel
         }
 
         public int StorageId { get; set; }
-        public string SearchString { get; set; }
+        private string searchString;
+        public string SearchString
+        {
+            get { return searchString; }
+            set
+            {
+                searchString = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SearchString"));
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Content"));
+            }
+        }
         public List<StorageData> AllStoragesList { get { return StorageDataMapper.GetAllStorages(); } }
         //Statusbar
         public string SaleSum
