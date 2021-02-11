@@ -31,12 +31,6 @@ namespace InventoryControl.ViewModel
             GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }
 
-        private void DataGrid_Filter(object sender, FilterEventArgs e)
-        {
-            if ((e.Item as ProductPresenter).Name.Contains(SearchString))
-                e.Accepted = true;
-        }
-
         private string searchString;
         public string SearchString 
         {
