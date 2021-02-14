@@ -15,11 +15,12 @@
             <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=EditSolid}" Command="{Binding OpenStorageEdit}"/>
         </MenuItem>
         <MenuItem Header="Оборот">
-            <MenuItem Header="Оформить накладную" Icon="{iconPacks:FontAwesome Kind=FileInvoiceSolid}">
-                <MenuItem Header="Продажа" Command="{Binding OpenSell}"/>
-                <MenuItem Header="Покупка" Command="{Binding OpenBuy}"/>
-            </MenuItem>
-            <MenuItem Header="Оформить возврат" Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="False"/>
+            <MenuItem Header="Оформить закупку" Command="{Binding OpenTransactionProductsViewerBuy}" 
+                      Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" IsEnabled="True"/>
+            <MenuItem Header="Оформить продажу" Command="{Binding OpenTransactionProductsViewerSell}" 
+                      Icon="{iconPacks:FontAwesome Kind=TruckSolid}" IsEnabled="True"/>
+            <MenuItem Header="Оформить возврат" Command="{Binding OpenTransactionProductsViewerReturn}" 
+                      Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="True"/>
             <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
             <Separator/>
             <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}" Command="{Binding OpenInvoiceEditor}"/>

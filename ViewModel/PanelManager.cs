@@ -42,6 +42,40 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        //Transaction
+        public OpenPanelCommand OpenTransactionProductsViewerBuy
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
+                    new StorageViewer(), new TransactionProductsViewer(TransactionType.Buy));
+                });
+            }
+        }
+        public OpenPanelCommand OpenTransactionProductsViewerSell
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
+                    new StorageViewer(), new TransactionProductsViewer(TransactionType.Sell));
+                });
+            }
+        }
+        public OpenPanelCommand OpenTransactionProductsViewerReturn
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
+                    new StorageViewer(), new TransactionProductsViewer(TransactionType.Return));
+                });
+            }
+        }
         #endregion
     }
 }
