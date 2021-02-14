@@ -18,7 +18,10 @@ namespace InventoryControl.View
 
         private Grid mainGrid { get { return Template.FindName("MainGrid", this) as Grid; } }
 
+        //Constructors
         public AdaptiveStackControl(AdaptiveStackScheme scheme, params UIElement[] content)
+            : this(scheme, new List<UIElement>(content)) { }
+        public AdaptiveStackControl(AdaptiveStackScheme scheme, List<UIElement> content)
         {
             this.Scheme = scheme;
             this.Content = new List<UIElement>(content);

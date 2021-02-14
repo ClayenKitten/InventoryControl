@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryControl.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace InventoryControl.ViewModel
 {
     public class OpenPanelCommand : ICommand
     {
-        public string PanelName { get; set; }
+        Func<AdaptiveStackControl> GetPanelDel { get; }
 
         public event EventHandler CanExecuteChanged;
         public bool CanExecute(object parameter)
@@ -19,12 +20,12 @@ namespace InventoryControl.ViewModel
 
         public void Execute(object parameter)
         {
-            PanelManager.OpenPanel(PanelName);
+            ((MainWindow)App.Current.MainWindow).SetPanel(GetPanelDel.Invoke());
         }
         
-        public OpenPanelCommand(string panelName)
+        public OpenPanelCommand(Func<AdaptiveStackControl> getPanelDel)
         {
-            this.PanelName = panelName;
+            this.GetPanelDel = getPanelDel;
         }
     }
 }
