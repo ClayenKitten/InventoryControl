@@ -51,7 +51,18 @@ namespace InventoryControl.ViewModel
 
         public TransactionProductsViewerVM()
         {
-            
+            GlobalCommands.SendProduct.Executed += (parameter) =>
+            {
+                int productId;
+                try { productId = Convert.ToInt32(parameter); }
+                catch { return; }
+
+                foreach(var product in Content)
+                {
+                    if(product.Id == productId) return;
+                }
+                Content.Add(new TransactionProductPresenter(ProductDataMapper.Read(productId), 1));
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

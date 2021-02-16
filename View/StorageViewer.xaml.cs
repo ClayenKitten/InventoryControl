@@ -46,5 +46,13 @@ namespace InventoryControl.View
 
             e.Accepted = productName.Contains(searchString);
         }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var row = ((DataGridRow)sender);
+            var id = ((StockProductPresenter)row.Item).Id;
+
+            GlobalCommands.SendProduct.Execute(id);
+        }
     }
 }

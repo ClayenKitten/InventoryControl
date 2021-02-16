@@ -23,17 +23,22 @@
             FontSize="20" FontWeight="SemiBold"
             VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Content}"
-                  AutoGenerateColumns="False"
-                  CanUserResizeColumns="False" CanUserReorderColumns="False"
-                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-                  CellStyle="{StaticResource DataGridCellDefaultStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="АРТИКУЛ" Width="100" Binding="{Binding Article}"/>
-                <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="КОЛ" Width="50" Binding="{Binding TransmitNumber}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Content}"
+                      AutoGenerateColumns="False" x:Name="MainDataGrid"
+                      CanUserResizeColumns="False" CanUserReorderColumns="False"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                      CellStyle="{StaticResource DataGridCellDefaultStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="АРТИКУЛ" Width="100" Binding="{Binding Article}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="КОЛ" Width="50" Binding="{Binding TransmitNumber}" IsReadOnly="False"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Text="Выберите продукты на складе, чтобы добавить их к транзакции" 
+                Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter},
+                ElementName=MainDataGrid}" />
+        </StackPanel>
         <Button Grid.Row="2"
             Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить"/>
     </Grid>

@@ -52,7 +52,7 @@
         <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
             SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Source={StaticResource cvsProduct}}"
-            CanUserSortColumns="True" AutoGenerateColumns="False"
+            CanUserSortColumns="True" AutoGenerateColumns="False" 
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}">
             <DataGrid.Resources>
@@ -100,6 +100,7 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.GroupStyle>
