@@ -210,7 +210,6 @@
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\PanelManager.cs" />
-    <Compile Include="View\DividedPanel.cs" />
     <Compile Include="View\ProductDictionaryViewer.xaml.cs">
       <DependentUpon>ProductDictionaryViewer.xaml</DependentUpon>
     </Compile>
