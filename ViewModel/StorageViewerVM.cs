@@ -20,7 +20,7 @@ namespace InventoryControl.ViewModel
             get
             {
                 ObservableCollection<StockProductPresenter> res = new ObservableCollection<StockProductPresenter>();
-                foreach (var product in StorageDataMapper.GetProductsInStorage(StorageId))
+                foreach (var product in ProductDataMapper.GetFullDictionary())
                 {
                     res.Add(new StockProductPresenter(product, StorageId));
                 }

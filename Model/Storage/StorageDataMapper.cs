@@ -72,22 +72,6 @@ namespace InventoryControl.Model.Storage
             }
             return res;
         }
-        public static List<ProductData> GetProductsInStorage(int storageId)
-        {
-            var res = new List<ProductData>();
-            const string commandText =
-            @"
-                SELECT Product.Id FROM ProductNumber
-                INNER JOIN Product ON ProductNumber.ProductId = Product.Id
-                WHERE ProductNumber.StorageId=$storageId
-            ";
-            using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$storageId", storageId));
-            while(rdr.Read())
-            {
-                res.Add(ProductDataMapper.Read(rdr.GetInt32(0)));
-            }
-            return res;
-        }
         public static int GetProductAmount(int productId, int storageId)
         {
             const string commandText =
@@ -96,10 +80,14 @@ namespace InventoryControl.Model.Storage
                 WHERE ProductNumber.ProductId=$productId
                 AND ProductNumber.StorageId=$storageId
             ";
-            return (int)(double)Database.CommitScalarTransaction(commandText,
+            var res = Database.CommitScalarTransaction(commandText, 
                 new SQLiteParameter("$productId", productId),
                 new SQLiteParameter("$storageId", storageId)
             );
+            if (!(res is null))
+                return (int)(double)res;
+            else
+                return 0;
         }
     }
 }
