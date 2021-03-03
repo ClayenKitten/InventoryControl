@@ -9,15 +9,24 @@ namespace InventoryControl.Model.Product
 {
     public static class ProductDataMapper
     {
-        public static int Create()
+        public static ProductData Create(ProductData product)
         {
             const string commandText =
             @"
-                INSERT INTO Product DEFAULT VALUES; 
-                SELECT Id FROM Product
-                WHERE ROWID = last_insert_rowid();
+                INSERT INTO Product(Title, Measurement, Packing, PurchasePrice, SalePrice, Article)
+                VALUES($name,$unit,$packing,$purchasePrice,$salePrice,$article);
+
+                SELECT Id FROM Product WHERE ROWID = last_insert_rowid();
             ";
-            return (int)(long)Database.CommitScalarTransaction(commandText);
+            product.Id = (int)(long)Database.CommitScalarTransaction(commandText,
+                new SQLiteParameter("$name", product.Name),
+                new SQLiteParameter("$unit", product.Measurement.GetUnit().value),
+                new SQLiteParameter("$packing", product.Measurement.GetRawValue()),
+                new SQLiteParameter("$purchasePrice", product.PurchasePrice.GetFormattedValue()),
+                new SQLiteParameter("$salePrice", product.SalePrice.GetFormattedValue()),
+                new SQLiteParameter("$article", product.Article)
+            );
+            return product;
         }
 
         public static void Update(ProductData product)
@@ -44,7 +53,7 @@ namespace InventoryControl.Model.Product
                 new SQLiteParameter("$id", product.Id)
             );
         }
-        
+
         public static ProductData Read(int id)
         {
             const string commandText = "SELECT * FROM Product WHERE Id=$id";

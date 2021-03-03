@@ -5,7 +5,7 @@ namespace InventoryControl.Model.Product
 {
     public class ProductData
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public string Name { get; }
         public Money PurchasePrice { get; }
         public Money SalePrice { get; }

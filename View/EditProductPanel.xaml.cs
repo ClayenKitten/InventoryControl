@@ -39,12 +39,10 @@ namespace InventoryControl.View
         }
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            int id = ProductDataMapper.Create();
-            ProductDataMapper.Update
-            (
+            ProductDataMapper.Create(
                 new ProductData
                 (
-                    id: id,
+                    id: -1,
                     name: TitleAT.Value,
                     purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
                     salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
