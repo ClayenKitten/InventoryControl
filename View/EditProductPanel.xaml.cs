@@ -51,7 +51,9 @@ namespace InventoryControl.View
                     article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
                 )
             );
-            GlobalCommands.ModelUpdated.Execute(null);            
+            GlobalCommands.ModelUpdated.Execute(null);
+            var PM = new PanelManager();
+            PM.OpenProductView.Execute();
         }
     }
 }
