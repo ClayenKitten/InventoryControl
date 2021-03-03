@@ -18,11 +18,12 @@ namespace InventoryControl.ViewModel
             return true;
         }
 
-        public void Execute(object parameter)
+        public void Execute()
         {
             ((MainWindow)App.Current.MainWindow).SetPanel(GetPanelDel.Invoke());
         }
-        
+        public void Execute(object parameter) => Execute();
+
         public OpenPanelCommand(Func<AdaptiveStackControl> getPanelDel)
         {
             this.GetPanelDel = getPanelDel;
