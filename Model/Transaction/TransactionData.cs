@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryControl.Model.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +7,19 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model.Transaction
 {
-    enum TransactionDirection
-    {
-        Sell,
-        Buy,
-    }
-    class TransactionData
+    public class TransactionData
     {
         public DateTime DateTime { get; set; }
-        public TransactionDirection Direction { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
-        public List<int> ProductsIds { get; set; }
+        public int PurchaserStorageId { get; set; }
+        public int SupplierStorageId { get; set; }
+        public List<TransactionProductPresenter> Products { get; set; }
 
-        public TransactionData(DateTime dateTime, TransactionDirection direction, string from, string to, List<int> productIds)
+        public TransactionData(DateTime dateTime, int purchaserStorageId, int supplierStorageId, List<TransactionProductPresenter> products)
         {
             DateTime = dateTime;
-            Direction = direction;
-            From = from;
-            To = to;
-            ProductsIds = productIds;
+            PurchaserStorageId = purchaserStorageId;
+            SupplierStorageId = supplierStorageId;
+            Products = products;
         }
     }
 }

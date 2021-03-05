@@ -14,5 +14,7 @@ namespace InventoryControl.ViewModel
         public static EventCommand EditProduct { get; } = new EventCommand();
         //Executed when product is sent from StorageViewer to TransactionProductsViewer
         public static EventCommand SendProduct { get; } = new EventCommand();
+        //Executed when transaction is created
+        public static EventCommand CreateTransaction { get; } = new EventCommand();
     }
 }

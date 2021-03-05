@@ -40,6 +40,6 @@
                 ElementName=MainDataGrid}" />
         </StackPanel>
         <Button Grid.Row="2"
-            Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить"/>
+            Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить" Command="vm:GlobalCommands.CreateTransaction"/>
     </Grid>
 </UserControl>
