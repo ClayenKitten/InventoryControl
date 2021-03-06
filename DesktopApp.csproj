@@ -195,7 +195,8 @@
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
-    <Compile Include="ViewModel\StorageViewerVM.cs" />
+    <Compile Include="ViewModel\StorageViewer\StorageViewerOptions.cs" />
+    <Compile Include="ViewModel\StorageViewer\StorageViewerVM.cs" />
     <Compile Include="ViewModel\TransactionProductsViewerVM.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackControl.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackScheme.cs" />

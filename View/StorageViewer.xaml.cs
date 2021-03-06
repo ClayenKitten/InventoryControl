@@ -32,20 +32,23 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        public StorageViewer(int storageId) : this()
+        public StorageViewer(int storageId, bool isDriven) : this()
         {
-            ((StorageViewerVM)this.DataContext).StorageId = storageId;
+            if (isDriven)
+                dataContext.Options = new StorageViewerOptions(storageId)
+                {
+                    IsSelectorReadOnly = true,
+                    ShowOutOfStockProducts = false,
+                    GroupOutOfStockProducts = false,
+                    ShowOptionsSettings = false
+                };
+            else
+                dataContext.Options = new StorageViewerOptions(storageId);
         }
-
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
-        {
-            var searchString = ((StorageViewerVM)this.DataContext).SearchString;
-
-            string productName = ((ProductPresenter)e.Item).Name.ToLower().Replace('ё', 'е');
-            searchString = searchString.ToLower().Replace('ё', 'е');
-
-            e.Accepted = productName.Contains(searchString);
-        }
+        public StorageViewer(int storageId) : this(storageId, false) {}
+        
+        private StorageViewerVM dataContext { get { return (StorageViewerVM)DataContext; } }
+        
 
         private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

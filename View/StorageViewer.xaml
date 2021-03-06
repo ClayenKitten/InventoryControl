@@ -8,7 +8,7 @@
              xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              xmlns:util="clr-namespace:InventoryControl.Util"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d"
+             mc:Ignorable="d" x:Name="StorageViewerUC"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext><vm:StorageViewerVM/></UserControl.DataContext>
     <UserControl.Resources>
@@ -21,11 +21,6 @@
                       Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
             <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
         </ContextMenu>
-        <CollectionViewSource x:Key="cvsProduct" Source="{Binding Content}" Filter="CollectionViewSource_Filter">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="IsInStock"/>
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,8 +33,9 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="StorageSelector" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"
+            IsReadOnly="{Binding Options.IsSelectorReadOnly}"
             ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
-            SelectedValue="{Binding StorageId, Mode=TwoWay}" SelectedValuePath="Id">
+            SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
@@ -51,8 +47,8 @@
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
-            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Source={StaticResource cvsProduct}}"
-            CanUserSortColumns="True" AutoGenerateColumns="False" 
+            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding View, UpdateSourceTrigger=PropertyChanged}"
+            CanUserSortColumns="True" AutoGenerateColumns="False"
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}">
             <DataGrid.Resources>
@@ -67,7 +63,11 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Name}" Value="False">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Name}" Value="False"/>
+                                <Condition Binding="{Binding DataContext.Options.GroupOutOfStockProducts, ElementName=StorageViewerUC}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
@@ -85,7 +85,7 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
                 <Style TargetType="Button" x:Key="ControllingButton" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
