@@ -28,6 +28,17 @@ namespace InventoryControl.ViewModel
                 Options.StorageId = value;
             }
         }
+        public bool IsSelectorEnabled
+        {
+            get
+            {
+                return Options.IsSelectorEnabled;
+            }
+            set
+            {
+                Options.IsSelectorEnabled = value;
+            }
+        }
         public ICollectionView View 
         {
             get
@@ -36,6 +47,8 @@ namespace InventoryControl.ViewModel
                 view.Filter = FilterProducts;
                 if (Options.GroupOutOfStockProducts)
                     view.GroupDescriptions.Add(new PropertyGroupDescription("IsInStock"));
+                else
+                    view.GroupDescriptions.Clear();
                 return view;
             }
         }

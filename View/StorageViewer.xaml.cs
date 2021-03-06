@@ -32,20 +32,12 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        public StorageViewer(int storageId, bool isDriven) : this()
+        public StorageViewer(StorageViewerOptions options) : this()
         {
-            if (isDriven)
-                dataContext.Options = new StorageViewerOptions(storageId)
-                {
-                    IsSelectorReadOnly = true,
-                    ShowOutOfStockProducts = false,
-                    GroupOutOfStockProducts = false,
-                    ShowOptionsSettings = false
-                };
-            else
-                dataContext.Options = new StorageViewerOptions(storageId);
+            dataContext.Options = options;
+            GlobalCommands.ModelUpdated.Execute(null);
         }
-        public StorageViewer(int storageId) : this(storageId, false) {}
+        public StorageViewer(int storageId) : this(new StorageViewerOptions(storageId)) {}
         
         private StorageViewerVM dataContext { get { return (StorageViewerVM)DataContext; } }
         

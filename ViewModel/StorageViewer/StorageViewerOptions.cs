@@ -9,7 +9,7 @@ namespace InventoryControl.ViewModel
     public class StorageViewerOptions
     {
         public int StorageId { get; set; }
-        public bool IsSelectorReadOnly { get; set; } = false;
+        public bool IsSelectorEnabled { get; set; } = true;
         public bool ShowOutOfStockProducts { get; set; } = true;
         public bool GroupOutOfStockProducts { get; set; } = true;
         public bool ShowOptionsSettings { get; set; } = true;

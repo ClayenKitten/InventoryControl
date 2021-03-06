@@ -33,7 +33,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="StorageSelector" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"
-            IsReadOnly="{Binding Options.IsSelectorReadOnly}"
+            IsEnabled="{Binding IsSelectorEnabled}"
             ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
             SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id">
             <i:Interaction.Triggers>
@@ -54,6 +54,7 @@
             <DataGrid.Resources>
                 <Style x:Key="GroupItemStyle" TargetType="{x:Type GroupItem}">
                     <Style.Triggers>
+                        <!--InStock-->
                         <DataTrigger Binding="{Binding Name}" Value="True">
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -63,6 +64,7 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
+                        <!--Grouped OutOfStock-->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Name}" Value="False"/>
