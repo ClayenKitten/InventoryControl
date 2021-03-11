@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model.Counterparty
 {
-    class CounterpartyData
+    public class CounterpartyData
     {
         public string Name { get; set; }
         public string Address { get; set; }

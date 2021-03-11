@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model.Counterparty
 {
-    class CounterpartyMapper
+    public class CounterpartyMapper
     {
         public static CounterpartyData Read(int id)
         {
