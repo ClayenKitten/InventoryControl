@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using InventoryControl.Model.Product;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using InventoryControl.Model.Transaction;
+using InventoryControl.Model;
 
 namespace InventoryControl.ViewModel
 {

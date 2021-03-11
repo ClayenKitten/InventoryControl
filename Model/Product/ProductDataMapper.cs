@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InventoryControl.Model.Product
+namespace InventoryControl.Model
 {
     public static class ProductDataMapper
     {

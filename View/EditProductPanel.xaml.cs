@@ -1,5 +1,4 @@
 ﻿using InventoryControl.Model;
-using InventoryControl.Model.Product;
 using InventoryControl.ViewModel;
 using System;
 using System.Collections.Generic;

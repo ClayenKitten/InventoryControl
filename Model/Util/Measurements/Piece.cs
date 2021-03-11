@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryControl.Model.Util
+﻿namespace InventoryControl.Model
 {
     public class Piece : IMeasurement
     {

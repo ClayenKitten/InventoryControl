@@ -1,15 +1,6 @@
-﻿using InventoryControl.Model.Product;
-using InventoryControl.Model.Storage;
-using InventoryControl.Model.Util;
-using InventoryControl.View;
-using System;
+﻿using InventoryControl.Model;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace InventoryControl.ViewModel

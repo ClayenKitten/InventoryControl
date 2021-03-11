@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
 using System.Data.SQLite;
-using System.Web.ClientServices.Providers;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using InventoryControl.Model.Product;
-using InventoryControl.Model.Transaction;
 
 namespace InventoryControl.Model
 {

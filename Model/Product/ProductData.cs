@@ -1,7 +1,4 @@
-﻿using InventoryControl.Util;
-using InventoryControl.Model.Util;
-
-namespace InventoryControl.Model.Product
+﻿namespace InventoryControl.Model
 {
     public class ProductData
     {

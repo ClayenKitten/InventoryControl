@@ -1,8 +1,7 @@
-﻿using InventoryControl.Model.Product;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace InventoryControl.Model.Storage
+namespace InventoryControl.Model
 {
     class StorageDataMapper
     {
