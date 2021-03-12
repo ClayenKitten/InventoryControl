@@ -11,19 +11,34 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Border Background="{StaticResource MahApps.Brushes.Accent}" Grid.Row="0">
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="{StaticResource MahApps.Brushes.Accent}">
             <TextBlock Text="{Binding Title}"
             Foreground="{StaticResource MahApps.Brushes.IdealForeground}"
             FontSize="20" FontWeight="SemiBold"
             VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="7,0,2.5,0">
+            <Label Content="Отправитель"/>
+            <ComboBox/>
+            <Label Content="Получатель"/>
+            <ComboBox/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2.5,0,7,0">
+            <Label Content="Склад отправителя"/>
+            <ComboBox/>
+            <Label Content="Склад получателя"/>
+            <ComboBox/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
             <DataGrid ItemsSource="{Binding Content}"
                       AutoGenerateColumns="False" x:Name="MainDataGrid"
                       CanUserResizeColumns="False" CanUserReorderColumns="False"
@@ -39,7 +54,7 @@
                 Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter},
                 ElementName=MainDataGrid}" />
         </StackPanel>
-        <Button Grid.Row="2"
+        <Button Grid.Row="3" Grid.ColumnSpan="2"
             Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить" Command="vm:GlobalCommands.CreateTransaction"/>
     </Grid>
 </UserControl>
