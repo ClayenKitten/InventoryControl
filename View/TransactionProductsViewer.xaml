@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InventoryControl.View"
-             xmlns:vm="clr-namespace:InventoryControl.ViewModel"
+             xmlns:vm="clr-namespace:InventoryControl.ViewModel" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext><vm:TransactionProductsViewerVM/></UserControl.DataContext>
@@ -27,19 +27,19 @@
             VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="7,0,2.5,0">
-            <Label Content="Отправитель"/>
-            <ComboBox/>
-            <Label Content="Получатель"/>
-            <ComboBox/>
+            <Label Content="Поставщик"/>
+            <ComboBox SelectedIndex="0"
+                ItemsSource="{Binding Suppliers}" DisplayMemberPath="Name"
+                SelectedValue="{Binding Path=SelectedSender, Mode=TwoWay}" SelectedValuePath="Id"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2.5,0,7,0">
-            <Label Content="Склад отправителя"/>
-            <ComboBox/>
-            <Label Content="Склад получателя"/>
-            <ComboBox/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="7,0,2.5,0">
+            <Label Content="Покупатель"/>
+            <ComboBox SelectedIndex="0"
+                ItemsSource="{Binding Purchasers}" DisplayMemberPath="Name"
+                SelectedValue="{Binding Path=SelectedReceiver, Mode=TwoWay}" SelectedValuePath="Id"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-            <DataGrid ItemsSource="{Binding Content}"
+            <DataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0"
                       AutoGenerateColumns="False" x:Name="MainDataGrid"
                       CanUserResizeColumns="False" CanUserReorderColumns="False"
                       ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"

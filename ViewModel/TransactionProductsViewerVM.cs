@@ -38,6 +38,18 @@ namespace InventoryControl.ViewModel
         public ObservableCollection<TransactionProductPresenter> Content { get; }
             = new ObservableCollection<TransactionProductPresenter>();
         
+        //Transaction info
+        public List<Counterparty> Suppliers
+        {
+            get { return CounterpartyMapper.GetSuppliers(); }
+        }
+        public List<Counterparty> Purchasers
+        {
+            get { return CounterpartyMapper.GetPurchasers(); }
+        }
+        public int SelectedSender { get; set; }
+        public int SelectedReceiver { get; set; }
+
         private TransactionType type;
         public TransactionType Type 
         {

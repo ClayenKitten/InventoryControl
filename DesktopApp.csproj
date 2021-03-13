@@ -183,7 +183,7 @@
     <Compile Include="Model\Transaction\TransactionDataMapper.cs" />
     <Compile Include="Model\Util\Measurements\Piece.cs" />
     <Compile Include="Model\Util\Measurements\Weight.cs" />
-    <Compile Include="Model\Counterparty\CounterpartyData.cs" />
+    <Compile Include="Model\Counterparty\Counterparty.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
     <Compile Include="Model\Product\ProductDataMapper.cs" />
@@ -193,6 +193,7 @@
     <Compile Include="Model\Transaction\TransactionData.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
+    <Compile Include="Util\SQLiteReaderExtensionMethods.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="ViewModel\StorageViewer\StorageViewerOptions.cs" />
