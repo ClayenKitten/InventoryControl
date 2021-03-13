@@ -5,6 +5,7 @@ namespace InventoryControl.Model
 {
     public class Transaction
     {
+        public int Id { get; set; }
         public DateTime DateTime { get; set; }
         public int PurchaserStorageId { get; set; }
         public int SupplierStorageId { get; set; }

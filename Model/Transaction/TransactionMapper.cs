@@ -6,32 +6,28 @@ namespace InventoryControl.Model
 {
     public static class TransactionMapper
     {
-        private static int CreateTransaction(DateTime dateTime, int SupplierStorageId, int PurchaserStorageId)
+        public static Transaction Create(Transaction transactionData)
         {
             string commandText = @"
             INSERT INTO Transfer (DateTime, SupplierStorageId, PurchaserStorageId)
             VALUES ($DateTime, $SupplierStorageId, $PurchaserStorageId);
             SELECT Id FROM Transfer WHERE ROWID = last_insert_rowid();";
-            return (int)(long)Database.CommitScalarTransaction(commandText,
-                new SQLiteParameter("$DateTime", dateTime.Ticks),
-                new SQLiteParameter("$SupplierStorageId", SupplierStorageId),
-                new SQLiteParameter("$PurchaserStorageId", PurchaserStorageId));
+            transactionData.Id = (int)(long)Database.CommitScalarTransaction(commandText,
+                new SQLiteParameter("$DateTime", transactionData.DateTime.Ticks),
+                new SQLiteParameter("$SupplierStorageId", transactionData.SupplierStorageId),
+                new SQLiteParameter("$PurchaserStorageId", transactionData.PurchaserStorageId));
+            AddTransactionProducts(transactionData);
+            return transactionData;
         }
-        private static void AddTransactionProducts(int transactionId, List<TransactionProductPresenter> products)
+        private static void AddTransactionProducts(Transaction transaction)
         {
             string commandText = "INSERT INTO TransferProducts (TransferId, ProductId, Number) VALUES ";
-            foreach (var product in products)
+            foreach (var product in transaction.Products)
             {
-                commandText += $"({transactionId}, {product.Id}, {product.TransmitNumber}),";
+                commandText += $"({transaction.Id}, {product.Id}, {product.TransmitNumber}),";
             }
             commandText = commandText.TrimEnd(',') + ";";
             Database.CommitScalarTransaction(commandText);
-        }
-        public static void Create(Transaction transaction)
-        {
-            int transactionId =
-                CreateTransaction(transaction.DateTime, transaction.SupplierStorageId, transaction.PurchaserStorageId);
-            AddTransactionProducts(transactionId, transaction.Products);            
         }
     }
 }
