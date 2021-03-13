@@ -2,7 +2,7 @@
 {
     public class ProductPresenter : IProductPresenter
     {
-        public readonly ProductData Product;
+        public readonly Product Product;
 
         public int Id { get { return Product.Id; } }
         public string Name { get { return Product.Name; } }
@@ -36,11 +36,11 @@
         }
         public string Article { get { return Product.Article.ToString(); } }
 
-        public ProductPresenter(ProductData productData)
+        public ProductPresenter(Product productData)
         {
             this.Product = productData;
         }
-        public static implicit operator ProductPresenter(ProductData productData)
+        public static implicit operator ProductPresenter(Product productData)
         {
             return new ProductPresenter(productData);
         }

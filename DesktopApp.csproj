@@ -180,17 +180,17 @@
     </ApplicationDefinition>
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
-    <Compile Include="Model\Transaction\TransactionDataMapper.cs" />
+    <Compile Include="Model\Transaction\TransactionMapper.cs" />
     <Compile Include="Model\Util\Measurements\Piece.cs" />
     <Compile Include="Model\Util\Measurements\Weight.cs" />
     <Compile Include="Model\Counterparty\Counterparty.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
-    <Compile Include="Model\Product\ProductDataMapper.cs" />
+    <Compile Include="Model\Product\ProductMapper.cs" />
     <Compile Include="Model\Product\Presenters\ProductPresenter.cs" />
-    <Compile Include="Model\Storage\StorageData.cs" />
-    <Compile Include="Model\Storage\StorageDataMapper.cs" />
-    <Compile Include="Model\Transaction\TransactionData.cs" />
+    <Compile Include="Model\Storage\Storage.cs" />
+    <Compile Include="Model\Storage\StorageMapper.cs" />
+    <Compile Include="Model\Transaction\Transaction.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="Util\SQLiteReaderExtensionMethods.cs" />
@@ -262,7 +262,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Product\ProductData.cs" />
+    <Compile Include="Model\Product\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

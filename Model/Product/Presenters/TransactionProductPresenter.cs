@@ -4,7 +4,7 @@ namespace InventoryControl.Model
     {
         public int TransmitNumber { get; set; }
 
-        public TransactionProductPresenter(ProductData product, int transmitNumber) : base(product)
+        public TransactionProductPresenter(Product product, int transmitNumber) : base(product)
         {
             this.TransmitNumber = transmitNumber;
         }

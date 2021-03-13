@@ -13,7 +13,7 @@ namespace InventoryControl.View
     /// </summary>
     public partial class EditProductPanel : UserControl
     {
-        private ProductData productData;
+        private Product productData;
         public String Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
         public List<String> PossibleMeasurments 
         { 
@@ -28,7 +28,7 @@ namespace InventoryControl.View
         public EditProductPanel(int productId)
         {
             InitializeComponent();
-            this.productData = ProductDataMapper.Read(productId);
+            this.productData = ProductMapper.Read(productId);
 
             TitleAT.Value = productData.Name;
             AmountAT.Value = productData.Measurement.GetFormattedValue();
@@ -38,8 +38,8 @@ namespace InventoryControl.View
         }
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            ProductDataMapper.Create(
-                new ProductData
+            ProductMapper.Create(
+                new Product
                 (
                     id: -1,
                     name: TitleAT.Value,

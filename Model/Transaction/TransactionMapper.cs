@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace InventoryControl.Model
 {
-    public static class TransactionDataMapper
+    public static class TransactionMapper
     {
         private static int CreateTransaction(DateTime dateTime, int SupplierStorageId, int PurchaserStorageId)
         {
@@ -27,7 +27,7 @@ namespace InventoryControl.Model
             commandText = commandText.TrimEnd(',') + ";";
             Database.CommitScalarTransaction(commandText);
         }
-        public static void Create(TransactionData transaction)
+        public static void Create(Transaction transaction)
         {
             int transactionId =
                 CreateTransaction(transaction.DateTime, transaction.SupplierStorageId, transaction.PurchaserStorageId);

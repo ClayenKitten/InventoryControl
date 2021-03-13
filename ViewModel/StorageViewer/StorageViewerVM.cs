@@ -48,7 +48,7 @@ namespace InventoryControl.ViewModel
             get
             {
                 List<StockProductPresenter> res = new List<StockProductPresenter>();
-                foreach (var product in ProductDataMapper.GetFullDictionary())
+                foreach (var product in ProductMapper.GetFullDictionary())
                 {
                     res.Add(new StockProductPresenter(product, Options.StorageId));
                 }
@@ -67,7 +67,7 @@ namespace InventoryControl.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             }
         }
-        public List<StorageData> AllStoragesList { get { return StorageDataMapper.GetAllStorages(); } }
+        public List<Storage> AllStoragesList { get { return StorageMapper.GetAllStorages(); } }
         //Statusbar
         public string SaleSum
         {

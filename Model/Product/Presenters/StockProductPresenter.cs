@@ -8,7 +8,7 @@
         {
             get
             {
-                return StorageDataMapper.GetProductAmount(base.Product.Id, storageId);
+                return StorageMapper.GetProductAmount(base.Product.Id, storageId);
             }
         }
         public bool IsInStock
@@ -16,7 +16,7 @@
             get { return Remain > 0; }
         }
 
-        public StockProductPresenter(ProductData product, int storageId) : base(product)
+        public StockProductPresenter(Product product, int storageId) : base(product)
         {
             this.storageId = storageId;
         }

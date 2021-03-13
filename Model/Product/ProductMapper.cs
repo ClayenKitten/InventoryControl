@@ -3,9 +3,9 @@ using System.Data.SQLite;
 
 namespace InventoryControl.Model
 {
-    public static class ProductDataMapper
+    public static class ProductMapper
     {
-        public static ProductData Create(ProductData product)
+        public static Product Create(Product product)
         {
             const string commandText =
             @"
@@ -25,7 +25,7 @@ namespace InventoryControl.Model
             return product;
         }
 
-        public static void Update(ProductData product)
+        public static void Update(Product product)
         {
             const string commandText =
             @"
@@ -50,12 +50,12 @@ namespace InventoryControl.Model
             );
         }
 
-        public static ProductData Read(int id)
+        public static Product Read(int id)
         {
             const string commandText = "SELECT * FROM Product WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             if (rdr.Read())
-                return new ProductData
+                return new Product
                 (
                     id:             rdr.GetInt32(0),
                     name:          rdr.GetString(1),
@@ -68,14 +68,14 @@ namespace InventoryControl.Model
             else
                 throw new KeyNotFoundException();
         }
-        public static List<ProductData> GetFullDictionary()
+        public static List<Product> GetFullDictionary()
         {
-            var dictionary = new List<ProductData>();
+            var dictionary = new List<Product>();
             const string commandText = "SELECT Product.Id FROM Product";
             using var rdr = Database.CommitReaderTransaction(commandText);
             while (rdr.Read())
             {
-                dictionary.Add(ProductDataMapper.Read(rdr.GetInt32(0)));
+                dictionary.Add(ProductMapper.Read(rdr.GetInt32(0)));
             }
             return dictionary;
         }

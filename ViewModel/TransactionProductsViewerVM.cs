@@ -73,11 +73,11 @@ namespace InventoryControl.ViewModel
                 {
                     if(product.Id == productId) return;
                 }
-                Content.Add(new TransactionProductPresenter(ProductDataMapper.Read(productId), 1));
+                Content.Add(new TransactionProductPresenter(ProductMapper.Read(productId), 1));
             };
             GlobalCommands.CreateTransaction.Executed += (parameter) =>
             {
-                TransactionDataMapper.Create(new TransactionData(DateTime.Now, -1, -1,
+                TransactionMapper.Create(new Transaction(DateTime.Now, -1, -1,
                     new List<TransactionProductPresenter>(Content)));
                 var pm = new PanelManager();
                 pm.OpenStorageView.Execute();

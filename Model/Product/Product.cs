@@ -1,6 +1,6 @@
 ﻿namespace InventoryControl.Model
 {
-    public class ProductData
+    public class Product
     {
         public int Id { get; set; }
         public string Name { get; }
@@ -10,7 +10,7 @@
         public int Article { get; set; }
 
         //Database-oriented constructor
-        public ProductData(int id, string name, double purchasePrice, double salePrice, double value, int unit, int article)
+        public Product(int id, string name, double purchasePrice, double salePrice, double value, int unit, int article)
         {
             this.Id = id;
             this.Name = name;
