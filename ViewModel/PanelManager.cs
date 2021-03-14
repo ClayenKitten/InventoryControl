@@ -1,4 +1,5 @@
-﻿using InventoryControl.View;
+﻿using InventoryControl.Model;
+using InventoryControl.View;
 using System;
 using System.Windows.Media;
 
@@ -80,6 +81,32 @@ namespace InventoryControl.ViewModel
                 {
                     return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
                     new StorageViewer(passiveStorageViewerOptions), new TransactionProductsViewer(TransactionType.Return));
+                });
+            }
+        }
+        public OpenPanelCommand OpenSuppliers
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(
+                        AdaptiveStackScheme.SINGLE, 
+                        new CounterpartyViewer(CounterpartyType.Supplier)
+                    );
+                });
+            }
+        }
+        public OpenPanelCommand OpenPurchasers
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(
+                        AdaptiveStackScheme.SINGLE,
+                        new CounterpartyViewer(CounterpartyType.Purchaser)
+                    );
                 });
             }
         }

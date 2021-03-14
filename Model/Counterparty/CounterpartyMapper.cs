@@ -43,7 +43,6 @@ namespace InventoryControl.Model
             }
             return res;
         }
-
         public static List<Counterparty> GetSuppliers()
         {
             return GetAll().Where(Counterparty => Counterparty.IsSupplier).ToList();
@@ -51,6 +50,15 @@ namespace InventoryControl.Model
         public static List<Counterparty> GetPurchasers()
         {
             return GetAll().Where(Counterparty => Counterparty.IsPurchaser).ToList();
+        }
+
+        public static Counterparty Create(Counterparty counterpartyData)
+        {
+            throw new NotImplementedException();
+        }
+        public static void Update(Counterparty counterparty)
+        {
+            throw new NotImplementedException();
         }
     }
 }

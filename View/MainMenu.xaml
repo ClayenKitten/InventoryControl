@@ -33,7 +33,7 @@
         </MenuItem>
         <MenuItem Header="Контрагенты">
             <MenuItem Header="Поставщики" Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" Command="{Binding OpenSuppliers}"/>
-            <MenuItem Header="Покупатели" Icon="{iconPacks:Material Kind=TruckDelivery}" Command="{Binding OpenBuyers}"/>
+            <MenuItem Header="Покупатели" Icon="{iconPacks:Material Kind=TruckDelivery}" Command="{Binding OpenPurchasers}"/>
             <Separator/>
             <MenuItem Header="Точки сбыта" Icon="{iconPacks:Material Kind=PointOfSale}" Command="{Binding OpenPointsOfSales}"/>
         </MenuItem>

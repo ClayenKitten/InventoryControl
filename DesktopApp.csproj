@@ -178,6 +178,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Counterparty\CounterpartyType.cs" />
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
     <Compile Include="Model\Transaction\TransactionMapper.cs" />
@@ -196,9 +197,13 @@
     <Compile Include="Util\SQLiteReaderExtensionMethods.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
+    <Compile Include="ViewModel\CounterpatyViewerVM.cs" />
     <Compile Include="ViewModel\StorageViewer\StorageViewerOptions.cs" />
     <Compile Include="ViewModel\StorageViewer\StorageViewerVM.cs" />
     <Compile Include="ViewModel\TransactionProductsViewerVM.cs" />
+    <Compile Include="View\CounterpartyViewer.xaml.cs">
+      <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackControl.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackScheme.cs" />
     <Compile Include="View\DynamicLayoutControl\AdaptiveStackSchemeElement.cs" />
@@ -227,6 +232,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CounterpartyViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditProductPanel.xaml">
       <SubType>Designer</SubType>
