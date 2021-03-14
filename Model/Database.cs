@@ -15,10 +15,6 @@ namespace InventoryControl.Model
             CREATE TABLE IF NOT EXISTS TransferProducts (TransferId INTEGER REFERENCES Transfer (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, ProductId INTEGER REFERENCES Product (Id) ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, Number INTEGER NOT NULL, UNIQUE (TransferId, ProductId) ON CONFLICT ROLLBACK);
         ";
         public static event EventHandler DatabaseChanged;
-        public static void OnDatabaseChanged(EventArgs e)
-        {
-            DatabaseChanged.Invoke(typeof(Database), e);
-        }
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();

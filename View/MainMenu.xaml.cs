@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using InventoryControl.Model;
+using InventoryControl.ViewModel;
 
 namespace InventoryControl.View
 {
@@ -36,7 +37,7 @@ namespace InventoryControl.View
             {
                 File.Copy(openFileDialog.FileName, "Database.db", true);
             }
-            Database.OnDatabaseChanged(new EventArgs());
+            GlobalCommands.ModelUpdated?.Execute(null);
         }
         private void SaveBackupButtonClick(object sender, RoutedEventArgs e)
         {
