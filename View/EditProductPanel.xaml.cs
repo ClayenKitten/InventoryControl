@@ -1,17 +1,21 @@
 ﻿using InventoryControl.Model;
 using InventoryControl.ViewModel;
+using SharedControls.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for EditProductPanel.xaml
     /// </summary>
-    public partial class EditProductPanel : UserControl
+    public partial class EditProductPanel : UserControl, INotifyPropertyChanged
     {
         private Product productData;
         public String Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
@@ -19,11 +23,27 @@ namespace InventoryControl.View
         { 
             get { return Unit.GetPossibleValues(); } 
         }
+        public bool IsConfirmButtonEnabled
+        {
+            get => InputsContainer.Children.OfType<AdvancedTextbox>().All((x) => { return x.IsValid; });
+        }
+
+        private void BindNotifier()
+        {
+            InputsContainer.Children.OfType<AdvancedTextbox>().ToList().ForEach((x) 
+                => { x.PropertyChanged += InputPropertyChanged; });
+        }
+        private void InputPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsValid")
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsConfirmButtonEnabled"));
+        }
 
         public EditProductPanel()
         {
             InitializeComponent();
             this.productData = null;
+            BindNotifier();
         }
         public EditProductPanel(int productId)
         {
@@ -35,7 +55,10 @@ namespace InventoryControl.View
             MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
             BuyPriceAT.Value = productData.PurchasePrice.GetFormattedValue();
             SalePriceAT.Value = productData.SalePrice.GetFormattedValue();
+
+            BindNotifier();
         }
+
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             ProductMapper.Create(
@@ -54,5 +77,6 @@ namespace InventoryControl.View
             var PM = new PanelManager();
             PM.OpenProductView.Execute();
         }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
