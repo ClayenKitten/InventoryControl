@@ -21,12 +21,12 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <Grid Margin="5,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
