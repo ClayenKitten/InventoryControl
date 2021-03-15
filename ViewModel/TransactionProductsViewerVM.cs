@@ -13,11 +13,12 @@ namespace InventoryControl.ViewModel
     {
         Buy,
         Sell,
-        Return
+        Return,
     }
 
     public class TransactionProductsViewerVM : INotifyPropertyChanged
     {
+        //Titles
         public string Title
         {
             get
@@ -31,24 +32,42 @@ namespace InventoryControl.ViewModel
                     case TransactionType.Return:
                         return "ВОЗВРАТ ТОВАРА";
                     default:
-                        throw new NotImplementedException();
+                        return "Bad transaction type";
                 }
             }
         }
+        public string CounterpartyTitle
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case TransactionType.Buy:
+                        return "Поставщик";
+                    case TransactionType.Sell:
+                        return "Покупатель";
+                    case TransactionType.Return:
+                        return "Поставщик";
+                    default:
+                        return "Bad transaction type";
+                }
+            }
+        }
+
         public ObservableCollection<TransactionProductPresenter> Content { get; }
             = new ObservableCollection<TransactionProductPresenter>();
         
         //Transaction info
-        public List<Counterparty> Suppliers
+        public List<Counterparty> Counterparties
         {
             get { return CounterpartyMapper.GetSuppliers(); }
         }
-        public List<Counterparty> Purchasers
+        public List<Storage> Storages
         {
-            get { return CounterpartyMapper.GetPurchasers(); }
+            get => StorageMapper.GetAllStorages();
         }
-        public int SelectedSender { get; set; }
-        public int SelectedReceiver { get; set; }
+        public int SelectedCounterparty { get; set; }
+        public int SelectedStorage { get; set; }
 
         private TransactionType type;
         public TransactionType Type 
@@ -58,6 +77,7 @@ namespace InventoryControl.ViewModel
             {
                 type = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CounterpartyTitle"));
             }
         }
 

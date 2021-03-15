@@ -58,7 +58,7 @@ namespace InventoryControl.ViewModel
                 return new OpenPanelCommand(() =>
                 {
                     return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
-                    new StorageViewer(passiveStorageViewerOptions), new TransactionProductsViewer(TransactionType.Buy));
+                    new ProductDictionaryViewer(), new TransactionProductsViewer(TransactionType.Buy));
                 });
             }
         }
