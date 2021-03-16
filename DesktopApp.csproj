@@ -411,6 +411,9 @@
     <Compile Include="View\ProductDictionaryViewer.xaml.cs">
       <DependentUpon>ProductDictionaryViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SettingsViewer.xaml.cs">
+      <DependentUpon>SettingsViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StorageViewer.xaml.cs">
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>
@@ -436,6 +439,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ProductDictionaryViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

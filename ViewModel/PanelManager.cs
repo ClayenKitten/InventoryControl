@@ -110,6 +110,19 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        //Other
+        public OpenPanelCommand OpenSettings
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new AdaptiveStackControl(
+                        AdaptiveStackScheme.SINGLE, new SettingsViewer()
+                    );
+                });
+            }
+        }
         #endregion
     }
 }
