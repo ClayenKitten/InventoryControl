@@ -6,6 +6,7 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:InventoryControl.View"
              xmlns:vm="clr-namespace:InventoryControl.ViewModel"
+             xmlns:c="clr-namespace:InventoryControl.View.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
@@ -25,11 +26,10 @@
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Text="{Binding SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
-            AutoGenerateColumns="False" CanUserAddRows="False"
-            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" 
+        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2"
+            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             ItemsSource="{Binding Content}" RowEditEnding="DataGrid_RowEditEnding">
-            <DataGrid.Columns>
+            <c:AdvancedDataGrid.Columns>
                 <DataGridTextColumn x:Name="LabelC" Header="Метка" Width="*" Binding="{Binding Id}"/>
                 <DataGridTextColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"/>
                 <DataGridTextColumn x:Name="AddressC" Header="Юр. адрес" Width="2*" Binding="{Binding Address}"/>
@@ -45,8 +45,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+            </c:AdvancedDataGrid.Columns>
+        </c:AdvancedDataGrid>
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
