@@ -65,4 +65,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="c:AdvancedDataGrid" BasedOn="{StaticResource MahApps.Styles.DataGrid}">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+    </Style>
 </ResourceDictionary>

@@ -1,6 +1,7 @@
 using InventoryControl.Model;
 using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -28,6 +29,11 @@ namespace InventoryControl.View.Controls
         }
         public Predicate<object> Filter { get; set; }      
 
+        static AdvancedDataGrid()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AdvancedDataGrid),
+                new FrameworkPropertyMetadata(typeof(AdvancedDataGrid)));
+        }
         public AdvancedDataGrid() : base() { }
     }
 }
