@@ -384,8 +384,10 @@
     <Compile Include="Model\Storage\StorageMapper.cs" />
     <Compile Include="Model\Transaction\Transaction.cs" />
     <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
+    <Compile Include="Util\BooleanToVisibilityInvConverter.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="Util\SQLiteReaderExtensionMethods.cs" />
+    <Compile Include="Util\ValidationEnum.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="ViewModel\Viewers\CounterpatyViewerVM.cs" />
@@ -393,6 +395,8 @@
     <Compile Include="ViewModel\Viewers\StorageViewer\StorageViewerOptions.cs" />
     <Compile Include="ViewModel\Viewers\StorageViewer\StorageViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\TransactionProductsViewerVM.cs" />
+    <Compile Include="View\Controls\AdvancedDataGrid.cs" />
+    <Compile Include="View\Controls\AdvancedTextbox.cs" />
     <Compile Include="View\CounterpartyViewer.xaml.cs">
       <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
     </Compile>
@@ -518,13 +522,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\SharedControls\SharedControls.csproj">
-      <Project>{769f9bb2-69ac-4658-96de-f5b0fc899603}</Project>
-      <Name>SharedControls</Name>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
