@@ -1,6 +1,6 @@
 ﻿namespace InventoryControl.Model
 {
-    public class StockProductPresenter : ProductPresenter
+    public class StockProductPresenter : ProductPresenter, INamed
     {
         private readonly int storageId;
 

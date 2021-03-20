@@ -1,6 +1,6 @@
 ﻿namespace InventoryControl.Model
 {
-    public class Product
+    public class Product : INamed
     {
         public int Id { get; set; }
         public string Name { get; }

@@ -1,6 +1,6 @@
 ﻿namespace InventoryControl.Model
 {
-    public class ProductPresenter : IProductPresenter
+    public class ProductPresenter : IProductPresenter, INamed
     {
         public readonly Product Product;
 

@@ -1,6 +1,6 @@
 namespace InventoryControl.Model
 {
-    public class TransactionProductPresenter : ProductPresenter
+    public class TransactionProductPresenter : ProductPresenter, INamed
     {
         public int TransmitNumber { get; set; }
 

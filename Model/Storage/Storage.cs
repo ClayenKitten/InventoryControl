@@ -1,6 +1,6 @@
 ﻿namespace InventoryControl.Model
 {
-    public class Storage
+    public class Storage : INamed
     {
         public int Id { get; private set; }
         public string Name { set; get; }
