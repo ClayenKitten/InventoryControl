@@ -1,5 +1,7 @@
 using InventoryControl.Model;
+using InventoryControl.Util;
 using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,31 +11,35 @@ namespace InventoryControl.View.Controls
 {
     public class AdvancedDataGrid : DataGrid
     {
-        private string searchString;
-        public string SearchString
-        {
-            get => searchString;
-            set
-            {
-                searchString = value;
-                Items.Filter = (x) =>
-                {
-                    bool hasPassed = true;
-                    if (x is INamed)
-                        hasPassed = (x as INamed).Name == SearchString;
-                    else
-                        hasPassed = false;
-                    return hasPassed && this.Filter(x);
-                };
-            }
-        }
-        public Predicate<object> Filter { get; set; }      
+        public int TargetColumnIndex { get; set; }
+        public static DependencyProperty TargetColumnIndexProperty =
+            DependencyProperty.Register("TargetColumnIndex", typeof(int), typeof(AdvancedDataGrid));
+
+        public string FilterString { get; set; }
+        public static DependencyProperty FilterStringProperty =
+            DependencyProperty.Register("FilterString", typeof(string), typeof(AdvancedDataGrid));  
 
         static AdvancedDataGrid()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AdvancedDataGrid),
                 new FrameworkPropertyMetadata(typeof(AdvancedDataGrid)));
         }
-        public AdvancedDataGrid() : base() { }
+        public AdvancedDataGrid() : base()
+        {
+            Items.Filter = (obj) =>
+            {
+                if (obj is INamed)
+                {
+                    return (obj as INamed).Name.Includes(GetValue(FilterStringProperty).ToString());
+                }
+                return true;
+            };
+        }
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property == FilterStringProperty)
+                Items.Filter = Items.Filter;
+        }
     }
 }
