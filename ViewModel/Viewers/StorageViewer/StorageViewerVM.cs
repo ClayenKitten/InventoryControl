@@ -30,19 +30,6 @@ namespace InventoryControl.ViewModel
                 Options.IsSelectorEnabled = value;
             }
         }
-        public ICollectionView View 
-        {
-            get
-            {
-                var view = CollectionViewSource.GetDefaultView(Content);
-                view.Filter = FilterProducts;
-                if (Options.GroupOutOfStockProducts)
-                    view.GroupDescriptions.Add(new PropertyGroupDescription("IsInStock"));
-                else
-                    view.GroupDescriptions.Clear();
-                return view;
-            }
-        }
         public List<StockProductPresenter> Content
         {
             get
@@ -56,17 +43,6 @@ namespace InventoryControl.ViewModel
             }
         }
 
-        private string searchString = "";
-        public string SearchString
-        {
-            get { return searchString; }
-            set
-            {
-                searchString = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SearchString"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
-            }
-        }
         public List<Storage> AllStoragesList { get { return StorageMapper.GetAllStorages(); } }
         //Statusbar
         public string SaleSum
@@ -104,20 +80,6 @@ namespace InventoryControl.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
             };
         }
-        private bool FilterProducts(object item)
-        {
-            bool accepted = true;
-            var product = (StockProductPresenter)item;
-            //Check search
-            string productName = product.Name.ToLower().Replace('ё', 'е');
-            SearchString = SearchString.ToLower().Replace('ё', 'е');
-            accepted = accepted && productName.Contains(SearchString);
-            //Check ShowOutOfStockProducts
-            accepted = accepted && (Options.ShowOutOfStockProducts || product.IsInStock);
-
-            return accepted;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -7,6 +7,7 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              xmlns:util="clr-namespace:InventoryControl.Util"
+             xmlns:c="clr-namespace:InventoryControl.View.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" x:Name="StorageViewerUC"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -45,9 +46,10 @@
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Text="{Binding SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
-        <DataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
+        <c:AdvancedDataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
+            FilterString="{Binding ElementName=Searchbox, Path=Text}" GroupingPropertyPath="IsInStock"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
-            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding View, UpdateSourceTrigger=PropertyChanged}"
+            SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
             CanUserSortColumns="True" AutoGenerateColumns="False"
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}">
@@ -143,7 +145,7 @@
                     MinWidth="50" Width="*" 
                     Binding="{Binding Remain}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </c:AdvancedDataGrid>
         <StatusBar x:Name="StorageStatusBar" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
             <StatusBarItem Padding="0">
                 <Button x:Name="ReloadContent"
