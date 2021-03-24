@@ -17,7 +17,12 @@ namespace InventoryControl.View.Controls
 
         public string FilterString { get; set; }
         public static DependencyProperty FilterStringProperty =
-            DependencyProperty.Register("FilterString", typeof(string), typeof(AdvancedDataGrid));  
+            DependencyProperty.Register("FilterString", typeof(string), typeof(AdvancedDataGrid));
+            
+        public string GroupingPropertyPath { get; set; }
+        public static DependencyProperty GroupingPropertyPathProperty =
+            DependencyProperty.Register("GroupingPropertyPath", typeof(string), typeof(AdvancedDataGrid));
+
 
         static AdvancedDataGrid()
         {
@@ -39,7 +44,15 @@ namespace InventoryControl.View.Controls
         {
             base.OnPropertyChanged(e);
             if (e.Property == FilterStringProperty)
+            {
                 Items.Filter = Items.Filter;
+            }
+            if (e.Property == GroupingPropertyPathProperty && (string)e.NewValue != "")
+            {
+                Items.GroupDescriptions.Remove(new PropertyGroupDescription((string)e.OldValue));
+                Items.GroupDescriptions.Add(new PropertyGroupDescription((string)e.NewValue));
+            }
         }
+
     }
 }
