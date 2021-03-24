@@ -47,7 +47,8 @@
                     Label="Продажная цена" Validation="Real" IsRequired="True"/>
 
                 <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
-                <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Label="Артикул" Margin="5" Validation="Integer"/>
+                <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
+                    Label="Артикул" Validation="Integer" IsRequired="False"/>
             </Grid>
         </ScrollViewer>
         <Button Grid.Row="2" Grid.ColumnSpan="3" 

@@ -53,6 +53,7 @@ namespace InventoryControl.View
             MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
             BuyPriceAT.Value = productData.PurchasePrice.GetFormattedValue();
             SalePriceAT.Value = productData.SalePrice.GetFormattedValue();
+            ArticleAT.Value = productData.Article.ToString();
 
             BindNotifier();
         }
