@@ -26,16 +26,15 @@
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
-            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-            ItemsSource="{Binding Content}" RowEditEnding="DataGrid_RowEditEnding">
+            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" RowEditEndHandler="{Binding OnRowEditEnded}"
+            ItemsSource="{Binding Content}">
             <c:AdvancedDataGrid.Columns>
-                <DataGridTextColumn x:Name="LabelC" Header="Метка" Width="*" Binding="{Binding Id}"/>
-                <DataGridTextColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"/>
-                <DataGridTextColumn x:Name="AddressC" Header="Юр. адрес" Width="2*" Binding="{Binding Address}"/>
-                <DataGridTextColumn x:Name="PhoneC" Header="Телефон" Width="2*" Binding="{Binding Contacts}"/>
-                <DataGridTextColumn x:Name="TaxpayerC" Header="ИНН" Width="2*" Binding="{Binding TaxpayerNumber}"/>
-                <DataGridTextColumn x:Name="AccountC" Header="Расч. счёт" Width="2*" Binding="{Binding AccountingCode}"/>
-                <DataGridTextColumn x:Name="BankIdC" Header="БИК" Width="1.5*" Binding="{Binding BankDetails}"/>
+                <c:EditableDataGridTextColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"/>
+                <c:EditableDataGridTextColumn x:Name="AddressC" Header="Юр. адрес" Width="2*" Binding="{Binding Address}"/>
+                <c:EditableDataGridTextColumn x:Name="PhoneC" Header="Телефон" Width="2*" Binding="{Binding Contacts}"/>
+                <c:EditableDataGridTextColumn x:Name="TaxpayerC" Header="ИНН" Width="2*" Binding="{Binding TaxpayerNumber}"/>
+                <c:EditableDataGridTextColumn x:Name="AccountC" Header="Расч. счёт" Width="2*" Binding="{Binding AccountingCode}"/>
+                <c:EditableDataGridTextColumn x:Name="BankIdC" Header="БИК" Width="1.5*" Binding="{Binding BankDetails}"/>
                 <DataGridTemplateColumn x:Name="ConfirmC" Width="35" 
                     CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                     <DataGridTemplateColumn.CellTemplate>
@@ -54,7 +53,6 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding ElementName=LabelC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=NameC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=PhoneC, Path=ActualWidth}"/>

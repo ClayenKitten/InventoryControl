@@ -1,6 +1,7 @@
 using InventoryControl.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -10,7 +11,7 @@ namespace InventoryControl.ViewModel
     public class CounterpatyViewerVM : INotifyPropertyChanged
     {
         private bool showPurchasers;
-        public bool ShowPurchasers 
+        public bool ShowPurchasers
         {
             get => showPurchasers;
             set
@@ -22,7 +23,7 @@ namespace InventoryControl.ViewModel
         }
         private List<Purchaser> purchasers => CounterpartyMapper.GetPurchasers();
         private List<Supplier> suppliers => CounterpartyMapper.GetSuppliers();
-        public List<ICounterparty> Content => 
+        public List<ICounterparty> Content =>
             ShowPurchasers ?
                 purchasers.Cast<ICounterparty>().ToList() :
                 suppliers.Cast<ICounterparty>().ToList();
@@ -31,9 +32,9 @@ namespace InventoryControl.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void RowEditHandler(DataGridRowEditEndingEventArgs e)
+        public Action<DataGridRowEditEndingEventArgs> OnRowEditEnded => (e) =>
         {
             CounterpartyMapper.Update((ICounterparty)e.Row.Item);
-        }
+        };
     }
 }

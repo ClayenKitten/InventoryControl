@@ -29,8 +29,5 @@ namespace InventoryControl.View
             ((CounterpatyViewerVM)DataContext).ShowPurchasers = showPurchasers;
 
         }
-
-        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-            => ((CounterpatyViewerVM)DataContext).RowEditHandler(e);
     }
 }
