@@ -1,4 +1,5 @@
 ﻿using InventoryControl.Util;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -13,6 +14,13 @@ namespace InventoryControl.View.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AdvancedTextbox),
                 new FrameworkPropertyMetadata(typeof(AdvancedTextbox)));
         }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+        }
+
         private string label;
         public string Label
         {
@@ -20,15 +28,11 @@ namespace InventoryControl.View.Controls
             set
             {
                 label = value;
-                if (label == "")
-                    LabelVisibility = Visibility.Collapsed;
-                else
-                    LabelVisibility = Visibility.Visible;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Label"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LabelVisibility"));
             }
         }
-        public Visibility LabelVisibility { get; private set; }
+        public Visibility LabelVisibility => string.IsNullOrWhiteSpace(Label)?Visibility.Collapsed:Visibility.Visible;
         private string textboxValue = "";
         public string Value
         {
