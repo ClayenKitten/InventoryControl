@@ -44,7 +44,6 @@
             </i:Interaction.Triggers>
         </ComboBox>
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
-                  Text="{Binding SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             FilterString="{Binding ElementName=Searchbox, Path=Text}" GroupingPropertyPath="IsInStock"
