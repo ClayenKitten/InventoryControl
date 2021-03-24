@@ -33,7 +33,7 @@ namespace InventoryControl.ViewModel
 
         public void RowEditHandler(DataGridRowEditEndingEventArgs e)
         {
-            CounterpartyMapper.Update((Purchaser)e.Row.Item);
+            CounterpartyMapper.Update((ICounterparty)e.Row.Item);
         }
     }
 }
