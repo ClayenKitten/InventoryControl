@@ -6,13 +6,13 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:c="clr-namespace:InventoryControl.View.Controls"
              xmlns:local="clr-namespace:InventoryControl.View" 
              xmlns:util="clr-namespace:InventoryControl.Util"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext><vm:ProductDictionaryViewerVM/></UserControl.DataContext>
     <UserControl.Resources>
-        <CollectionViewSource x:Key="cvsProduct" Source="{Binding Content}" Filter="CollectionViewSource_Filter"/>
         <ContextMenu x:Key="RowContextMenu">
             <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
                       Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
@@ -32,11 +32,10 @@
         <Label BorderThickness="0, 0, 0, 1" BorderBrush="Black" Content="Прайс-лист"/>
         <TextBox Grid.Row="0" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
             x:Name="Searchbox"
-            Text="{Binding SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
             Style="{StaticResource SearchTextbox}" BorderThickness="1, 0, 0, 1"/>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" 
+        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
                   ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-                  ItemsSource="{Binding Source={StaticResource cvsProduct}}" AutoGenerateColumns="False">
+                  ItemsSource="{Binding Content}" AutoGenerateColumns="False">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
@@ -56,7 +55,7 @@
                 <DataGridTextColumn Header="Закуп. цена" MinWidth="100" Width="2*" Binding="{Binding PurchasePrice}"/>
                 <DataGridTextColumn Header="Прод. цена" MinWidth="100" Width="2*" Binding="{Binding SalePrice}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </c:AdvancedDataGrid>
         <StatusBar x:Name="StorageStatusBar" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
             <StatusBarItem Padding="0">
                 <Button x:Name="ReloadContent"

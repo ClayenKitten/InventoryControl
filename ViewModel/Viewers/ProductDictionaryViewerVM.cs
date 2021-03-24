@@ -24,22 +24,6 @@ namespace InventoryControl.ViewModel
             GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }
 
-        private string searchString;
-        public string SearchString 
-        {
-            get { return searchString; }
-            set
-            {
-                searchString = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Content");
-            }
-        }
-
-        public void OnPropertyChanged([CallerMemberName]string property = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
