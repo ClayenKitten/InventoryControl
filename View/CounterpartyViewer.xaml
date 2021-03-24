@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <ComboBox BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"/>
+        <Label BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1" Content="{Binding Header}"/>
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"

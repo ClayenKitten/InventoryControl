@@ -8,32 +8,24 @@ namespace InventoryControl.ViewModel
 {
     public class CounterpatyViewerVM : INotifyPropertyChanged
     {
-        private List<Counterparty> purchasers { get { return CounterpartyMapper.GetPurchasers(); } }
-        private List<Counterparty> suppliers { get { return CounterpartyMapper.GetSuppliers(); } }
-        public List<Counterparty> Content
+        private bool showPurchasers;
+        public bool ShowPurchasers 
         {
-            get
+            get => showPurchasers;
+            set
             {
-                switch(CounterpartyType)
-                {
-                    case CounterpartyType.Supplier:
-                        return suppliers;
-                    case (CounterpartyType.Purchaser):
-                        return purchasers;
-                    default:
-                        return new List<Counterparty>();
-                }
+                showPurchasers = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Header"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             }
         }
-        private CounterpartyType counterpartyType;
+        private List<Counterparty> purchasers { get { return CounterpartyMapper.GetPurchasers(); } }
+        private List<Counterparty> suppliers { get { return CounterpartyMapper.GetSuppliers(); } }
+        public List<Counterparty> Content { get => ShowPurchasers ? purchasers : suppliers; }
+
+        public string Header { get => ShowPurchasers ? "Покупатели" : "Поставщики"; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public CounterpartyType CounterpartyType 
-        { 
-            get { return counterpartyType; }
-            set { counterpartyType = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); }
-        }
 
         public void RowEditHandler(DataGridRowEditEndingEventArgs e)
         {
