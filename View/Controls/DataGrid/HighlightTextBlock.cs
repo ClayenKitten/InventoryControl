@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -8,8 +9,6 @@ namespace InventoryControl.View.Controls
 {
     public class HighlightTextBlock : TextBlock
     {
-        #region Properties
-
         public new string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -59,10 +58,6 @@ namespace InventoryControl.View.Controls
             ApplyHighlight(d as HighlightTextBlock);
         }
 
-        #endregion
-
-        #region Members
-
         private static void ApplyHighlight(HighlightTextBlock tb)
         {
             string highlightPhrase = tb.HighlightPhrase;
@@ -103,6 +98,11 @@ namespace InventoryControl.View.Controls
             }
         }
 
-        #endregion
+        public HighlightTextBlock() : base() { }
+        public HighlightTextBlock(TextBlock basement, BindingBase HighlightPhraseBindingBase) : this()
+        {
+            SetBinding(TextProperty, basement.GetBindingExpression(TextBlock.TextProperty).ParentBindingBase);
+            SetBinding(HighlightPhraseProperty, HighlightPhraseBindingBase);
+        }
     }
 }
