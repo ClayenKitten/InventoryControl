@@ -45,13 +45,8 @@
                 </DataGridTemplateColumn>
             </c:AdvancedDataGrid.Columns>
         </c:AdvancedDataGrid>
+        
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
-            <Grid.Resources>
-                <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="0,1,1,0"/>
-                </Style>
-            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{Binding ElementName=NameC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
@@ -68,7 +63,7 @@
             <TextBox Grid.Column="4" mah:TextBoxHelper.Watermark="Расчётный счёт..."/>
             <TextBox Grid.Column="5" mah:TextBoxHelper.Watermark="БИК..."/>
             <Button Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}"
-                    Background="Transparent" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
                 <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
             </Button>
         </Grid>
