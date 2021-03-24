@@ -61,14 +61,13 @@
                 <ColumnDefinition Width="{Binding ElementName=BankIdC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=ConfirmC, Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" mah:TextBoxHelper.Watermark="Метка..."/>
-            <TextBox Grid.Column="1" mah:TextBoxHelper.Watermark="Наименование..."/>
-            <TextBox Grid.Column="2" mah:TextBoxHelper.Watermark="Юридический адрес..."/>
-            <TextBox Grid.Column="3" mah:TextBoxHelper.Watermark="Телефонный номер..."/>
-            <TextBox Grid.Column="4" mah:TextBoxHelper.Watermark="ИНН..."/>
-            <TextBox Grid.Column="5" mah:TextBoxHelper.Watermark="Расчётный счёт..."/>
-            <TextBox Grid.Column="6" mah:TextBoxHelper.Watermark="БИК..."/>
-            <Button Grid.Column="7" Style="{StaticResource MahApps.Styles.Button.Flat}"
+            <TextBox Grid.Column="0" mah:TextBoxHelper.Watermark="Наименование..."/>
+            <TextBox Grid.Column="1" mah:TextBoxHelper.Watermark="Юридический адрес..."/>
+            <TextBox Grid.Column="2" mah:TextBoxHelper.Watermark="Телефонный номер..."/>
+            <TextBox Grid.Column="3" mah:TextBoxHelper.Watermark="ИНН..."/>
+            <TextBox Grid.Column="4" mah:TextBoxHelper.Watermark="Расчётный счёт..."/>
+            <TextBox Grid.Column="5" mah:TextBoxHelper.Watermark="БИК..."/>
+            <Button Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}"
                     Background="Transparent" BorderBrush="Black" BorderThickness="0,1,0,0">
                 <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
             </Button>
