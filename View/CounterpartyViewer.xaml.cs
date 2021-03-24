@@ -1,19 +1,7 @@
 ﻿using InventoryControl.Model;
 using InventoryControl.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace InventoryControl.View
 {
@@ -23,11 +11,38 @@ namespace InventoryControl.View
     public partial class CounterpartyViewer : UserControl
     {
         public CounterpartyViewer(bool showPurchasers)
-        {
-            
+        {            
             InitializeComponent();
             ((CounterpatyViewerVM)DataContext).ShowPurchasers = showPurchasers;
+        }
 
+        private void AddButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(((CounterpatyViewerVM)DataContext).ShowPurchasers)
+            {
+                CounterpartyMapper.Create(new Purchaser()
+                {
+                    Name = NameTB.Text,
+                    Address = AddressTB.Text,
+                    Contacts = ContactsTB.Text,
+                    TaxpayerNumber = TaxpayerTB.Text,
+                    AccountingCode = AccountTB.Text,
+                    BankDetails = BankIdTB.Text
+                });
+            }
+            else
+            {
+                CounterpartyMapper.Create(new Supplier()
+                {
+                    Name = NameTB.Text,
+                    Address = AddressTB.Text,
+                    Contacts = ContactsTB.Text,
+                    TaxpayerNumber = TaxpayerTB.Text,
+                    AccountingCode = AccountTB.Text,
+                    BankDetails = BankIdTB.Text
+                });
+            }
+            GlobalCommands.ModelUpdated.Execute(null);
         }
     }
 }

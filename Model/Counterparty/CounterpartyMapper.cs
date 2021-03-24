@@ -74,7 +74,7 @@ namespace InventoryControl.Model
         {
             const string commandText =
             @"
-                INSERT INTO Product(Name, Address, Contacts, TaxpayerNumber, AccountingCode, BankDetails, Role)
+                INSERT INTO Counterparty(Name, Address, Contacts, TaxpayerNumber, AccountingCode, BankDetails, Role)
                 VALUES($name, $address, $contacts, $taxpayerNumber, $accountingCode, $bankDetails, $role);
 
                 SELECT Id FROM Counterparty WHERE ROWID = last_insert_rowid();
