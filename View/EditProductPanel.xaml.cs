@@ -16,8 +16,8 @@ namespace InventoryControl.View
     public partial class EditProductPanel : UserControl, INotifyPropertyChanged
     {
         private Product productData;
-        public String Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
-        public List<String> PossibleMeasurments 
+        public string Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
+        public List<string> PossibleMeasurments 
         { 
             get { return Unit.GetPossibleValues(); } 
         }
@@ -45,14 +45,14 @@ namespace InventoryControl.View
 
         public EditProductPanel()
         {
+            productData = null;
             InitializeComponent();
-            this.productData = null;
             Init();
         }
         public EditProductPanel(int productId)
         {
+            productData = ProductMapper.Read(productId);
             InitializeComponent();
-            this.productData = ProductMapper.Read(productId);
 
             TitleAT.Value = productData.Name;
             AmountAT.Value = productData.Measurement.GetFormattedValue();
@@ -63,7 +63,7 @@ namespace InventoryControl.View
 
             Init();
         }
-
+        
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             ProductMapper.Create(
