@@ -66,18 +66,37 @@ namespace InventoryControl.View
         
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            ProductMapper.Create(
-                new Product
-                (
-                    id: -1,
-                    name: TitleAT.Value,
-                    purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
-                    salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
-                    value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
-                    unit: new Unit(MeasurementCB.SelectedIndex).value,
-                    article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
-                )
-            );
+            if (productData == null)
+            {
+                ProductMapper.Create(
+                    new Product
+                    (
+                        id: -1,
+                        name: TitleAT.Value,
+                        purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
+                        salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
+                        value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        unit: new Unit(MeasurementCB.SelectedIndex).value,
+                        article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
+                    )
+                );
+            }
+            else
+            {
+                ProductMapper.Update(
+                    new Product
+                    (
+                        id: productData.Id,
+                        name: TitleAT.Value,
+                        purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
+                        salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
+                        value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        unit: new Unit(MeasurementCB.SelectedIndex).value,
+                        article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
+                    )
+                );
+            }
+
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
             PM.OpenProductView.Execute();
