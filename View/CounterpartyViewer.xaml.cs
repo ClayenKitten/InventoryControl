@@ -22,15 +22,12 @@ namespace InventoryControl.View
     /// </summary>
     public partial class CounterpartyViewer : UserControl
     {
-        public CounterpartyViewer(CounterpartyType type)
+        public CounterpartyViewer(bool showPurchasers)
         {
+            
             InitializeComponent();
-            ((CounterpatyViewerVM)DataContext).ShowPurchasers = type switch
-            {
-                CounterpartyType.Purchaser => true,
-                CounterpartyType.Supplier => false,
-                _ => throw new NotImplementedException(),
-            };
+            ((CounterpatyViewerVM)DataContext).ShowPurchasers = showPurchasers;
+
         }
 
         private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)

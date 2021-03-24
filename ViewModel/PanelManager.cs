@@ -92,7 +92,7 @@ namespace InventoryControl.ViewModel
                 {
                     return new AdaptiveStackControl(
                         AdaptiveStackScheme.SINGLE, 
-                        new CounterpartyViewer(CounterpartyType.Supplier)
+                        new CounterpartyViewer(false)
                     );
                 });
             }
@@ -105,7 +105,7 @@ namespace InventoryControl.ViewModel
                 {
                     return new AdaptiveStackControl(
                         AdaptiveStackScheme.SINGLE,
-                        new CounterpartyViewer(CounterpartyType.Purchaser)
+                        new CounterpartyViewer(true)
                     );
                 });
             }

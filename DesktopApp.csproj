@@ -368,7 +368,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Counterparty\CounterpartyType.cs" />
+    <Compile Include="Model\Counterparty\ICounterparty.cs" />
+    <Compile Include="Model\Counterparty\Supplier.cs" />
+    <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\PointOfSales\PointOfSales.cs" />
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
@@ -376,7 +378,7 @@
     <Compile Include="Model\Util\INamed.cs" />
     <Compile Include="Model\Util\Measurements\Piece.cs" />
     <Compile Include="Model\Util\Measurements\Weight.cs" />
-    <Compile Include="Model\Counterparty\Counterparty.cs" />
+    <Compile Include="Model\Counterparty\Purchaser.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
     <Compile Include="Model\Product\ProductMapper.cs" />
