@@ -24,9 +24,8 @@
         </Grid.RowDefinitions>
         <ComboBox BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"/>
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
-                  Text="{Binding SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
-        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2"
+        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
             ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             ItemsSource="{Binding Content}" RowEditEnding="DataGrid_RowEditEnding">
             <c:AdvancedDataGrid.Columns>
