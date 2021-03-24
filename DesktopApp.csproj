@@ -431,7 +431,7 @@
     <Compile Include="View\StorageViewer.xaml.cs">
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util\HighlightTextBlock.cs" />
+    <Compile Include="View\Controls\DataGrid\HighlightTextBlock.cs" />
     <Compile Include="Model\Util\Measurements\Money.cs" />
     <Compile Include="View\TransactionProductsViewer.xaml.cs">
       <DependentUpon>TransactionProductsViewer.xaml</DependentUpon>

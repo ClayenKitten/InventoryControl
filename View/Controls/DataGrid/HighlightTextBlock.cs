@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace InventoryControl.Util
+namespace InventoryControl.View.Controls
 {
     public class HighlightTextBlock : TextBlock
     {

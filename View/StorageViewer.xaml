@@ -119,7 +119,7 @@
                     MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <util:HighlightTextBlock Text="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
+                            <c:HighlightTextBlock Text="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
