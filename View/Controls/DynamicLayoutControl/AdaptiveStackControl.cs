@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,27 +8,28 @@ namespace InventoryControl.View.Controls
     /// <summary>
     /// Adapter of <see cref="Grid"/> with adaptive and optionally resizable StackPanel-like behaviour
     /// </summary>
-    public class AdaptiveStackControl : Control
+    public class AdaptiveStackControl : Control, IDisposable
     {
         public AdaptiveStackScheme Scheme { get; set; }
-        public List<UIElement> Content { get; } = new List<UIElement>();
+        public List<ControlPanel> Content { get; } = new List<ControlPanel>();
 
         const double RESIZERLENGTH = 5.0;
 
         private Grid mainGrid { get { return Template.FindName("MainGrid", this) as Grid; } }
 
         //Constructors
-        public AdaptiveStackControl(AdaptiveStackScheme scheme, params UIElement[] content)
-            : this(scheme, new List<UIElement>(content)) { }
-        public AdaptiveStackControl(AdaptiveStackScheme scheme, List<UIElement> content)
+        public AdaptiveStackControl(AdaptiveStackScheme scheme, params ControlPanel[] content)
+            : this(scheme, new List<ControlPanel>(content)) { }
+        public AdaptiveStackControl(AdaptiveStackScheme scheme, List<ControlPanel> content)
         {
             this.Scheme = scheme;
-            this.Content = new List<UIElement>(content);
+            this.Content = new List<ControlPanel>(content);
         }
         static AdaptiveStackControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AdaptiveStackControl), new FrameworkPropertyMetadata(typeof(AdaptiveStackControl)));
         }
+        //Layout
         protected override Size MeasureOverride(Size constraint)
         {
             mainGrid.Measure(constraint);
@@ -92,6 +94,14 @@ namespace InventoryControl.View.Controls
                     mainGrid.Children.Add(splitter);
                 }
                 contentIndex++;
+            }
+        }
+        //Disposing
+        public void Dispose()
+        {
+            foreach (var elem in Content)
+            {
+                elem.Dispose();
             }
         }
     }

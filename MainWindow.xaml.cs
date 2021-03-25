@@ -37,14 +37,24 @@ namespace InventoryControl
         }
         public void SetPanel(AdaptiveStackControl content)
         {
-            content.SetValue(Grid.RowProperty, 1);
-            if (MainWindowGrid.Children.Count < 2)
-                MainWindowGrid.Children.Add(content);
-            else
+            //Dispose if ASC already set
+            var cur = MainWindowGrid.Children[MainWindowGrid.Children.Count - 1];
+            if (cur is AdaptiveStackControl adaptiveStackControl)
             {
-                MainWindowGrid.Children.RemoveAt(1);
-                MainWindowGrid.Children.Add(content);
+                adaptiveStackControl.Dispose();
             }
+            //Set new ASC
+            content.SetValue(Grid.RowProperty, 1);
+            foreach (var child in MainWindowGrid.Children)
+            {
+                if (child is AdaptiveStackControl)
+                {
+                    MainWindowGrid.Children.Remove((UIElement)child);
+                    MainWindowGrid.Children.Add(content);
+                    return;
+                }
+            }
+            MainWindowGrid.Children.Add(content);
         }
     }
 }
