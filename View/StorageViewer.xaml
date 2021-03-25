@@ -114,15 +114,10 @@
                     Header="Артикул" ToolTipService.ToolTip="Артикул товара" 
                     MinWidth="100" Width="1*" MaxWidth="150" CanUserReorder="False"
                     Binding="{Binding Article}" SortDirection="Ascending"/>
-                <DataGridTemplateColumn
+                <c:HighlightColumn
                     Header="Наименование" ToolTipService.ToolTip="Наименование" 
-                    MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <c:HighlightTextBlock Text="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name"
+                    Binding="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
                 <DataGridTextColumn
                     Header="Кол" ToolTipService.ToolTip="Количество товара в одном месте"
                     MinWidth="50" Width="1*"
