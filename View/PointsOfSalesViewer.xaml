@@ -29,8 +29,9 @@
             ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" 
             ItemsSource="{Binding Content}" RowEditEnding="DataGrid_RowEditEnding">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="LabelC" Header="Метка" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn x:Name="AddressC" Header="Адрес" Width="5*" Binding="{Binding Address}"/>
+                <c:EditableDataGridHighlightColumn x:Name="LabelC" Header="Метка" Width="*" Binding="{Binding Name}"
+                    HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
+                <c:EditableDataGridTextColumn x:Name="AddressC" Header="Адрес" Width="5*" Binding="{Binding Address}"/>
                 <DataGridTemplateColumn x:Name="ConfirmC" Width="40" 
                     CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                     <DataGridTemplateColumn.CellTemplate>

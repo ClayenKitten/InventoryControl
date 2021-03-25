@@ -29,7 +29,8 @@
             ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" RowEditEndHandler="{Binding OnRowEditEnded}"
             ItemsSource="{Binding Content}">
             <c:AdvancedDataGrid.Columns>
-                <c:EditableDataGridTextColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"/>
+                <c:EditableDataGridHighlightColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"
+                    HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
                 <c:EditableDataGridTextColumn x:Name="AddressC" Header="Юр. адрес" Width="2*" Binding="{Binding Address}"/>
                 <c:EditableDataGridTextColumn x:Name="PhoneC" Header="Телефон" Width="2*" Binding="{Binding Contacts}"/>
                 <c:EditableDataGridTextColumn x:Name="TaxpayerC" Header="ИНН" Width="2*" Binding="{Binding TaxpayerNumber}"/>
