@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="{Binding ElementName=TaxpayerC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=AccountC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=BankIdC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=ConfirmC, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=DeleteC, Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="NameTB" Grid.Column="0" mah:TextBoxHelper.Watermark="Наименование..."/>
             <TextBox x:Name="AddressTB" Grid.Column="1" mah:TextBoxHelper.Watermark="Юридический адрес..."/>
