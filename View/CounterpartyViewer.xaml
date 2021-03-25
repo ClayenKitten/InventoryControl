@@ -36,11 +36,13 @@
                 <c:EditableDataGridTextColumn x:Name="TaxpayerC" Header="ИНН" Width="2*" Binding="{Binding TaxpayerNumber}"/>
                 <c:EditableDataGridTextColumn x:Name="AccountC" Header="Расч. счёт" Width="2*" Binding="{Binding AccountingCode}"/>
                 <c:EditableDataGridTextColumn x:Name="BankIdC" Header="БИК" Width="1.5*" Binding="{Binding BankDetails}"/>
-                <DataGridTemplateColumn x:Name="ConfirmC" Width="35" 
+                <DataGridTemplateColumn x:Name="DeleteC" Width="40" 
                     CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <iconPacks:PackIconFontAwesome Kind="EditSolid" />
+                            <Button Style="{StaticResource MahApps.Styles.Button.Chromeless}"
+                                    Content="{iconPacks:FontAwesome Kind=TrashAltRegular}"
+                                    HorizontalAlignment="Stretch"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
