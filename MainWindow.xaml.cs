@@ -6,6 +6,7 @@ using InventoryControl.View;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using InventoryControl.ViewModel;
+using InventoryControl.View.Controls;
 
 namespace InventoryControl
 {

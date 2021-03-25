@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace InventoryControl.View
+namespace InventoryControl.View.Controls
 {
     public class AdaptiveStackScheme : IEnumerable<AdaptiveStackSchemeElement>
     {

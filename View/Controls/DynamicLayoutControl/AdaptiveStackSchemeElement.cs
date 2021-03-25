@@ -1,4 +1,4 @@
-﻿namespace InventoryControl.View
+﻿namespace InventoryControl.View.Controls
 {
     /// <summary>
     /// Simple ValueObject for <seealso cref="AdaptiveStackScheme"/>

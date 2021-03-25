@@ -1,5 +1,6 @@
 ﻿using InventoryControl.Model;
 using InventoryControl.View;
+using InventoryControl.View.Controls;
 using System;
 using System.Windows.Media;
 

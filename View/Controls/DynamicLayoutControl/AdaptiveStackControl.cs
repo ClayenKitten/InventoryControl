@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace InventoryControl.View
+namespace InventoryControl.View.Controls
 {
     /// <summary>
     /// Adapter of <see cref="Grid"/> with adaptive and optionally resizable StackPanel-like behaviour

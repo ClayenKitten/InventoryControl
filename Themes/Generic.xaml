@@ -13,7 +13,7 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style TargetType="{x:Type view:AdaptiveStackControl}">
+    <Style TargetType="{x:Type c:AdaptiveStackControl}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>

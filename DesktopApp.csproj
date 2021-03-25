@@ -410,9 +410,9 @@
     <Compile Include="View\CounterpartyViewer.xaml.cs">
       <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DynamicLayoutControl\AdaptiveStackControl.cs" />
-    <Compile Include="View\DynamicLayoutControl\AdaptiveStackScheme.cs" />
-    <Compile Include="View\DynamicLayoutControl\AdaptiveStackSchemeElement.cs" />
+    <Compile Include="View\Controls\DynamicLayoutControl\AdaptiveStackControl.cs" />
+    <Compile Include="View\Controls\DynamicLayoutControl\AdaptiveStackScheme.cs" />
+    <Compile Include="View\Controls\DynamicLayoutControl\AdaptiveStackSchemeElement.cs" />
     <Compile Include="View\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
 ﻿using InventoryControl.View;
+using InventoryControl.View.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
