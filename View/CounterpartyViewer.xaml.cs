@@ -1,14 +1,14 @@
 ﻿using InventoryControl.Model;
+using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for CounterpartyViewer.xaml
     /// </summary>
-    public partial class CounterpartyViewer : UserControl
+    public partial class CounterpartyViewer : ControlPanel
     {
         public CounterpartyViewer(bool showPurchasers)
         {            

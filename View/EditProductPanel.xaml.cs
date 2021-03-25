@@ -13,7 +13,7 @@ namespace InventoryControl.View
     /// <summary>
     /// Interaction logic for EditProductPanel.xaml
     /// </summary>
-    public partial class EditProductPanel : UserControl, INotifyPropertyChanged
+    public partial class EditProductPanel : ControlPanel, INotifyPropertyChanged
     {
         private Product productData;
         public string Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }

@@ -406,6 +406,7 @@
     <Compile Include="View\Controls\AdvancedTextbox.cs" />
     <Compile Include="View\Controls\DataGrid\EditableDataGridTextColumn.cs" />
     <Compile Include="View\Controls\DataGrid\HighlightColumn.cs" />
+    <Compile Include="View\Controls\ControlPanel.cs" />
     <Compile Include="View\CounterpartyViewer.xaml.cs">
       <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
     </Compile>

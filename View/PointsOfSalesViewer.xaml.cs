@@ -1,10 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using InventoryControl.View.Controls;
+using System.Windows.Controls;
 namespace InventoryControl.View
 {
     /// <summary>
     /// Interaction logic for PointsOfSalesViewer.xaml
     /// </summary>
-    public partial class PointsOfSalesViewer : UserControl
+    public partial class PointsOfSalesViewer : ControlPanel
     {
         public PointsOfSalesViewer()
         {

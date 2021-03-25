@@ -1,4 +1,5 @@
-﻿using InventoryControl.ViewModel;
+﻿using InventoryControl.View.Controls;
+using InventoryControl.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace InventoryControl.View
     /// <summary>
     /// Interaction logic for TransactionProductsViewer.xaml
     /// </summary>
-    public partial class TransactionProductsViewer : UserControl
+    public partial class TransactionProductsViewer : ControlPanel
     {
         public TransactionProductsViewer(TransactionType type)
         {

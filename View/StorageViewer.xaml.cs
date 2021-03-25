@@ -1,4 +1,5 @@
 ﻿using InventoryControl.Model;
+using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,7 +9,7 @@ namespace InventoryControl.View
     /// <summary>
     /// Interaction logic for StorageViewer.xaml
     /// </summary>
-    public partial class StorageViewer : UserControl
+    public partial class StorageViewer : ControlPanel
     {
         public StorageViewer()
         {
