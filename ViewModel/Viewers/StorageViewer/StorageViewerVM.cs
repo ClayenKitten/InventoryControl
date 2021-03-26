@@ -1,11 +1,12 @@
 ﻿using InventoryControl.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
-    public class StorageViewerVM : INotifyPropertyChanged
+    public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
         public StorageViewerOptions Options { get; set; } = new StorageViewerOptions(0);
         public int StorageId 
@@ -74,11 +75,17 @@ namespace InventoryControl.ViewModel
 
         public StorageViewerVM()
         {
-            GlobalCommands.ModelUpdated.Executed += (_) => 
-            { 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
-            };
+            GlobalCommands.ModelUpdated.Executed += OnModelUpdated;
+        }
+        public void Dispose()
+        {
+            GlobalCommands.ModelUpdated.Executed -= OnModelUpdated;
+        }
+
+        protected void OnModelUpdated(object _)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }
