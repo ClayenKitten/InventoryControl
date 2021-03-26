@@ -8,7 +8,7 @@ namespace InventoryControl.View.Controls
     {
         public virtual void Dispose() 
         {
-            if(this.DataContext is IDisposable)
+            if(DataContext is IDisposable && DataContext.GetType() != this.GetType())
             {
                 ((IDisposable)this.DataContext).Dispose();
             }
