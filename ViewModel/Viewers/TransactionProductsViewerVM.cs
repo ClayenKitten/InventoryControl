@@ -83,18 +83,6 @@ namespace InventoryControl.ViewModel
 
         public TransactionProductsViewerVM()
         {
-            GlobalCommands.SendProduct.Executed += (parameter) =>
-            {
-                int productId;
-                try { productId = Convert.ToInt32(parameter); }
-                catch { return; }
-
-                foreach(var product in Content)
-                {
-                    if(product.Id == productId) return;
-                }
-                Content.Add(new TransactionProductPresenter(ProductMapper.Read(productId), 1));
-            };
             GlobalCommands.CreateTransaction.Executed += (parameter) =>
             {
                 TransactionMapper.Create(new Transaction(DateTime.Now, -1, -1,
@@ -102,6 +90,14 @@ namespace InventoryControl.ViewModel
                 var pm = new PanelManager();
                 pm.OpenStorageView.Execute();
             };
+        }
+        public void AddProduct(int id)
+        {
+            foreach (var product in Content)
+            {
+                if (product.Id == id) return;
+            }
+            Content.Add(new TransactionProductPresenter(ProductMapper.Read(id), 1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

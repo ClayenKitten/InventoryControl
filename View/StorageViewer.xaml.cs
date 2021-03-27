@@ -1,6 +1,7 @@
 ﻿using InventoryControl.Model;
 using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -28,9 +29,15 @@ namespace InventoryControl.View
         {
             if(e.ClickCount == 2)
             {
-                //((MainWindow)App.Current.MainWindow).
-                var id = ((StockProductPresenter)row.Item).Id;
-                GlobalCommands.SendProduct.Execute(id);
+                var panels = ((MainWindow)App.Current.MainWindow).Panel.ControlPanels;
+                panels.Remove(this);
+                foreach(var panel in panels)
+                {
+                    if (panel.DataContext is TransactionProductsViewerVM vm)
+                    {
+                        vm.AddProduct(((StockProductPresenter)row.Item).Id);
+                    }
+                }
             }
         }
     }
