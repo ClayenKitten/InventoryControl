@@ -19,27 +19,26 @@ namespace InventoryControl
         {
             InitializeComponent();
 
-            var initPanel = new AdaptiveStackControl(AdaptiveStackScheme.SINGLE, new StorageViewer(0));
+            var initPanel = new SingleControlPanelContainer(new StorageViewer(0));
             this.SetPanel(initPanel);
 
             GlobalCommands.EditProduct.Executed += (productId) =>
             {
                 this.SetPanel
                 (
-                    new AdaptiveStackControl
+                    new DualControlPanelContainer
                     (
-                        AdaptiveStackScheme.PRIORITIZED,
                         new ProductDictionaryViewer(),
                         new EditProductPanel((int)productId)
                     )
                 );
             };
         }
-        public void SetPanel(AdaptiveStackControl content)
+        public void SetPanel(ControlPanelContainer content)
         {
             //Dispose if ASC already set
             var cur = MainWindowGrid.Children[MainWindowGrid.Children.Count - 1];
-            if (cur is AdaptiveStackControl adaptiveStackControl)
+            if (cur is ControlPanelContainer adaptiveStackControl)
             {
                 adaptiveStackControl.Dispose();
             }
@@ -47,7 +46,7 @@ namespace InventoryControl
             content.SetValue(Grid.RowProperty, 1);
             foreach (var child in MainWindowGrid.Children)
             {
-                if (child is AdaptiveStackControl)
+                if (child is ControlPanelContainer)
                 {
                     MainWindowGrid.Children.Remove((UIElement)child);
                     MainWindowGrid.Children.Add(content);

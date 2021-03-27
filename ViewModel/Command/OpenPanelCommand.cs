@@ -11,7 +11,7 @@ namespace InventoryControl.ViewModel
 {
     public class OpenPanelCommand : ICommand
     {
-        Func<AdaptiveStackControl> GetPanelDel { get; }
+        Func<ControlPanelContainer> GetPanelDel { get; }
 
         public event EventHandler CanExecuteChanged;
         public bool CanExecute(object parameter)
@@ -25,7 +25,7 @@ namespace InventoryControl.ViewModel
         }
         public void Execute(object parameter) => Execute();
 
-        public OpenPanelCommand(Func<AdaptiveStackControl> getPanelDel)
+        public OpenPanelCommand(Func<ControlPanelContainer> getPanelDel)
         {
             this.GetPanelDel = getPanelDel;
         }

@@ -16,8 +16,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.SINGLE,
-                    new StorageViewer());
+                    return new SingleControlPanelContainer(new StorageViewer());
                 });
             }
         }
@@ -28,8 +27,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.SINGLE,
-                    new ProductDictionaryViewer());
+                    return new SingleControlPanelContainer(new ProductDictionaryViewer());
                 });
             }
         }
@@ -39,8 +37,10 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.PRIORITIZED, 
-                    new ProductDictionaryViewer(), new EditProductPanel());
+                    return new DualControlPanelContainer(
+                        new ProductDictionaryViewer(), 
+                        new EditProductPanel()
+                    );
                 });
             }
         }
@@ -58,8 +58,10 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
-                    new ProductDictionaryViewer(), new TransactionProductsViewer(TransactionType.Buy));
+                    return new DualControlPanelContainer(
+                        new ProductDictionaryViewer(),
+                        new TransactionProductsViewer(TransactionType.Buy)
+                    );
                 });
             }
         }
@@ -69,8 +71,10 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
-                    new StorageViewer(passiveStorageViewerOptions), new TransactionProductsViewer(TransactionType.Sell));
+                    return new DualControlPanelContainer(
+                        new StorageViewer(passiveStorageViewerOptions),
+                        new TransactionProductsViewer(TransactionType.Sell)
+                    );
                 });
             }
         }
@@ -80,8 +84,10 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(AdaptiveStackScheme.DIVIDED,
-                    new StorageViewer(passiveStorageViewerOptions), new TransactionProductsViewer(TransactionType.Return));
+                    return new DualControlPanelContainer(
+                        new StorageViewer(passiveStorageViewerOptions),
+                        new TransactionProductsViewer(TransactionType.Return)
+                    );
                 });
             }
         }
@@ -91,10 +97,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(
-                        AdaptiveStackScheme.SINGLE, 
-                        new CounterpartyViewer(false)
-                    );
+                    return new SingleControlPanelContainer(new CounterpartyViewer(false));
                 });
             }
         }
@@ -104,10 +107,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(
-                        AdaptiveStackScheme.SINGLE,
-                        new CounterpartyViewer(true)
-                    );
+                    return new SingleControlPanelContainer(new CounterpartyViewer(true));
                 });
             }
         }
@@ -117,10 +117,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(
-                        AdaptiveStackScheme.SINGLE,
-                        new PointsOfSalesViewer()
-                    );
+                    return new SingleControlPanelContainer(new PointsOfSalesViewer());
                 });
             }
         }
@@ -131,9 +128,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new AdaptiveStackControl(
-                        AdaptiveStackScheme.SINGLE, new SettingsViewer()
-                    );
+                    return new SingleControlPanelContainer(new SettingsViewer());
                 });
             }
         }
