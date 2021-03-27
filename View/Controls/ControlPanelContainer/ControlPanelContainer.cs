@@ -28,7 +28,7 @@ namespace InventoryControl.View.Controls
         }
 
         public abstract override void OnApplyTemplate();
-        public abstract IReadOnlyList<ControlPanel> ControlPanels { get; }
+        public abstract IList<ControlPanel> ControlPanels { get; }
         public abstract void Dispose();
     }
 }
