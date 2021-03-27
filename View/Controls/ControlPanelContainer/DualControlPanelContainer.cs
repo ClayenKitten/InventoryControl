@@ -11,6 +11,9 @@ namespace InventoryControl.View.Controls
         ControlPanel secondControlPanel;
         float relWidth = 1f;
 
+        public override IReadOnlyList<ControlPanel> ControlPanels
+           => new List<ControlPanel>() { firstControlPanel, secondControlPanel };
+
         public override void Dispose()
         {
             firstControlPanel.Dispose();
