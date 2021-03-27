@@ -408,12 +408,12 @@
     <Compile Include="View\Controls\DataGrid\EditableDataGridHighlightColumn.cs" />
     <Compile Include="View\Controls\DataGrid\HighlightColumn.cs" />
     <Compile Include="View\Controls\ControlPanel.cs" />
-    <Compile Include="View\Controls\DynamicLayoutControl\DualControlPanelContainer.cs" />
-    <Compile Include="View\Controls\DynamicLayoutControl\SingleControlPanelContainer.cs" />
+    <Compile Include="View\Controls\ControlPanelContainer\DualControlPanelContainer.cs" />
+    <Compile Include="View\Controls\ControlPanelContainer\SingleControlPanelContainer.cs" />
     <Compile Include="View\CounterpartyViewer.xaml.cs">
       <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\DynamicLayoutControl\ControlPanelContainer.cs" />
+    <Compile Include="View\Controls\ControlPanelContainer\ControlPanelContainer.cs" />
     <Compile Include="View\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
     </Compile>
