@@ -19,41 +19,51 @@ namespace InventoryControl
         {
             InitializeComponent();
 
-            var initPanel = new SingleControlPanelContainer(new StorageViewer(0));
-            this.SetPanel(initPanel);
+            Panel = Panel; //set init panel
 
             GlobalCommands.EditProduct.Executed += (productId) =>
             {
-                this.SetPanel
-                (
-                    new DualControlPanelContainer
-                    (
-                        new ProductDictionaryViewer(),
-                        new EditProductPanel((int)productId)
-                    )
+                Panel = new DualControlPanelContainer(
+                    new ProductDictionaryViewer(),
+                    new EditProductPanel((int)productId)
                 );
             };
         }
-        public void SetPanel(ControlPanelContainer content)
+
+        public ControlPanelContainer Panel 
         {
-            //Dispose if ASC already set
-            var cur = MainWindowGrid.Children[MainWindowGrid.Children.Count - 1];
-            if (cur is ControlPanelContainer adaptiveStackControl)
+            get
             {
-                adaptiveStackControl.Dispose();
-            }
-            //Set new ASC
-            content.SetValue(Grid.RowProperty, 1);
-            foreach (var child in MainWindowGrid.Children)
-            {
-                if (child is ControlPanelContainer)
+                foreach (var child in MainWindowGrid.Children)
                 {
-                    MainWindowGrid.Children.Remove((UIElement)child);
-                    MainWindowGrid.Children.Add(content);
-                    return;
+                    if (child is ControlPanelContainer)
+                    {
+                        return (ControlPanelContainer)child;
+                    }
                 }
+                return new SingleControlPanelContainer(new StorageViewer(0));
             }
-            MainWindowGrid.Children.Add(content);
+            set 
+            {
+                //Dispose if container already set
+                var cur = MainWindowGrid.Children[MainWindowGrid.Children.Count - 1];
+                if (cur is ControlPanelContainer adaptiveStackControl)
+                {
+                    adaptiveStackControl.Dispose();
+                }
+                //Set new container
+                value.SetValue(Grid.RowProperty, 1);
+                foreach (var child in MainWindowGrid.Children)
+                {
+                    if (child is ControlPanelContainer)
+                    {
+                        MainWindowGrid.Children.Remove((UIElement)child);
+                        MainWindowGrid.Children.Add(value);
+                        return;
+                    }
+                }
+                MainWindowGrid.Children.Add(value);
+            }
         }
     }
 }

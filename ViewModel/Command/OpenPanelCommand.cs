@@ -21,7 +21,7 @@ namespace InventoryControl.ViewModel
 
         public void Execute()
         {
-            ((MainWindow)App.Current.MainWindow).SetPanel(GetPanelDel.Invoke());
+            ((MainWindow)App.Current.MainWindow).Panel = GetPanelDel.Invoke();
         }
         public void Execute(object parameter) => Execute();
 
