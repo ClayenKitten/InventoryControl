@@ -25,7 +25,8 @@ namespace InventoryControl
             {
                 Panel = new DualControlPanelContainer(
                     new ProductDictionaryViewer(),
-                    new EditProductPanel((int)productId)
+                    new EditProductPanel((int)productId),
+                    0.5f
                 );
             };
         }
