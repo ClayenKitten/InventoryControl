@@ -7,16 +7,21 @@ namespace InventoryControl.View.Controls
     {
         private ControlPanel controlPanel;
 
-        protected override IList<ControlPanel> Content
-            => new List<ControlPanel>() { controlPanel };
         protected override void Send(ControlPanel sender, object item)
         {
             throw new NotImplementedException();
         }
 
+        public override void OnApplyTemplate()
+        {
+            mainGrid.Children.Add(controlPanel);
+        }
+
+
         public SingleControlPanelContainer(ControlPanel controlPanel)
         {
             this.controlPanel = controlPanel;
         }
+        public override void Dispose() => controlPanel.Dispose();
     }
 }
