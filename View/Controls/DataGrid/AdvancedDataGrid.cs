@@ -1,8 +1,6 @@
 using InventoryControl.Model;
 using InventoryControl.Util;
 using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -12,7 +10,7 @@ using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
 {
-    public class AdvancedDataGrid : DataGrid
+    public class AdvancedDataGrid : DataGrid, IDisposable
     {
         public int TargetColumnIndex { get; set; }
         public static DependencyProperty TargetColumnIndexProperty =
@@ -48,6 +46,11 @@ namespace InventoryControl.View.Controls
             };
             MouseUp += OnMouseClicked;
         }
+        public void Dispose()
+        {
+            MouseUp -= OnMouseClicked;
+        }
+
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
