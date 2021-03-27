@@ -7,7 +7,7 @@ namespace InventoryControl.View.Controls
     {
         private ControlPanel controlPanel;
 
-        public override IReadOnlyList<ControlPanel> ControlPanels
+        public override IList<ControlPanel> ControlPanels
             => new List<ControlPanel>() { controlPanel };
 
         public override void OnApplyTemplate()
