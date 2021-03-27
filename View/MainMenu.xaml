@@ -25,11 +25,13 @@
             <Separator/>
             <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}" Command="{Binding OpenInvoiceEditor}"/>
         </MenuItem>
-        <MenuItem Header="Прайс-лист">
+        <MenuItem Header="Номенклатура">
+            <MenuItem Header="Просмотр" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>
             <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Command="{Binding OpenProductViewAdd}"/>
-            <MenuItem Header="Список товаров" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>
             <Separator/>
-            <MenuItem Header="Ценники" Icon="{iconPacks:Material Kind=Receipt}" Command="{Binding OpenReceiptEditor}"/>
+            <MenuItem Header="Экспорт в ККТ..." Icon="{iconPacks:Material Kind=Export}">
+                <MenuItem Header="Меркурий 185-Ф"/>
+            </MenuItem>
         </MenuItem>
         <MenuItem Header="Контрагенты">
             <MenuItem Header="Поставщики" Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" Command="{Binding OpenSuppliers}"/>
