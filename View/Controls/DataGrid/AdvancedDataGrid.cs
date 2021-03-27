@@ -5,8 +5,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
 {
@@ -44,6 +46,7 @@ namespace InventoryControl.View.Controls
                 }
                 return true;
             };
+            MouseUp += OnMouseClicked;
         }
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -64,5 +67,41 @@ namespace InventoryControl.View.Controls
             ((Action<DataGridRowEditEndingEventArgs>)GetValue(RowEditEndHandlerProperty))?.Invoke(e);
         }
 
+        private void OnMouseClicked(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+            while ((dep != null) && !(dep is DataGridCell || dep is DataGridColumnHeader))
+            {
+                if (dep is Visual)
+                    dep = VisualTreeHelper.GetParent(dep);
+                else
+                    dep = LogicalTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            if (dep is DataGridColumnHeader)
+            {
+                HeaderClicked?.Invoke(this, e, dep as DataGridColumnHeader);
+            }
+            if (dep is DataGridCell)
+            {
+                CellClicked?.Invoke(this, e, dep as DataGridCell);
+                while ((dep != null) && !(dep is DataGridRow))
+                {
+                    dep = VisualTreeHelper.GetParent(dep);
+                }
+                RowClicked?.Invoke(this, e, dep as DataGridRow);
+            }
+        }
+
+        //Click events
+        public delegate void HeaderClickedEventHandler(object sender, MouseButtonEventArgs e, DataGridColumnHeader header);
+        public event HeaderClickedEventHandler HeaderClicked;
+        public delegate void RowClickedEventHandler(object sender, MouseButtonEventArgs e, DataGridRow row);
+        public event RowClickedEventHandler RowClicked;
+        public delegate void CellClickedEventHandler(object sender, MouseButtonEventArgs e, DataGridCell cell);
+        public event CellClickedEventHandler CellClicked;
     }
 }
