@@ -39,7 +39,8 @@ namespace InventoryControl.ViewModel
                 {
                     return new DualControlPanelContainer(
                         new ProductDictionaryViewer(), 
-                        new EditProductPanel()
+                        new EditProductPanel(),
+                        0.5f
                     );
                 });
             }
