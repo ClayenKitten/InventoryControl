@@ -2,35 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
     public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
-        public StorageViewerOptions Options { get; set; } = new StorageViewerOptions(0);
-        public int StorageId 
-        {
-            get
-            {
-                return Options.StorageId;
-            }
-            set
-            {
-                Options.StorageId = value;
-            }
-        }
-        public bool IsSelectorEnabled
-        {
-            get
-            {
-                return Options.IsSelectorEnabled;
-            }
-            set
-            {
-                Options.IsSelectorEnabled = value;
-            }
-        }
+        public int StorageId { get; set; }
+        public StorageViewerOptions Options { get; set; }
+        //Binding-ready options getters
+        public Visibility StorageSelectorAsComboboxVisibility
+            => Options.HasFlag(StorageViewerOptions.HideStorageSelector) ? Visibility.Collapsed : Visibility.Visible;
+        public Visibility StorageSelectorAsTextboxVisibility 
+            => Options.HasFlag(StorageViewerOptions.HideStorageSelector) ? Visibility.Visible : Visibility.Collapsed;
+        public bool GroupOutOfStockProducts
+            => Options.HasFlag(StorageViewerOptions.GroupOutOfStockProducts);
+        public string GroupingPropertyPath
+            => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
+        public bool HideOutOfStockProducts
+            => Options.HasFlag(StorageViewerOptions.HideOutOfStockProducts);
+
         public List<StockProductPresenter> Content
         {
             get
@@ -38,13 +30,16 @@ namespace InventoryControl.ViewModel
                 List<StockProductPresenter> res = new List<StockProductPresenter>();
                 foreach (var product in ProductMapper.GetFullDictionary())
                 {
-                    res.Add(new StockProductPresenter(product, Options.StorageId));
+                    res.Add(new StockProductPresenter(product, StorageId));
                 }
                 return res;
             }
         }
-
-        public List<Storage> AllStoragesList { get { return StorageMapper.GetAllStorages(); } }
+        //Header
+        public List<Storage> AllStoragesList
+            => StorageMapper.GetAllStorages();
+        public string CurrentStorageName
+            => StorageMapper.Read(StorageId).Name;
         //Statusbar
         public string SaleSum
         {
@@ -86,6 +81,12 @@ namespace InventoryControl.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsComboboxVisibility"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsTextboxVisibility"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentStorageName"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupOutOfStockProducts"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingPropertyPath"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HideOutOfStockProducts"));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

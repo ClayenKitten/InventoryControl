@@ -33,20 +33,28 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="StorageSelector" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1"
-            IsEnabled="{Binding IsSelectorEnabled}"
-            ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name"
-            SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ComboBox>
+        <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1">
+            <StackPanel>
+                <ComboBox x:Name="StorageSelector"
+                ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name" 
+                Visibility="{Binding StorageSelectorAsComboboxVisibility}"
+                SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label
+                    Content="{Binding CurrentStorageName}" VerticalAlignment="Center"
+                    Visibility="{Binding StorageSelectorAsTextboxVisibility}"/>
+            </StackPanel>
+        </Border>
+
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
-            FilterString="{Binding ElementName=Searchbox, Path=Text}" GroupingPropertyPath="IsInStock"
+            FilterString="{Binding ElementName=Searchbox, Path=Text}" GroupingPropertyPath="{Binding GroupingPropertyPath}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
             SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
             CanUserSortColumns="True" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked"
@@ -69,7 +77,7 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Name}" Value="False"/>
-                                <Condition Binding="{Binding DataContext.Options.GroupOutOfStockProducts, ElementName=StorageViewerUC}" Value="True"/>
+                                <Condition Binding="{Binding DataContext.GroupOutOfStockProducts, ElementName=StorageViewerUC}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Template">
                                 <Setter.Value>

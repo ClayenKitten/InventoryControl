@@ -46,13 +46,6 @@ namespace InventoryControl.ViewModel
             }
         }
         //Transaction
-        private StorageViewerOptions passiveStorageViewerOptions = new StorageViewerOptions(0)
-        {
-            IsSelectorEnabled = false,
-            ShowOutOfStockProducts = false,
-            GroupOutOfStockProducts = false,
-            ShowOptionsSettings = false
-        };
         public OpenPanelCommand OpenTransactionProductsViewerBuy
         {
             get
@@ -73,7 +66,7 @@ namespace InventoryControl.ViewModel
                 return new OpenPanelCommand(() =>
                 {
                     return new DualControlPanelContainer(
-                        new StorageViewer(passiveStorageViewerOptions),
+                        new StorageViewer(0, StorageViewerOptions.HideStorageSelector),
                         new TransactionProductsViewer(TransactionType.Sell)
                     );
                 });
@@ -86,7 +79,7 @@ namespace InventoryControl.ViewModel
                 return new OpenPanelCommand(() =>
                 {
                     return new DualControlPanelContainer(
-                        new StorageViewer(passiveStorageViewerOptions),
+                        new StorageViewer(0, StorageViewerOptions.HideStorageSelector),
                         new TransactionProductsViewer(TransactionType.Return)
                     );
                 });

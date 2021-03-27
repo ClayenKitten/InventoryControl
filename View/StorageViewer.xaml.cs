@@ -16,15 +16,15 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        public StorageViewer(StorageViewerOptions options) : this()
+        public StorageViewer(int storageId, StorageViewerOptions options) : this()
         {
+            var dataContext = (StorageViewerVM)DataContext;
+            dataContext.StorageId = storageId;
             dataContext.Options = options;
             GlobalCommands.ModelUpdated.Execute(null);
         }
-        public StorageViewer(int storageId) : this(new StorageViewerOptions(storageId)) {}
-        
-        private StorageViewerVM dataContext { get { return (StorageViewerVM)DataContext; } }
-        
+        public StorageViewer(int storageId) : this(storageId, StorageViewerOptions.None) {}
+                
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {
             if(e.ClickCount == 2)
