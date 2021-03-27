@@ -7,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Reflection;
 
 namespace InventoryControl.View.Controls
 {
@@ -18,11 +19,21 @@ namespace InventoryControl.View.Controls
 
         public string FilterString { get; set; }
         public static DependencyProperty FilterStringProperty =
-            DependencyProperty.Register("FilterString", typeof(string), typeof(AdvancedDataGrid));
-            
+            DependencyProperty.Register("FilterString",
+            typeof(string), typeof(AdvancedDataGrid),
+            new PropertyMetadata(""));
+
+        public string FilterPropertyPath { get; set; }
+        public static DependencyProperty FilterPropertyPathProperty =
+            DependencyProperty.Register("FilterPropertyPath", 
+            typeof(string), typeof(AdvancedDataGrid),
+            new PropertyMetadata(""));
+
         public string GroupingPropertyPath { get; set; }
         public static DependencyProperty GroupingPropertyPathProperty =
-            DependencyProperty.Register("GroupingPropertyPath", typeof(string), typeof(AdvancedDataGrid));
+            DependencyProperty.Register("GroupingPropertyPath",
+            typeof(string), typeof(AdvancedDataGrid),
+            new PropertyMetadata(""));
 
         public Action<DataGridRowEditEndingEventArgs> RowEditEndHandler { get; set; }
         public static DependencyProperty RowEditEndHandlerProperty =
@@ -38,11 +49,19 @@ namespace InventoryControl.View.Controls
         {
             Items.Filter = (obj) =>
             {
+                bool passed = true;
+                // Search check
                 if (obj is INamed)
                 {
-                    return (obj as INamed).Name.Includes(GetValue(FilterStringProperty).ToString());
+                    passed &= (obj as INamed).Name.Includes(GetValue(FilterStringProperty).ToString());
                 }
-                return true;
+                // Filter property check
+                var prop = obj.GetType().GetProperty(GetValue(FilterPropertyPathProperty) as string);
+                if (prop != null)
+                {
+                    passed &= (bool)prop.GetValue(obj);
+                }
+                return passed;                
             };
             MouseUp += OnMouseClicked;
             MouseDown += OnMouseClicked;
