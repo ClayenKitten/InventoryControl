@@ -7,13 +7,13 @@ namespace InventoryControl.Model
     {
         public static Storage Create()
         {
-            const string commandText = "INSERT INTO Storages DEFAULT VALUES; SELECT Id FROM Storages WHERE ROWID = last_insert_rowid();";
+            const string commandText = "INSERT INTO Storage DEFAULT VALUES; SELECT Id FROM Storage WHERE ROWID = last_insert_rowid();";
             var id = (int)Database.CommitScalarTransaction(commandText);
             return new Storage(id, "");
         }
         public static void Update(Storage storage)
         {
-            const string commandText = "UPDATE Storages SET Title=$name, WHERE Id=$id;";
+            const string commandText = "UPDATE Storage SET Title=$name, WHERE Id=$id;";
             Database.CommitNonQueryTransaction(commandText,
                 new SQLiteParameter("$name", storage.Name),
                 new SQLiteParameter("$id", storage.Id)
@@ -21,7 +21,7 @@ namespace InventoryControl.Model
         }
         public static Storage Read(int id)
         {
-            const string commandText = "SELECT * FROM Storages WHERE Id=$id";
+            const string commandText = "SELECT * FROM Storage WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             if (rdr.Read())
                 return new Storage
@@ -34,7 +34,7 @@ namespace InventoryControl.Model
         }
         public static void Delete(int id)
         {
-            const string commandText = "DELETE * FROM Storages WHERE Id=$id";
+            const string commandText = "DELETE * FROM Storage WHERE Id=$id";
             Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
         }
 
