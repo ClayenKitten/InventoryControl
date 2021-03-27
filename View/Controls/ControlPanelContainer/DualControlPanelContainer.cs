@@ -11,11 +11,6 @@ namespace InventoryControl.View.Controls
         ControlPanel secondControlPanel;
         float relWidth = 1f;
 
-        protected override void Send(ControlPanel sender, object item)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Dispose()
         {
             firstControlPanel.Dispose();

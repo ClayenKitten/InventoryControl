@@ -28,11 +28,6 @@ namespace InventoryControl.View.Controls
         }
 
         public abstract override void OnApplyTemplate();
-
-        /// <summary>
-        /// Send data to another panel. Or don't if there are none.
-        /// </summary>
-        protected abstract void Send(ControlPanel sender, object item);
         public abstract void Dispose();
     }
 }
