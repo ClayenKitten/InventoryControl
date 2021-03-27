@@ -54,12 +54,13 @@
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
-            FilterString="{Binding ElementName=Searchbox, Path=Text}" GroupingPropertyPath="{Binding GroupingPropertyPath}"
+            FilterString="{Binding ElementName=Searchbox, Path=Text}"
             HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
             SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
             CanUserSortColumns="True" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked"
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
-            Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}">
+            Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}"
+            GroupingPropertyPath="{Binding GroupingPropertyPath}" FilterPropertyPath="{Binding FilterPropertyPath}">
             <DataGrid.Resources>
                 <Style x:Key="GroupItemStyle" TargetType="{x:Type GroupItem}">
                     <Style.Triggers>

@@ -22,6 +22,8 @@ namespace InventoryControl.ViewModel
             => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
         public bool HideOutOfStockProducts
             => Options.HasFlag(StorageViewerOptions.HideOutOfStockProducts);
+        public string FilterPropertyPath
+            => HideOutOfStockProducts ? "IsInStock" : string.Empty;
 
         public List<StockProductPresenter> Content
         {
@@ -87,6 +89,7 @@ namespace InventoryControl.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupOutOfStockProducts"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingPropertyPath"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HideOutOfStockProducts"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilterPropertyPath"));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }
