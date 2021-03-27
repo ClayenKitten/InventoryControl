@@ -45,6 +45,7 @@ namespace InventoryControl.View.Controls
                 return true;
             };
             MouseUp += OnMouseClicked;
+            MouseDown += OnMouseClicked;
         }
         public void Dispose()
         {
