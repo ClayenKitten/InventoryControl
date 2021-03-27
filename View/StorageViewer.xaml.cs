@@ -24,13 +24,14 @@ namespace InventoryControl.View
         
         private StorageViewerVM dataContext { get { return (StorageViewerVM)DataContext; } }
         
-
-        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {
-            var row = ((DataGridRow)sender);
-            var id = ((StockProductPresenter)row.Item).Id;
-
-            GlobalCommands.SendProduct.Execute(id);
+            if(e.ClickCount == 2)
+            {
+                //((MainWindow)App.Current.MainWindow).
+                var id = ((StockProductPresenter)row.Item).Id;
+                GlobalCommands.SendProduct.Execute(id);
+            }
         }
     }
 }
