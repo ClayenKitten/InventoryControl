@@ -23,7 +23,7 @@ namespace InventoryControl.View
             dataContext.Options = options;
             GlobalCommands.ModelUpdated.Execute(null);
         }
-        public StorageViewer(int storageId) : this(storageId, StorageViewerOptions.None) {}
+        public StorageViewer(int storageId) : this(storageId, new StorageViewerOptions()) {}
 
         private void ShowHeaderContextMenu()
         {
@@ -49,10 +49,6 @@ namespace InventoryControl.View
                     .AddCheckable("Продажной цены", null)
                     .AddCheckable("Остатка", null)
                 .EndGroup();
-            if (!((StorageViewerVM)DataContext).Options.HasFlag(StorageViewerOptions.ShowOptionsSettings))
-            {
-                
-            }
             builder.Build().IsOpen = true;
         }
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)

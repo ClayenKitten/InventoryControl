@@ -13,15 +13,15 @@ namespace InventoryControl.ViewModel
         public StorageViewerOptions Options { get; set; }
         //Binding-ready options getters
         public Visibility StorageSelectorAsComboboxVisibility
-            => Options.HasFlag(StorageViewerOptions.HideStorageSelector) ? Visibility.Collapsed : Visibility.Visible;
+            => Options.HideStorageSelector ? Visibility.Collapsed : Visibility.Visible;
         public Visibility StorageSelectorAsTextboxVisibility 
-            => Options.HasFlag(StorageViewerOptions.HideStorageSelector) ? Visibility.Visible : Visibility.Collapsed;
+            => Options.HideStorageSelector ? Visibility.Visible : Visibility.Collapsed;
         public bool GroupOutOfStockProducts
-            => Options.HasFlag(StorageViewerOptions.GroupOutOfStockProducts);
+            => Options.GroupOutOfStockProducts;
         public string GroupingPropertyPath
             => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
         public bool HideOutOfStockProducts
-            => Options.HasFlag(StorageViewerOptions.HideOutOfStockProducts);
+            => Options.HideOutOfStockProducts;
         public string FilterPropertyPath
             => HideOutOfStockProducts ? "IsInStock" : string.Empty;
 

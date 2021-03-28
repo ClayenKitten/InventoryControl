@@ -1,14 +1,16 @@
-using System;
-
 namespace InventoryControl.ViewModel
 {
-    [Flags]
-    public enum StorageViewerOptions
+    public class StorageViewerOptions
     {
-        None = 0,
-        HideStorageSelector = 1,
-        HideOutOfStockProducts = 2,
-        GroupOutOfStockProducts = 4,
-        ShowOptionsSettings = 8
+        // Filtering
+        public bool HideOutOfStockProducts { get; set; } = true;
+        public bool HideDeletedProducts { get; set; } = true;
+        // Grouping
+        public bool GroupByCategory { get; set; } = true;
+        public bool GroupByManufacturer { get; set; } = false;
+        public bool GroupOutOfStockProducts { get; set; } = false;
+        // Limiting control over StorageViewer
+        public bool HideStorageSelector { get; set; } = false;
+        public bool HideFilteringSettings { get; set; } = false;
     }
 }
