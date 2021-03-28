@@ -402,6 +402,7 @@
     <Compile Include="ViewModel\Viewers\StorageViewer\StorageViewerOptions.cs" />
     <Compile Include="ViewModel\Viewers\StorageViewer\StorageViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\TransactionProductsViewerVM.cs" />
+    <Compile Include="View\Controls\ContextMenuBuilder.cs" />
     <Compile Include="View\Controls\DataGrid\AdvancedDataGrid.cs" />
     <Compile Include="View\Controls\AdvancedTextbox.cs" />
     <Compile Include="View\Controls\DataGrid\EditableDataGridTextColumn.cs" />
