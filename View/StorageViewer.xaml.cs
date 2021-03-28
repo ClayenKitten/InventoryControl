@@ -32,11 +32,16 @@ namespace InventoryControl.View
                     .AddCheckable("По категории", null)
                     .AddCheckable("По производителю", null)
                     .AddCheckable("По наличию", null)
-                .EndGroup()
-                .BeginGroup("Фильтровать...")
-                    .AddCheckable("Закончившиеся", null)
-                    .AddCheckable("Удалённые", null)
-                .EndGroup()
+                .EndGroup();
+            if (!((StorageViewerVM)DataContext).Options.HideFilteringSettings)
+            {
+                builder
+                    .BeginGroup("Фильтровать...")
+                        .AddCheckable("Закончившиеся", null)
+                        .AddCheckable("Удалённые", null)
+                    .EndGroup();
+            }
+            builder
                 .AddSeparator()
                 .BeginGroup("Показывать поле...")
                     .AddCheckable("Артикула", null)
