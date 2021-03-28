@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace InventoryControl.Model
 {
-    class Article
+    public class Article
     {
         public string EAN13 { get; set; }
         public string Addition { get; set; }
