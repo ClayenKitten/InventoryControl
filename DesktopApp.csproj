@@ -378,9 +378,9 @@
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
     <Compile Include="Model\Transaction\TransactionMapper.cs" />
-    <Compile Include="Model\Util\INamed.cs" />
-    <Compile Include="Model\Util\Measurements\Piece.cs" />
-    <Compile Include="Model\Util\Measurements\Weight.cs" />
+    <Compile Include="Model\INamed.cs" />
+    <Compile Include="Model\ValueTypes\Measurements\Piece.cs" />
+    <Compile Include="Model\ValueTypes\Measurements\Weight.cs" />
     <Compile Include="Model\Counterparty\Purchaser.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
@@ -389,7 +389,7 @@
     <Compile Include="Model\Storage\Storage.cs" />
     <Compile Include="Model\Storage\StorageMapper.cs" />
     <Compile Include="Model\Transaction\Transaction.cs" />
-    <Compile Include="Model\Util\Measurements\IMeasurement.cs" />
+    <Compile Include="Model\ValueTypes\Measurements\IMeasurement.cs" />
     <Compile Include="Util\BooleanToVisibilityInvConverter.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="Util\SQLiteReaderExtensionMethods.cs" />
@@ -418,7 +418,7 @@
     <Compile Include="View\EditProductPanel.xaml.cs">
       <DependentUpon>EditProductPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Util\Unit.cs" />
+    <Compile Include="Model\ValueTypes\Unit.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="ViewModel\Command\OpenPanelCommand.cs" />
     <Compile Include="ViewModel\Viewers\ProductDictionaryViewerVM.cs" />
@@ -439,7 +439,7 @@
       <DependentUpon>StorageViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\DataGrid\HighlightTextBlock.cs" />
-    <Compile Include="Model\Util\Measurements\Money.cs" />
+    <Compile Include="Model\ValueTypes\Measurements\Money.cs" />
     <Compile Include="View\TransactionProductsViewer.xaml.cs">
       <DependentUpon>TransactionProductsViewer.xaml</DependentUpon>
     </Compile>
