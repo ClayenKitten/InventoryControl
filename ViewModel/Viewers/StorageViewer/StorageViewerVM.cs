@@ -10,7 +10,7 @@ namespace InventoryControl.ViewModel
     public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
         public int StorageId { get; set; }
-        public StorageViewerOptions Options { get; set; }
+        public StorageViewerOptions Options { get; set; } = new StorageViewerOptions();
         //Binding-ready options getters
         public Visibility StorageSelectorAsComboboxVisibility
             => Options.HideStorageSelector ? Visibility.Collapsed : Visibility.Visible;
