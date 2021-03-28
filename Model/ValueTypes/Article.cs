@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace InventoryControl.Model.ValueTypes
+namespace InventoryControl.Model
 {
     class Article
     {
