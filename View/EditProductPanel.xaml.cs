@@ -75,9 +75,11 @@ namespace InventoryControl.View
                         name: TitleAT.Value,
                         purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
                         salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
-                        value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        unitValue: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
                         unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
+                        article: ArticleAT.Value,
+                        manufacturerId: -1,
+                        category: ""
                     )
                 );
             }
@@ -90,9 +92,11 @@ namespace InventoryControl.View
                         name: TitleAT.Value,
                         purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
                         salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
-                        value: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        unitValue: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
                         unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: int.Parse(ArticleAT.Value, CultureInfo.InvariantCulture)
+                        article: ArticleAT.Value,
+                        manufacturerId: -1,
+                        category: ""
                     )
                 );
             }
