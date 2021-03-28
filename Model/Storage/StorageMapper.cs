@@ -32,11 +32,6 @@ namespace InventoryControl.Model
             else
                 throw new KeyNotFoundException();
         }
-        public static void Delete(int id)
-        {
-            const string commandText = "DELETE * FROM Storage WHERE Id=$id";
-            Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
-        }
 
         public static Storage GetStorage(int storageId)
         {

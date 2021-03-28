@@ -79,11 +79,5 @@ namespace InventoryControl.Model
             }
             return dictionary;
         }
-
-        public static void Delete(int id)
-        {
-            const string commandText = "DELETE * FROM Product WHERE Id=$id";
-            Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
-        }
     }
 }
