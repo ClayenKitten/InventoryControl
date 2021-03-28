@@ -13,9 +13,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <c:ControlPanel.DataContext><vm:StorageViewerVM/></c:ControlPanel.DataContext>
     <c:ControlPanel.Resources>
-        <ContextMenu x:Key="HeaderContextMenu">
-            <MenuItem Header="Здесь будет выбор колонок"/>
-        </ContextMenu>
         <ContextMenu x:Key="RowContextMenu">
             <MenuItem Header="Показать в прайс-листе" Icon="{iconPacks:Material Kind=ClipboardListOutline}" IsEnabled="False"/>
             <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
@@ -55,11 +52,13 @@
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid x:Name="MainDataGrid" Style="{StaticResource MahApps.Styles.DataGrid}"
             FilterString="{Binding ElementName=Searchbox, Path=Text}"
-            HeadersVisibility="Column"  IsReadOnly="True" ContextMenu="{StaticResource HeaderContextMenu}"
+            HeadersVisibility="Column"  IsReadOnly="True"
             SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
-            CanUserSortColumns="True" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked"
+            CanUserSortColumns="True" AutoGenerateColumns="False"
             CanUserAddRows="False" ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}"
+            
+            RowClicked="MainDataGrid_RowClicked" HeaderClicked="MainDataGrid_HeaderClicked"
             GroupingPropertyPath="{Binding GroupingPropertyPath}" FilterPropertyPath="{Binding FilterPropertyPath}">
             <DataGrid.Resources>
                 <Style x:Key="GroupItemStyle" TargetType="{x:Type GroupItem}">

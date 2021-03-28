@@ -24,7 +24,37 @@ namespace InventoryControl.View
             GlobalCommands.ModelUpdated.Execute(null);
         }
         public StorageViewer(int storageId) : this(storageId, StorageViewerOptions.None) {}
+
+        private void ShowHeaderContextMenu()
+        {
+            var builder = new ContextMenuBuilder()
+                .BeginGroup("Группировать...")
+                    .AddCheckable("По категории", null)
+                    .AddCheckable("По производителю", null)
+                    .AddCheckable("По наличию", null)
+                .EndGroup()
+                .BeginGroup("Фильтровать...")
+                    .AddCheckable("Закончившиеся", null)
+                    .AddCheckable("Удалённые", null)
+                .EndGroup()
+                .AddSeparator()
+                .BeginGroup("Показывать поле...")
+                    .AddCheckable("Артикула", null)
+                    .AddCheckable("Наименования", null)
+                    .AddCheckable("Категории", null)
+                    .AddCheckable("Производителя", null)
+                    .AddCheckable("Количества", null)
+                    .AddCheckable("Единиц измерения", null)
+                    .AddCheckable("Закупочной цены", null)
+                    .AddCheckable("Продажной цены", null)
+                    .AddCheckable("Остатка", null)
+                .EndGroup();
+            if (!((StorageViewerVM)DataContext).Options.HasFlag(StorageViewerOptions.ShowOptionsSettings))
+            {
                 
+            }
+            builder.Build().IsOpen = true;
+        }
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {
             if(e.ClickCount == 2)
@@ -38,6 +68,13 @@ namespace InventoryControl.View
                         vm.AddProduct(((StockProductPresenter)row.Item).Id);
                     }
                 }
+            }
+        }
+        private void MainDataGrid_HeaderClicked(object sender, MouseButtonEventArgs e, System.Windows.Controls.Primitives.DataGridColumnHeader header)
+        {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                ShowHeaderContextMenu();
             }
         }
     }
