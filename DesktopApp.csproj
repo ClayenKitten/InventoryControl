@@ -374,11 +374,15 @@
     <Compile Include="Model\Counterparty\ICounterparty.cs" />
     <Compile Include="Model\Counterparty\Supplier.cs" />
     <Compile Include="Model\IEntity.cs" />
+    <Compile Include="Model\Manufacturer\Manufacturer.cs" />
+    <Compile Include="Model\Manufacturer\ManufacturerMapper.cs" />
     <Compile Include="Model\PointOfSales\PointOfSales.cs" />
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
+    <Compile Include="Model\Product\ProductCategory.cs" />
     <Compile Include="Model\Transaction\TransactionMapper.cs" />
     <Compile Include="Model\INamed.cs" />
+    <Compile Include="Model\ValueTypes\Article.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Piece.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Weight.cs" />
     <Compile Include="Model\Counterparty\Purchaser.cs" />
