@@ -1,4 +1,5 @@
-﻿using InventoryControl.Util;
+﻿using InventoryControl.ORM;
+using InventoryControl.Util;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
