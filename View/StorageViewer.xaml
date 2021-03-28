@@ -30,23 +30,22 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1">
-            <StackPanel>
-                <ComboBox x:Name="StorageSelector"
+
+        <ComboBox x:Name="StorageSelector"
                 ItemsSource="{Binding AllStoragesList, Mode=OneWay}" DisplayMemberPath="Name" 
                 Visibility="{Binding StorageSelectorAsComboboxVisibility}"
-                SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ComboBox>
-                <Label
-                    Content="{Binding CurrentStorageName}" VerticalAlignment="Center"
-                    Visibility="{Binding StorageSelectorAsTextboxVisibility}"/>
-            </StackPanel>
-        </Border>
+                SelectedValue="{Binding Path=StorageId, Mode=TwoWay}" SelectedValuePath="Id"
+                BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="vm:GlobalCommands.ModelUpdated"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <ItemsControl BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1">
+            <Label Content="{Binding CurrentStorageName}" VerticalAlignment="Center"
+               Visibility="{Binding StorageSelectorAsTextboxVisibility}"/>
+        </ItemsControl>
 
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
