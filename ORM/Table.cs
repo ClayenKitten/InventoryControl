@@ -8,7 +8,7 @@ namespace InventoryControl.ORM
     {
         public string Name
             => typeof(EntityType).Name;
-        public IList<Column> Columns { get; set; }
+        public IList<Column> Columns { get; }
 
         public string CreationString
         {
@@ -24,13 +24,10 @@ namespace InventoryControl.ORM
             }
         }
         
-        public Table()
-        {
-            Columns = new List<Column>();
-        }
         public Table(IList<Column> columns)
         {
             Columns = columns;
+            Columns.Insert(0, new Column("Id", SqlType.INTEGER, Constraints.PrimaryKey));
         }
     }
 }
