@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace InventoryControl.ORM
 {
-    class DefaultValueConstraint : IConstraint
+    public class DefaultValueConstraint : IConstraint
     {
         private object defaultValue;
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace InventoryControl.ORM
 {
-    class UniqueConstraint : IConstraint
+    public class UniqueConstraint : IConstraint
     {
         public string SqlName
             => "UNIQUE";
