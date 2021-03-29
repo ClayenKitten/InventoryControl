@@ -2,7 +2,7 @@
 
 namespace InventoryControl.ORM
 {
-    class PrimaryKeyConstraint : IConstraint
+    public class PrimaryKeyConstraint : IConstraint
     {
         public string SqlName
             => "PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL";
