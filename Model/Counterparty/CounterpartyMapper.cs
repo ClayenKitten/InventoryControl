@@ -23,11 +23,11 @@ namespace InventoryControl.Model
             }
             return res;
         }
-        public static List<ICounterparty> GetAll()
+        public static List<Counterparty> GetAll()
         {
             const string commandText = "SELECT * FROM Counterparty";
             using var rdr = Database.CommitReaderTransaction(commandText);
-            List<ICounterparty> res = new List<ICounterparty>();
+            List<Counterparty> res = new List<Counterparty>();
             while (rdr.Read())
             {
                 if (rdr.GetInt32(7) == 0)
@@ -71,7 +71,7 @@ namespace InventoryControl.Model
                 .ToList();
         }
 
-        public static ICounterparty Create(ICounterparty counterparty)
+        public static Counterparty Create(Counterparty counterparty)
         {
             const string commandText =
             @"
@@ -91,7 +91,7 @@ namespace InventoryControl.Model
             );
             return counterparty;
         }
-        public static void Update(ICounterparty counterparty)
+        public static void Update(Counterparty counterparty)
         {
             const string commandText =
             @"

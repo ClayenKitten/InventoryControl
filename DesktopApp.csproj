@@ -371,7 +371,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Counterparty\ICounterparty.cs" />
+    <Compile Include="Model\Counterparty\Counterparty.cs" />
     <Compile Include="Model\Counterparty\Supplier.cs" />
     <Compile Include="ORM\Constraints\ForeighnKeyConstraint.cs" />
     <Compile Include="ORM\IEntity.cs" />

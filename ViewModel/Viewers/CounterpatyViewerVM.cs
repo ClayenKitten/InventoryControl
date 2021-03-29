@@ -23,10 +23,10 @@ namespace InventoryControl.ViewModel
         }
         private List<Purchaser> purchasers => CounterpartyMapper.GetPurchasers();
         private List<Supplier> suppliers => CounterpartyMapper.GetSuppliers();
-        public List<ICounterparty> Content =>
+        public List<Counterparty> Content =>
             ShowPurchasers ?
-                purchasers.Cast<ICounterparty>().ToList() :
-                suppliers.Cast<ICounterparty>().ToList();
+                purchasers.Cast<Counterparty>().ToList() :
+                suppliers.Cast<Counterparty>().ToList();
 
         public string Header { get => ShowPurchasers ? "Покупатели" : "Поставщики"; }
 
@@ -34,7 +34,7 @@ namespace InventoryControl.ViewModel
 
         public Action<DataGridRowEditEndingEventArgs> OnRowEditEnded => (e) =>
         {
-            CounterpartyMapper.Update((ICounterparty)e.Row.Item);
+            CounterpartyMapper.Update((Counterparty)e.Row.Item);
         };
     }
 }

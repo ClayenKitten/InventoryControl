@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model
 {
-    public interface ICounterparty : ORM.IEntity, INamed
+    public abstract class Counterparty : ORM.IEntity, INamed
     {
-        public new int Id { get; set; }
-        public new string Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Address { get; set; }
         public string Contacts { get; set; }
         public string TaxpayerNumber { get; set; }
