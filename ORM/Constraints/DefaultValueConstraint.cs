@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace InventoryControl.ORM
 {
-    public class DefaultValueConstraint : IConstraint
+    public class DefaultValueConstraint : Constraint
     {
         private object defaultValue;
 
-        public string SqlName
+        public override string SqlName
             => $"DEFAULT ({defaultValue.ToString()})";
-        public void Execute(IList<object> items)
+        public override void Execute(IList<object> items)
         {
             for(int i = 0; i < items.Count; i++)
             {
@@ -20,7 +20,7 @@ namespace InventoryControl.ORM
                 }
             }
         }
-        public bool Check(IList<object> items)
+        public override bool Check(IList<object> items)
         {
             return true;
         }

@@ -8,7 +8,7 @@ namespace InventoryControl.ORM
     {
         public string Name { get; }
         public string Type { get; }
-        public IList<IConstraint> Constraints { get; } = new List<IConstraint>();
+        public IList<Constraint> Constraints { get; } = new List<Constraint>();
         public string CreationString
         {
             get
@@ -25,9 +25,11 @@ namespace InventoryControl.ORM
             }
         }
 
-        public Column(string name, SqlType type, 
-                      ConstraintType constraints = ConstraintType.None,
-                      object defaultValue = null)
+        public Column(string name, SqlType type, object defaultValue = null)
+            : this(name, type, new List<Constraint>(), defaultValue) { }
+        public Column(string name, SqlType type, Constraint constraint, object defaultValue = null) 
+            : this(name, type, new List<Constraint>() { constraint }, defaultValue) { }
+        public Column(string name, SqlType type, IList<Constraint> constraints, object defaultValue = null)
         {
             Name = name;
             Type = type.ToString();
@@ -36,22 +38,7 @@ namespace InventoryControl.ORM
             {
                 Constraints.Add(new DefaultValueConstraint(defaultValue));
             }
-            if (constraints.HasFlag(ConstraintType.PrimaryKey))
-            {
-                Constraints.Add(new PrimaryKeyConstraint());
-            }
-            if (constraints.HasFlag(ConstraintType.Autoincrement))
-            {
-                Constraints.Add(new AutoincrementConstraint());
-            }
-            if (constraints.HasFlag(ConstraintType.Unique))
-            {
-                Constraints.Add(new UniqueConstraint());
-            }
-            if (constraints.HasFlag(ConstraintType.NotNull))
-            {
-                Constraints.Add(new NotNullConstraint());
-            }
+
         }
     }
 }

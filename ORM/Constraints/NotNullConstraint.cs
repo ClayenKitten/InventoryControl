@@ -2,12 +2,12 @@
 using System.Linq;
 namespace InventoryControl.ORM
 {
-    public class NotNullConstraint : IConstraint
+    public class NotNullConstraint : Constraint
     {
-        public string SqlName
+        public override string SqlName
             => "NOT NULL";
-        public void Execute(IList<object> items) { }
-        public bool Check(IList<object> items)
+        public override void Execute(IList<object> items) { }
+        public override bool Check(IList<object> items)
         {
             return items.All((value) => value != null);
         }

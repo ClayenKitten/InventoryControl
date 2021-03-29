@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.ORM
 {
-    public class AutoincrementConstraint : IConstraint
+    public class AutoincrementConstraint : Constraint
     {
-        public string SqlName
+        public override string SqlName
             => "AUTOINCREMENT";
-        public bool Check(IList<object> items)
+        public override bool Check(IList<object> items)
         {
             throw new NotImplementedException();
         }
 
-        public void Execute(IList<object> items)
+        public override void Execute(IList<object> items)
         {
             throw new NotImplementedException();
         }

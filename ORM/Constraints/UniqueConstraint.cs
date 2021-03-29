@@ -3,15 +3,15 @@ using System.Linq;
 
 namespace InventoryControl.ORM
 {
-    public class UniqueConstraint : IConstraint
+    public class UniqueConstraint : Constraint
     {
-        public string SqlName
+        public override string SqlName
             => "UNIQUE";
-        public bool Check(IList<object> items)
+        public override bool Check(IList<object> items)
         {
             return items.Distinct().Count() == items.Count;
         }
 
-        public void Execute(IList<object> items) { }
+        public override void Execute(IList<object> items) { }
     }
 }
