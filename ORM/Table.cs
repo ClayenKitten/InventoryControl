@@ -24,6 +24,11 @@ namespace InventoryControl.ORM
             }
         }
         
+        public Table(params Column[] columns)
+        {
+            Columns = columns.ToList();
+            Columns.Insert(0, new Column("Id", SqlType.INTEGER, Constraint.PrimaryKey));
+        }
         public Table(IList<Column> columns)
         {
             Columns = columns;
