@@ -8,7 +8,7 @@ namespace InventoryControl.Model
             (
                 new Column("Name", SqlType.TEXT, Constraint.NotNull),
                 new Column("Address", SqlType.TEXT),
-                new Column("CounterpartyId", SqlType.INTEGER, Constraint.NotNull),
+                new Column("CounterpartyId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Counterparty")),
                 new Column("IsManaged", SqlType.BOOLEAN, Constraint.NotNull)
             );
 

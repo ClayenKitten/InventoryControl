@@ -13,8 +13,8 @@ namespace InventoryControl.Model
                 new Column("SalePrice", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0.0)),
                 new Column("Article", SqlType.TEXT, Constraint.NotNull | Constraint.Unique),
                 new Column("IsArchived", SqlType.BOOLEAN, Constraint.NotNull | Constraint.DefaultValue(0)),
-                new Column("SupplierId", SqlType.INTEGER),
-                new Column("ManufacturerId", SqlType.INTEGER),
+                new Column("SupplierId", SqlType.INTEGER, Constraint.ForeighnKey("Counterparty")),
+                new Column("ManufacturerId", SqlType.INTEGER, Constraint.ForeighnKey("Manufacturer")),
                 new Column("Category", SqlType.TEXT)
             );
 

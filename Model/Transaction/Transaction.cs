@@ -9,8 +9,8 @@ namespace InventoryControl.Model
         public static Table<Transaction> Table { get; } = new Table<Transaction>
             (
                 new Column("DateTime", SqlType.DATETIME, Constraint.NotNull),
-                new Column("SupplierStorageId", SqlType.INTEGER, Constraint.NotNull),
-                new Column("PurchaserStorageId", SqlType.INTEGER, Constraint.NotNull)
+                new Column("SupplierStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage")),
+                new Column("PurchaserStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage"))
             );
 
         public int Id { get; set; }
