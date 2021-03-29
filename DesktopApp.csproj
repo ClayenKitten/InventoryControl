@@ -396,7 +396,6 @@
     <Compile Include="Model\ValueTypes\Measurements\IMeasurement.cs" />
     <Compile Include="ORM\Constraints\AutoincrementConstraint.cs" />
     <Compile Include="ORM\Column.cs" />
-    <Compile Include="ORM\Constraints\Constraints.cs" />
     <Compile Include="ORM\Constraints\DefaultValueConstraint.cs" />
     <Compile Include="ORM\Constraints\Constraint.cs" />
     <Compile Include="ORM\Constraints\NotNullConstraint.cs" />

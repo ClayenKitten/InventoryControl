@@ -17,5 +17,14 @@ namespace InventoryControl.ORM
             x.Add(y);
             return x;
         }
+
+        public static PrimaryKeyConstraint PrimaryKey
+            => new PrimaryKeyConstraint();
+        public static NotNullConstraint NotNull
+            => new NotNullConstraint();
+        public static UniqueConstraint Unique
+            => new UniqueConstraint();
+        public static AutoincrementConstraint Autoincrement
+            => new AutoincrementConstraint();
     }
 }
