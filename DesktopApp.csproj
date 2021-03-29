@@ -373,7 +373,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Counterparty\ICounterparty.cs" />
     <Compile Include="Model\Counterparty\Supplier.cs" />
-    <Compile Include="Model\IEntity.cs" />
+    <Compile Include="ORM\IEntity.cs" />
     <Compile Include="Model\Manufacturer\Manufacturer.cs" />
     <Compile Include="Model\Manufacturer\ManufacturerMapper.cs" />
     <Compile Include="Model\PointOfSales\PointOfSales.cs" />

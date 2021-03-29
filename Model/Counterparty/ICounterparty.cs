@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model
 {
-    public interface ICounterparty : IEntity, INamed
+    public interface ICounterparty : ORM.IEntity, INamed
     {
         public new int Id { get; set; }
         public new string Name { get; set; }
