@@ -25,20 +25,16 @@ namespace InventoryControl.ORM
             }
         }
 
-        public Column(string name, SqlType type, object defaultValue = null)
-            : this(name, type, new List<Constraint>(), defaultValue) { }
-        public Column(string name, SqlType type, Constraint constraint, object defaultValue = null) 
-            : this(name, type, new List<Constraint>() { constraint }, defaultValue) { }
-        public Column(string name, SqlType type, IList<Constraint> constraints, object defaultValue = null)
+        public Column(string name, SqlType type)
+            : this(name, type, new List<Constraint>()) { }
+        public Column(string name, SqlType type, Constraint constraint) 
+            : this(name, type, new List<Constraint>() { constraint }) { }
+        public Column(string name, SqlType type, IList<Constraint> constraints)
         {
             Name = name;
             Type = type.ToString();
 
             Constraints = constraints;
-            if (defaultValue != null)
-            {
-                Constraints.Add(new DefaultValueConstraint(defaultValue));
-            }
 
         }
     }

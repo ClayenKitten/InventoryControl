@@ -26,5 +26,7 @@ namespace InventoryControl.ORM
             => new UniqueConstraint();
         public static AutoincrementConstraint Autoincrement
             => new AutoincrementConstraint();
+        public static DefaultValueConstraint DefaultValue(object value)
+            => new DefaultValueConstraint(value);
     }
 }
