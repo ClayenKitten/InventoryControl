@@ -28,5 +28,7 @@ namespace InventoryControl.ORM
             => new AutoincrementConstraint();
         public static DefaultValueConstraint DefaultValue(object value)
             => new DefaultValueConstraint(value);
+        public static ForeighnKeyConstraint ForeighnKey(string tableName, string columnName = "Id")
+            => new ForeighnKeyConstraint(tableName, columnName);
     }
 }
