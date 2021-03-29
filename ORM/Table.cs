@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace InventoryControl.ORM
 {
-    public class Table<EntityType>
+    public class Table<EntityType> where EntityType : IEntity
     {
         public string Name
             => typeof(EntityType).Name;
