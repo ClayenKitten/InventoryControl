@@ -34,6 +34,7 @@ namespace InventoryControl.ORM
             Name = name;
             Type = type.ToString();
 
+            Constraints = constraints;
             if (defaultValue != null)
             {
                 Constraints.Add(new DefaultValueConstraint(defaultValue));
