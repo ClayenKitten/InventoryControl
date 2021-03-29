@@ -1,7 +1,17 @@
-﻿namespace InventoryControl.Model
+﻿using InventoryControl.ORM;
+
+namespace InventoryControl.Model
 {
-    public class Storage : INamed
+    public class Storage : IEntity, INamed
     {
+        public static Table<Storage> Table { get; } = new Table<Storage>
+            (
+                new Column("Name", SqlType.TEXT, Constraint.NotNull),
+                new Column("Address", SqlType.TEXT),
+                new Column("CounterpartyId", SqlType.INTEGER, Constraint.NotNull),
+                new Column("IsManaged", SqlType.BOOLEAN, Constraint.NotNull)
+            );
+
         public int Id { get; private set; }
         public string Name { set; get; }
         

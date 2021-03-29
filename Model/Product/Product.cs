@@ -1,7 +1,23 @@
-﻿namespace InventoryControl.Model
+﻿using InventoryControl.ORM;
+
+namespace InventoryControl.Model
 {
-    public class Product : ORM.IEntity, INamed
+    public class Product : IEntity, INamed
     {
+        public static Table<Product> Table { get; } = new Table<Product>
+            (
+                new Column("Name", SqlType.TEXT, Constraint.NotNull),
+                new Column("Measurement", SqlType.INTEGER, Constraint.NotNull | Constraint.DefaultValue(0)),
+                new Column("Packing", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0)),
+                new Column("PurchasePrice", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0.0)),
+                new Column("SalePrice", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0.0)),
+                new Column("Article", SqlType.TEXT, Constraint.NotNull | Constraint.Unique),
+                new Column("IsArchived", SqlType.BOOLEAN, Constraint.NotNull | Constraint.DefaultValue(0)),
+                new Column("SupplierId", SqlType.INTEGER),
+                new Column("ManufacturerId", SqlType.INTEGER),
+                new Column("Category", SqlType.TEXT)
+            );
+
         public int Id { get; set; }
         public string Name { get; }
         public Money PurchasePrice { get; }
