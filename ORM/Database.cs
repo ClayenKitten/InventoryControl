@@ -14,7 +14,6 @@ namespace InventoryControl.ORM
             CREATE TABLE IF NOT EXISTS Transfer (Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, DateTime DATETIME NOT NULL, SupplierStorageId INTEGER NOT NULL REFERENCES Storage (Id) ON DELETE RESTRICT ON UPDATE CASCADE, PurchaserStorageId INTEGER REFERENCES Storage (Id) ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL);
             CREATE TABLE IF NOT EXISTS TransferProducts (TransferId INTEGER REFERENCES Transfer (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, ProductId INTEGER REFERENCES Product (Id) ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, Number INTEGER NOT NULL, UNIQUE (TransferId, ProductId) ON CONFLICT ROLLBACK);
         ";
-        public static event EventHandler DatabaseChanged;
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();
