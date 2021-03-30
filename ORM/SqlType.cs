@@ -16,6 +16,34 @@ namespace InventoryControl.ORM
             StringRepresentation = stringRepresentation;
         }
 
+        public static string ToSqlType(Type CLRType)
+        {
+            if(CLRType == typeof(int))
+            {
+                return "INTEGER";
+            }
+            else if(CLRType == typeof(double) || CLRType == typeof(float) || CLRType == typeof(decimal))
+            {
+                return "REAL";
+            }
+            else if(CLRType == typeof(bool))
+            {
+                return "BOOLEAN";
+            }
+            else if(CLRType == typeof(string))
+            {
+                return "TEXT";
+            }
+            else if(CLRType == typeof(DateTime))
+            {
+                return "DATETIME";
+            }
+            else
+            {
+                throw new ArgumentException("Unsupported CLRType for database");
+            }
+        }
+
         public static SqlType BOOLEAN
             => new SqlType(typeof(bool), "BOOLEAN");
         public static SqlType INTEGER
