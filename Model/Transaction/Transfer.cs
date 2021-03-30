@@ -19,8 +19,9 @@ namespace InventoryControl.Model
         public int SupplierStorageId { get; set; }
         public List<TransactionProductPresenter> Products { get; set; }
 
-        public Transfer(DateTime dateTime, int purchaserStorageId, int supplierStorageId, List<TransactionProductPresenter> products)
+        public Transfer(int id, DateTime dateTime, int purchaserStorageId, int supplierStorageId, List<TransactionProductPresenter> products)
         {
+            Id = id;
             DateTime = dateTime;
             PurchaserStorageId = purchaserStorageId;
             SupplierStorageId = supplierStorageId;
