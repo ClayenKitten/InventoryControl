@@ -85,7 +85,7 @@ namespace InventoryControl.ViewModel
         {
             GlobalCommands.CreateTransaction.Executed += (parameter) =>
             {
-                TransactionMapper.Create(new Transfer(DateTime.Now, -1, -1,
+                TransactionMapper.Create(new Transfer(-1, DateTime.Now, -1, -1,
                     new List<TransactionProductPresenter>(Content)));
                 var pm = new PanelManager();
                 pm.OpenStorageView.Execute();
