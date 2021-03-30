@@ -33,7 +33,7 @@ namespace InventoryControl.ORM
 
         private Column<IEntity> valueColumn;
 
-        public object GetValue(int firstId, int secondId)
+        public object Read(int firstId, int secondId)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
