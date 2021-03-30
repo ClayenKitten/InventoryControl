@@ -37,9 +37,9 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.Unique),
             new Column<Product>("IsArchived", SqlType.BOOLEAN, (x) => false,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
-            new Column<Product>("SupplierId", SqlType.INTEGER, (x) => "NULL",
+            new Column<Product>("SupplierId", SqlType.INTEGER, (x) => "-1",
                 Constraint.ForeighnKey("Counterparty")),
-            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => "NULL",
+            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => "-1",
                 Constraint.ForeighnKey("Manufacturer")),
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
