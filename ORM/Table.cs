@@ -26,8 +26,6 @@ namespace InventoryControl.ORM
             }
         }
 
-        private Func<SQLiteDataReader, EntityType> reader;
-
         /// <summary>
         /// Creates new table
         /// </summary>
@@ -37,8 +35,6 @@ namespace InventoryControl.ORM
         {
             Columns = columns.ToList();
             Columns.Insert(0, new Column<EntityType>("Id", SqlType.INTEGER, (x) => x.Id, Constraint.PrimaryKey));
-
-            this.reader = reader;
         }
 
         public EntityType Create(EntityType item)
