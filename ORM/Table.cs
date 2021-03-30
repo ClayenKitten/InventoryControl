@@ -9,7 +9,7 @@ namespace InventoryControl.ORM
     {
         public string Name
             => typeof(EntityType).Name;
-        public IList<Column> Columns { get; }
+        public IList<Column<EntityType>> Columns { get; }
 
         public string CreationString
         {
@@ -26,25 +26,31 @@ namespace InventoryControl.ORM
         }
 
         private Func<SQLiteDataReader, EntityType> reader;
-        
-        public Table(Func<SQLiteDataReader, EntityType> reader, params Column[] columns)
+
+        /// <summary>
+        /// Creates new table
+        /// </summary>
+        /// <param name="reader">Delegate that creates new instance of type from DataReader</param>
+        /// <param name="columns">List of columns table consists of</param>
+        public Table(Func<SQLiteDataReader, EntityType> reader,
+                     params Column<EntityType>[] columns)
         {
             Columns = columns.ToList();
-            Columns.Insert(0, new Column("Id", SqlType.INTEGER, Constraint.PrimaryKey));
+            Columns.Insert(0, new Column<EntityType>("Id", SqlType.INTEGER, (x) => x.Id, Constraint.PrimaryKey));
 
             this.reader = reader;
         }
 
         public EntityType Read(int id)
         {
-            var commandText = "SELECT * FROM Product WHERE Id=$id";
+            var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             rdr.Read();
             return reader.Invoke(rdr);
         }
         public IList<EntityType> ReadAll()
         {
-            var commandText = "SELECT * FROM Product";
+            var commandText = $"SELECT * FROM {Name}";
             using var rdr = Database.CommitReaderTransaction(commandText);
 
             List<EntityType> res = new List<EntityType>();
@@ -54,6 +60,5 @@ namespace InventoryControl.ORM
             }
             return res;
         }
-
     }
 }

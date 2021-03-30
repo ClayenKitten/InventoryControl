@@ -9,10 +9,8 @@ namespace InventoryControl.Model
 {
     public class CounterpartyMapper
     {
-        public static Purchaser Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public static Counterparty Get(int id)
+            => Counterparty.Table.Read(id);
         public static List<String> GetPurchasersNames()
         {
             using var rdr = Database.CommitReaderTransaction("SELECT Name FROM Counterparty");

@@ -1,38 +1,48 @@
 ﻿using InventoryControl.ORM;
 using InventoryControl.Util;
+using System.Collections.Generic;
 
 namespace InventoryControl.Model
 {
     public class Product : IEntity, INamed
     {
         public static Table<Product> Table { get; } = new Table<Product>
-            (
-                reader: (rdr) =>
-                {
-                    return new Product
-                    (
-                        id: rdr.GetInt32(0),
-                        name: rdr.GetStringOrEmpty(1),
-                        unit: rdr.GetInt32(2),
-                        unitValue: rdr.GetDouble(3),
-                        purchasePrice: rdr.GetDouble(4),
-                        salePrice: rdr.GetDouble(5),
-                        article: rdr.GetString(6),
-                        manufacturerId: rdr.GetInt32(9),
-                        category: rdr.GetStringOrEmpty(10)
-                    );
-                },
-                new Column("Name", SqlType.TEXT, Constraint.NotNull),
-                new Column("Measurement", SqlType.INTEGER, Constraint.NotNull | Constraint.DefaultValue(0)),
-                new Column("Packing", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0)),
-                new Column("PurchasePrice", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0.0)),
-                new Column("SalePrice", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0.0)),
-                new Column("Article", SqlType.TEXT, Constraint.NotNull | Constraint.Unique),
-                new Column("IsArchived", SqlType.BOOLEAN, Constraint.NotNull | Constraint.DefaultValue(0)),
-                new Column("SupplierId", SqlType.INTEGER, Constraint.ForeighnKey("Counterparty")),
-                new Column("ManufacturerId", SqlType.INTEGER, Constraint.ForeighnKey("Manufacturer")),
-                new Column("Category", SqlType.TEXT)
-            );
+        (
+            reader: (rdr) =>
+            {
+                return new Product
+                (
+                    id: rdr.GetInt32(0),
+                    name: rdr.GetStringOrEmpty(1),
+                    unit: rdr.GetInt32(2),
+                    unitValue: rdr.GetDouble(3),
+                    purchasePrice: rdr.GetDouble(4),
+                    salePrice: rdr.GetDouble(5),
+                    article: rdr.GetString(6),
+                    manufacturerId: rdr.GetInt32(9),
+                    category: rdr.GetStringOrEmpty(10)
+                );
+            },
+            new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
+                Constraint.NotNull),
+            new Column<Product>("Measurement", SqlType.INTEGER, (x) => x.Measurement.GetUnit().value,
+                Constraint.NotNull | Constraint.DefaultValue(0)),
+            new Column<Product>("Packing", SqlType.REAL, (x) => x.Measurement.GetRawValue(),
+                Constraint.NotNull | Constraint.DefaultValue(0)),
+            new Column<Product>("PurchasePrice", SqlType.REAL, (x) => x.PurchasePrice.GetRawValue(),
+                Constraint.NotNull | Constraint.DefaultValue(0.0)),
+            new Column<Product>("SalePrice", SqlType.REAL, (x) => x.SalePrice.GetRawValue(),
+                Constraint.NotNull | Constraint.DefaultValue(0.0)),
+            new Column<Product>("Article", SqlType.TEXT, (x) => x.Article.ToString(),
+                Constraint.NotNull | Constraint.Unique),
+            new Column<Product>("IsArchived", SqlType.BOOLEAN, (x) => false,
+                Constraint.NotNull | Constraint.DefaultValue(0)),
+            new Column<Product>("SupplierId", SqlType.INTEGER, (x) => "NULL",
+                Constraint.ForeighnKey("Counterparty")),
+            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => "NULL",
+                Constraint.ForeighnKey("Manufacturer")),
+            new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
+        );
 
         public int Id { get; set; }
         public string Name { get; }

@@ -12,9 +12,12 @@ namespace InventoryControl.Model
                 {
                     throw new NotImplementedException();
                 },
-                new Column("DateTime", SqlType.DATETIME, Constraint.NotNull),
-                new Column("SupplierStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage")),
-                new Column("PurchaserStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage"))
+                new Column<Transfer>("DateTime", SqlType.DATETIME, (x) => x.DateTime,
+                    Constraint.NotNull),
+                new Column<Transfer>("SupplierStorageId", SqlType.INTEGER, (x) => -1,
+                    Constraint.NotNull | Constraint.ForeighnKey("Storage")),
+                new Column<Transfer>("PurchaserStorageId", SqlType.INTEGER, (x) => -1,
+                    Constraint.NotNull | Constraint.ForeighnKey("Storage"))
             );
 
         public int Id { get; set; }

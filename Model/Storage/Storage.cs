@@ -1,4 +1,5 @@
 ﻿using InventoryControl.ORM;
+using InventoryControl.Util;
 
 namespace InventoryControl.Model
 {
@@ -11,22 +12,29 @@ namespace InventoryControl.Model
                     return new Storage
                     (
                         id: rdr.GetInt32(0),
-                        name: rdr.GetString(1)
+                        name: rdr.GetStringOrEmpty(1),
+                        address: rdr.GetStringOrEmpty(2),
+                        ownerId: rdr.GetInt32(3)
                     );
                 },
-                new Column("Name", SqlType.TEXT, Constraint.NotNull),
-                new Column("Address", SqlType.TEXT),
-                new Column("CounterpartyId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Counterparty")),
-                new Column("IsManaged", SqlType.BOOLEAN, Constraint.NotNull)
+                new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
+                    Constraint.NotNull),
+                new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address),
+                new Column<Storage>("OwnerId", SqlType.INTEGER, (x) => x.Owner.Id,
+                    Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
             );
 
-        public int Id { get; private set; }
-        public string Name { set; get; }
+        public int Id { get; }
+        public string Name { get; }
+        public string Address { get; }
+        public Counterparty Owner { get; }
         
-        public Storage(int id, string name)
+        public Storage(int id, string name, string address, int ownerId)
         {
             this.Id = id;
             this.Name = name;
+            this.Address = address;
+            Owner = CounterpartyMapper.Get(ownerId);
         }
     }
 }

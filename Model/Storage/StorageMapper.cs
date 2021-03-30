@@ -10,7 +10,7 @@ namespace InventoryControl.Model
         {
             const string commandText = "INSERT INTO Storage DEFAULT VALUES; SELECT Id FROM Storage WHERE ROWID = last_insert_rowid();";
             var id = (int)Database.CommitScalarTransaction(commandText);
-            return new Storage(id, "");
+            return new Storage(id, "", "", -1);
         }
         public static void Update(Storage storage)
         {
@@ -21,52 +21,11 @@ namespace InventoryControl.Model
             );
         }
         public static Storage Read(int id)
-        {
-            const string commandText = "SELECT * FROM Storage WHERE Id=$id";
-            using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
-            if (rdr.Read())
-                return new Storage
-                (
-                    id:     rdr.GetInt32(0),
-                    name:   rdr.GetString(1)
-                );
-            else
-                throw new KeyNotFoundException();
-        }
+            => Storage.Table.Read(id);
 
-        public static Storage GetStorage(int storageId)
-        {
-            var res = new List<Product>();
-            const string commandText =
-            @"
-                SELECT * FROM Storage
-                WHERE Id=$storageId
-            ";
-
-            using var rdr = Database.CommitReaderTransaction(commandText,
-                new SQLiteParameter("$storageId", storageId)
-            );
-            if (rdr.Read())
-            {
-                return new Storage(rdr.GetInt32(0), rdr.GetString(1));
-            }
-            else
-                throw new KeyNotFoundException();
-        }
         public static List<Storage> GetAllStorages()
-        {
-            var res = new List<Storage>();
-            const string commandText =
-            @"
-                SELECT * FROM Storage ORDER BY Id ASC
-            ";
-            using var rdr = Database.CommitReaderTransaction(commandText);
-            while(rdr.Read())
-            {
-                res.Add(new Storage(rdr.GetInt32(0), rdr.GetString(1)));
-            }
-            return res;
-        }
+            => (List<Storage>)Storage.Table.ReadAll();
+
         public static int GetProductAmount(int productId, int storageId)
         {
             const string commandText =
