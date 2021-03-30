@@ -61,6 +61,21 @@ namespace InventoryControl.ORM
             item.Id = (int)(long)command.ExecuteScalar();
             return item;
         }
+        public void Update(EntityType item)
+        {
+            string settersString = Columns
+                                    .Where((x) => !(x.Name == "Id"))
+                                    .Select((x) => $"{x.Name}=${x.Name}PARAM")
+                                    .Aggregate((x, y) => $"{x}, {y}");
+            string commandText = $"UPDATE {Name} SET {settersString} WHERE Id={item.Id}";
+            var parameters = Columns
+                .Select((x) => new SQLiteParameter($"${x.Name}PARAM", x.GetValue(item)))
+                .ToArray();
+
+            var command = new SQLiteCommand(commandText, Database.Connect());
+            command.Parameters.AddRange(parameters);
+            command.ExecuteScalar();
+        }
         public EntityType Read(int id)
         {
             var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
