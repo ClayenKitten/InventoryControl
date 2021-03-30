@@ -59,25 +59,7 @@ namespace InventoryControl.Model
         }
 
         public static Product Read(int id)
-        {
-            const string commandText = "SELECT * FROM Product WHERE Id=$id";
-            using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
-            if (rdr.Read())
-                return new Product
-                (
-                    id:             rdr.GetInt32(0),
-                    name:           rdr.GetStringOrEmpty(1),
-                    unit:           rdr.GetInt32(2),
-                    unitValue:      rdr.GetDouble(3),
-                    purchasePrice:  rdr.GetDouble(4),
-                    salePrice:      rdr.GetDouble(5),
-                    article:        rdr.GetString(6),
-                    manufacturerId: rdr.GetInt32(9),
-                    category:       rdr.GetStringOrEmpty(10)
-                );
-            else
-                throw new KeyNotFoundException();
-        }
+            => Product.Table.Read(id);
         public static List<Product> GetFullDictionary()
         {
             var dictionary = new List<Product>();

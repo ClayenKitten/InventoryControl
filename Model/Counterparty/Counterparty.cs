@@ -11,6 +11,10 @@ namespace InventoryControl.Model
     {
         public static Table<Counterparty> Table { get; } = new Table<Counterparty>
                (
+                   reader: (rdr) =>
+                   {
+                       throw new NotImplementedException();
+                   },
                    new Column("Name",           SqlType.TEXT, Constraint.NotNull),
                    new Column("Address",        SqlType.TEXT, Constraint.NotNull),
                    new Column("Contacts",       SqlType.TEXT, Constraint.NotNull),

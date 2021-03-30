@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace InventoryControl.ORM
@@ -23,16 +24,23 @@ namespace InventoryControl.ORM
                 return str;
             }
         }
+
+        private Func<SQLiteDataReader, EntityType> reader;
         
-        public Table(params Column[] columns)
+        public Table(Func<SQLiteDataReader, EntityType> reader, params Column[] columns)
         {
             Columns = columns.ToList();
             Columns.Insert(0, new Column("Id", SqlType.INTEGER, Constraint.PrimaryKey));
+
+            this.reader = reader;
         }
-        public Table(IList<Column> columns)
+
+        public EntityType Read(int id)
         {
-            Columns = columns;
-            Columns.Insert(0, new Column("Id", SqlType.INTEGER, Constraint.PrimaryKey));
+            var commandText = "SELECT * FROM Product WHERE Id=$id";
+            using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
+            rdr.Read();
+            return reader.Invoke(rdr);
         }
     }
 }

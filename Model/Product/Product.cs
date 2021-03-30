@@ -1,4 +1,5 @@
 ﻿using InventoryControl.ORM;
+using InventoryControl.Util;
 
 namespace InventoryControl.Model
 {
@@ -6,6 +7,21 @@ namespace InventoryControl.Model
     {
         public static Table<Product> Table { get; } = new Table<Product>
             (
+                reader: (rdr) =>
+                {
+                    return new Product
+                    (
+                        id: rdr.GetInt32(0),
+                        name: rdr.GetStringOrEmpty(1),
+                        unit: rdr.GetInt32(2),
+                        unitValue: rdr.GetDouble(3),
+                        purchasePrice: rdr.GetDouble(4),
+                        salePrice: rdr.GetDouble(5),
+                        article: rdr.GetString(6),
+                        manufacturerId: rdr.GetInt32(9),
+                        category: rdr.GetStringOrEmpty(10)
+                    );
+                },
                 new Column("Name", SqlType.TEXT, Constraint.NotNull),
                 new Column("Measurement", SqlType.INTEGER, Constraint.NotNull | Constraint.DefaultValue(0)),
                 new Column("Packing", SqlType.REAL, Constraint.NotNull | Constraint.DefaultValue(0)),

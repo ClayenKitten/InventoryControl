@@ -8,6 +8,10 @@ namespace InventoryControl.Model
     {
         public static Table<Transfer> Table { get; } = new Table<Transfer>
             (
+                reader: (rdr) =>
+                {
+                    throw new NotImplementedException();
+                },
                 new Column("DateTime", SqlType.DATETIME, Constraint.NotNull),
                 new Column("SupplierStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage")),
                 new Column("PurchaserStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage"))

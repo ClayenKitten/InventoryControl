@@ -6,6 +6,14 @@ namespace InventoryControl.Model
     {
         public static Table<Storage> Table { get; } = new Table<Storage>
             (
+                reader: (rdr) =>
+                {
+                    return new Storage
+                    (
+                        id: rdr.GetInt32(0),
+                        name: rdr.GetString(1)
+                    );
+                },
                 new Column("Name", SqlType.TEXT, Constraint.NotNull),
                 new Column("Address", SqlType.TEXT),
                 new Column("CounterpartyId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Counterparty")),
