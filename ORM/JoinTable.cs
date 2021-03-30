@@ -6,7 +6,7 @@ namespace InventoryControl.ORM
     {
         private Type firstType;
         private Type secondType;
-        private Type valueType;
+        private SqlType valueType;
 
         public string Name { get; }
 
@@ -21,8 +21,8 @@ namespace InventoryControl.ORM
                     $"(" +
                     $"{fname}Id INTEGER REFERENCES {fname} (Id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL," +
                     $"{sname}Id INTEGER REFERENCES {sname} (Id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL," +
-                    $"Value {valueType.Name} NOT NULL, " +
-                    $"UNIQUE ({fname}, {sname}) ON CONFLICT ROLLBACK)";
+                    $"Value {valueType.StringRepresentation} NOT NULL, " +
+                    $"UNIQUE ({fname}Id, {sname}Id) ON CONFLICT ROLLBACK);";
                 return str;
             }
         }
@@ -46,16 +46,16 @@ namespace InventoryControl.ORM
             var fname = firstType.Name;
             var sname = secondType.Name;
             var commandText =
-                $"SELECT {Name}.Value FROM {Name}" +
-                $"WHERE {Name}.{fname}Id = $firstId" +
-                $"AND {Name}.{sname}Id = $secondId";
+                $"SELECT {Name}.Value FROM {Name} " +
+                $"WHERE {Name}.{fname}Id = $firstId " +
+                $"AND {Name}.{sname}Id = $secondId;";
             return Database.CommitScalarTransaction(commandText,
                 new SQLiteParameter("$firstId", firstId),
                 new SQLiteParameter("$secondId", secondId)
             );
         }
 
-        public JoinTable(string name, Type first, Type second, Type value)
+        public JoinTable(string name, Type first, Type second, SqlType value)
         {
             Name = name;
             firstType = first;
