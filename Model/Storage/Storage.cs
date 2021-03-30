@@ -6,23 +6,23 @@ namespace InventoryControl.Model
     public class Storage : IEntity, INamed
     {
         public static Table<Storage> Table { get; } = new Table<Storage>
-            (
-                reader: (rdr) =>
-                {
-                    return new Storage
-                    (
-                        id: rdr.GetInt32(0),
-                        name: rdr.GetStringOrEmpty(1),
-                        address: rdr.GetStringOrEmpty(2),
-                        ownerId: rdr.GetInt32(3)
-                    );
-                },
-                new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
-                    Constraint.NotNull),
-                new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address),
-                new Column<Storage>("OwnerId", SqlType.INTEGER, (x) => x.Owner.Id,
-                    Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
-            );
+        (
+            reader: (rdr) =>
+            {
+                return new Storage
+                (
+                    id: rdr.GetInt32(0),
+                    name: rdr.GetStringOrEmpty(1),
+                    address: rdr.GetStringOrEmpty(2),
+                    ownerId: rdr.GetInt32(3)
+                );
+            },
+            new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
+                Constraint.NotNull),
+            new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address),
+            new Column<Storage>("OwnerId", SqlType.INTEGER, (x) => x.Owner.Id,
+                Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
+        );
 
         public int Id { get; }
         public string Name { get; }
