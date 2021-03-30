@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace InventoryControl.ORM
 {
-    class JoinTable
+    public class JoinTable
     {
         private Type firstType;
         private Type secondType;
+        private Type valueType;
 
         public string Name { get; }
 
@@ -25,29 +21,24 @@ namespace InventoryControl.ORM
                     $"(" +
                     $"{fname}Id INTEGER REFERENCES {fname} (Id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL," +
                     $"{sname}Id INTEGER REFERENCES {sname} (Id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL," +
-                    $"{valueColumn.CreationString}, " +
+                    $"Value {valueType.Name} NOT NULL, " +
                     $"UNIQUE ({fname}, {sname}) ON CONFLICT ROLLBACK)";
                 return str;
             }
         }
 
-        private Column<IEntity> valueColumn;
-
         public void Create(int firstId, int secondId, object value)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
-            var commandText = $"INSERT INTO {Name} ({fname}, {sname}, {valueColumn.Name}) VALUES ({firstId}, {secondId}, $value);";
+            var commandText = $"INSERT INTO {Name} ({fname}, {sname}, Value) VALUES ({firstId}, {secondId}, $value);";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
         public void Update(int firstId, int secondId, object value)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
-            var commandText = 
-            $"UPDATE {Name} " +
-            $"SET {valueColumn.Name}=$value " +
-            $"WHERE {fname}={firstId} AND {sname}={secondId};";
+            var commandText = $"UPDATE {Name} SET Value=$value WHERE {fname}={firstId} AND {sname}={secondId};";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
         public object Read(int firstId, int secondId)
@@ -55,7 +46,7 @@ namespace InventoryControl.ORM
             var fname = firstType.Name;
             var sname = secondType.Name;
             var commandText =
-                $"SELECT {Name}.{valueColumn.Name} FROM {Name}" +
+                $"SELECT {Name}.Value FROM {Name}" +
                 $"WHERE {Name}.{fname}Id = $firstId" +
                 $"AND {Name}.{sname}Id = $secondId";
             return Database.CommitScalarTransaction(commandText,
@@ -64,12 +55,12 @@ namespace InventoryControl.ORM
             );
         }
 
-        public JoinTable(string name, Type first, Type second, Column<IEntity> valueColumn)
+        public JoinTable(string name, Type first, Type second, Type value)
         {
             Name = name;
             firstType = first;
             secondType = second;
-            this.valueColumn = valueColumn;
+            valueType = value;
         }
     }
 }
