@@ -38,7 +38,7 @@ namespace InventoryControl.ORM
             command.Parameters.AddRange(parameters);
             return command.ExecuteReader();
         }
-        static private SQLiteConnection Connect()
+        static public SQLiteConnection Connect()
         {
             var builder = new SQLiteConnectionStringBuilder
             {
