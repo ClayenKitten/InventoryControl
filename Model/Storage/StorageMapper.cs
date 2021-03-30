@@ -6,20 +6,10 @@ namespace InventoryControl.Model
 {
     class StorageMapper
     {
-        public static Storage Create()
-        {
-            const string commandText = "INSERT INTO Storage DEFAULT VALUES; SELECT Id FROM Storage WHERE ROWID = last_insert_rowid();";
-            var id = (int)Database.CommitScalarTransaction(commandText);
-            return new Storage(id, "", "", -1);
-        }
+        public static Storage Create(Storage storage)
+            => Storage.Table.Create(storage);
         public static void Update(Storage storage)
-        {
-            const string commandText = "UPDATE Storage SET Title=$name, WHERE Id=$id;";
-            Database.CommitNonQueryTransaction(commandText,
-                new SQLiteParameter("$name", storage.Name),
-                new SQLiteParameter("$id", storage.Id)
-            );
-        }
+            => Storage.Table.Update(storage);
         public static Storage Read(int id)
             => Storage.Table.Read(id);
 
