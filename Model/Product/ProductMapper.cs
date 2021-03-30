@@ -61,15 +61,6 @@ namespace InventoryControl.Model
         public static Product Read(int id)
             => Product.Table.Read(id);
         public static List<Product> GetFullDictionary()
-        {
-            var dictionary = new List<Product>();
-            const string commandText = "SELECT Product.Id FROM Product";
-            using var rdr = Database.CommitReaderTransaction(commandText);
-            while (rdr.Read())
-            {
-                dictionary.Add(ProductMapper.Read(rdr.GetInt32(0)));
-            }
-            return dictionary;
-        }
+            => (List<Product>)Product.Table.ReadAll();
     }
 }

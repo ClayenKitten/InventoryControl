@@ -42,5 +42,18 @@ namespace InventoryControl.ORM
             rdr.Read();
             return reader.Invoke(rdr);
         }
+        public IList<EntityType> ReadAll()
+        {
+            var commandText = "SELECT * FROM Product";
+            using var rdr = Database.CommitReaderTransaction(commandText);
+
+            List<EntityType> res = new List<EntityType>();
+            while(rdr.Read())
+            {
+                res.Add(reader.Invoke(rdr));
+            }
+            return res;
+        }
+
     }
 }
