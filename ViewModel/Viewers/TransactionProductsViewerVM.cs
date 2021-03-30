@@ -97,7 +97,7 @@ namespace InventoryControl.ViewModel
             {
                 if (product.Id == id) return;
             }
-            Content.Add(new TransactionProductPresenter(ProductMapper.Read(id), 1));
+            Content.Add(new TransactionProductPresenter(Product.Table.Read(id), 1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

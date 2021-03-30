@@ -12,7 +12,7 @@ namespace InventoryControl.ViewModel
             get
             {
                 ObservableCollection<ProductPresenter> res = new ObservableCollection<ProductPresenter>();
-                foreach (var product in ProductMapper.GetFullDictionary())
+                foreach (var product in Product.Table.ReadAll())
                 {
                     res.Add(new ProductPresenter(product));
                 }

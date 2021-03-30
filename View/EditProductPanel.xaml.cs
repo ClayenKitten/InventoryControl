@@ -51,7 +51,7 @@ namespace InventoryControl.View
         }
         public EditProductPanel(int productId)
         {
-            productData = ProductMapper.Read(productId);
+            productData = Product.Table.Read(productId);
             InitializeComponent();
 
             TitleAT.Value = productData.Name;
@@ -68,7 +68,7 @@ namespace InventoryControl.View
         {
             if (productData == null)
             {
-                ProductMapper.Create(
+                Product.Table.Create(
                     new Product
                     (
                         id: -1,
@@ -85,7 +85,7 @@ namespace InventoryControl.View
             }
             else
             {
-                ProductMapper.Update(
+                Product.Table.Update(
                     new Product
                     (
                         id: productData.Id,

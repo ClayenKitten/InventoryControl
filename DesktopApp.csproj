@@ -388,7 +388,6 @@
     <Compile Include="Model\Counterparty\Purchaser.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
-    <Compile Include="Model\Product\ProductMapper.cs" />
     <Compile Include="Model\Product\Presenters\ProductPresenter.cs" />
     <Compile Include="Model\Storage\Storage.cs" />
     <Compile Include="Model\Storage\StorageMapper.cs" />

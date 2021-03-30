@@ -30,7 +30,7 @@ namespace InventoryControl.ViewModel
             get
             {
                 List<StockProductPresenter> res = new List<StockProductPresenter>();
-                foreach (var product in ProductMapper.GetFullDictionary())
+                foreach (var product in Product.Table.ReadAll())
                 {
                     res.Add(new StockProductPresenter(product, StorageId));
                 }
