@@ -24,10 +24,10 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
         );
 
-        public int Id { get; }
-        public string Name { get; }
-        public string Address { get; }
-        public Counterparty Owner { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public Counterparty Owner { get; set; }
         
         public Storage(int id, string name, string address, int ownerId)
         {
