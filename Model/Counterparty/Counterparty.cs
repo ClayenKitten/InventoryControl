@@ -12,35 +12,6 @@ namespace InventoryControl.Model
     {
         public static Table<Counterparty> Table { get; } = new Table<Counterparty>
         (
-            reader: (rdr) =>
-            {
-                if (rdr.GetInt32(7) == 0)
-                {
-                    return new Purchaser()
-                    {
-                        Id = rdr.GetInt32(0),
-                        Name = rdr.GetStringOrEmpty(1),
-                        Address = rdr.GetStringOrEmpty(2),
-                        Contacts = rdr.GetStringOrEmpty(3),
-                        TaxpayerNumber = rdr.GetStringOrEmpty(4),
-                        AccountingCode = rdr.GetStringOrEmpty(5),
-                        BankDetails = rdr.GetStringOrEmpty(6)
-                    };
-                }
-                else
-                {
-                    return new Supplier()
-                    {
-                        Id = rdr.GetInt32(0),
-                        Name = rdr.GetStringOrEmpty(1),
-                        Address = rdr.GetStringOrEmpty(2),
-                        Contacts = rdr.GetStringOrEmpty(3),
-                        TaxpayerNumber = rdr.GetStringOrEmpty(4),
-                        AccountingCode = rdr.GetStringOrEmpty(5),
-                        BankDetails = rdr.GetStringOrEmpty(6)
-                    };
-                }
-            },
             new Column<Counterparty>("Name",           SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
             new Column<Counterparty>("Address",        SqlType.TEXT, (x) => x.Address,

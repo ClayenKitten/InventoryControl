@@ -7,7 +7,7 @@ namespace InventoryControl.ORM
     public class Column<EntityType> where EntityType : IEntity
     {
         public string Name { get; }
-        public string Type { get; }
+        public SqlType Type { get; }
         public IList<Constraint> Constraints { get; } = new List<Constraint>();
         public string CreationString
         {
@@ -36,7 +36,7 @@ namespace InventoryControl.ORM
         public Column(string name, SqlType type, Func<EntityType, object> getter, IList<Constraint> constraints)
         {
             Name = name;
-            Type = type.StringRepresentation;
+            Type = type;
 
             Constraints = constraints;
             this.getter = getter;

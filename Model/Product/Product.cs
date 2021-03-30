@@ -8,21 +8,6 @@ namespace InventoryControl.Model
     {
         public static Table<Product> Table { get; } = new Table<Product>
         (
-            reader: (rdr) =>
-            {
-                return new Product
-                (
-                    id: rdr.GetInt32("Id"),
-                    name: rdr.GetString("Name"),
-                    unit: rdr.GetInt32("Measurement"),
-                    unitValue: rdr.GetDouble("Packing"),
-                    purchasePrice: rdr.GetDouble("PurchasePrice"),
-                    salePrice: rdr.GetDouble("SalePrice"),
-                    article: rdr.GetString("Article"),
-                    manufacturerId: rdr.GetInt32OrDefault("ManufacturerId", -1),
-                    category: rdr.GetString("Category")
-                );
-            },
             new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
             new Column<Product>("Measurement", SqlType.INTEGER, (x) => x.Measurement.GetUnit().value,
@@ -61,11 +46,11 @@ namespace InventoryControl.Model
             
 
         //Database-oriented constructor
-        public Product(int id, string name, 
+        public Product(int id, string name,
+            int unit, double unitValue,
             double purchasePrice, double salePrice,
-            double unitValue, int unit,
-            string article,
-            int manufacturerId, string category)
+            string article, bool isArchived = false,
+            int supplierId = -1, int manufacturerId = -1, string category = "")
         {
             this.Id = id;
             this.Name = name;

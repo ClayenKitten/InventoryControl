@@ -7,16 +7,6 @@ namespace InventoryControl.Model
     {
         public static Table<Storage> Table { get; } = new Table<Storage>
         (
-            reader: (rdr) =>
-            {
-                return new Storage
-                (
-                    id: rdr.GetInt32(0),
-                    name: rdr.GetStringOrEmpty(1),
-                    address: rdr.GetStringOrEmpty(2),
-                    ownerId: rdr.GetInt32(3)
-                );
-            },
             new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
             new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address),

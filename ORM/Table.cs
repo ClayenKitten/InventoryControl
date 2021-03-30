@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace InventoryControl.ORM
 {
@@ -32,8 +33,7 @@ namespace InventoryControl.ORM
         /// </summary>
         /// <param name="reader">Delegate that creates new instance of type from DataReader</param>
         /// <param name="columns">List of columns table consists of</param>
-        public Table(Func<SQLiteDataReader, EntityType> reader,
-                     params Column<EntityType>[] columns)
+        public Table(params Column<EntityType>[] columns)
         {
             Columns = columns.ToList();
             Columns.Insert(0, new Column<EntityType>("Id", SqlType.INTEGER, (x) => x.Id, Constraint.PrimaryKey));
@@ -70,7 +70,10 @@ namespace InventoryControl.ORM
             var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             rdr.Read();
-            return reader.Invoke(rdr);
+            return (EntityType) typeof(EntityType)
+                .GetConstructor(Columns.Select((x)=>x.Type.UnderlyingType)
+                .ToArray())
+                .Invoke(rdr.GetAllValues());
         }
         public IList<EntityType> ReadAll()
         {
@@ -80,7 +83,13 @@ namespace InventoryControl.ORM
             List<EntityType> res = new List<EntityType>();
             while(rdr.Read())
             {
-                res.Add(reader.Invoke(rdr));
+                res.Add
+                (
+                    (EntityType)typeof(EntityType)
+                    .GetConstructor(Columns.Select((x) => x.Type.UnderlyingType)
+                    .ToArray())
+                    .Invoke(rdr.GetAllValues())
+                );
             }
             return res;
         }

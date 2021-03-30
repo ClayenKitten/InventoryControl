@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace InventoryControl.ORM
@@ -36,6 +37,23 @@ namespace InventoryControl.ORM
             {
                 return defaultValue;
             }
+        }
+
+        public static object[] GetAllValues(this SQLiteDataReader reader)
+        {
+            var objs = new List<object>();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if(reader.GetValue(i) is long)
+                {
+                    objs.Add((int)(long)reader.GetValue(i));
+                }
+                else
+                {
+                    objs.Add(reader.GetValue(i));
+                }
+            }
+            return objs.ToArray();
         }
 
         public static Int32 GetInt32(this SQLiteDataReader reader, string colName)
