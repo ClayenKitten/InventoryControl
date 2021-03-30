@@ -395,7 +395,6 @@
     <Compile Include="Model\Storage\StorageMapper.cs" />
     <Compile Include="Model\Transfer\Transfer.cs" />
     <Compile Include="Model\ValueTypes\Measurements\IMeasurement.cs" />
-    <Compile Include="ORM\Constraints\AutoincrementConstraint.cs" />
     <Compile Include="ORM\Column.cs" />
     <Compile Include="ORM\Constraints\DefaultValueConstraint.cs" />
     <Compile Include="ORM\Constraints\Constraint.cs" />

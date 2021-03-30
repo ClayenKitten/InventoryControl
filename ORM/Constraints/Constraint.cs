@@ -5,8 +5,6 @@ namespace InventoryControl.ORM
     public abstract class Constraint
     {
         public abstract string SqlName { get; }
-        public abstract void Execute(IList<object> items);
-        public abstract bool Check(IList<object> items);
 
         public static IList<Constraint> operator |(Constraint x, Constraint y)
         {
@@ -24,8 +22,6 @@ namespace InventoryControl.ORM
             => new NotNullConstraint();
         public static UniqueConstraint Unique
             => new UniqueConstraint();
-        public static AutoincrementConstraint Autoincrement
-            => new AutoincrementConstraint();
         public static DefaultValueConstraint DefaultValue(object value)
             => new DefaultValueConstraint(value);
         public static ForeighnKeyConstraint ForeighnKey(string tableName, string columnName = "Id")

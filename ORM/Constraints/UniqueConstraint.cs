@@ -7,11 +7,5 @@ namespace InventoryControl.ORM
     {
         public override string SqlName
             => "UNIQUE";
-        public override bool Check(IList<object> items)
-        {
-            return items.Distinct().Count() == items.Count;
-        }
-
-        public override void Execute(IList<object> items) { }
     }
 }
