@@ -10,7 +10,13 @@ namespace InventoryControl.Model
         (
             reader: (rdr) =>
             {
-                throw new NotImplementedException();
+                return new Transfer(
+                    id: rdr.GetInt32(0),
+                    dateTime: rdr.GetDateTime(1),
+                    purchaserStorageId: rdr.GetInt32(2),
+                    supplierStorageId: rdr.GetInt32(3),
+                    new List<TransactionProductPresenter>()
+                );
             },
             new Column<Transfer>("DateTime", SqlType.DATETIME, (x) => x.DateTime,
                 Constraint.NotNull),
