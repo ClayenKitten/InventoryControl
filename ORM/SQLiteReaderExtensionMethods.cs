@@ -1,6 +1,6 @@
 using System.Data.SQLite;
 
-namespace InventoryControl.Util
+namespace InventoryControl.ORM
 {
     public static class SQLiteReaderExtensionMethods
     {
