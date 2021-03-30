@@ -393,7 +393,7 @@
     <Compile Include="Model\Product\Presenters\ProductPresenter.cs" />
     <Compile Include="Model\Storage\Storage.cs" />
     <Compile Include="Model\Storage\StorageMapper.cs" />
-    <Compile Include="Model\Transaction\Transaction.cs" />
+    <Compile Include="Model\Transaction\Transfer.cs" />
     <Compile Include="Model\ValueTypes\Measurements\IMeasurement.cs" />
     <Compile Include="ORM\Constraints\AutoincrementConstraint.cs" />
     <Compile Include="ORM\Column.cs" />

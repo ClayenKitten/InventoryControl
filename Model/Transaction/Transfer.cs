@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace InventoryControl.Model
 {
-    public class Transaction : IEntity
+    public class Transfer : IEntity
     {
-        public static Table<Transaction> Table { get; } = new Table<Transaction>
+        public static Table<Transfer> Table { get; } = new Table<Transfer>
             (
                 new Column("DateTime", SqlType.DATETIME, Constraint.NotNull),
                 new Column("SupplierStorageId", SqlType.INTEGER, Constraint.NotNull | Constraint.ForeighnKey("Storage")),
@@ -19,7 +19,7 @@ namespace InventoryControl.Model
         public int SupplierStorageId { get; set; }
         public List<TransactionProductPresenter> Products { get; set; }
 
-        public Transaction(DateTime dateTime, int purchaserStorageId, int supplierStorageId, List<TransactionProductPresenter> products)
+        public Transfer(DateTime dateTime, int purchaserStorageId, int supplierStorageId, List<TransactionProductPresenter> products)
         {
             DateTime = dateTime;
             PurchaserStorageId = purchaserStorageId;

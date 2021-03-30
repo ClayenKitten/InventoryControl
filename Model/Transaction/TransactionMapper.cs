@@ -7,7 +7,7 @@ namespace InventoryControl.Model
 {
     public static class TransactionMapper
     {
-        public static Transaction Create(Transaction transactionData)
+        public static Transfer Create(Transfer transactionData)
         {
             string commandText = @"
             INSERT INTO Transfer (DateTime, SupplierStorageId, PurchaserStorageId)
@@ -20,7 +20,7 @@ namespace InventoryControl.Model
             AddTransactionProducts(transactionData);
             return transactionData;
         }
-        private static void AddTransactionProducts(Transaction transaction)
+        private static void AddTransactionProducts(Transfer transaction)
         {
             string commandText = "INSERT INTO TransferProducts (TransferId, ProductId, Number) VALUES ";
             foreach (var product in transaction.Products)
