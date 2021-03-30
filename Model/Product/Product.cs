@@ -12,15 +12,15 @@ namespace InventoryControl.Model
             {
                 return new Product
                 (
-                    id: rdr.GetInt32(0),
-                    name: rdr.GetStringOrEmpty(1),
-                    unit: rdr.GetInt32(2),
-                    unitValue: rdr.GetDouble(3),
-                    purchasePrice: rdr.GetDouble(4),
-                    salePrice: rdr.GetDouble(5),
-                    article: rdr.GetString(6),
-                    manufacturerId: rdr.GetInt32(9),
-                    category: rdr.GetStringOrEmpty(10)
+                    id: rdr.GetInt32("Id"),
+                    name: rdr.GetString("Name"),
+                    unit: rdr.GetInt32("Measurement"),
+                    unitValue: rdr.GetDouble("Packing"),
+                    purchasePrice: rdr.GetDouble("PurchasePrice"),
+                    salePrice: rdr.GetDouble("SalePrice"),
+                    article: rdr.GetString("Article"),
+                    manufacturerId: rdr.GetInt32OrDefault("ManufacturerId", -1),
+                    category: rdr.GetString("Category")
                 );
             },
             new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
