@@ -376,7 +376,6 @@
     <Compile Include="ORM\Constraints\ForeighnKeyConstraint.cs" />
     <Compile Include="ORM\IEntity.cs" />
     <Compile Include="Model\Manufacturer\Manufacturer.cs" />
-    <Compile Include="Model\Manufacturer\ManufacturerMapper.cs" />
     <Compile Include="Model\PointOfSales\PointOfSales.cs" />
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />

@@ -24,7 +24,7 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.DefaultValue(0)),
             new Column<Product>("SupplierId", SqlType.INTEGER, (x) => "-1",
                 Constraint.ForeighnKey("Counterparty")),
-            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => "-1",
+            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => x.manufacturerId,
                 Constraint.ForeighnKey("Manufacturer")),
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
@@ -40,7 +40,7 @@ namespace InventoryControl.Model
         private int manufacturerId { get; set; }
         public Manufacturer Manufacturer
         {
-            get => ManufacturerMapper.Read(manufacturerId);
+            get => Manufacturer.Table.Read(manufacturerId);
             set => manufacturerId = value.Id;
         }
             
