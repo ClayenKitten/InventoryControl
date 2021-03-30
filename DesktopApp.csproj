@@ -393,12 +393,13 @@
     <Compile Include="Model\Storage\StorageMapper.cs" />
     <Compile Include="Model\Transfer\Transfer.cs" />
     <Compile Include="Model\ValueTypes\Measurements\IMeasurement.cs" />
-    <Compile Include="ORM\Column.cs" />
+    <Compile Include="ORM\Columns\Column.cs" />
     <Compile Include="ORM\Constraints\DefaultValueConstraint.cs" />
     <Compile Include="ORM\Constraints\Constraint.cs" />
     <Compile Include="ORM\Constraints\NotNullConstraint.cs" />
     <Compile Include="ORM\Constraints\PrimaryKeyConstraint.cs" />
     <Compile Include="ORM\Constraints\UniqueConstraint.cs" />
+    <Compile Include="ORM\JoinTable.cs" />
     <Compile Include="ORM\SqlType.cs" />
     <Compile Include="ORM\Table.cs" />
     <Compile Include="Util\BooleanToVisibilityInvConverter.cs" />
@@ -545,7 +546,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ORM\Tables\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
