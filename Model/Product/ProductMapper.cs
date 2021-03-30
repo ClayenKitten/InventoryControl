@@ -8,26 +8,7 @@ namespace InventoryControl.Model
     public static class ProductMapper
     {
         public static Product Create(Product product)
-        {
-            const string commandText =
-            @"
-                INSERT INTO Product(Title, Measurement, Packing, PurchasePrice, SalePrice, Article, ManufacturerId, Category)
-                VALUES($name,$unit,$packing,$purchasePrice,$salePrice,$article,$manufacturerId,$category);
-
-                SELECT Id FROM Product WHERE ROWID = last_insert_rowid();
-            ";
-            product.Id = (int)(long)Database.CommitScalarTransaction(commandText,
-                new SQLiteParameter("$name", product.Name),
-                new SQLiteParameter("$unit", product.Measurement.GetUnit().value),
-                new SQLiteParameter("$packing", product.Measurement.GetRawValue()),
-                new SQLiteParameter("$purchasePrice", product.PurchasePrice.GetFormattedValue()),
-                new SQLiteParameter("$salePrice", product.SalePrice.GetFormattedValue()),
-                new SQLiteParameter("$article", product.Article),
-                new SQLiteParameter("$manufacturerId", product.Manufacturer.Id),
-                new SQLiteParameter("$category", product.Category.FullPath)
-            );
-            return product;
-        }
+            => Product.Table.Create(product);
 
         public static void Update(Product product)
         {

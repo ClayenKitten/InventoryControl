@@ -26,6 +26,8 @@ namespace InventoryControl.ORM
         }
 
         private Func<EntityType, object> getter;
+        public object GetValue(EntityType item)
+            => getter.Invoke(item);
 
         public Column(string name, SqlType type, Func<EntityType, object> getter)
             : this(name, type, getter, new List<Constraint>()) { }

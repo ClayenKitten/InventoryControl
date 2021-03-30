@@ -41,6 +41,30 @@ namespace InventoryControl.ORM
             this.reader = reader;
         }
 
+        public EntityType Create(EntityType item)
+        {
+            string columnNamesString = Columns
+                                    .Where((x) => !(x.Name == "Id"))
+                                    .Select((x) => x.Name)
+                                    .Aggregate((x, y) => $"{x}, {y}");
+            string valuesString = Columns
+                                    .Where((x) => !(x.Name == "Id"))
+                                    .Select((x) => $"${x.Name}PARAM")
+                                    .Aggregate((x, y) => $"{x}, {y}");
+            string commandText = 
+                $"INSERT INTO {Name}" +
+                $"({columnNamesString})" +
+                $"VALUES({valuesString});"+
+                $"SELECT Id FROM Product WHERE ROWID = last_insert_rowid();";
+            var parameters = Columns
+                .Select((x) => new SQLiteParameter($"${x.Name}PARAM", x.GetValue(item)))
+                .ToArray();
+
+            var command = new SQLiteCommand(commandText, Database.Connect());
+            command.Parameters.AddRange(parameters);
+            item.Id = (int)(long)command.ExecuteScalar();
+            return item;
+        }
         public EntityType Read(int id)
         {
             var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
