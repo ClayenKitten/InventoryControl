@@ -18,32 +18,17 @@ namespace InventoryControl.View
 
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {
-            if(((CounterpatyViewerVM)DataContext).ShowPurchasers)
-            {
-                CounterpartyMapper.Create(new Purchaser
-                (
-                    id: -1,
-                    name: NameTB.Text,
-                    address: AddressTB.Text,
-                    contacts: ContactsTB.Text,
-                    taxpayerNumber: TaxpayerTB.Text,
-                    accountingCode: AccountTB.Text,
-                    bankDetails: BankIdTB.Text
-                ));
-            }
-            else
-            {
-                CounterpartyMapper.Create(new Supplier
-                (
-                    id: -1,
-                    name: NameTB.Text,
-                    address: AddressTB.Text,
-                    contacts: ContactsTB.Text,
-                    taxpayerNumber: TaxpayerTB.Text,
-                    accountingCode: AccountTB.Text,
-                    bankDetails: BankIdTB.Text
-                ));
-            }
+            CounterpartyMapper.Create(new Counterparty
+            (
+                id: -1,
+                name: NameTB.Text,
+                address: AddressTB.Text,
+                contacts: ContactsTB.Text,
+                taxpayerNumber: TaxpayerTB.Text,
+                accountingCode: AccountTB.Text,
+                bankDetails: BankIdTB.Text,
+                role: ((CounterpatyViewerVM)DataContext).ShowPurchasers ? 0 : 1
+            ));
             GlobalCommands.ModelUpdated.Execute(null);
         }
     }

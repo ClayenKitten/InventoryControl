@@ -22,7 +22,7 @@ namespace InventoryControl.Model
                 Constraint.NotNull),
             new Column<Counterparty>("AccountingCode", SqlType.TEXT, (x) => x.AccountingCode),
             new Column<Counterparty>("BankDetails",    SqlType.TEXT, (x) => x.BankDetails),
-            new Column<Counterparty>("Role", SqlType.INTEGER, (x) => x is Purchaser ? 0 : 1,
+            new Column<Counterparty>("Role", SqlType.INTEGER, (x) => x.Role,
                 Constraint.NotNull | Constraint.DefaultValue(0))
         );
 

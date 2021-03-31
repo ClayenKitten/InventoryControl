@@ -21,8 +21,8 @@ namespace InventoryControl.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             }
         }
-        private List<Purchaser> purchasers => CounterpartyMapper.GetPurchasers();
-        private List<Supplier> suppliers => CounterpartyMapper.GetSuppliers();
+        private List<Counterparty> purchasers => CounterpartyMapper.GetPurchasers();
+        private List<Counterparty> suppliers => CounterpartyMapper.GetSuppliers();
         public List<Counterparty> Content =>
             ShowPurchasers ?
                 purchasers.Cast<Counterparty>().ToList() :

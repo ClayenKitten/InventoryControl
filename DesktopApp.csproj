@@ -372,7 +372,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Counterparty\Counterparty.cs" />
-    <Compile Include="Model\Counterparty\Supplier.cs" />
     <Compile Include="ORM\Constraints\ForeighnKeyConstraint.cs" />
     <Compile Include="ORM\IEntity.cs" />
     <Compile Include="Model\Manufacturer\Manufacturer.cs" />
@@ -385,7 +384,6 @@
     <Compile Include="Model\ValueTypes\Article.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Piece.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Weight.cs" />
-    <Compile Include="Model\Counterparty\Purchaser.cs" />
     <Compile Include="Model\Counterparty\CounterpartyMapper.cs" />
     <Compile Include="Model\Product\Presenters\IProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\ProductPresenter.cs" />

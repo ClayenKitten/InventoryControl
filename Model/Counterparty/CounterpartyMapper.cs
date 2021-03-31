@@ -28,44 +28,31 @@ namespace InventoryControl.Model
             List<Counterparty> res = new List<Counterparty>();
             while (rdr.Read())
             {
-                if (rdr.GetInt32(7) == 0)
-                    res.Add(new Purchaser
-                    (
-                        id: rdr.GetInt32(0),
-                        name: rdr.GetStringOrEmpty(1),
-                        address: rdr.GetStringOrEmpty(2),
-                        contacts: rdr.GetStringOrEmpty(3),
-                        taxpayerNumber: rdr.GetStringOrEmpty(4),
-                        accountingCode: rdr.GetStringOrEmpty(5),
-                        bankDetails: rdr.GetStringOrEmpty(6)
-                    ));
-                else if (rdr.GetInt32(7) == 1)
-                    res.Add(new Supplier
-                    (
-                        id: rdr.GetInt32(0),
-                        name: rdr.GetStringOrEmpty(1),
-                        address: rdr.GetStringOrEmpty(2),
-                        contacts: rdr.GetStringOrEmpty(3),
-                        taxpayerNumber: rdr.GetStringOrEmpty(4),
-                        accountingCode: rdr.GetStringOrEmpty(5),
-                        bankDetails: rdr.GetStringOrEmpty(6)
-                    ));
+                res.Add(new Counterparty
+                (
+                    id: rdr.GetInt32(0),
+                    name: rdr.GetStringOrEmpty(1),
+                    address: rdr.GetStringOrEmpty(2),
+                    contacts: rdr.GetStringOrEmpty(3),
+                    taxpayerNumber: rdr.GetStringOrEmpty(4),
+                    accountingCode: rdr.GetStringOrEmpty(5),
+                    bankDetails: rdr.GetStringOrEmpty(6),
+                    role: rdr.GetInt32(7)
+                ));
             }
             return res;
         }
 
-        public static List<Supplier> GetSuppliers()
+        public static List<Counterparty> GetSuppliers()
         {
             return GetAll()
-                .Where(Counterparty => Counterparty is Supplier)
-                .Cast<Supplier>()
+                .Where((x) => x.Role == 1)
                 .ToList();
         }
-        public static List<Purchaser> GetPurchasers()
+        public static List<Counterparty> GetPurchasers()
         {
             return GetAll()
-                .Where(Counterparty => Counterparty is Purchaser)
-                .Cast<Purchaser>()
+                .Where((x) => x.Role == 0)
                 .ToList();
         }
 
@@ -85,7 +72,7 @@ namespace InventoryControl.Model
                 new SQLiteParameter("$taxpayerNumber", counterparty.TaxpayerNumber),
                 new SQLiteParameter("$accountingCode", counterparty.AccountingCode),
                 new SQLiteParameter("$bankDetails", counterparty.BankDetails),
-                new SQLiteParameter("$role", counterparty is Purchaser ? 0 : 1)
+                new SQLiteParameter("$role", counterparty.Role)
             );
             return counterparty;
         }
@@ -111,7 +98,7 @@ namespace InventoryControl.Model
                 new SQLiteParameter("$taxpayerNumber", counterparty.TaxpayerNumber),
                 new SQLiteParameter("$accountingCode", counterparty.AccountingCode),
                 new SQLiteParameter("$bankDetails", counterparty.BankDetails),
-                new SQLiteParameter("$role", counterparty is Purchaser ? 0 : 1),
+                new SQLiteParameter("$role", counterparty.Role),
                 new SQLiteParameter("$id", counterparty.Id)
             );
 

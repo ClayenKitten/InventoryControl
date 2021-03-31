@@ -58,7 +58,7 @@ namespace InventoryControl.ViewModel
             = new ObservableCollection<TransactionProductPresenter>();
         
         //Transaction info
-        public List<Supplier> Counterparties
+        public List<Counterparty> Counterparties
         {
             get { return CounterpartyMapper.GetSuppliers(); }
         }
