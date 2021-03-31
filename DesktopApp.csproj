@@ -397,9 +397,9 @@
     <Compile Include="ORM\Constraints\NotNullConstraint.cs" />
     <Compile Include="ORM\Constraints\PrimaryKeyConstraint.cs" />
     <Compile Include="ORM\Constraints\UniqueConstraint.cs" />
-    <Compile Include="ORM\JoinTable.cs" />
+    <Compile Include="ORM\Tables\JoinTable.cs" />
     <Compile Include="ORM\SqlType.cs" />
-    <Compile Include="ORM\Table.cs" />
+    <Compile Include="ORM\Tables\Table.cs" />
     <Compile Include="Util\BooleanToVisibilityInvConverter.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="Util\PropertyInfoExtensionMethods.cs" />
@@ -544,9 +544,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ORM\Tables\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
