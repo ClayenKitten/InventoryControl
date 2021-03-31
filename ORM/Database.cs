@@ -14,7 +14,8 @@ namespace InventoryControl.ORM
           + Storage.Table.CreationString
           + Transfer.Table.CreationString
           + Counterparty.Table.CreationString
-          + Manufacturer.Table.CreationString;
+          + Manufacturer.Table.CreationString
+          + PointOfSales.Table.CreationString;
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();
