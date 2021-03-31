@@ -51,7 +51,7 @@ namespace InventoryControl.ORM
                 $"INSERT INTO {Name}" +
                 $"({columnNamesString})" +
                 $"VALUES({valuesString});"+
-                $"SELECT Id FROM Product WHERE ROWID = last_insert_rowid();";
+                $"SELECT Id FROM {Name} WHERE ROWID = last_insert_rowid();";
             var parameters = Columns
                 .Select((x) => new SQLiteParameter($"${x.Name}PARAM", x.GetValue(item)))
                 .ToArray();
