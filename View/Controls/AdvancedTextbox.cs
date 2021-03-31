@@ -1,9 +1,12 @@
 ﻿using InventoryControl.Util;
+using MahApps.Metro.Controls;
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
 {
@@ -13,6 +16,25 @@ namespace InventoryControl.View.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AdvancedTextbox),
                 new FrameworkPropertyMetadata(typeof(AdvancedTextbox)));
+        }
+        public AdvancedTextbox()
+        {
+            //Create style for internal TextBox
+            var style = new Style(typeof(TextBox), Application.Current.TryFindResource(typeof(TextBox)) as Style);
+            var errorDataTrigger = new DataTrigger()
+            {
+                Binding = new Binding("IsErrorShown") { RelativeSource = RelativeSource.TemplatedParent },
+                Value = "False"
+            };
+            errorDataTrigger.Setters.Add(new Setter(BorderBrushProperty,
+                new SolidColorBrush(Colors.Red)));
+            errorDataTrigger.Setters.Add(new Setter(ControlsHelper.FocusBorderBrushProperty,
+                new SolidColorBrush(Color.FromRgb(210, 0, 0))));
+            errorDataTrigger.Setters.Add(new Setter(ControlsHelper.MouseOverBorderBrushProperty,
+                new SolidColorBrush(Color.FromRgb(225, 0, 0))));
+            style.Triggers.Add(errorDataTrigger);
+            style.Seal();
+            InnerTextBoxStyle = style;
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -34,7 +56,7 @@ namespace InventoryControl.View.Controls
         }
         public Visibility LabelVisibility => string.IsNullOrWhiteSpace(Label)?Visibility.Collapsed:Visibility.Visible;
         private string textboxValue = "";
-        public string Value
+        public string Text
         {
             get { return textboxValue; }
             set
@@ -66,6 +88,7 @@ namespace InventoryControl.View.Controls
                 return IsRequired ? "*" : string.Empty;
             }
         }
+        public Style InnerTextBoxStyle { get; }
 
         //Validation
         private string errorHint; public string ErrorHint 
@@ -85,14 +108,14 @@ namespace InventoryControl.View.Controls
         {
             get
             {
-                if (IsRequired && Value.Trim() == "")
+                if (IsRequired && Text.Trim() == "")
                 {
                     ErrorHint = "Поле обязательно для заполнения";
                     return false;
                 }
-                else if (!IsRequired && Value.Trim() == "")
+                else if (!IsRequired && Text.Trim() == "")
                 {
-                    if (Value.Trim() == "")
+                    if (Text.Trim() == "")
                     {
                         ErrorHint = "";
                         return true;
@@ -103,11 +126,11 @@ namespace InventoryControl.View.Controls
                 switch (Validation)
                 {
                     case ValidationEnum.Integer:
-                        valid = int.TryParse(Value, out _);
+                        valid = int.TryParse(Text, out _);
                         ErrorHint = valid ? "" : "Ожидается целое число";
                         break;
                     case ValidationEnum.Real:
-                        valid = double.TryParse(Value, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
+                        valid = double.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
                         ErrorHint = valid ? "" : "Ожидается число";
                         break;
                     default:

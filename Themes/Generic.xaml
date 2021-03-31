@@ -42,22 +42,9 @@
                             <Run Text="{Binding RequiredStar, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" Foreground="Red"/>
                         </TextBlock>
                         <TextBox x:Name="InnerTextbox" VerticalAlignment="Center" Grid.Row="1"
-                                 Text="{Binding Value, UpdateSourceTrigger=PropertyChanged,
-                                    RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}">
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                                    <Style.Triggers>
-                                        <DataTrigger Value="False">
-                                            <DataTrigger.Binding>
-                                                <Binding Path="IsErrorShown" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                            </DataTrigger.Binding>
-                                            <Setter Property="BorderBrush" Value="#FFFF0000"/>
-                                            <Setter Property="mah:ControlsHelper.FocusBorderBrush" Value="#B0B00000"/>
-                                            <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="#B0B00000"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
+                                 Text="{Binding Text, UpdateSourceTrigger=PropertyChanged,
+                                    RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                 Style="{Binding InnerTextBoxStyle, RelativeSource={RelativeSource Mode=TemplatedParent}}">
                         </TextBox>
                         <TextBlock Grid.Row="2"
                             Visibility="{Binding IsErrorShown,

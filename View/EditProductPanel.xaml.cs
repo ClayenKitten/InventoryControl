@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using InventoryControl.View.Controls;
+
 namespace InventoryControl.View
 {
     /// <summary>
@@ -54,12 +55,12 @@ namespace InventoryControl.View
             productData = Product.Table.Read(productId);
             InitializeComponent();
 
-            TitleAT.Value = productData.Name;
-            AmountAT.Value = productData.Measurement.GetFormattedValue();
+            TitleAT.Text = productData.Name;
+            AmountAT.Text = productData.Measurement.GetFormattedValue();
             MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
-            BuyPriceAT.Value = productData.PurchasePrice.GetFormattedValue();
-            SalePriceAT.Value = productData.SalePrice.GetFormattedValue();
-            ArticleAT.Value = productData.Article.ToString();
+            BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
+            SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
+            ArticleAT.Text = productData.Article.ToString();
 
             Init();
         }
@@ -72,12 +73,12 @@ namespace InventoryControl.View
                     new Product
                     (
                         id: -1,
-                        name: TitleAT.Value,
-                        purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
-                        salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
-                        unitValue: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        name: TitleAT.Text,
+                        purchasePrice: double.Parse(BuyPriceAT.Text, CultureInfo.InvariantCulture),
+                        salePrice: double.Parse(SalePriceAT.Text, CultureInfo.InvariantCulture),
+                        unitValue: double.Parse(AmountAT.Text, CultureInfo.InvariantCulture),
                         unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: ArticleAT.Value,
+                        article: ArticleAT.Text,
                         manufacturerId: -1,
                         category: ""
                     )
@@ -89,12 +90,12 @@ namespace InventoryControl.View
                     new Product
                     (
                         id: productData.Id,
-                        name: TitleAT.Value,
-                        purchasePrice: double.Parse(BuyPriceAT.Value, CultureInfo.InvariantCulture),
-                        salePrice: double.Parse(SalePriceAT.Value, CultureInfo.InvariantCulture),
-                        unitValue: double.Parse(AmountAT.Value, CultureInfo.InvariantCulture),
+                        name: TitleAT.Text,
+                        purchasePrice: double.Parse(BuyPriceAT.Text, CultureInfo.InvariantCulture),
+                        salePrice: double.Parse(SalePriceAT.Text, CultureInfo.InvariantCulture),
+                        unitValue: double.Parse(AmountAT.Text, CultureInfo.InvariantCulture),
                         unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: ArticleAT.Value,
+                        article: ArticleAT.Text,
                         manufacturerId: -1,
                         category: ""
                     )
