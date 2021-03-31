@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model
 {
-    public abstract class Counterparty : IEntity, INamed
+    public class Counterparty : IEntity, INamed
     {
         public static Table<Counterparty> Table { get; } = new Table<Counterparty>
         (
@@ -33,5 +33,20 @@ namespace InventoryControl.Model
         public string TaxpayerNumber { get; set; }
         public string AccountingCode { get; set; }
         public string BankDetails { get; set; }
+        public int Role { get; }
+
+        public Counterparty(int id, string name, string address, string contacts, 
+                            string taxpayerNumber, string accountingCode, string bankDetails,
+                            int role)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            Contacts = contacts;
+            TaxpayerNumber = taxpayerNumber;
+            AccountingCode = accountingCode;
+            BankDetails = bankDetails;
+            Role = role;
+        }
     }
 }

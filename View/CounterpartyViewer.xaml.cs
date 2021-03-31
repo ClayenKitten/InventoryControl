@@ -20,27 +20,29 @@ namespace InventoryControl.View
         {
             if(((CounterpatyViewerVM)DataContext).ShowPurchasers)
             {
-                CounterpartyMapper.Create(new Purchaser()
-                {
-                    Name = NameTB.Text,
-                    Address = AddressTB.Text,
-                    Contacts = ContactsTB.Text,
-                    TaxpayerNumber = TaxpayerTB.Text,
-                    AccountingCode = AccountTB.Text,
-                    BankDetails = BankIdTB.Text
-                });
+                CounterpartyMapper.Create(new Purchaser
+                (
+                    id: -1,
+                    name: NameTB.Text,
+                    address: AddressTB.Text,
+                    contacts: ContactsTB.Text,
+                    taxpayerNumber: TaxpayerTB.Text,
+                    accountingCode: AccountTB.Text,
+                    bankDetails: BankIdTB.Text
+                ));
             }
             else
             {
-                CounterpartyMapper.Create(new Supplier()
-                {
-                    Name = NameTB.Text,
-                    Address = AddressTB.Text,
-                    Contacts = ContactsTB.Text,
-                    TaxpayerNumber = TaxpayerTB.Text,
-                    AccountingCode = AccountTB.Text,
-                    BankDetails = BankIdTB.Text
-                });
+                CounterpartyMapper.Create(new Supplier
+                (
+                    id: -1,
+                    name: NameTB.Text,
+                    address: AddressTB.Text,
+                    contacts: ContactsTB.Text,
+                    taxpayerNumber: TaxpayerTB.Text,
+                    accountingCode: AccountTB.Text,
+                    bankDetails: BankIdTB.Text
+                ));
             }
             GlobalCommands.ModelUpdated.Execute(null);
         }

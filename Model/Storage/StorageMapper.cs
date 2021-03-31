@@ -18,20 +18,16 @@ namespace InventoryControl.Model
 
         public static int GetProductAmount(int productId, int storageId)
         {
-            const string commandText =
-            @"
-                SELECT ProductNumber.Number FROM ProductNumber
-                WHERE ProductNumber.ProductId=$productId
-                AND ProductNumber.StorageId=$storageId
-            ";
-            var res = Database.CommitScalarTransaction(commandText, 
-                new SQLiteParameter("$productId", productId),
-                new SQLiteParameter("$storageId", storageId)
-            );
-            if (!(res is null))
-                return (int)(double)res;
-            else
+            var s = Storage.Table.ReadAll();
+            object num = Storage.ProductsNumberTable.Read(productId, storageId);
+            if (num is null)
+            {
                 return 0;
+            }
+            else
+            {
+                return (int)(long)num;
+            }
         }
     }
 }

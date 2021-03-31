@@ -8,12 +8,13 @@ namespace InventoryControl.ORM
     static class Database
     {
         private static string BuildingQuery =
-            "CREATE TABLE IF NOT EXISTS ProductNumber (ProductId INTEGER REFERENCES Product (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, StorageId INTEGER REFERENCES Storage (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, Number REAL NOT NULL DEFAULT (0), UNIQUE (ProductId, StorageId) ON CONFLICT ROLLBACK);"
+            Storage.ProductsNumberTable.CreationString
           + "CREATE TABLE IF NOT EXISTS TransferProducts (TransferId INTEGER REFERENCES Transfer (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, ProductId INTEGER REFERENCES Product (Id) ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, Number INTEGER NOT NULL, UNIQUE (TransferId, ProductId) ON CONFLICT ROLLBACK);"
           + Product.Table.CreationString
           + Storage.Table.CreationString
           + Transfer.Table.CreationString
-          + Counterparty.Table.CreationString;
+          + Counterparty.Table.CreationString
+          + Manufacturer.Table.CreationString;
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();

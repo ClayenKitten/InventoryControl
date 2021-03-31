@@ -29,27 +29,27 @@ namespace InventoryControl.Model
             while (rdr.Read())
             {
                 if (rdr.GetInt32(7) == 0)
-                    res.Add(new Purchaser()
-                    {
-                        Id = rdr.GetInt32(0),
-                        Name = rdr.GetStringOrEmpty(1),
-                        Address = rdr.GetStringOrEmpty(2),
-                        Contacts = rdr.GetStringOrEmpty(3),
-                        TaxpayerNumber = rdr.GetStringOrEmpty(4),
-                        AccountingCode = rdr.GetStringOrEmpty(5),
-                        BankDetails = rdr.GetStringOrEmpty(6),
-                    });
-                else if (rdr.GetInt32(7) == 1) 
-                    res.Add(new Supplier()
-                    {
-                        Id = rdr.GetInt32(0),
-                        Name = rdr.GetStringOrEmpty(1),
-                        Address = rdr.GetStringOrEmpty(2),
-                        Contacts = rdr.GetStringOrEmpty(3),
-                        TaxpayerNumber = rdr.GetStringOrEmpty(4),
-                        AccountingCode = rdr.GetStringOrEmpty(5),
-                        BankDetails = rdr.GetStringOrEmpty(6),
-                    });
+                    res.Add(new Purchaser
+                    (
+                        id: rdr.GetInt32(0),
+                        name: rdr.GetStringOrEmpty(1),
+                        address: rdr.GetStringOrEmpty(2),
+                        contacts: rdr.GetStringOrEmpty(3),
+                        taxpayerNumber: rdr.GetStringOrEmpty(4),
+                        accountingCode: rdr.GetStringOrEmpty(5),
+                        bankDetails: rdr.GetStringOrEmpty(6)
+                    ));
+                else if (rdr.GetInt32(7) == 1)
+                    res.Add(new Supplier
+                    (
+                        id: rdr.GetInt32(0),
+                        name: rdr.GetStringOrEmpty(1),
+                        address: rdr.GetStringOrEmpty(2),
+                        contacts: rdr.GetStringOrEmpty(3),
+                        taxpayerNumber: rdr.GetStringOrEmpty(4),
+                        accountingCode: rdr.GetStringOrEmpty(5),
+                        bankDetails: rdr.GetStringOrEmpty(6)
+                    ));
             }
             return res;
         }

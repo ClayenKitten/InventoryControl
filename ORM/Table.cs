@@ -80,11 +80,17 @@ namespace InventoryControl.ORM
         {
             var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
-            rdr.Read();
-            return (EntityType) typeof(EntityType)
-                .GetConstructor(Columns.Select((x)=>x.Type.UnderlyingType)
-                .ToArray())
-                .Invoke(rdr.GetAllValues());
+            if (rdr.Read())
+            {
+                return (EntityType)typeof(EntityType)
+                    .GetConstructor(Columns.Select((x) => x.Type.UnderlyingType)
+                    .ToArray())
+                    .Invoke(rdr.GetAllValues());
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"Record of {typeof(EntityType).Name} with id {id} not found!");
+            }
         }
         public IList<EntityType> ReadAll()
         {

@@ -5,6 +5,8 @@ namespace InventoryControl.Model
 {
     public class Storage : IEntity, INamed
     {
+        public static JoinTable ProductsNumberTable { get; }
+            = new JoinTable("ProductsNumber", typeof(Product), typeof(Storage), SqlType.INTEGER);
         public static Table<Storage> Table { get; } = new Table<Storage>
         (
             new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
