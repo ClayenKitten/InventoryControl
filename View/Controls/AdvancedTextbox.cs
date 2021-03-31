@@ -88,6 +88,16 @@ namespace InventoryControl.View.Controls
                 return IsRequired ? "*" : string.Empty;
             }
         }
+        string watermark; public string Watermark
+        {
+            get => watermark;
+            set
+            {
+                watermark = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Watermark"));
+            }
+        }
+
         public Style InnerTextBoxStyle { get; }
 
         //Validation

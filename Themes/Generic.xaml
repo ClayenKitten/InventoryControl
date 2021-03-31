@@ -44,6 +44,8 @@
                         <TextBox x:Name="InnerTextbox" VerticalAlignment="Center" Grid.Row="1"
                                  Text="{Binding Text, UpdateSourceTrigger=PropertyChanged,
                                     RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                 mah:TextBoxHelper.Watermark="{Binding Watermark,
+                                    RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                  Style="{Binding InnerTextBoxStyle, RelativeSource={RelativeSource Mode=TemplatedParent}}">
                         </TextBox>
                         <TextBlock Grid.Row="2"
