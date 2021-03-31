@@ -29,7 +29,6 @@ namespace InventoryControl.ORM
         /// <summary>
         /// Creates new table
         /// </summary>
-        /// <param name="reader">Delegate that creates new instance of type from DataReader</param>
         /// <param name="columns">List of columns table consists of</param>
         public Table(params Column<EntityType>[] columns)
         {
