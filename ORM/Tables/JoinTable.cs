@@ -2,15 +2,15 @@
 using System.Data.SQLite;
 namespace InventoryControl.ORM
 {
-    public class JoinTable
+    public class JoinTable : TableBase
     {
         private Type firstType;
         private Type secondType;
         private SqlType valueType;
 
-        public string Name { get; }
+        public override string Name { get; }
 
-        public string CreationString
+        protected override string CreationString
         {
             get
             {
@@ -54,6 +54,8 @@ namespace InventoryControl.ORM
                 new SQLiteParameter("$secondId", secondId)
             );
         }
+
+        protected override void InsertInitValues(SQLiteConnection con) { }
 
         public JoinTable(string name, Type first, Type second, SqlType value)
         {

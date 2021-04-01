@@ -12,6 +12,10 @@ namespace InventoryControl.Model
     {
         public static Table<Counterparty> Table { get; } = new Table<Counterparty>
         (
+            new List<Counterparty>()
+            {
+                new Counterparty(0, "Управляемая организация", "", "", "", "", "", -1)
+            },
             new Column<Counterparty>("Name",           SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
             new Column<Counterparty>("Address",        SqlType.TEXT, (x) => x.Address,

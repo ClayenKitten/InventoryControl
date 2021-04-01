@@ -1,4 +1,5 @@
 using InventoryControl.ORM;
+using System.Collections.Generic;
 
 namespace InventoryControl.Model
 {

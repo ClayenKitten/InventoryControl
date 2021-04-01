@@ -6,19 +6,18 @@ using System.Runtime.InteropServices;
 
 namespace InventoryControl.ORM
 {
-    public class Table<EntityType> where EntityType : IEntity
+    public class Table<EntityType> : TableBase where EntityType : IEntity
     {
-        public string Name
+        public override string Name
             => typeof(EntityType).Name;
         public IList<Column<EntityType>> Columns { get; }
-
-        public string CreationString
+        protected override string CreationString
         {
             get
             {
                 var str = $"CREATE TABLE IF NOT EXISTS {Name}";
                 var creationStrings = Columns.Select((x) => x.CreationString);
-                if(creationStrings.Count() > 0)
+                if (creationStrings.Count() > 0)
                 {
                     str += $" ({creationStrings.Aggregate((x, y) => $"{x}, {y}")});";
                 }
@@ -26,15 +25,20 @@ namespace InventoryControl.ORM
             }
         }
 
+        private IList<EntityType> InitValues { get; }
+
         /// <summary>
         /// Creates new table
         /// </summary>
         /// <param name="columns">List of columns table consists of</param>
-        public Table(params Column<EntityType>[] columns)
+        public Table(IList<EntityType> InitValues, params Column<EntityType>[] columns)
         {
+            this.InitValues = InitValues;
             Columns = columns.ToList();
             Columns.Insert(0, new Column<EntityType>("Id", SqlType.INTEGER, (x) => x.Id, Constraint.PrimaryKey));
         }
+        public Table(params Column<EntityType>[] columns)
+            : this(new List<EntityType>(), columns) { }
 
         public EntityType Create(EntityType item)
         {
@@ -108,6 +112,13 @@ namespace InventoryControl.ORM
                 );
             }
             return res;
+        }
+        protected override void InsertInitValues(SQLiteConnection con)
+        {
+            foreach(EntityType value in InitValues)
+            {
+                Create(value);
+            }
         }
     }
 }

@@ -397,6 +397,7 @@
     <Compile Include="ORM\Constraints\NotNullConstraint.cs" />
     <Compile Include="ORM\Constraints\PrimaryKeyConstraint.cs" />
     <Compile Include="ORM\Constraints\UniqueConstraint.cs" />
+    <Compile Include="ORM\Tables\TableBase.cs" />
     <Compile Include="ORM\Tables\JoinTable.cs" />
     <Compile Include="ORM\SqlType.cs" />
     <Compile Include="ORM\Tables\Table.cs" />

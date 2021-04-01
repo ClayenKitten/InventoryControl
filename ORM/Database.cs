@@ -1,5 +1,6 @@
 ﻿using InventoryControl.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 
@@ -7,15 +8,16 @@ namespace InventoryControl.ORM
 {
     static class Database
     {
-        private static string BuildingQuery =
-            Storage.ProductsNumberTable.CreationString
-          + "CREATE TABLE IF NOT EXISTS TransferProducts (TransferId INTEGER REFERENCES Transfer (Id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, ProductId INTEGER REFERENCES Product (Id) ON DELETE RESTRICT ON UPDATE CASCADE NOT NULL, Number INTEGER NOT NULL, UNIQUE (TransferId, ProductId) ON CONFLICT ROLLBACK);"
-          + Product.Table.CreationString
-          + Storage.Table.CreationString
-          + Transfer.Table.CreationString
-          + Counterparty.Table.CreationString
-          + Manufacturer.Table.CreationString
-          + PointOfSales.Table.CreationString;
+        private static List<TableBase> Tables = new List<TableBase>()
+        {
+            Storage.ProductsNumberTable,
+            Product.Table,
+            Storage.Table,
+            Transfer.Table,
+            Counterparty.Table,
+            Manufacturer.Table,
+            PointOfSales.Table
+        };
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();
@@ -77,13 +79,9 @@ namespace InventoryControl.ORM
             };
 
             var con = new SQLiteConnection(builder.ConnectionString).OpenAndReturn();
-            try
+            foreach(var table in Tables)
             {
-                new SQLiteCommand(BuildingQuery, con).ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(e.Message);
+                table.Create(con);
             }
             con.Close();
         }
