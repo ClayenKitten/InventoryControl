@@ -10,7 +10,17 @@ namespace InventoryControl.ViewModel
     public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
         public int StorageId { get; set; }
-        public ViewOptions Options { get; set; } = new ViewOptions();
+        private ViewOptions options = new ViewOptions();
+        public ViewOptions Options
+        {
+            get => options;
+            set
+            {
+                options = value;
+                options.ViewOptionsChanged += OnOptionsUpdated;
+                OnOptionsUpdated(null, null);
+            }
+        }
         //Binding-ready options getters
         public Visibility StorageSelectorAsComboboxVisibility
             => Options.HideStorageSelector ? Visibility.Collapsed : Visibility.Visible;
@@ -76,24 +86,32 @@ namespace InventoryControl.ViewModel
         public StorageViewerVM()
         {
             GlobalCommands.ModelUpdated.Executed += OnModelUpdated;
+            Options.ViewOptionsChanged += OnOptionsUpdated;
         }
         public void Dispose()
         {
             GlobalCommands.ModelUpdated.Executed -= OnModelUpdated;
+            Options.ViewOptionsChanged -= OnOptionsUpdated;
         }
 
+        protected void OnOptionsUpdated(object _, object _1)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsComboboxVisibility"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsTextboxVisibility"));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupOutOfStockProducts"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingPropertyPath"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HideOutOfStockProducts"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilterPropertyPath"));
+        }
         protected void OnModelUpdated(object _)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageId"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsComboboxVisibility"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsTextboxVisibility"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentStorageName"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupOutOfStockProducts"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingPropertyPath"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HideOutOfStockProducts"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilterPropertyPath"));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

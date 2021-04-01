@@ -35,6 +35,7 @@ namespace InventoryControl.View
 
         private void ShowHeaderContextMenu()
         {
+            var VM = (StorageViewerVM)DataContext;
             var builder = new ContextMenuBuilder()
                 .BeginGroup("Группировать...")
                     .AddCheckable("По категории", null)
@@ -45,7 +46,7 @@ namespace InventoryControl.View
             {
                 builder
                     .BeginGroup("Фильтровать...")
-                        .AddCheckable("Закончившиеся", null)
+                        .AddCheckable("Закончившиеся", x => VM.Options.SetFilter(x, "IsInStock", false))
                         .AddCheckable("Удалённые", null)
                     .EndGroup();
             }
