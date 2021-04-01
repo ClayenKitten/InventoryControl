@@ -67,7 +67,7 @@ namespace InventoryControl.ORM
         {
             if (!File.Exists("Database.db"))
             {
-                File.Create("Database.db");
+                SQLiteConnection.CreateFile("Database.db");
             }
 
             var builder = new SQLiteConnectionStringBuilder
