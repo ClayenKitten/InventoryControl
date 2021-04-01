@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Reflection;
+using InventoryControl.ViewModel;
 
 namespace InventoryControl.View.Controls
 {
@@ -23,12 +24,6 @@ namespace InventoryControl.View.Controls
             typeof(string), typeof(AdvancedDataGrid),
             new PropertyMetadata(""));
 
-        public string FilterPropertyPath { get; set; }
-        public static DependencyProperty FilterPropertyPathProperty =
-            DependencyProperty.Register("FilterPropertyPath", 
-            typeof(string), typeof(AdvancedDataGrid),
-            new PropertyMetadata(""));
-
         public string GroupingPropertyPath { get; set; }
         public static DependencyProperty GroupingPropertyPathProperty =
             DependencyProperty.Register("GroupingPropertyPath",
@@ -39,6 +34,10 @@ namespace InventoryControl.View.Controls
         public static DependencyProperty RowEditEndHandlerProperty =
             DependencyProperty.Register("RowEditEndHandler", typeof(Action<DataGridRowEditEndingEventArgs>), typeof(AdvancedDataGrid));
 
+        public ViewOptions Options { get; set; }
+        public static DependencyProperty OptionsProperty =
+            DependencyProperty.Register("Options", typeof(ViewOptions), typeof(AdvancedDataGrid),
+            new PropertyMetadata(new ViewOptions()));
 
         static AdvancedDataGrid()
         {
@@ -55,12 +54,8 @@ namespace InventoryControl.View.Controls
                 {
                     passed &= (obj as INamed).Name.Includes(GetValue(FilterStringProperty).ToString());
                 }
-                // Filter property check
-                var prop = obj.GetType().GetProperty(GetValue(FilterPropertyPathProperty) as string);
-                if (prop != null)
-                {
-                    passed &= (bool)prop.GetValue(obj);
-                }
+                // Options check
+                passed &= ((ViewOptions)GetValue(OptionsProperty)).Filter(obj);
                 return passed;                
             };
             MouseUp += OnMouseClicked;
@@ -82,6 +77,10 @@ namespace InventoryControl.View.Controls
             {
                 Items.GroupDescriptions.Remove(new PropertyGroupDescription((string)e.OldValue));
                 Items.GroupDescriptions.Add(new PropertyGroupDescription((string)e.NewValue));
+            }
+            if (e.Property == OptionsProperty)
+            {
+                Items.Filter = Items.Filter;
             }
         }
         protected override void OnRowEditEnding(DataGridRowEditEndingEventArgs e)

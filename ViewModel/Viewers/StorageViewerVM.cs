@@ -32,11 +32,6 @@ namespace InventoryControl.ViewModel
             => Options.DoesGroup("IsInStock");
         public string GroupingPropertyPath
             => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
-        // Filter
-        public bool HideOutOfStockProducts
-            => Options.DoesFilter("IsInStock", false);
-        public string FilterPropertyPath
-            => HideOutOfStockProducts ? "IsInStock" : string.Empty;
 
         public List<StockProductPresenter> Content
         {
@@ -96,6 +91,7 @@ namespace InventoryControl.ViewModel
 
         protected void OnOptionsUpdated(object _, object _1)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Options"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsComboboxVisibility"));
@@ -103,8 +99,6 @@ namespace InventoryControl.ViewModel
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupOutOfStockProducts"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingPropertyPath"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HideOutOfStockProducts"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilterPropertyPath"));
         }
         protected void OnModelUpdated(object _)
         {
