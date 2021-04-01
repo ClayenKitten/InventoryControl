@@ -5,57 +5,114 @@ namespace InventoryControl.ViewModel
 {
     public class ViewOptions
     {
-
-        /// <summary>
-        /// Exclude all properties with names as in key and values as in value of dict
-        /// </summary>
         private HashSet<Tuple<string, object>> Filters { get; } = new HashSet<Tuple<string, object>>();
-        /// <summary>
-        /// Group by all properties specified in the list
-        /// </summary>
-        private HashSet<string> GroupingPropertyPaths { get; } = new HashSet<string>();
+        private HashSet<string> Groupings { get; } = new HashSet<string>();
 
-        /// <summary>
-        /// If true, hide all GUI methods to change filtering
-        /// </summary>
-        public bool HideFilteringSettings { get; set; } = false;
-        /// <summary>
-        /// If true, hide all GUI methods to change grouping
-        /// </summary>
-        public bool HideGroupingSettings { get; set; } = false;
+        // Limiting control over filtering and grouping from GUI
+        private bool hideFilteringSettings = false;
+        public bool HideFilteringSettings 
+        {
+            get => hideFilteringSettings;
+            set
+            {
+                hideFilteringSettings = value;
+                Update();
+            }
+        }
+        private bool hideGroupingSettings = false;
+        public bool HideGroupingSettings
+        {
+            get => hideGroupingSettings;
+            set
+            {
+                hideGroupingSettings = value;
+                Update();
+            }
+        }
         // Limiting control over StorageViewer
+        [Obsolete]
         public bool HideStorageSelector { get; set; } = false;
 
+        // Filtering methods
         public void AddFilter(string propertyPath, object value)
         {
-            Filters.Add(new Tuple<string, object>(propertyPath, value));
+            if (Filters.Add(new Tuple<string, object>(propertyPath, value)))
+            {
+                Update();
+            }
         }
         public void RemoveFilter(string propertyPath)
         {
+            bool isUpdated = false;
             foreach(var filter in Filters)
             {
                 if(filter.Item1 == propertyPath)
                 {
-                    Filters.Remove(filter);
+                    isUpdated |= Filters.Remove(filter);
                 }
             }
         }
         public void RemoveFilter(string propertyPath, object value)
         {
-            Filters.Remove(new Tuple<string, object>(propertyPath, value));
+            if (Filters.Remove(new Tuple<string, object>(propertyPath, value)))
+            {
+                Update();
+            }
+        }
+        public void SetFilter(bool enabled, string propertyPath, object value)
+        {
+            if (enabled)
+            {
+                AddFilter(propertyPath, value);
+            }
+            else
+            {
+                RemoveFilter(propertyPath, value);
+            }
         }
         public bool DoesFilter(string propertyPath, object value)
         {
             return Filters.Contains(new Tuple<string, object>(propertyPath, value));
         }
+        // Grouping methods
+        public void AddGroup(string propertyPath)
+        {
+            if (Groupings.Add(propertyPath))
+            {
+                Update();
+            }
+        }
+        public void RemoveGroup(string propertyPath)
+        {
+            if (Groupings.Remove(propertyPath))
+            {
+                Update();
+            }            
+        }
+        public void SetGroup(bool enabled, string propertyPath)
+        {
+            if (enabled)
+            {
+                AddGroup(propertyPath);
+            }
+            else
+            {
+                RemoveGroup(propertyPath);
+            }
+        }
         public bool DoesGroup(string propertyPath)
         {
-            return GroupingPropertyPaths.Contains(propertyPath);
+            return Groupings.Contains(propertyPath);
         }
 
         public ViewOptions()
         {
-            
         }
+
+        private void Update()
+        {
+            ViewOptionsChanged?.Invoke(this, EventArgs.Empty);
+        }
+        public event EventHandler ViewOptionsChanged;
     }
 }
