@@ -10,18 +10,21 @@ namespace InventoryControl.ViewModel
     public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
         public int StorageId { get; set; }
-        public StorageViewerOptions Options { get; set; } = new StorageViewerOptions();
+        public ViewOptions Options { get; set; } = new ViewOptions();
         //Binding-ready options getters
         public Visibility StorageSelectorAsComboboxVisibility
             => Options.HideStorageSelector ? Visibility.Collapsed : Visibility.Visible;
         public Visibility StorageSelectorAsTextboxVisibility 
             => Options.HideStorageSelector ? Visibility.Visible : Visibility.Collapsed;
+
+        // Group
         public bool GroupOutOfStockProducts
-            => Options.GroupOutOfStockProducts;
+            => Options.DoesGroup("IsInStock");
         public string GroupingPropertyPath
             => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
+        // Filter
         public bool HideOutOfStockProducts
-            => Options.HideOutOfStockProducts;
+            => Options.DoesFilter("IsInStock", false);
         public string FilterPropertyPath
             => HideOutOfStockProducts ? "IsInStock" : string.Empty;
 

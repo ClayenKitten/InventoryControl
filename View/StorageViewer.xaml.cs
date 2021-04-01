@@ -17,7 +17,7 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        public StorageViewer(int storageId, StorageViewerOptions options) : this()
+        public StorageViewer(int storageId, ViewOptions options) : this()
         {
             var dataContext = (StorageViewerVM)DataContext;
             if(storageId == -1)
@@ -31,7 +31,7 @@ namespace InventoryControl.View
             dataContext.Options = options;
             GlobalCommands.ModelUpdated.Execute(null);
         }
-        public StorageViewer(int storageId) : this(storageId, new StorageViewerOptions()) {}
+        public StorageViewer(int storageId) : this(storageId, new ViewOptions()) {}
 
         private void ShowHeaderContextMenu()
         {
