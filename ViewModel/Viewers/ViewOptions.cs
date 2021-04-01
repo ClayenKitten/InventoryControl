@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace InventoryControl.ViewModel
 {
@@ -11,7 +14,7 @@ namespace InventoryControl.ViewModel
 
         // Limiting control over filtering and grouping from GUI
         private bool hideFilteringSettings = false;
-        public bool HideFilteringSettings 
+        public bool HideFilteringSettings
         {
             get => hideFilteringSettings;
             set
@@ -45,9 +48,9 @@ namespace InventoryControl.ViewModel
         public void RemoveFilter(string propertyPath)
         {
             bool isUpdated = false;
-            foreach(var filter in Filters)
+            foreach (var filter in Filters)
             {
-                if(filter.Item1 == propertyPath)
+                if (filter.Item1 == propertyPath)
                 {
                     isUpdated |= Filters.Remove(filter);
                 }
@@ -106,7 +109,7 @@ namespace InventoryControl.ViewModel
             if (Groupings.Remove(propertyPath))
             {
                 Update();
-            }            
+            }
         }
         public void SetGroup(bool enabled, string propertyPath)
         {
@@ -122,6 +125,33 @@ namespace InventoryControl.ViewModel
         public bool DoesGroup(string propertyPath)
         {
             return Groupings.Contains(propertyPath);
+        }
+        // Column visibility
+        private HashSet<string> CollapsedColumns { get; } = new HashSet<string>();
+        public void SetCollapsedColumn(bool isCollapsed, string bindingPath)
+        {
+            if (isCollapsed)
+            {
+                CollapsedColumns.Add(bindingPath);
+            }
+            else
+            {
+                CollapsedColumns.Remove(bindingPath);
+            }
+            Update();
+        }
+        public Visibility ColumnVisibility(Type itemsSourceType, DataGridBoundColumn column)
+        {
+            var path = ((Binding)column.Binding).Path.Path;
+            var prop = itemsSourceType.GetProperty(path);
+            if (prop != null)
+            {
+                return CollapsedColumns.Contains(path) ? Visibility.Collapsed : Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
         }
 
         public ViewOptions()

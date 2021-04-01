@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Reflection;
 using InventoryControl.ViewModel;
+using System.Linq;
 
 namespace InventoryControl.View.Controls
 {
@@ -81,6 +82,15 @@ namespace InventoryControl.View.Controls
             if (e.Property == OptionsProperty)
             {
                 Items.Filter = Items.Filter;
+                foreach(var column in Columns)
+                {
+                    if (column is DataGridBoundColumn)
+                    {
+                        var itemSourceType = ItemsSource.GetType().GetGenericArguments().Single();
+                        column.Visibility = ((ViewOptions)GetValue(OptionsProperty))
+                            .ColumnVisibility(itemSourceType, column as DataGridBoundColumn);
+                    }
+                }
             }
         }
         protected override void OnRowEditEnding(DataGridRowEditEndingEventArgs e)
