@@ -16,7 +16,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new SingleControlPanelContainer(new StorageViewer());
+                    return new SingleControlPanelContainer(new StorageViewer(-1));
                 });
             }
         }
