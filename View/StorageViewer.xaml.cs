@@ -2,6 +2,7 @@
 using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -19,7 +20,14 @@ namespace InventoryControl.View
         public StorageViewer(int storageId, StorageViewerOptions options) : this()
         {
             var dataContext = (StorageViewerVM)DataContext;
-            dataContext.StorageId = storageId;
+            if(storageId == -1)
+            {
+                dataContext.StorageId = StorageMapper.GetAllStorages().FirstOrDefault().Id;
+            }
+            else
+            {
+                dataContext.StorageId = storageId;
+            }
             dataContext.Options = options;
             GlobalCommands.ModelUpdated.Execute(null);
         }

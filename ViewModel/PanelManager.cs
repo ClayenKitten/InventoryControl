@@ -66,7 +66,7 @@ namespace InventoryControl.ViewModel
                 return new OpenPanelCommand(() =>
                 {
                     return new DualControlPanelContainer(
-                        new StorageViewer(0, new StorageViewerOptions() { HideStorageSelector = true }),
+                        new StorageViewer(-1, new StorageViewerOptions() { HideStorageSelector = true }),
                         new TransactionProductsViewer(TransactionType.Sell)
                     );
                 });
@@ -79,7 +79,7 @@ namespace InventoryControl.ViewModel
                 return new OpenPanelCommand(() =>
                 {
                     return new DualControlPanelContainer(
-                        new StorageViewer(0, new StorageViewerOptions() { HideStorageSelector = true }),
+                        new StorageViewer(-1, new StorageViewerOptions() { HideStorageSelector = true }),
                         new TransactionProductsViewer(TransactionType.Return)
                     );
                 });

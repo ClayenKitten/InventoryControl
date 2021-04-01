@@ -81,6 +81,7 @@ namespace InventoryControl.ViewModel
 
         protected void OnModelUpdated(object _)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageId"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StorageSelectorAsComboboxVisibility"));
