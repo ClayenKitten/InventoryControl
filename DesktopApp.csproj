@@ -412,7 +412,7 @@
     <Compile Include="ViewModel\Viewers\CounterpatyViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\PointsOfSalesViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\ViewOptions.cs" />
-    <Compile Include="ViewModel\Viewers\StorageViewer\StorageViewerVM.cs" />
+    <Compile Include="ViewModel\Viewers\StorageViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\TransactionProductsViewerVM.cs" />
     <Compile Include="View\Controls\ContextMenuBuilder.cs" />
     <Compile Include="View\Controls\DataGrid\AdvancedDataGrid.cs" />
