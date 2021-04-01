@@ -46,7 +46,7 @@ namespace InventoryControl.View
             {
                 builder
                     .BeginGroup("Фильтровать...")
-                        .AddCheckable("Закончившиеся", x => VM.Options.SetFilter(x, "IsInStock", false))
+                        .AddCheckable("Закончившиеся", x => VM.Options.SetFilter(x, "IsInStock", true))
                         .AddCheckable("Удалённые", null)
                     .EndGroup();
             }
