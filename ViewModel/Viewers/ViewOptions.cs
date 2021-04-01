@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InventoryControl.ViewModel
 {
@@ -73,6 +74,24 @@ namespace InventoryControl.ViewModel
         public bool DoesFilter(string propertyPath, object value)
         {
             return Filters.Contains(new Tuple<string, object>(propertyPath, value));
+        }
+        public bool Filter(object obj)
+        {
+            return Filters.All
+            (
+                filterTuple =>
+                {
+                    var prop = obj.GetType().GetProperty(filterTuple.Item1);
+                    if (prop != null)
+                    {
+                        return prop.GetValue(obj).Equals(filterTuple.Item2);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            );
         }
         // Grouping methods
         public void AddGroup(string propertyPath)
