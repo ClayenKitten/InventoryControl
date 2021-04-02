@@ -24,9 +24,7 @@
         <Label BorderThickness="0, 0, 1, 1" BorderBrush="Black" Content="Точки сбыта"/>
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
-        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
-            AutoGenerateColumns="False" CanUserAddRows="False"
-            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" 
+        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}" 
             ItemsSource="{Binding Content}" RowEditEnding="DataGrid_RowEditEnding">
             <DataGrid.Columns>
                 <c:EditableDataGridHighlightColumn x:Name="LabelC" Header="Метка" Width="*" Binding="{Binding Name}"

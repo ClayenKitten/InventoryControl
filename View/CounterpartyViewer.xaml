@@ -26,7 +26,7 @@
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
         <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
-            ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" RowEditEndHandler="{Binding OnRowEditEnded}"
+            RowEditEndHandler="{Binding OnRowEditEnded}"
             ItemsSource="{Binding Content}">
             <c:AdvancedDataGrid.Columns>
                 <c:EditableDataGridHighlightColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"

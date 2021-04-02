@@ -66,5 +66,6 @@
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="CanUserAddRows" Value="False"/>
         <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DataGridColumnHeader}"/>
     </Style>
 </ResourceDictionary>
