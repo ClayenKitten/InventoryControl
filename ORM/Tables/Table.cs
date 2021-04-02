@@ -113,6 +113,20 @@ namespace InventoryControl.ORM
             }
             return res;
         }
+        public bool TryDelete(int id)
+        {
+            try
+            {
+                var commandText = $"DELETE FROM {Name} WHERE Id=$id";
+                var num = Database.CommitNonQueryTransaction(commandText, new SQLiteParameter("$id", id));
+                return num > 0;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
+
         protected override void InsertInitValues(SQLiteConnection con)
         {
             foreach(EntityType value in InitValues)

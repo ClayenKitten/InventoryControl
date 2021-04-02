@@ -42,7 +42,7 @@
                         <DataTemplate>
                             <Button Style="{StaticResource MahApps.Styles.Button.Chromeless}"
                                     Content="{iconPacks:FontAwesome Kind=TrashAltRegular}"
-                                    HorizontalAlignment="Stretch"/>
+                                    HorizontalAlignment="Stretch" Click="DeleteButtonClick"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
