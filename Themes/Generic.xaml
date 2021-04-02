@@ -45,14 +45,11 @@
                                  VerticalContentAlignment="Center"
                                  Text="{Binding Text, UpdateSourceTrigger=PropertyChanged,
                                     RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
-                                 mah:TextBoxHelper.Watermark="{Binding Watermark,
-                                    RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                  Style="{Binding InnerTextBoxStyle, RelativeSource={RelativeSource Mode=TemplatedParent}}">
                         </TextBox>
                         <TextBlock Grid.Row="2"
-                            Visibility="{Binding IsErrorShown,
-                            RelativeSource={RelativeSource TemplatedParent}, 
-                            Converter={StaticResource BooleanToVisibilityInvConverter}}"
+                            Visibility="{Binding ErrorTextBlockVisibility,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"
                             Text="{Binding ErrorHint, RelativeSource={RelativeSource TemplatedParent}}"
                             Foreground="Red" FontSize="11"
                             />

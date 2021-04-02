@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
@@ -23,7 +24,7 @@ namespace InventoryControl.View.Controls
             var style = new Style(typeof(TextBox), Application.Current.TryFindResource(typeof(TextBox)) as Style);
             var errorDataTrigger = new DataTrigger()
             {
-                Binding = new Binding("IsErrorShown") { RelativeSource = RelativeSource.TemplatedParent },
+                Binding = new Binding("IsErrorBorderShown") { RelativeSource = RelativeSource.TemplatedParent },
                 Value = "False"
             };
             errorDataTrigger.Setters.Add(new Setter(BorderBrushProperty,
@@ -36,6 +37,16 @@ namespace InventoryControl.View.Controls
             style.Seal();
             InnerTextBoxStyle = style;
         }
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            var tb = ((TextBox)this.FindChild<TextBox>());
+            advancedTextBoxAdorner = new WatermarkTextboxAdorner(tb);
+            AdornerLayer.GetAdornerLayer(this).Add(advancedTextBoxAdorner);
+            advancedTextBoxAdorner?.SetWatermark(watermark);
+        }
+
+        private WatermarkTextboxAdorner advancedTextBoxAdorner;
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -43,8 +54,8 @@ namespace InventoryControl.View.Controls
 
         }
 
-        private string label;
-        public string Label
+        // Label
+        string label; public string Label
         {
             get { return label; }
             set
@@ -54,33 +65,8 @@ namespace InventoryControl.View.Controls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LabelVisibility"));
             }
         }
-        public Visibility LabelVisibility => string.IsNullOrWhiteSpace(Label)?Visibility.Collapsed:Visibility.Visible;
-        private string textboxValue = "";
-        public string Text
-        {
-            get { return textboxValue; }
-            set
-            {
-                textboxValue = value;
-                valueWasUpdated = true;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorShown"));
-            }
-        }
-        private bool isRequired;
-        public bool IsRequired
-        {
-            get { return isRequired; }
-            set
-            {
-                isRequired = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsRequired"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorShown"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RequiredStar"));
-            }
-        }
+        public Visibility LabelVisibility
+            => string.IsNullOrWhiteSpace(Label)?Visibility.Collapsed:Visibility.Visible;
         public string RequiredStar
         {
             get
@@ -88,19 +74,84 @@ namespace InventoryControl.View.Controls
                 return IsRequired ? "*" : string.Empty;
             }
         }
-        string watermark; public string Watermark
+        // TextBox
+        string text = ""; public string Text
         {
-            get => watermark;
+            get { return text; }
+            set
+            {
+                text = value;
+                valueWasUpdated = true;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
+                UpdateValidation();
+            }
+        }
+        bool isRequired = false; public bool IsRequired
+        {
+            get { return isRequired; }
+            set
+            {
+                isRequired = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsRequired"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RequiredStar"));
+                UpdateValidation();
+            }
+        }
+        string watermark = ""; public string Watermark
+        {
+            get
+            {
+                return watermark;
+            }
             set
             {
                 watermark = value;
+                advancedTextBoxAdorner?.SetWatermark(value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Watermark"));
             }
         }
+        // Error TextBlock
+        private bool valueWasUpdated = false;
+        public bool IsErrorTextBlockShown
+        {
+            get
+            {
+                if (!ShowErrorUnderneath)
+                {
+                    return false;
+                }
+                else if (!valueWasUpdated)
+                {
+                    return true;
+                }
+                else
+                {
+                    return IsValid;
+                }
+            }
+        }
+        public bool IsErrorBorderShown
+        {
+            get
+            {
+                if (!valueWasUpdated)
+                {
+                    return true;
+                }
+                else
+                {
+                    return IsValid;
+                }
+            }
+        }
+        public Visibility ErrorTextBlockVisibility
+            => IsErrorTextBlockShown ? Visibility.Visible : Visibility.Collapsed;
 
         public Style InnerTextBoxStyle { get; }
 
         //Validation
+        public bool ShowErrorUnderneath { get; set; } = false;
+        public bool ShowErrorInline { get; set; } = true;
         private string errorHint; public string ErrorHint 
         { 
             get
@@ -113,7 +164,6 @@ namespace InventoryControl.View.Controls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorHint"));
             }
         }
-        private bool valueWasUpdated = false;
         public bool IsValid
         {
             get
@@ -151,31 +201,39 @@ namespace InventoryControl.View.Controls
                 return valid;
             }
         }
-        public bool IsErrorShown
-        {
-            get
-            {
-                if (!valueWasUpdated)
-                {
-                    return true;
-                }
-                else
-                {
-                    return IsValid;
-                }
-            }
-        }
 
-        private ValidationEnum validation;
-        public ValidationEnum Validation
+        ValidationEnum validation; public ValidationEnum Validation
         {
             get { return validation; }
             set
             {
                 validation = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorShown"));
+                UpdateValidation();
             }
+        }
+
+        public void UpdateValidation()
+        {
+            if (IsValid)
+            {
+                advancedTextBoxAdorner?.UnsetError();
+            }
+            else
+            {
+                if (ShowErrorInline)
+                {
+                    advancedTextBoxAdorner?.SetError(errorHint);
+                    advancedTextBoxAdorner?.SetStarShown(IsRequired);
+                }
+                else
+                {
+                    advancedTextBoxAdorner?.UnsetError();
+                    advancedTextBoxAdorner?.SetStarShown(false);
+                }
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorTextBlockShown"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorBorderShown"));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
