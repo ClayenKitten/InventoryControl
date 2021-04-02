@@ -7,28 +7,14 @@ namespace InventoryControl.Model
 {
     public static class TransferMapper
     {
-        public static Transfer Create(Transfer transferData)
+        public static Transfer Create(Transfer transfer)
         {
-            string commandText = @"
-            INSERT INTO Transfer (DateTime, SupplierStorageId, PurchaserStorageId)
-            VALUES ($DateTime, $SupplierStorageId, $PurchaserStorageId);
-            SELECT Id FROM Transfer WHERE ROWID = last_insert_rowid();";
-            transferData.Id = (int)(long)Database.CommitScalarTransaction(commandText,
-                new SQLiteParameter("$DateTime", transferData.DateTime.Ticks),
-                new SQLiteParameter("$SupplierStorageId", transferData.SupplierStorageId),
-                new SQLiteParameter("$PurchaserStorageId", transferData.PurchaserStorageId));
-            AddTransactionProducts(transferData);
-            return transferData;
-        }
-        private static void AddTransactionProducts(Transfer transfer)
-        {
-            string commandText = "INSERT INTO TransferProducts (TransferId, ProductId, Number) VALUES ";
+            var createdTransfer = Transfer.Table.Create(transfer);
             foreach (var product in transfer.Products)
             {
-                commandText += $"({transfer.Id}, {product.Id}, {product.TransmitNumber}),";
+                Transfer.TransferProducts.Create(transfer.Id, product.Id, product.TransmitNumber);
             }
-            commandText = commandText.TrimEnd(',') + ";";
-            Database.CommitScalarTransaction(commandText);
+            return createdTransfer;
         }
     }
 }

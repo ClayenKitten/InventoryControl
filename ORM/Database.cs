@@ -16,7 +16,8 @@ namespace InventoryControl.ORM
             Transfer.Table,
             Counterparty.Table,
             Manufacturer.Table,
-            PointOfSales.Table
+            PointOfSales.Table,
+            Transfer.TransferProducts,
         };
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {

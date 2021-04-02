@@ -103,8 +103,17 @@ namespace InventoryControl.ViewModel
         {
             GlobalCommands.CreateTransaction.Executed += (parameter) =>
             {
-                TransferMapper.Create(new Transfer(-1, DateTime.Now, -1, -1,
-                    new List<TransactionProductPresenter>(Content)));
+                TransferMapper.Create
+                (
+                    new Transfer
+                    (
+                        id: -1,
+                        dateTime: DateTime.Now, 
+                        counterpartyId: SelectedCounterparty,
+                        storageId: SelectedStorage,
+                        products: new List<TransactionProductPresenter>(Content)
+                    )
+                );
                 var pm = new PanelManager();
                 pm.OpenStorageView.Execute();
             };
