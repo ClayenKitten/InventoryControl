@@ -1,22 +1,38 @@
 using InventoryControl.Model;
+using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows;
 
 namespace InventoryControl.ViewModel
 {
-    public class PointsOfSalesViewerVM
+    public class PointsOfSalesViewerVM : INotifyPropertyChanged
     {
-        public List<PointOfSales> Content
+        public PointsOfSalesViewerVM()
         {
-            get
+            GlobalCommands.ModelUpdated.Executed += _ =>
             {
-                return new List<PointOfSales>
-                {
-                    new PointOfSales(id: 0, name: "Тиман хлеб", address: "169907, Коми Республика, г. Воркута, бульвар Шерстнёва, 8Б"),
-                    new PointOfSales(id: 1, name: "Тиман колбаса", address: "169907, Коми Республика, г. Воркута, бульвар Шерстнёва, 8Б"),
-                    new PointOfSales(id: 2, name: "Тиман мясо", address: "169907, Коми Республика, г. Воркута, бульвар Шерстнёва, 8Б"),
-                    new PointOfSales(id: 3, name: "Рынок мясо", address: "169912, Коми Республика, г. Воркута, улица Ленина, 53Б")
-                };
-            }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
+            };
         }
+        public List<PointOfSales> Content
+            => (List<PointOfSales>)PointOfSales.Table.ReadAll();
+        public ActionCommand DeletePointOfSales
+            => new ActionCommand((x) => 
+            {
+                if (MessageBox.Show
+                (
+                    "Вы действительно хотите удалить точку сбыта? Эта операция необратима.",
+                    "Удалить точку сбыта",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No
+                ) == MessageBoxResult.No) 
+                {
+                    return;
+                }
+                PointOfSales.Table.TryDelete((int)x);
+                GlobalCommands.ModelUpdated.Execute(null);
+            });
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
