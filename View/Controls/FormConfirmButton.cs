@@ -12,18 +12,44 @@ namespace InventoryControl.View.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FormConfirmButton), new FrameworkPropertyMetadata(typeof(FormConfirmButton)));
         }
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            if (!(CurrentForm is null))
+            {
+                CurrentForm.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName is "IsValid")
+                    {
+                        SetCurrentValue(Button.IsEnabledProperty, CurrentForm.IsValid);
+                    }
+                };
+            }
+        }
+
+        private Form CurrentForm
+        {
+            get
+            {
+                DependencyObject control = this;
+                while (control != null && control.GetType() != typeof(Form))
+                {
+                    control = VisualTreeHelper.GetParent(this);
+                }
+                if (control is Form)
+                {
+                    return control as Form;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         protected override void OnClick()
         {
             base.OnClick();
-            DependencyObject control = this;
-            while (control != null && control.GetType() != typeof(Form))
-            {
-                control = VisualTreeHelper.GetParent(this);
-            }
-            if (control.GetType() == typeof(Form))
-            {
-                (control as Form).Confirm();
-            }
+            CurrentForm?.Confirm();
         }
     }
 }
