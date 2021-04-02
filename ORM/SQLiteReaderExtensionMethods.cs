@@ -44,9 +44,13 @@ namespace InventoryControl.ORM
             var objs = new List<object>();
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                if(reader.GetValue(i) is long)
+                if(reader.GetFieldType(i).Name == typeof(long).Name)
                 {
                     objs.Add((int)(long)reader.GetValue(i));
+                }
+                else if(reader.GetFieldType(i).Name == typeof(string).Name)
+                {
+                    objs.Add(reader.GetStringOrEmpty(i));
                 }
                 else
                 {
