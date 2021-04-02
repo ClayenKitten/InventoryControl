@@ -59,7 +59,7 @@
                 <ColumnDefinition Width="{Binding ElementName=BankIdC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=DeleteC, Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
-            <c:AdvancedTextbox x:Name="NameTB"      Grid.Column="0" Watermark="Наименование..."/>
+            <c:AdvancedTextbox x:Name="NameTB"      Grid.Column="0" Watermark="Наименование..." IsRequired="True"/>
             <c:AdvancedTextbox x:Name="AddressTB"   Grid.Column="1" Watermark="Юридический адрес..."/>
             <c:AdvancedTextbox x:Name="ContactsTB"  Grid.Column="2" Watermark="Телефонный номер..."/>
             <c:AdvancedTextbox x:Name="TaxpayerTB"  Grid.Column="3" Watermark="ИНН..."/>
