@@ -6,6 +6,8 @@
 
         public int Id { get { return Product.Id; } }
         public string Name { get { return Product.Name; } }
+        public string Category => Product.Category.FullPath;
+        public string Manufacturer => Product.Manufacturer.Name;
         public string PurchasePrice
         {
             get

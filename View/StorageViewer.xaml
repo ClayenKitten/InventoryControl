@@ -125,6 +125,12 @@
                     MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name"
                     Binding="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
                 <DataGridTextColumn
+                    Header="Категория" ToolTipService.ToolTip="Категория товара"
+                    MinWidth="50" Width="4*" Binding="{Binding Category}"/>
+                <DataGridTextColumn
+                    Header="Производитель" ToolTipService.ToolTip="Производитель товара"
+                    MinWidth="50" Width="4*" Binding="{Binding Manufacturer}"/>
+                <DataGridTextColumn
                     Header="Кол" ToolTipService.ToolTip="Количество товара в одном месте"
                     MinWidth="50" Width="1*"
                     Binding="{Binding Packing}" SortMemberPath="weight" CellStyle="{StaticResource RightAlignedCell}"/>
