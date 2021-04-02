@@ -29,6 +29,14 @@ namespace InventoryControl.View
                 bankDetails: BankIdTB.Text,
                 role: ((CounterpatyViewerVM)DataContext).ShowPurchasers ? 0 : 1
             ));
+            foreach (var elem in InputForm.Children)
+            {
+                if (elem is AdvancedTextbox)
+                {
+                    (elem as AdvancedTextbox).Text = "";
+                }
+            }
+
             GlobalCommands.ModelUpdated.Execute(null);
         }
     }

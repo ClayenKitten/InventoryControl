@@ -49,7 +49,7 @@
             </c:AdvancedDataGrid.Columns>
         </c:AdvancedDataGrid>
         
-        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{Binding ElementName=NameC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
