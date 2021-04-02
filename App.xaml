@@ -20,8 +20,8 @@
             <Style x:Key="DataGridColumnHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style>
             <!--Cell-->
             <Style TargetType="DataGridCell" x:Key="DataGridCellDefaultStyle" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
