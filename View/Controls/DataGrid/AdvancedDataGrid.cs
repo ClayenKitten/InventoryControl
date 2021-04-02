@@ -81,8 +81,7 @@ namespace InventoryControl.View.Controls
             }
             if (e.Property == OptionsProperty)
             {
-                Items.Filter = Items.Filter;
-                foreach(var column in Columns)
+                foreach (var column in Columns)
                 {
                     if (column is DataGridBoundColumn)
                     {
@@ -91,6 +90,7 @@ namespace InventoryControl.View.Controls
                             .ColumnVisibility(itemSourceType, column as DataGridBoundColumn);
                     }
                 }
+                Items.Filter = Items.Filter;                
             }
         }
         protected override void OnRowEditEnding(DataGridRowEditEndingEventArgs e)

@@ -53,15 +53,15 @@ namespace InventoryControl.View
             builder
                 .AddSeparator()
                 .BeginGroup("Показывать поле...")
-                    .AddCheckable("Артикула", null)
-                    .AddCheckable("Наименования", null)
-                    .AddCheckable("Категории", null)
-                    .AddCheckable("Производителя", null)
-                    .AddCheckable("Количества", null)
-                    .AddCheckable("Единиц измерения", null)
-                    .AddCheckable("Закупочной цены", null)
-                    .AddCheckable("Продажной цены", null)
-                    .AddCheckable("Остатка", null)
+                    .AddCheckable("Артикула", x => VM.Options.SetCollapsedColumn(!x, "Article"))
+                    .AddCheckable("Наименования", x => VM.Options.SetCollapsedColumn(!x, "Name"))
+                    .AddCheckable("Категории", x => VM.Options.SetCollapsedColumn(!x, "Category"))
+                    .AddCheckable("Производителя", x => VM.Options.SetCollapsedColumn(!x, "Manufacturer"))
+                    .AddCheckable("Количества", x => VM.Options.SetCollapsedColumn(!x, "Packing"))
+                    .AddCheckable("Единиц измерения", x => VM.Options.SetCollapsedColumn(!x, "Measurement"))
+                    .AddCheckable("Закупочной цены", x => VM.Options.SetCollapsedColumn(!x, "PurchasePrice"))
+                    .AddCheckable("Продажной цены", x => VM.Options.SetCollapsedColumn(!x, "SalePrice"))
+                    .AddCheckable("Остатка", x => VM.Options.SetCollapsedColumn(!x, "Remain"))
                 .EndGroup();
             builder.Build().IsOpen = true;
         }

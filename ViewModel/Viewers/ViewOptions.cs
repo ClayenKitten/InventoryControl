@@ -154,6 +154,14 @@ namespace InventoryControl.ViewModel
             }
         }
 
+        public ViewOptions(ViewOptions viewOptions)
+        {
+            this.hideFilteringSettings = viewOptions.HideFilteringSettings;
+            this.hideGroupingSettings = viewOptions.HideGroupingSettings;
+            this.CollapsedColumns = viewOptions.CollapsedColumns;
+            this.Filters = viewOptions.Filters;
+            this.Groupings = viewOptions.Groupings;
+        }
         public ViewOptions()
         {
         }

@@ -18,7 +18,6 @@ namespace InventoryControl.ViewModel
             {
                 options = value;
                 options.ViewOptionsChanged += OnOptionsUpdated;
-                OnOptionsUpdated(null, null);
             }
         }
         //Binding-ready options getters
@@ -91,6 +90,7 @@ namespace InventoryControl.ViewModel
 
         protected void OnOptionsUpdated(object _, object _1)
         {
+            Options = new ViewOptions(Options);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Options"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));

@@ -58,7 +58,7 @@
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}"
             
             RowClicked="MainDataGrid_RowClicked" HeaderClicked="MainDataGrid_HeaderClicked"
-            GroupingPropertyPath="{Binding GroupingPropertyPath}" Options="{Binding Options}">
+            GroupingPropertyPath="{Binding GroupingPropertyPath}" Options="{Binding Options, UpdateSourceTrigger=Explicit}">
             <DataGrid.Resources>
                 <Style x:Key="GroupItemStyle" TargetType="{x:Type GroupItem}">
                     <Style.Triggers>
