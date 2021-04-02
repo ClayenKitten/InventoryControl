@@ -68,4 +68,10 @@
         <Setter Property="CanUserDeleteRows" Value="False"/>
         <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DataGridColumnHeader}"/>
     </Style>
+
+    <Style TargetType="{x:Type c:Form}">
+    </Style>
+
+    <Style TargetType="{x:Type c:FormConfirmButton}">
+    </Style>
 </ResourceDictionary>
