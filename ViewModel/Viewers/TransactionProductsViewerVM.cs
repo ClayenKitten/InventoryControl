@@ -60,7 +60,20 @@ namespace InventoryControl.ViewModel
         //Transaction info
         public List<Counterparty> Counterparties
         {
-            get { return CounterpartyMapper.GetSuppliers(); }
+            get
+            {
+                switch (Type)
+                {
+                    case TransactionType.Buy:
+                        return CounterpartyMapper.GetSuppliers();
+                    case TransactionType.Sell:
+                        return CounterpartyMapper.GetPurchasers();
+                    case TransactionType.Return:
+                        return CounterpartyMapper.GetSuppliers();
+                    default:
+                        return new List<Counterparty>();
+                }
+            }
         }
         public List<Storage> Storages
         {
@@ -78,6 +91,11 @@ namespace InventoryControl.ViewModel
                 type = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CounterpartyTitle"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Counterparties"));
+                SelectedCounterparty = Counterparties.FirstOrDefault().Id;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedCounterparty"));
+                SelectedStorage = Storages.FirstOrDefault().Id;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedStorage"));
             }
         }
 
