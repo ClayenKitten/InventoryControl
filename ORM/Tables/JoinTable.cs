@@ -31,14 +31,14 @@ namespace InventoryControl.ORM
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
-            var commandText = $"INSERT INTO {Name} ({fname}, {sname}, Value) VALUES ({firstId}, {secondId}, $value);";
+            var commandText = $"INSERT INTO {Name} ({fname}Id, {sname}Id, Value) VALUES ({firstId}, {secondId}, $value);";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
         public void Update(int firstId, int secondId, object value)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
-            var commandText = $"UPDATE {Name} SET Value=$value WHERE {fname}={firstId} AND {sname}={secondId};";
+            var commandText = $"UPDATE {Name} SET Value=$value WHERE {fname}Id={firstId} AND {sname}Id={secondId};";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
         public object Read(int firstId, int secondId)
