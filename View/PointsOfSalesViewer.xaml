@@ -44,7 +44,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </c:AdvancedDataGrid>
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
+        <c:Form Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
             <Grid.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
                     <Setter Property="BorderBrush" Value="Black"/>
@@ -58,11 +58,10 @@
             </Grid.ColumnDefinitions>
             <c:AdvancedTextbox x:Name="NameTB" Grid.Column="0" Watermark="Метка..."/>
             <c:AdvancedTextbox x:Name="AddressTB" Grid.Column="1" Watermark="Адрес..."/>
-            <Button Grid.Column="2" Style="{StaticResource MahApps.Styles.Button.Flat}"
-                    Background="Transparent" BorderBrush="Black" BorderThickness="0,1,0,0"
-                    Click="AddButtonClick">
-                <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
-            </Button>
-        </Grid>
+            <c:FormConfirmButton Grid.Column="2" Style="{StaticResource MahApps.Styles.Button.Flat}"
+                    Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
+                <iconPacks:PackIconFontAwesome Kind="PlusSolid"/>
+            </c:FormConfirmButton>
+        </c:Form>
     </Grid>
 </c:ControlPanel>

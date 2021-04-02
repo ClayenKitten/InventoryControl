@@ -49,7 +49,7 @@
             </c:AdvancedDataGrid.Columns>
         </c:AdvancedDataGrid>
         
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
+        <c:Form Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{Binding ElementName=NameC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
@@ -65,10 +65,10 @@
             <c:AdvancedTextbox x:Name="TaxpayerTB"  Grid.Column="3" Watermark="ИНН..."/>
             <c:AdvancedTextbox x:Name="AccountTB"   Grid.Column="4" Watermark="Расчётный счёт..."/>
             <c:AdvancedTextbox x:Name="BankIdTB"    Grid.Column="5" Watermark="БИК..."/>
-            <Button Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}" Click="AddButtonClick"
+            <c:FormConfirmButton Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}"
                     Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
                 <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
-            </Button>
-        </Grid>
+            </c:FormConfirmButton>
+        </c:Form>
     </Grid>
 </c:ControlPanel>

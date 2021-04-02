@@ -14,6 +14,10 @@ namespace InventoryControl.View
         public PointsOfSalesViewer()
         {
             InitializeComponent();
+            InputForm.Confirmed += (_, _1) =>
+            {
+                AddButtonClick();
+            };
         }
 
         private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -21,7 +25,7 @@ namespace InventoryControl.View
 
         }
 
-        private void AddButtonClick(object sender, RoutedEventArgs e)
+        private void AddButtonClick()
         {
             PointOfSales.Table.Create(new PointOfSales
             (
@@ -29,13 +33,7 @@ namespace InventoryControl.View
                 name: NameTB.Text,
                 address: AddressTB.Text
             ));
-            foreach (var elem in InputForm.Children)
-            {
-                if (elem is AdvancedTextbox)
-                {
-                    (elem as AdvancedTextbox).Text = "";
-                }
-            }
+            InputForm.ClearAllTextBoxes();
 
             GlobalCommands.ModelUpdated.Execute(null);
         }

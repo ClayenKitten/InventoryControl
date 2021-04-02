@@ -14,9 +14,10 @@ namespace InventoryControl.View
         {            
             InitializeComponent();
             ((CounterpatyViewerVM)DataContext).ShowPurchasers = showPurchasers;
+            InputForm.Confirmed += (_, _1) => { ConfirmForm(); };
         }
 
-        private void AddButtonClick(object sender, RoutedEventArgs e)
+        private void ConfirmForm()
         {
             CounterpartyMapper.Create(new Counterparty
             (
@@ -29,14 +30,7 @@ namespace InventoryControl.View
                 bankDetails: BankIdTB.Text,
                 role: ((CounterpatyViewerVM)DataContext).ShowPurchasers ? 0 : 1
             ));
-            foreach (var elem in InputForm.Children)
-            {
-                if (elem is AdvancedTextbox)
-                {
-                    (elem as AdvancedTextbox).Text = "";
-                }
-            }
-
+            InputForm.ClearAllTextBoxes();
             GlobalCommands.ModelUpdated.Execute(null);
         }
 
