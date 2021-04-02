@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 namespace InventoryControl.ORM
 {
@@ -53,6 +54,23 @@ namespace InventoryControl.ORM
                 new SQLiteParameter("$firstId", firstId),
                 new SQLiteParameter("$secondId", secondId)
             );
+        }
+        public IList<Tuple<int, int, object>> ReadAll()
+        {
+            var fname = firstType.Name;
+            var sname = secondType.Name;
+            var commandText = $"SELECT * FROM {Name};";
+            var rdr = Database.CommitReaderTransaction(commandText);
+
+            List<Tuple<int, int, object>> res = new List<Tuple<int, int, object>>();
+            while(rdr.Read())
+            {
+                int id1 = rdr.GetInt32Safe(0);
+                int id2 = rdr.GetInt32Safe(1);
+                var val = rdr.GetValue(2);
+                res.Add(new Tuple<int, int, object>(id1, id2, val));
+            }
+            return res;
         }
 
         protected override void InsertInitValues(SQLiteConnection con) { }
