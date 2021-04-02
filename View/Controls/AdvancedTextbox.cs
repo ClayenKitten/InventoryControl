@@ -63,7 +63,7 @@ namespace InventoryControl.View.Controls
             {
                 textboxValue = value;
                 valueWasUpdated = true;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorShown"));
             }
