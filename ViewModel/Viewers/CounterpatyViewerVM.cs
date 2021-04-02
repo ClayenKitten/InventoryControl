@@ -10,6 +10,14 @@ namespace InventoryControl.ViewModel
 {
     public class CounterpatyViewerVM : INotifyPropertyChanged
     {
+        public CounterpatyViewerVM()
+        {
+            GlobalCommands.ModelUpdated.Executed += _ =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
+            };            
+        }
+
         private bool showPurchasers;
         public bool ShowPurchasers
         {
