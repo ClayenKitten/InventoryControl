@@ -17,23 +17,29 @@ namespace InventoryControl.View.Controls
             return parentBuilder;
         }
 
-        public ContextMenuBuilder AddAction(string header, Action onClicked)
+        public ContextMenuBuilder AddAction(string header, Action onClicked, bool isEnabled = true)
         {
-            var menuItem = new MenuItem() { Header = header };
+            var menuItem = new MenuItem() { Header = header, IsEnabled = isEnabled };
             menuItem.Click += (sender, e) => { onClicked?.Invoke(); };
             item.Items.Add(menuItem);
             return this;
         }
-        public ContextMenuBuilder AddCommand(string header, ICommand onClicked)
+        public ContextMenuBuilder AddCommand(string header, ICommand onClicked, bool isEnabled = true)
         {
-            var menuItem = new MenuItem() { Header = header };
+            var menuItem = new MenuItem() { Header = header, IsEnabled = isEnabled };
             menuItem.Click += (sender, e) => { onClicked?.Execute(null); };
             item.Items.Add(menuItem);
             return this;
         }
-        public ContextMenuBuilder AddCheckable(string header, Action<bool> onClicked)
+        public ContextMenuBuilder AddCheckable(string header, Action<bool> onClicked, bool isEnabled = true)
         {
-            var menuItem = new MenuItem() { Header = header, IsCheckable = true, StaysOpenOnClick = true };
+            var menuItem = new MenuItem() 
+            {
+                Header = header,
+                IsCheckable = true,
+                StaysOpenOnClick = true,
+                IsEnabled = isEnabled
+            };
             menuItem.Click += (sender, e) => { onClicked?.Invoke(menuItem.IsChecked); };
             item.Items.Add(menuItem);
             return this;

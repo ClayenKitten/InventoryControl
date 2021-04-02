@@ -53,8 +53,8 @@ namespace InventoryControl.View
             builder
                 .AddSeparator()
                 .BeginGroup("Показывать поле...")
-                    .AddCheckable("Артикула", x => VM.Options.SetCollapsedColumn(!x, "Article"))
-                    .AddCheckable("Наименования", x => VM.Options.SetCollapsedColumn(!x, "Name"))
+                    .AddCheckable("Артикула", x => VM.Options.SetCollapsedColumn(!x, "Article"), isEnabled: false)
+                    .AddCheckable("Наименования", x => VM.Options.SetCollapsedColumn(!x, "Name"), isEnabled: false)
                     .AddCheckable("Категории", x => VM.Options.SetCollapsedColumn(!x, "Category"))
                     .AddCheckable("Производителя", x => VM.Options.SetCollapsedColumn(!x, "Manufacturer"))
                     .AddCheckable("Количества", x => VM.Options.SetCollapsedColumn(!x, "Packing"))
