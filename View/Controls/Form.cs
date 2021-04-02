@@ -46,6 +46,7 @@ namespace InventoryControl.View.Controls
                     };
                 }
             }
+            OnChildControlUpdated();
         }
 
         public void OnChildControlUpdated()
