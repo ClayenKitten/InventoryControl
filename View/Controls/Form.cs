@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,18 +14,13 @@ namespace InventoryControl.View.Controls
                 bool areAllValid = true;
                 foreach (var elem in Children)
                 {
-                    if (elem is AdvancedTextbox)
+                    if (elem is IValidatable)
                     {
-                        areAllValid &= (elem as AdvancedTextbox).IsValid;
+                        areAllValid &= (elem as IValidatable).IsValid;
                     }
                 }
                 return areAllValid;
             }
-        }
-
-        static Form()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Form), new FrameworkPropertyMetadata(typeof(Form)));
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -35,22 +28,17 @@ namespace InventoryControl.View.Controls
             base.OnInitialized(e);
             foreach (var elem in Children)
             {
-                if (elem is INotifyPropertyChanged)
+                if (elem is INotifyPropertyChanged && elem is IValidatable)
                 {
                     (elem as INotifyPropertyChanged).PropertyChanged += (_, e) =>
                     {
-                        if (elem is AdvancedTextbox && e.PropertyName == "Text")
+                        if (e.PropertyName == "IsValid")
                         {
-                            OnChildControlUpdated();
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
                         }
                     };
                 }
             }
-            OnChildControlUpdated();
-        }
-
-        public void OnChildControlUpdated()
-        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
         }
 
@@ -71,6 +59,11 @@ namespace InventoryControl.View.Controls
         public void Confirm()
         {
             Confirmed?.Invoke(this, EventArgs.Empty);
+        }
+
+        static Form()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Form), new FrameworkPropertyMetadata(typeof(Form)));
         }
 
         public event EventHandler Confirmed;
