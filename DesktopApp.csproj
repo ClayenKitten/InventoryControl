@@ -417,6 +417,7 @@
     <Compile Include="ViewModel\Viewers\TransactionProductsViewerVM.cs" />
     <Compile Include="View\Controls\ContextMenuBuilder.cs" />
     <Compile Include="View\Controls\DataGrid\AdvancedDataGrid.cs" />
+    <Compile Include="View\Controls\DataGrid\DataGridAdorner.cs" />
     <Compile Include="View\Controls\TextBox\AdvancedTextbox.cs" />
     <Compile Include="View\Controls\DataGrid\Columns\EditableDataGridTextColumn.cs" />
     <Compile Include="View\Controls\DataGrid\Columns\EditableDataGridHighlightColumn.cs" />

@@ -7,9 +7,10 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Reflection;
 using InventoryControl.ViewModel;
 using System.Linq;
+using System.Windows.Documents;
+using System.Collections.Specialized;
 
 namespace InventoryControl.View.Controls
 {
@@ -31,6 +32,12 @@ namespace InventoryControl.View.Controls
             typeof(string), typeof(AdvancedDataGrid),
             new PropertyMetadata(""));
 
+        public string EmptyHint { get; set; }
+        public static DependencyProperty EmptyHintProperty =
+            DependencyProperty.Register("EmptyHint",
+            typeof(string), typeof(AdvancedDataGrid),
+            new PropertyMetadata(""));
+
         public Action<DataGridRowEditEndingEventArgs> RowEditEndHandler { get; set; }
         public static DependencyProperty RowEditEndHandlerProperty =
             DependencyProperty.Register("RowEditEndHandler", typeof(Action<DataGridRowEditEndingEventArgs>), typeof(AdvancedDataGrid));
@@ -38,7 +45,7 @@ namespace InventoryControl.View.Controls
         public ViewOptions Options { get; set; }
         public static DependencyProperty OptionsProperty =
             DependencyProperty.Register("Options", typeof(ViewOptions), typeof(AdvancedDataGrid),
-            new PropertyMetadata(new ViewOptions()));
+            new PropertyMetadata(new ViewOptions()));        
 
         static AdvancedDataGrid()
         {
@@ -92,11 +99,34 @@ namespace InventoryControl.View.Controls
                 }
                 Items.Filter = Items.Filter;                
             }
+            if (e.Property == EmptyHintProperty)
+            {
+                adorner?.SetText((string)GetValue(EmptyHintProperty));
+            }
+        }
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+            if (Items.Count > 0)
+            {
+                adorner?.SetText("");
+            }
+            else
+            {
+                adorner?.SetText((string)GetValue(EmptyHintProperty));
+            }
         }
         protected override void OnRowEditEnding(DataGridRowEditEndingEventArgs e)
         {
             base.OnRowEditEnding(e);
             ((Action<DataGridRowEditEndingEventArgs>)GetValue(RowEditEndHandlerProperty))?.Invoke(e);
+        }
+        private DataGridAdorner adorner;
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            adorner = new DataGridAdorner(this, (string)GetValue(EmptyHintProperty));
+            AdornerLayer.GetAdornerLayer(this).Add(adorner);
         }
 
         private void OnMouseClicked(object sender, MouseButtonEventArgs e)
