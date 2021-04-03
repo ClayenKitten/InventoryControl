@@ -23,7 +23,7 @@ namespace InventoryControl.View
     /// </summary>
     public partial class TransactionProductsViewer : ControlPanel
     {
-        public TransactionProductsViewer(TransactionType type)
+        public TransactionProductsViewer(TransferType type)
         {
             InitializeComponent();
             ((TransactionProductsViewerVM)DataContext).Type = type;

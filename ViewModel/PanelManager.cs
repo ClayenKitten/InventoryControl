@@ -54,7 +54,7 @@ namespace InventoryControl.ViewModel
                 {
                     return new DualControlPanelContainer(
                         new ProductDictionaryViewer(),
-                        new TransactionProductsViewer(TransactionType.Buy)
+                        new TransactionProductsViewer(TransferType.Buy)
                     );
                 });
             }
@@ -67,7 +67,7 @@ namespace InventoryControl.ViewModel
                 {
                     return new DualControlPanelContainer(
                         new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransactionType.Sell)
+                        new TransactionProductsViewer(TransferType.Sell)
                     );
                 });
             }
@@ -80,7 +80,7 @@ namespace InventoryControl.ViewModel
                 {
                     return new DualControlPanelContainer(
                         new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransactionType.Return)
+                        new TransactionProductsViewer(TransferType.Return)
                     );
                 });
             }

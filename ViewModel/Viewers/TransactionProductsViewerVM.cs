@@ -10,7 +10,7 @@ using InventoryControl.View.Controls;
 
 namespace InventoryControl.ViewModel
 {
-    public enum TransactionType
+    public enum TransferType
     {
         Buy,
         Sell,
@@ -27,11 +27,11 @@ namespace InventoryControl.ViewModel
             {
                 switch (Type)
                 {
-                    case TransactionType.Buy:
+                    case TransferType.Buy:
                         return "ÇÀÊÓÏÊÀ ÒÎÂÀĞÀ";
-                    case TransactionType.Sell:
+                    case TransferType.Sell:
                         return "ÏĞÎÄÀÆÀ ÒÎÂÀĞÀ";
-                    case TransactionType.Return:
+                    case TransferType.Return:
                         return "ÂÎÇÂĞÀÒ ÒÎÂÀĞÀ";
                     default:
                         return "Bad transaction type";
@@ -44,11 +44,11 @@ namespace InventoryControl.ViewModel
             {
                 switch (Type)
                 {
-                    case TransactionType.Buy:
+                    case TransferType.Buy:
                         return "Ïîñòàâùèê";
-                    case TransactionType.Sell:
+                    case TransferType.Sell:
                         return "Ïîêóïàòåëü";
-                    case TransactionType.Return:
+                    case TransferType.Return:
                         return "Ïîñòàâùèê";
                     default:
                         return "Bad transaction type";
@@ -66,13 +66,13 @@ namespace InventoryControl.ViewModel
             {
                 switch (Type)
                 {
-                    case TransactionType.Buy:
+                    case TransferType.Buy:
                         return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
-                    case TransactionType.Sell:
+                    case TransferType.Sell:
                         return CounterpartyMapper.GetPurchasers().Cast<ITransferSpot>().ToList();
-                    case TransactionType.Return:
+                    case TransferType.Return:
                         return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
-                    case TransactionType.Supply:
+                    case TransferType.Supply:
                         return PointOfSales.Table.ReadAll().Cast<ITransferSpot>().ToList();
                     default:
                         return new List<ITransferSpot>();
@@ -86,8 +86,8 @@ namespace InventoryControl.ViewModel
         public ITransferSpot SelectedTransferSpot1 { get; set; }
         public ITransferSpot SelectedTransferSpot2 { get; set; }
 
-        private TransactionType type;
-        public TransactionType Type 
+        private TransferType type;
+        public TransferType Type 
         {
             get => type;
             set

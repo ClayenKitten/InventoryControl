@@ -23,7 +23,7 @@ namespace InventoryControl.Model
 
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public TransactionType Type { get; set; }
+        public TransferType Type { get; set; }
         public ITransferSpot TransferSpot1 { get; set; }
         public ITransferSpot TransferSpot2 { get; set; }
         public List<TransactionProductPresenter> Products { get; private set; }
@@ -32,23 +32,23 @@ namespace InventoryControl.Model
         {
             Id = id;
             DateTime = dateTime;
-            Type = (TransactionType)type;
-            if (Type == TransactionType.Buy)
+            Type = (TransferType)type;
+            if (Type == TransferType.Buy)
             {
                 TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
                 TransferSpot2 = Storage.Table.Read(transferSpot1Id);
             }
-            else if (Type == TransactionType.Sell)
+            else if (Type == TransferType.Sell)
             {
                 TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
                 TransferSpot2 = Storage.Table.Read(transferSpot1Id);
             }
-            else if (Type == TransactionType.Return)
+            else if (Type == TransferType.Return)
             {
                 TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
                 TransferSpot2 = Storage.Table.Read(transferSpot1Id);
             }
-            else if (Type == TransactionType.Supply)
+            else if (Type == TransferType.Supply)
             {
                 TransferSpot1 = Storage.Table.Read(transferSpot1Id);
                 TransferSpot2 = PointOfSales.Table.Read(transferSpot1Id);
