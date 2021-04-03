@@ -95,6 +95,16 @@ namespace InventoryControl.ORM
                 throw new ArgumentOutOfRangeException($"Record of {typeof(EntityType).Name} with id {id} not found!");
             }
         }
+        public EntityType ReadOr(int id, EntityType or)
+        {
+            return Exists(id) ? Read(id) : or;
+        }
+        public bool Exists(int id)
+        {
+            var commandText = $"SELECT COUNT(1) FROM {Name} WHERE Id=$id;";
+            long res = (long)Database.CommitScalarTransaction(commandText, new SQLiteParameter("$id", id));
+            return !(res == 0);
+        }
         public IList<EntityType> ReadAll()
         {
             var commandText = $"SELECT * FROM {Name}";
