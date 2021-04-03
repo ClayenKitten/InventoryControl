@@ -141,6 +141,16 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        public OpenPanelCommand OpenManufacturers
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new SingleControlPanelContainer(new ManufacturerViewer());
+                });
+            }
+        }
         //Other
         public OpenPanelCommand OpenSettings
         {
