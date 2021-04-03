@@ -27,6 +27,8 @@ namespace InventoryControl.View
         {
             InitializeComponent();
             ((TransactionProductsViewerVM)DataContext).Type = type;
+            TransferSpotCombobox1.SelectedIndex = 0;
+            TransferSpotCombobox2.SelectedIndex = 0;
         }
 
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)

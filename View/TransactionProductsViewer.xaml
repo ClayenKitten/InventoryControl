@@ -28,14 +28,14 @@
             VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="7,0,2.5,0">
-            <Label Content="{Binding CounterpartyTitle}"/>
-            <ComboBox SelectedIndex="0"
+            <Label Content="{Binding TransferSpots1Title}"/>
+            <ComboBox x:Name="TransferSpotCombobox1"
                 ItemsSource="{Binding TransferSpots1}" DisplayMemberPath="Name"
                 SelectedItem="{Binding SelectedTransferSpot1}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="7,0,2.5,0">
-            <Label Content="Склад"/>
-            <ComboBox SelectedIndex="0"
+            <Label Content="{Binding TransferSpots2Title}"/>
+            <ComboBox x:Name="TransferSpotCombobox2"
                 ItemsSource="{Binding TransferSpots2}" DisplayMemberPath="Name"
                 SelectedItem="{Binding SelectedTransferSpot2}"/>
         </StackPanel>

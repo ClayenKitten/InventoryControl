@@ -16,6 +16,7 @@ namespace InventoryControl.ViewModel
         Sell,
         Return,
         Supply,
+        Transport
     }
 
     public class TransactionProductsViewerVM : INotifyPropertyChanged
@@ -33,12 +34,16 @@ namespace InventoryControl.ViewModel
                         return "ÏĞÎÄÀÆÀ ÒÎÂÀĞÀ";
                     case TransferType.Return:
                         return "ÂÎÇÂĞÀÒ ÒÎÂÀĞÀ";
+                    case TransferType.Supply:
+                        return "ÏÎÑÒÀÂÊÀ ÒÎÂÀĞÀ";
+                    case TransferType.Transport:
+                        return "ÏÅĞÅÂÎÇÊÀ ÒÎÂÀĞÀ";
                     default:
                         return "Bad transaction type";
                 }
             }
         }
-        public string CounterpartyTitle
+        public string TransferSpots1Title
         {
             get
             {
@@ -50,8 +55,26 @@ namespace InventoryControl.ViewModel
                         return "Ïîêóïàòåëü";
                     case TransferType.Return:
                         return "Ïîñòàâùèê";
+                    case TransferType.Supply:
+                        return "Òî÷êà ïğîäàæ";
+                    case TransferType.Transport:
+                        return "Ñêëàä 1";
                     default:
                         return "Bad transaction type";
+                }
+            }
+        }
+        public string TransferSpots2Title
+        {
+            get
+            {
+                if (Type == TransferType.Transport)
+                {
+                    return "Ñêëàä 2";
+                }
+                else
+                {
+                    return "Ñêëàä";
                 }
             }
         }
@@ -74,6 +97,8 @@ namespace InventoryControl.ViewModel
                         return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
                     case TransferType.Supply:
                         return PointOfSales.Table.ReadAll().Cast<ITransferSpot>().ToList();
+                    case TransferType.Transport:
+                        return Storage.Table.ReadAll().Cast<ITransferSpot>().ToList();
                     default:
                         return new List<ITransferSpot>();
                 }
@@ -95,7 +120,10 @@ namespace InventoryControl.ViewModel
                 type = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CounterpartyTitle"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Counterparties"));
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots1"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots2"));
+
                 SelectedTransferSpot1 = TransferSpots1.FirstOrDefault();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTransferSpot1"));
                 SelectedTransferSpot2 = TransferSpots2.FirstOrDefault();
