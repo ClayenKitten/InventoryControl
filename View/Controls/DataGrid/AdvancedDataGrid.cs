@@ -11,11 +11,13 @@ using InventoryControl.ViewModel;
 using System.Linq;
 using System.Windows.Documents;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace InventoryControl.View.Controls
 {
-    public class AdvancedDataGrid : DataGrid, IDisposable
+    public class AdvancedDataGrid : DataGrid, IDisposable, INotifyPropertyChanged, IValidatable
     {
+        #region Dependency properties
         public int TargetColumnIndex { get; set; }
         public static DependencyProperty TargetColumnIndexProperty =
             DependencyProperty.Register("TargetColumnIndex", typeof(int), typeof(AdvancedDataGrid));
@@ -38,6 +40,11 @@ namespace InventoryControl.View.Controls
             typeof(string), typeof(AdvancedDataGrid),
             new PropertyMetadata(""));
 
+        // Validation
+        public bool InvalidateOnEmpty { get; set; }
+        public static DependencyProperty InvalidateOnEmptyProperty =
+            DependencyProperty.Register("InvalidateOnEmpty", typeof(bool), typeof(AdvancedDataGrid));
+
         public Action<DataGridRowEditEndingEventArgs> RowEditEndHandler { get; set; }
         public static DependencyProperty RowEditEndHandlerProperty =
             DependencyProperty.Register("RowEditEndHandler", typeof(Action<DataGridRowEditEndingEventArgs>), typeof(AdvancedDataGrid));
@@ -45,7 +52,8 @@ namespace InventoryControl.View.Controls
         public ViewOptions Options { get; set; }
         public static DependencyProperty OptionsProperty =
             DependencyProperty.Register("Options", typeof(ViewOptions), typeof(AdvancedDataGrid),
-            new PropertyMetadata(new ViewOptions()));        
+            new PropertyMetadata(new ViewOptions()));
+        #endregion
 
         static AdvancedDataGrid()
         {
@@ -72,6 +80,20 @@ namespace InventoryControl.View.Controls
         public void Dispose()
         {
             MouseUp -= OnMouseClicked;
+        }
+        public bool IsValid
+        {
+            get
+            {
+                if ((bool)GetValue(InvalidateOnEmptyProperty) && Items.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -115,6 +137,7 @@ namespace InventoryControl.View.Controls
             {
                 adorner?.SetText((string)GetValue(EmptyHintProperty));
             }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
         }
         protected override void OnRowEditEnding(DataGridRowEditEndingEventArgs e)
         {
@@ -165,5 +188,6 @@ namespace InventoryControl.View.Controls
         public event RowClickedEventHandler RowClicked;
         public delegate void CellClickedEventHandler(object sender, MouseButtonEventArgs e, DataGridCell cell);
         public event CellClickedEventHandler CellClicked;
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
