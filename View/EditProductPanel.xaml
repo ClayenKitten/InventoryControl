@@ -42,9 +42,9 @@
                     <ComboBox x:Name="MeasurementCB" Grid.Row="1" Grid.Column="1" Height="27" ItemsSource="{Binding PossibleMeasurments}" SelectedIndex="0"/>
                 </StackPanel>
                 <c:AdvancedTextbox x:Name="BuyPriceAT" Grid.Row="2" Grid.Column="0" Margin="5"
-                    Label="Закупочная цена" Validation="Real" IsRequired="True"/>
+                    Label="Закупочная цена" Validation="Money" IsRequired="True"/>
                 <c:AdvancedTextbox x:Name="SalePriceAT" Grid.Row="2" Grid.Column="1" Margin="5"
-                    Label="Продажная цена" Validation="Real" IsRequired="True"/>
+                    Label="Продажная цена" Validation="Money" IsRequired="True"/>
 
                 <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
                 <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
