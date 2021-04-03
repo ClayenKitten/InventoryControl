@@ -85,6 +85,32 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        public OpenPanelCommand OpenTransactionProductsViewerSupply
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new DualControlPanelContainer(
+                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
+                        new TransactionProductsViewer(TransferType.Supply)
+                    );
+                });
+            }
+        }
+        public OpenPanelCommand OpenTransactionProductsViewerTransport
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new DualControlPanelContainer(
+                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
+                        new TransactionProductsViewer(TransferType.Transport)
+                    );
+                });
+            }
+        }
         public OpenPanelCommand OpenSuppliers
         {
             get
