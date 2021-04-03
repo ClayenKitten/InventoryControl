@@ -119,7 +119,9 @@ namespace InventoryControl.ViewModel
             {
                 type = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CounterpartyTitle"));
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots1Title"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots2Title"));
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots1"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TransferSpots2"));
