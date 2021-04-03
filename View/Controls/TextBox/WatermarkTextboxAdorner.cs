@@ -16,9 +16,8 @@ namespace InventoryControl.View.Controls
         public TextBox Target { get; }
 
         private bool isError = false;
-        private string error = "";
         private string watermark = "";
-        private bool isStarShown;
+        private bool isStarShown = false;
 
         public WatermarkTextboxAdorner(UIElement adornedElement) : base(adornedElement)
         {
@@ -63,7 +62,7 @@ namespace InventoryControl.View.Controls
 
             var watermark = new FormattedText
             (
-                isError ? error : this.watermark,
+                this.watermark,
                 CultureInfo.InvariantCulture,
                 FlowDirection.LeftToRight,
                 new Typeface(Target.FontFamily, Target.FontStyle, Target.FontWeight, Target.FontStretch),
@@ -100,16 +99,9 @@ namespace InventoryControl.View.Controls
             this.watermark = watermark;
             InvalidateVisual();
         }
-        public void UnsetError()
+        public void SetError(bool isError)
         {
-            isError = false;
-            error = "";
-            InvalidateVisual();
-        }
-        public void SetError(string errorHint)
-        {
-            isError = true;
-            error = errorHint;
+            this.isError = isError;
             InvalidateVisual();
         }
         public void SetStarShown(bool isShown)

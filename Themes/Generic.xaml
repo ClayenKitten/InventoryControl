@@ -71,4 +71,9 @@
 
     <Style TargetType="{x:Type c:FormConfirmButton}">
     </Style>
+
+    <Style TargetType="{x:Type c:InlineValidatingTextBox}" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
 </ResourceDictionary>

@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
 {
-    public class AdvancedTextbox : Control, INotifyPropertyChanged
+    public class AdvancedTextbox : Control, INotifyPropertyChanged, IValidatable
     {
         static AdvancedTextbox()
         {
@@ -36,6 +36,7 @@ namespace InventoryControl.View.Controls
             style.Triggers.Add(errorDataTrigger);
             style.Seal();
             InnerTextBoxStyle = style;
+            
         }
         public override void OnApplyTemplate()
         {
@@ -44,6 +45,8 @@ namespace InventoryControl.View.Controls
             advancedTextBoxAdorner = new WatermarkTextboxAdorner(tb);
             AdornerLayer.GetAdornerLayer(this).Add(advancedTextBoxAdorner);
             advancedTextBoxAdorner?.SetWatermark(watermark);
+
+            tb.TextChanged += (_, _1) => UpdateValidation();
         }
 
         private WatermarkTextboxAdorner advancedTextBoxAdorner;
@@ -51,7 +54,6 @@ namespace InventoryControl.View.Controls
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-
         }
 
         // Label
@@ -116,17 +118,13 @@ namespace InventoryControl.View.Controls
         {
             get
             {
-                if (!ShowErrorUnderneath)
+                if (!valueWasUpdated)
                 {
                     return false;
                 }
-                else if (!valueWasUpdated)
-                {
-                    return true;
-                }
                 else
                 {
-                    return IsValid;
+                    return !IsValid;
                 }
             }
         }
@@ -150,8 +148,6 @@ namespace InventoryControl.View.Controls
         public Style InnerTextBoxStyle { get; }
 
         //Validation
-        public bool ShowErrorUnderneath { get; set; } = false;
-        public bool ShowErrorInline { get; set; } = true;
         private string errorHint; public string ErrorHint 
         { 
             get
@@ -165,42 +161,7 @@ namespace InventoryControl.View.Controls
             }
         }
         public bool IsValid
-        {
-            get
-            {
-                if (IsRequired && Text.Trim() == "")
-                {
-                    ErrorHint = "Поле обязательно для заполнения";
-                    return false;
-                }
-                else if (!IsRequired && Text.Trim() == "")
-                {
-                    if (Text.Trim() == "")
-                    {
-                        ErrorHint = "";
-                        return true;
-                    }
-                }
-
-                bool valid;
-                switch (Validation)
-                {
-                    case ValidationEnum.Integer:
-                        valid = int.TryParse(Text, out _);
-                        ErrorHint = valid ? "" : "Ожидается целое число";
-                        break;
-                    case ValidationEnum.Real:
-                        valid = double.TryParse(Text, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
-                        ErrorHint = valid ? "" : "Ожидается число";
-                        break;
-                    default:
-                        valid = true;
-                        ErrorHint = "";
-                        break;
-                }
-                return valid;
-            }
-        }
+            => new StringValidator(IsRequired, Validation).Validate(Text, out errorHint);
 
         ValidationEnum validation; public ValidationEnum Validation
         {
@@ -214,25 +175,9 @@ namespace InventoryControl.View.Controls
 
         public void UpdateValidation()
         {
-            if (IsValid)
-            {
-                advancedTextBoxAdorner?.UnsetError();
-            }
-            else
-            {
-                if (ShowErrorInline)
-                {
-                    advancedTextBoxAdorner?.SetError(errorHint);
-                    advancedTextBoxAdorner?.SetStarShown(IsRequired);
-                }
-                else
-                {
-                    advancedTextBoxAdorner?.UnsetError();
-                    advancedTextBoxAdorner?.SetStarShown(false);
-                }
-            }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorTextBlockShown"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorTextBlockVisibility"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorHint"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorBorderShown"));
         }
 
