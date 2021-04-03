@@ -39,22 +39,19 @@
                 ItemsSource="{Binding Storages}" DisplayMemberPath="Name"
                 SelectedValue="{Binding Path=SelectedStorage, Mode=TwoWay}" SelectedValuePath="Id"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-            <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0"
+
+        <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0" Grid.Row="2" Grid.ColumnSpan="2"
                     x:Name="MainDataGrid" CanUserDeleteRows="True"
                     CanUserResizeColumns="False" CanUserReorderColumns="False"
                     CellStyle="{StaticResource DataGridCellDefaultStyle}"
-                    RowClicked="MainDataGrid_RowClicked">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="АРТИКУЛ" Width="100" Binding="{Binding Article}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="КОЛ" Width="50" Binding="{Binding TransmitNumber}" IsReadOnly="False"/>
-                </DataGrid.Columns>
-            </c:AdvancedDataGrid>
-            <TextBlock Text="Выберите продукты на складе, чтобы добавить их к транзакции" 
-                Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter},
-                ElementName=MainDataGrid}" />
-        </StackPanel>
+                    RowClicked="MainDataGrid_RowClicked"
+                    EmptyHint="Выберите продукты на складе, чтобы добавить их к транзакции">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="АРТИКУЛ" Width="100" Binding="{Binding Article}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="КОЛ" Width="50" Binding="{Binding TransmitNumber}" IsReadOnly="False"/>
+            </DataGrid.Columns>
+        </c:AdvancedDataGrid>
         <Button Grid.Row="3" Grid.ColumnSpan="2"
             Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить" Command="vm:GlobalCommands.CreateTransaction"/>
     </Grid>
