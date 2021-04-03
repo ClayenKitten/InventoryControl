@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -21,28 +20,40 @@ namespace InventoryControl.View.Controls
                 {
                     if (e.PropertyName is "IsValid")
                     {
-                        SetCurrentValue(Button.IsEnabledProperty, CurrentForm.IsValid);
+                        SetCurrentValue(IsEnabledProperty, CurrentForm.IsValid);
                     }
                 };
             }
+            SetCurrentValue(IsEnabledProperty, CurrentForm.IsValid);
         }
+
+        public Form Form { get; set; }
+        public static DependencyProperty FormProperty =
+            DependencyProperty.Register("Form", typeof(Form), typeof(FormConfirmButton));
 
         private Form CurrentForm
         {
             get
             {
-                DependencyObject control = this;
-                while (control != null && control.GetType() != typeof(Form))
+                if (GetValue(FormProperty) != null)
                 {
-                    control = VisualTreeHelper.GetParent(this);
-                }
-                if (control is Form)
-                {
-                    return control as Form;
+                    return (Form)GetValue(FormProperty);
                 }
                 else
                 {
-                    return null;
+                    DependencyObject control = this;
+                    while (control != null && control.GetType() != typeof(Form))
+                    {
+                        control = VisualTreeHelper.GetParent(this);
+                    }
+                    if (control is Form)
+                    {
+                        return control as Form;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
