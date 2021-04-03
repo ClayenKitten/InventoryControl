@@ -66,6 +66,7 @@ namespace InventoryControl.View.Controls
                 SetCurrentValue(ControlsHelper.MouseOverBorderBrushProperty, new SolidColorBrush(Color.FromRgb(225, 0, 0)));
                 SetCurrentValue(BorderBrushProperty, new SolidColorBrush(Colors.Red));
             }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
