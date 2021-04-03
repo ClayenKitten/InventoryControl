@@ -407,6 +407,7 @@
     <Compile Include="ORM\SQLiteReaderExtensionMethods.cs" />
     <Compile Include="Util\StringComparer.cs" />
     <Compile Include="Util\ValidationEnum.cs" />
+    <Compile Include="Util\StringValidator.cs" />
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="ViewModel\Viewers\CounterpatyViewerVM.cs" />
