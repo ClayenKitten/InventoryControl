@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using InventoryControl.Model;
+using InventoryControl.View.Controls;
 
 namespace InventoryControl.ViewModel
 {
@@ -125,6 +126,13 @@ namespace InventoryControl.ViewModel
                 if (product.Id == id) return;
             }
             Content.Add(new TransactionProductPresenter(Product.Table.Read(id), 1));
+        }
+        public void ShowContextMenu(TransactionProductPresenter product)
+        {
+            new ContextMenuBuilder()
+                .AddAction("Удалить", () => Content.Remove(product))
+            .Build()
+            .IsOpen = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

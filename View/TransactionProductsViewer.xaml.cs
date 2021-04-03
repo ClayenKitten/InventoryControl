@@ -1,4 +1,5 @@
-﻿using InventoryControl.View.Controls;
+﻿using InventoryControl.Model;
+using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace InventoryControl.View
         {
             InitializeComponent();
             ((TransactionProductsViewerVM)DataContext).Type = type;
+        }
+
+        private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
+        {
+            if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Released)
+            {
+                ((TransactionProductsViewerVM)DataContext).ShowContextMenu((TransactionProductPresenter)row.Item);
+            }
         }
     }
 }
