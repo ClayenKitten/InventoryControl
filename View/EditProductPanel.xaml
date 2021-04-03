@@ -19,7 +19,7 @@
                        VerticalAlignment="Center" Foreground="White"/>
         </Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <Grid Margin="5,0" x:Name="InputsContainer">
+            <c:Form Margin="5,0" x:Name="InputsContainer">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -49,12 +49,10 @@
                 <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
                 <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
                     Label="Артикул" Validation="Integer" IsRequired="True"/>
-            </Grid>
+            </c:Form>
         </ScrollViewer>
-        <Button Grid.Row="2" Grid.ColumnSpan="3" 
-                Content="Подтвердить"
-                Style="{StaticResource MahApps.Styles.Button.Flat}"
-                IsEnabled="{Binding IsConfirmButtonEnabled}"
-                Click="ConfirmClick"/>
+        <c:FormConfirmButton Grid.Row="2" Grid.ColumnSpan="3" Form="{Binding ElementName=InputsContainer}"
+            Content="Подтвердить" Style="{StaticResource MahApps.Styles.Button.Flat}"
+            VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
     </Grid>
 </c:ControlPanel>
