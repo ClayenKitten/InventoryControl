@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryControl.Model
 {
-    public class PointOfSales : IEntity, INamed
+    public class PointOfSales : IEntity, INamed, ITransferSpot
     {
         public static Table<PointOfSales> Table { get; }
             = new Table<PointOfSales>

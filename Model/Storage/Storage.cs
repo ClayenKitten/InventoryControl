@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace InventoryControl.Model
 {
-    public class Storage : IEntity, INamed
+    public class Storage : IEntity, INamed, ITransferSpot
     {
         public static JoinTable ProductsNumberTable { get; }
             = new JoinTable("ProductsNumber", typeof(Product), typeof(Storage), SqlType.INTEGER);

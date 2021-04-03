@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model
 {
-    public class Counterparty : IEntity, INamed
+    public class Counterparty : IEntity, INamed, ITransferSpot
     {
         public static Table<Counterparty> Table { get; } = new Table<Counterparty>
         (
