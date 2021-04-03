@@ -27,28 +27,10 @@ namespace InventoryControl.View
             get => InputsContainer.Children.OfType<AdvancedTextbox>().All((x) => { return x.IsValid; });
         }
 
-        private void Init()
-        {
-            UpdateValidness();
-            //Go through inputs and update validness
-            //TODO: Create container that will incapsulate this
-            InputsContainer.Children.OfType<AdvancedTextbox>().ToList()
-                .ForEach((x) => x.PropertyChanged += (sender, e) =>
-                {
-                    if (e.PropertyName == "IsValid")
-                        UpdateValidness();
-                });
-        }
-        private void UpdateValidness()
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsConfirmButtonEnabled"));
-        }
-
         public EditProductPanel()
         {
             productData = null;
             InitializeComponent();
-            Init();
         }
         public EditProductPanel(int productId)
         {
@@ -61,11 +43,11 @@ namespace InventoryControl.View
             BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
             SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
             ArticleAT.Text = productData.Article.ToString();
-
-            Init();
         }
-        
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void FormConfirmed(object sender, EventArgs e)
         {
             if (productData == null)
             {
@@ -106,6 +88,5 @@ namespace InventoryControl.View
             var PM = new PanelManager();
             PM.OpenProductView.Execute();
         }
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

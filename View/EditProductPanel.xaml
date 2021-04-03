@@ -19,7 +19,7 @@
                        VerticalAlignment="Center" Foreground="White"/>
         </Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <c:Form Margin="5,0" x:Name="InputsContainer">
+            <c:Form Margin="5,0" x:Name="InputsContainer" Confirmed="FormConfirmed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -48,7 +48,7 @@
 
                 <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
                 <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
-                    Label="Артикул" Validation="Integer" IsRequired="True"/>
+                    Label="Артикул" IsRequired="True"/>
             </c:Form>
         </ScrollViewer>
         <c:FormConfirmButton Grid.Row="2" Grid.ColumnSpan="3" Form="{Binding ElementName=InputsContainer}"
