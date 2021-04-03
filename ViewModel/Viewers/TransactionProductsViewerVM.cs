@@ -15,6 +15,7 @@ namespace InventoryControl.ViewModel
         Buy,
         Sell,
         Return,
+        Supply,
     }
 
     public class TransactionProductsViewerVM : INotifyPropertyChanged
