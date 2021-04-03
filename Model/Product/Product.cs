@@ -40,7 +40,7 @@ namespace InventoryControl.Model
         private int manufacturerId { get; set; }
         public Manufacturer Manufacturer
         {
-            get => Manufacturer.Table.Read(manufacturerId);
+            get => Manufacturer.Table.ReadOr(manufacturerId, new Manufacturer(-1, ""));
             set => manufacturerId = value.Id;
         }
             
