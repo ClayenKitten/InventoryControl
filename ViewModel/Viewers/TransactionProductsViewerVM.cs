@@ -60,29 +60,31 @@ namespace InventoryControl.ViewModel
             = new ObservableCollection<TransactionProductPresenter>();
         
         //Transaction info
-        public List<Counterparty> Counterparties
+        public IList<ITransferSpot> TransferSpots1
         {
             get
             {
                 switch (Type)
                 {
                     case TransactionType.Buy:
-                        return CounterpartyMapper.GetSuppliers();
+                        return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
                     case TransactionType.Sell:
-                        return CounterpartyMapper.GetPurchasers();
+                        return CounterpartyMapper.GetPurchasers().Cast<ITransferSpot>().ToList();
                     case TransactionType.Return:
-                        return CounterpartyMapper.GetSuppliers();
+                        return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
+                    case TransactionType.Supply:
+                        return PointOfSales.Table.ReadAll().Cast<ITransferSpot>().ToList();
                     default:
-                        return new List<Counterparty>();
+                        return new List<ITransferSpot>();
                 }
             }
         }
-        public List<Storage> Storages
+        public IList<ITransferSpot> TransferSpots2
         {
-            get => StorageMapper.GetAllStorages();
+            get => StorageMapper.GetAllStorages().Cast<ITransferSpot>().ToList();
         }
-        public int SelectedCounterparty { get; set; }
-        public int SelectedStorage { get; set; }
+        public ITransferSpot SelectedTransferSpot1 { get; set; }
+        public ITransferSpot SelectedTransferSpot2 { get; set; }
 
         private TransactionType type;
         public TransactionType Type 
@@ -94,10 +96,10 @@ namespace InventoryControl.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CounterpartyTitle"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Counterparties"));
-                SelectedCounterparty = Counterparties.FirstOrDefault().Id;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedCounterparty"));
-                SelectedStorage = Storages.FirstOrDefault().Id;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedStorage"));
+                SelectedTransferSpot1 = TransferSpots1.FirstOrDefault();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTransferSpot1"));
+                SelectedTransferSpot2 = TransferSpots2.FirstOrDefault();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedTransferSpot2"));
             }
         }
 
@@ -109,10 +111,9 @@ namespace InventoryControl.ViewModel
                 (
                     new Transfer
                     (
-                        id: -1,
                         dateTime: DateTime.Now, 
-                        counterpartyId: SelectedCounterparty,
-                        storageId: SelectedStorage,
+                        transferSpot1: SelectedTransferSpot1,
+                        transferSpot2: SelectedTransferSpot2,
                         products: new List<TransactionProductPresenter>(Content)
                     )
                 );

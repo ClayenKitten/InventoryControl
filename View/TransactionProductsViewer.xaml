@@ -30,14 +30,14 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="7,0,2.5,0">
             <Label Content="{Binding CounterpartyTitle}"/>
             <ComboBox SelectedIndex="0"
-                ItemsSource="{Binding Counterparties}" DisplayMemberPath="Name"
-                SelectedValue="{Binding Path=SelectedCounterparty, Mode=TwoWay}" SelectedValuePath="Id"/>
+                ItemsSource="{Binding TransferSpots1}" DisplayMemberPath="Name"
+                SelectedItem="{Binding SelectedTransferSpot1}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="7,0,2.5,0">
             <Label Content="Склад"/>
             <ComboBox SelectedIndex="0"
-                ItemsSource="{Binding Storages}" DisplayMemberPath="Name"
-                SelectedValue="{Binding Path=SelectedStorage, Mode=TwoWay}" SelectedValuePath="Id"/>
+                ItemsSource="{Binding TransferSpots2}" DisplayMemberPath="Name"
+                SelectedItem="{Binding SelectedTransferSpot2}"/>
         </StackPanel>
 
         <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0" Grid.Row="2" Grid.ColumnSpan="2"
