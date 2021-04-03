@@ -45,7 +45,7 @@
                     CanUserResizeColumns="False" CanUserReorderColumns="False"
                     CellStyle="{StaticResource DataGridCellDefaultStyle}"
                     RowClicked="MainDataGrid_RowClicked"
-                    EmptyHint="Выберите продукты на складе, чтобы добавить их к транзакции">
+                    EmptyHint="Товары не добавлены">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="АРТИКУЛ" Width="100" Binding="{Binding Article}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="НАИМЕНОВАНИЕ" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
