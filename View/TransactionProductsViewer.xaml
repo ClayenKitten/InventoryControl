@@ -41,7 +41,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
             <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0"
-                    x:Name="MainDataGrid"
+                    x:Name="MainDataGrid" CanUserDeleteRows="True"
                     CanUserResizeColumns="False" CanUserReorderColumns="False"
                     CellStyle="{StaticResource DataGridCellDefaultStyle}"
                     RowClicked="MainDataGrid_RowClicked">
