@@ -56,8 +56,8 @@
                 <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=ConfirmC, Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
-            <c:AdvancedTextbox x:Name="NameTB" Grid.Column="0" Watermark="Метка..." IsRequired="True"/>
-            <c:AdvancedTextbox x:Name="AddressTB" Grid.Column="1" Watermark="Адрес..."/>
+            <c:InlineValidatingTextBox x:Name="NameTB" Grid.Column="0" Watermark="Метка..." IsRequired="True"/>
+            <c:InlineValidatingTextBox x:Name="AddressTB" Grid.Column="1" Watermark="Адрес..."/>
             <c:FormConfirmButton Grid.Column="2" Style="{StaticResource MahApps.Styles.Button.Flat}"
                     Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
                 <iconPacks:PackIconFontAwesome Kind="PlusSolid"/>

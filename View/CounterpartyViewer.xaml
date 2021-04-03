@@ -59,12 +59,12 @@
                 <ColumnDefinition Width="{Binding ElementName=BankIdC, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=DeleteC, Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
-            <c:AdvancedTextbox x:Name="NameTB"      Grid.Column="0" Watermark="Наименование..." IsRequired="True"/>
-            <c:AdvancedTextbox x:Name="AddressTB"   Grid.Column="1" Watermark="Юридический адрес..."/>
-            <c:AdvancedTextbox x:Name="ContactsTB"  Grid.Column="2" Watermark="Телефонный номер..."/>
-            <c:AdvancedTextbox x:Name="TaxpayerTB"  Grid.Column="3" Watermark="ИНН..."/>
-            <c:AdvancedTextbox x:Name="AccountTB"   Grid.Column="4" Watermark="Расчётный счёт..."/>
-            <c:AdvancedTextbox x:Name="BankIdTB"    Grid.Column="5" Watermark="БИК..."/>
+            <c:InlineValidatingTextBox x:Name="NameTB"      Grid.Column="0" Watermark="Наименование..." IsRequired="True"/>
+            <c:InlineValidatingTextBox x:Name="AddressTB"   Grid.Column="1" Watermark="Юридический адрес..."/>
+            <c:InlineValidatingTextBox x:Name="ContactsTB"  Grid.Column="2" Watermark="Телефонный номер..."/>
+            <c:InlineValidatingTextBox x:Name="TaxpayerTB"  Grid.Column="3" Watermark="ИНН..."/>
+            <c:InlineValidatingTextBox x:Name="AccountTB"   Grid.Column="4" Watermark="Расчётный счёт..."/>
+            <c:InlineValidatingTextBox x:Name="BankIdTB"    Grid.Column="5" Watermark="БИК..."/>
             <c:FormConfirmButton Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}"
                     Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
                 <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
