@@ -34,7 +34,7 @@ namespace InventoryControl.Model
         public Money PurchasePrice { get; }
         public Money SalePrice { get; }
         public IMeasurement Measurement { get; set; }
-        public Article Article { get; set; }
+        public string Article { get; set; }
         public ProductCategory Category { get; set; }
 
         private int manufacturerId { get; set; }
@@ -62,7 +62,7 @@ namespace InventoryControl.Model
             else if (unit == Unit.Piece.value)
                 this.Measurement = new Piece((int)unitValue);
 
-            this.Article = new Article(article);
+            this.Article = article;
             this.Category = new ProductCategory("Молоко и молочные товары / Молоко");
         }
     }
