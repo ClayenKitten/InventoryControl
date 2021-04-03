@@ -15,14 +15,24 @@
             <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=EditSolid}" Command="{Binding OpenStorageEdit}"/>
         </MenuItem>
         <MenuItem Header="Оборот">
-            <MenuItem Header="Оформить закупку" Command="{Binding OpenTransactionProductsViewerBuy}" 
-                      Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" IsEnabled="True"/>
-            <MenuItem Header="Оформить продажу" Command="{Binding OpenTransactionProductsViewerSell}" 
-                      Icon="{iconPacks:FontAwesome Kind=TruckSolid}" IsEnabled="True"/>
-            <MenuItem Header="Оформить возврат" Command="{Binding OpenTransactionProductsViewerReturn}" 
-                      Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="True"/>
-            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
+            <MenuItem Header="Закупить товар" Command="{Binding OpenTransactionProductsViewerBuy}" 
+                      Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" IsEnabled="True"
+                      ToolTip="Оформить оптовую закупку товара"/>
+            <MenuItem Header="Продать товар" Command="{Binding OpenTransactionProductsViewerSell}" 
+                      Icon="{iconPacks:FontAwesome Kind=TruckSolid}" IsEnabled="True"
+                      ToolTip="Оформить оптовую продажу товара"/>
+            <MenuItem Header="Вернуть товар" Command="{Binding OpenTransactionProductsViewerReturn}" 
+                      Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="True"
+                      ToolTip="Оформить возврат товара поставщику"/>
             <Separator/>
+            <MenuItem Header="Поставить товар" Command="{Binding OpenTransactionProductsViewerSupply}" 
+                      Icon="{iconPacks:FontAwesome Kind=ShippingFastSolid}" IsEnabled="True"
+                      ToolTip="Поставить товар на точку продаж"/>
+            <MenuItem Header="Перевезти товар" Command="{Binding OpenTransactionProductsViewerTransport}" 
+                      Icon="{iconPacks:FontAwesome Kind=PeopleCarrySolid}" IsEnabled="True"
+                      ToolTip="Перевезти товар между складами"/>
+            <Separator/>
+            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
             <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}" Command="{Binding OpenInvoiceEditor}"/>
         </MenuItem>
         <MenuItem Header="Номенклатура">
