@@ -36,7 +36,6 @@ namespace InventoryControl.View.Controls
             style.Triggers.Add(errorDataTrigger);
             style.Seal();
             InnerTextBoxStyle = style;
-            
         }
 
         public override void OnApplyTemplate()
@@ -45,9 +44,11 @@ namespace InventoryControl.View.Controls
             var tb = ((TextBox)this.FindChild<TextBox>());
             advancedTextBoxAdorner = new WatermarkTextboxAdorner(tb);
             AdornerLayer.GetAdornerLayer(this).Add(advancedTextBoxAdorner);
-            advancedTextBoxAdorner?.SetWatermark(watermark);
+            GetBindingExpression(WatermarkProperty)?.UpdateTarget();
+            advancedTextBoxAdorner?.SetWatermark((string)GetValue(WatermarkProperty));
 
             tb.TextChanged += (_, _1) => UpdateValidation();
+            SetValue(TextProperty, GetValue(ValidValueProperty));
         }
 
         private WatermarkTextboxAdorner advancedTextBoxAdorner;
@@ -61,8 +62,43 @@ namespace InventoryControl.View.Controls
                 valueWasUpdated = true;
                 UpdateValidation();
             }
+            else if (e.Property == ValidValueProperty)
+            {
+                SetCurrentValue(TextProperty, GetValue(ValidValueProperty));
+            }
+            else if (e.Property == DataContextProperty)
+            {
+                GetBindingExpression(ValidValueProperty)?.UpdateTarget();
+            }
+            else if (e.Property == WatermarkProperty)
+            {
+                advancedTextBoxAdorner?.SetWatermark((string)e.NewValue);
+            }
+            else if (e.Property == ValidationProperty)
+            {
+                UpdateValidation();
+            }
         }
-
+        // ValidValue
+        public string ValidValue { get; set; }
+        static DependencyProperty ValidValueProperty =
+            DependencyProperty.Register("ValidValue", typeof(string), typeof(AdvancedTextbox),
+            new PropertyMetadata("", ValidValueChanged, ValidValueCoerced));
+        private static void ValidValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+        private static object ValidValueCoerced(DependencyObject d, object baseValue)
+        {
+            var at = d as AdvancedTextbox;
+            if (at.Validator.Validate(baseValue.ToString()))
+            {
+                return baseValue;
+            }
+            else
+            {
+                return d.GetValue(ValidValueProperty);
+            }
+        }
         // Label
         string label; public string Label
         {
@@ -75,7 +111,7 @@ namespace InventoryControl.View.Controls
             }
         }
         public Visibility LabelVisibility
-            => string.IsNullOrWhiteSpace(Label)?Visibility.Collapsed:Visibility.Visible;
+            => string.IsNullOrWhiteSpace(Label) ? Visibility.Collapsed : Visibility.Visible;
         public string RequiredStar
         {
             get
@@ -95,19 +131,10 @@ namespace InventoryControl.View.Controls
                 UpdateValidation();
             }
         }
-        string watermark = ""; public string Watermark
-        {
-            get
-            {
-                return watermark;
-            }
-            set
-            {
-                watermark = value;
-                advancedTextBoxAdorner?.SetWatermark(value);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Watermark"));
-            }
-        }
+        public string Watermark { get; set; }
+        static DependencyProperty WatermarkProperty =
+            DependencyProperty.Register("Watermark", typeof(string), typeof(AdvancedTextbox),
+            new PropertyMetadata(""));
         // Error TextBlock
         private bool valueWasUpdated = false;
         public bool IsErrorTextBlockShown
@@ -156,18 +183,18 @@ namespace InventoryControl.View.Controls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorHint"));
             }
         }
+        private StringValidator Validator
+            => new StringValidator(IsRequired, Validation);
         public bool IsValid
-            => new StringValidator(IsRequired, Validation).Validate(Text, out errorHint);
+            => Validator.Validate(Text, out errorHint);
 
-        ValidationEnum validation; public ValidationEnum Validation
+        public ValidationEnum Validation 
         {
-            get { return validation; }
-            set
-            {
-                validation = value;
-                UpdateValidation();
-            }
+            get => (ValidationEnum)GetValue(ValidationProperty);
+            set => SetCurrentValue(ValidationProperty, value);
         }
+        static DependencyProperty ValidationProperty =
+            DependencyProperty.Register("Validation", typeof(ValidationEnum), typeof(AdvancedTextbox));
 
         public void UpdateValidation()
         {
@@ -175,6 +202,10 @@ namespace InventoryControl.View.Controls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorTextBlockVisibility"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorHint"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsErrorBorderShown"));
+            if (IsValid)
+            {
+                SetCurrentValue(ValidValueProperty, GetValue(TextProperty));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
