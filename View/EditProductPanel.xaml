@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <c:AdvancedTextbox x:Name="AmountAT" Margin="5" Grid.Column="0"
-                        Label="Количество в месте" Validation="Real"/>
+                        Label="Количество в месте"/>
                     <StackPanel Margin="5" Grid.Column="1">
                         <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
                         <ComboBox x:Name="MeasurementCB" Height="27" SelectionChanged="PackingTypeChanged"

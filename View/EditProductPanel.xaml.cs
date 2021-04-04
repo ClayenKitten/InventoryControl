@@ -115,10 +115,12 @@ namespace InventoryControl.View
             if (MeasurementCB.SelectedIndex == 0)
             {
                 AmountAT.Watermark = "1.00";
+                AmountAT.Validation = Util.ValidationEnum.Weight;
             }
             else
             {
                 AmountAT.Watermark = "1";
+                AmountAT.Validation = Util.ValidationEnum.Integer;
             }
         }
     }
