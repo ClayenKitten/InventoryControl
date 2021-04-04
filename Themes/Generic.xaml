@@ -50,6 +50,7 @@
                         <TextBlock Grid.Row="2"
                             Visibility="{Binding ErrorTextBlockVisibility,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                            TextWrapping="Wrap"
                             Text="{Binding ErrorHint, RelativeSource={RelativeSource TemplatedParent}}"
                             Foreground="Red" FontSize="11"
                             />
