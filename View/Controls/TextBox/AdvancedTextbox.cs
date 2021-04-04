@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace InventoryControl.View.Controls
 {
-    public class AdvancedTextbox : Control, INotifyPropertyChanged, IValidatable
+    public class AdvancedTextbox : TextBox, INotifyPropertyChanged, IValidatable
     {
         static AdvancedTextbox()
         {
@@ -38,6 +38,7 @@ namespace InventoryControl.View.Controls
             InnerTextBoxStyle = style;
             
         }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -54,6 +55,12 @@ namespace InventoryControl.View.Controls
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
+
+            if (e.Property == TextProperty)
+            {
+                valueWasUpdated = true;
+                UpdateValidation();
+            }
         }
 
         // Label
@@ -77,17 +84,6 @@ namespace InventoryControl.View.Controls
             }
         }
         // TextBox
-        string text = ""; public string Text
-        {
-            get { return text; }
-            set
-            {
-                text = value;
-                valueWasUpdated = true;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
-                UpdateValidation();
-            }
-        }
         bool isRequired = false; public bool IsRequired
         {
             get { return isRequired; }
