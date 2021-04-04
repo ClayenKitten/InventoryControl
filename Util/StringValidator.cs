@@ -33,6 +33,9 @@ namespace InventoryControl.Util
                 case ValidationEnum.Money:
                     error = "Ожидается денежная сумма";
                     return new Regex(@"^(([1-9]\d*(\.\d{0,2})?$)|(0(\.\d{0,2})?$))").IsMatch(value);
+                case ValidationEnum.Weight:
+                    error = "Ожидается вес";
+                    return new Regex(@"^(([1-9]\d*\.?\d?$)|(0(\.\d)?$)$)").IsMatch(value);
                 default:
                     error = "Ошибка валидации";
                     return false;

@@ -6,5 +6,6 @@
         Integer,
         Real,
         Money,
+        Weight,
     }
 }
