@@ -15,7 +15,7 @@ namespace InventoryControl.Model
             return FromInt(value);
         }
 
-        private static readonly string[] PossibleValues = new string[] { "кг", "шт", "руб" };
+        private static readonly string[] PossibleValues = new string[] { "кг", "шт" };
         public static readonly Unit Kilogram = new Unit(0);
         public static readonly Unit Piece = new Unit(1);
         public static readonly Unit Ruble = new Unit(2);
