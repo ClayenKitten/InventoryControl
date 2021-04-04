@@ -10,13 +10,13 @@ namespace InventoryControl.Model
         (
             new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
-            new Column<Product>("Measurement", SqlType.INTEGER, (x) => x.Measurement.GetUnit().value,
+            new Column<Product>("Measurement", SqlType.INTEGER, (x) => x.Measurement.Unit.value,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
-            new Column<Product>("Packing", SqlType.REAL, (x) => x.Measurement.GetRawValue(),
+            new Column<Product>("Packing", SqlType.REAL, (x) => x.Measurement.RawValue,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
-            new Column<Product>("PurchasePrice", SqlType.REAL, (x) => x.PurchasePrice.GetRawValue(),
+            new Column<Product>("PurchasePrice", SqlType.REAL, (x) => x.PurchasePrice.RawValue,
                 Constraint.NotNull | Constraint.DefaultValue(0.0)),
-            new Column<Product>("SalePrice", SqlType.REAL, (x) => x.SalePrice.GetRawValue(),
+            new Column<Product>("SalePrice", SqlType.REAL, (x) => x.SalePrice.RawValue,
                 Constraint.NotNull | Constraint.DefaultValue(0.0)),
             new Column<Product>("Article", SqlType.TEXT, (x) => x.Article.ToString(),
                 Constraint.NotNull | Constraint.Unique),
@@ -58,7 +58,7 @@ namespace InventoryControl.Model
             this.SalePrice = new Money((decimal)salePrice);
 
             if (unit == Unit.Kilogram.value)
-                this.Measurement = new Weight((decimal)unitValue);
+                this.Measurement = new Weight(unitValue);
             else if (unit == Unit.Piece.value)
                 this.Measurement = new Piece((int)unitValue);
 

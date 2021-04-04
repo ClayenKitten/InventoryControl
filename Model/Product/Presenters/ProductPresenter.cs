@@ -26,14 +26,14 @@
         {
             get
             {
-                return Product.Measurement.GetFormattedValue();
+                return Product.Measurement.FormattedValue;
             }
         }
         public string Measurement
         {
             get
             {
-                return Product.Measurement.GetPostfix();
+                return Product.Measurement.Postfix;
             }
         }
         public string Article { get { return Product.Article.ToString(); } }
