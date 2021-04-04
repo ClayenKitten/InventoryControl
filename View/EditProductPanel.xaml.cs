@@ -17,32 +17,43 @@ namespace InventoryControl.View
     public partial class EditProductPanel : ControlPanel, INotifyPropertyChanged
     {
         private Product productData;
-        public string Header { get { return productData != null ? "Изменение записи товара" : "Создание записи товара"; } }
         public List<string> PossibleMeasurments 
         { 
             get { return Unit.GetPossibleValues(); } 
         }
-        public bool IsConfirmButtonEnabled
+
+        public EditProductPanel(int? productId)
         {
-            get => InputsContainer.Children.OfType<AdvancedTextbox>().All((x) => { return x.IsValid; });
+            InitializeComponent();
+            if (productId.HasValue)
+            {
+                productData = Product.Table.Read(productId.Value);
+                TitleAT.Text = productData.Name;
+                AmountAT.Text = productData.Measurement.GetFormattedValue();
+                MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
+                BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
+                SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
+                ArticleAT.Text = productData.Article.ToString();
+            }
+            else
+            {
+                productData = null;
+            }
+            ArticleAT.Watermark = AutoincrementArticle;
         }
 
-        public EditProductPanel()
+        private string AutoincrementArticle
         {
-            productData = null;
-            InitializeComponent();
-        }
-        public EditProductPanel(int productId)
-        {
-            productData = Product.Table.Read(productId);
-            InitializeComponent();
-
-            TitleAT.Text = productData.Name;
-            AmountAT.Text = productData.Measurement.GetFormattedValue();
-            MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
-            BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
-            SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
-            ArticleAT.Text = productData.Article.ToString();
+            get
+            {
+                int val = 0;
+                var products = Product.Table.ReadAll();
+                while (products.Any(x => x.Article == val.ToString()))
+                {
+                    val += 1;
+                }
+                return val.ToString();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -87,6 +98,17 @@ namespace InventoryControl.View
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
             PM.OpenProductView.Execute();
+        }
+        private void PackingTypeChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MeasurementCB.SelectedIndex == 0)
+            {
+                AmountAT.Watermark = "1.00";
+            }
+            else
+            {
+                AmountAT.Watermark = "1";
+            }
         }
     }
 }

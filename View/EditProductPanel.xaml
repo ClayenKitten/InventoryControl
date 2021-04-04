@@ -7,52 +7,56 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1" 
-            Background="{StaticResource MahApps.Brushes.Accent}">
-            <TextBlock Text="{Binding Header}" FontWeight="Bold" Padding="9,0,0,0" FontSize="18"
-                       VerticalAlignment="Center" Foreground="White"/>
-        </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <c:Form Margin="5,0" x:Name="InputsContainer" Confirmed="FormConfirmed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <c:AdvancedTextbox x:Name="TitleAT" Grid.Row="0" Grid.ColumnSpan="2" Margin="5"
-                    Label="Наименование" Validation="None" IsRequired="True"/>
-                <c:AdvancedTextbox x:Name="AmountAT" Grid.Row="1" Grid.Column="0" Margin="5"
-                    Label="Количество" Validation="Real" IsRequired="True"/>
-                <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
-                    <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
-                    <ComboBox x:Name="MeasurementCB" Grid.Row="1" Grid.Column="1" Height="27" ItemsSource="{Binding PossibleMeasurments}" SelectedIndex="0"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <GroupBox Header="Основное" BorderThickness="0">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <c:AdvancedTextbox x:Name="ArticleAT" Margin="5" Grid.Column="0"
+                            Label="Артикул"/>
+                        <c:AdvancedTextbox x:Name="BarcodeAT" Margin="5" Grid.Column="1"
+                            Label="Штрихкод" Watermark="-- НЕ УКАЗАНО --"/>
+                    </Grid>
+                    <c:AdvancedTextbox x:Name="TitleAT" Margin="5"
+                                Label="Наименование" Validation="None"/>
+                    <c:AdvancedTextbox x:Name="CategoryAT" Margin="5"
+                                Label="Категория" Watermark="-- НЕ УКАЗАНО --"/>
                 </StackPanel>
-                <c:AdvancedTextbox x:Name="BuyPriceAT" Grid.Row="2" Grid.Column="0" Margin="5"
-                    Label="Закупочная цена" Validation="Money" IsRequired="True"/>
-                <c:AdvancedTextbox x:Name="SalePriceAT" Grid.Row="2" Grid.Column="1" Margin="5"
-                    Label="Продажная цена" Validation="Money" IsRequired="True"/>
-
-                <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,20"/>
-                <c:AdvancedTextbox x:Name="ArticleAT" Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
-                    Label="Артикул" IsRequired="True"/>
-            </c:Form>
-        </ScrollViewer>
-        <c:FormConfirmButton Grid.Row="2" Grid.ColumnSpan="3" Form="{Binding ElementName=InputsContainer}"
-            Content="Подтвердить" Style="{StaticResource MahApps.Styles.Button.Flat}"
-            VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-    </Grid>
+            </GroupBox>
+            <GroupBox Header="Фасовка" BorderThickness="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <c:AdvancedTextbox x:Name="AmountAT" Margin="5" Grid.Column="0"
+                        Label="Количество в месте" Validation="Real"/>
+                    <StackPanel Margin="5" Grid.Column="1">
+                        <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="MeasurementCB" Height="27" SelectionChanged="PackingTypeChanged"
+                            ItemsSource="{Binding PossibleMeasurments}" SelectedIndex="0"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Цены" BorderThickness="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <c:AdvancedTextbox x:Name="BuyPriceAT" Margin="5" Grid.Column="0"
+                        Label="Закупочная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                    <c:AdvancedTextbox x:Name="SalePriceAT" Margin="5" Grid.Column="1"
+                        Label="Продажная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                    <c:AdvancedTextbox x:Name="RetailPriceAT" Margin="5" Grid.Column="2"
+                        Label="Розничная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
 </c:ControlPanel>
