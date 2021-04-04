@@ -30,9 +30,9 @@ namespace InventoryControl.Model
         );
 
         public int Id { get; set; }
-        public string Name { get; }
-        public Money PurchasePrice { get; }
-        public Money SalePrice { get; }
+        public string Name { get; set; }
+        public Money PurchasePrice { get; set; }
+        public Money SalePrice { get; set; }
         public IMeasurement Measurement { get; set; }
         public string Article { get; set; }
         public ProductCategory Category { get; set; }
