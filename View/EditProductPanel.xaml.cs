@@ -16,7 +16,14 @@ namespace InventoryControl.View
     /// </summary>
     public partial class EditProductPanel : ControlPanel, INotifyPropertyChanged
     {
-        private Product productData;
+        public RawProductPresenter ProductData
+        {
+            get => (RawProductPresenter)GetValue(ProductDataProperty);
+            set => SetCurrentValue(ProductDataProperty, value);
+        }
+        static DependencyProperty ProductDataProperty =
+            DependencyProperty.Register("ProductData", typeof(RawProductPresenter), typeof(EditProductPanel));
+
         public List<string> PossibleMeasurments 
         { 
             get { return Unit.GetPossibleValues(); } 
@@ -54,74 +61,25 @@ namespace InventoryControl.View
         {
             if (productId.HasValue)
             {
-                productData = Product.Table.Read(productId.Value);
-                TitleAT.Text = productData.Name;
-                AmountAT.Text = productData.Measurement.GetFormattedValue();
-                MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
-                BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
-                SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
-                ArticleAT.Text = productData.Article.ToString();
-            }
-            else
-            {
-                productData = null;
+                ProductData = Product.Table.Read(productId.Value);
             }
             ArticleAT.Watermark = AutoincrementArticle;
         }
 
-        private void FormConfirmed(object sender, EventArgs e)
+        private void FormConfirmed(object sender, RoutedEventArgs e)
         {
-            if (productData == null)
+            if (ProductData == null)
             {
-                Product.Table.Create(
-                    new Product
-                    (
-                        id: -1,
-                        name: TitleAT.Text,
-                        purchasePrice: double.Parse(BuyPriceAT.Text, CultureInfo.InvariantCulture),
-                        salePrice: double.Parse(SalePriceAT.Text, CultureInfo.InvariantCulture),
-                        unitValue: double.Parse(AmountAT.Text, CultureInfo.InvariantCulture),
-                        unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: ArticleAT.Text,
-                        manufacturerId: -1,
-                        category: ""
-                    )
-                );
+                Product.Table.Create(ProductData);
             }
             else
             {
-                Product.Table.Update(
-                    new Product
-                    (
-                        id: productData.Id,
-                        name: TitleAT.Text,
-                        purchasePrice: double.Parse(BuyPriceAT.Text, CultureInfo.InvariantCulture),
-                        salePrice: double.Parse(SalePriceAT.Text, CultureInfo.InvariantCulture),
-                        unitValue: double.Parse(AmountAT.Text, CultureInfo.InvariantCulture),
-                        unit: new Unit(MeasurementCB.SelectedIndex).value,
-                        article: ArticleAT.Text,
-                        manufacturerId: -1,
-                        category: ""
-                    )
-                );
+                Product.Table.Update(ProductData);
             }
 
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
             PM.OpenProductView.Execute();
-        }
-        private void PackingTypeChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MeasurementCB.SelectedIndex == 0)
-            {
-                AmountAT.Watermark = "1.00";
-                AmountAT.Validation = Util.ValidationEnum.Weight;
-            }
-            else
-            {
-                AmountAT.Watermark = "1";
-                AmountAT.Validation = Util.ValidationEnum.Integer;
-            }
         }
     }
 }

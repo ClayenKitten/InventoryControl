@@ -7,56 +7,69 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <GroupBox Header="Основное" BorderThickness="0">
-                <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel DataContext="{Binding ProductData}">
+                <GroupBox Header="Основное" BorderThickness="0">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <c:AdvancedTextbox x:Name="ArticleAT" Margin="5" Grid.Column="0"
+                                Label="Артикул" ValidValue="{Binding Article}"/>
+                            <c:AdvancedTextbox x:Name="BarcodeAT" Margin="5" Grid.Column="1"
+                                Label="Штрихкод" Watermark="-- НЕ УКАЗАНО --"/>
+                        </Grid>
+                        <c:AdvancedTextbox Margin="5" ValidValue="{Binding Name}"
+                                Label="Наименование" Validation="None"/>
+                        <c:AdvancedTextbox Margin="5" ValidValue="{Binding Category}"
+                                Label="Категория" Watermark="-- НЕ УКАЗАНО --"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Фасовка" BorderThickness="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <c:AdvancedTextbox x:Name="ArticleAT" Margin="5" Grid.Column="0"
-                            Label="Артикул"/>
-                        <c:AdvancedTextbox x:Name="BarcodeAT" Margin="5" Grid.Column="1"
-                            Label="Штрихкод" Watermark="-- НЕ УКАЗАНО --"/>
+                        <c:AdvancedTextbox Margin="5" Grid.Column="0"
+                            Label="Количество в месте" ValidValue="{Binding Packing}"/>
+                        <StackPanel Margin="5" Grid.Column="1">
+                            <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="MeasurementCB" Height="27"
+                                SelectedIndex="{Binding Measurement}">
+                                <ComboBoxItem Content="кг" />
+                                <ComboBoxItem Content="шт" />
+                            </ComboBox>
+                        </StackPanel>
                     </Grid>
-                    <c:AdvancedTextbox x:Name="TitleAT" Margin="5"
-                                Label="Наименование" Validation="None"/>
-                    <c:AdvancedTextbox x:Name="CategoryAT" Margin="5"
-                                Label="Категория" Watermark="-- НЕ УКАЗАНО --"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="Фасовка" BorderThickness="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <c:AdvancedTextbox x:Name="AmountAT" Margin="5" Grid.Column="0"
-                        Label="Количество в месте"/>
-                    <StackPanel Margin="5" Grid.Column="1">
-                        <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
-                        <ComboBox x:Name="MeasurementCB" Height="27" SelectionChanged="PackingTypeChanged"
-                            ItemsSource="{Binding PossibleMeasurments}" SelectedIndex="0"/>
-                    </StackPanel>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Цены" BorderThickness="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <c:AdvancedTextbox x:Name="BuyPriceAT" Margin="5" Grid.Column="0"
-                        Label="Закупочная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
-                    <c:AdvancedTextbox x:Name="SalePriceAT" Margin="5" Grid.Column="1"
-                        Label="Продажная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
-                    <c:AdvancedTextbox x:Name="RetailPriceAT" Margin="5" Grid.Column="2"
-                        Label="Розничная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
-                </Grid>
-            </GroupBox>
-        </StackPanel>
-    </ScrollViewer>
+                </GroupBox>
+                <GroupBox Header="Цены" BorderThickness="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <c:AdvancedTextbox x:Name="BuyPriceAT" Margin="5" Grid.Column="0"
+                            ValidValue="{Binding PurchasePrice}"
+                            Label="Закупочная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                        <c:AdvancedTextbox x:Name="SalePriceAT" Margin="5" Grid.Column="1"
+                            ValidValue="{Binding SalePrice}"
+                            Label="Продажная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                        <c:AdvancedTextbox x:Name="RetailPriceAT" Margin="5" Grid.Column="2"
+                            Label="Розничная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Style="{StaticResource MahApps.Styles.Button.Flat}"
+            Content="Подтвердить" Click="FormConfirmed" Grid.Row="1"/>
+    </Grid>
 </c:ControlPanel>
