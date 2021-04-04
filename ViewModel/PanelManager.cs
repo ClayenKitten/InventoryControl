@@ -27,16 +27,6 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new SingleControlPanelContainer(new ProductDictionaryViewer());
-                });
-            }
-        }
-        public OpenPanelCommand OpenProductViewAdd
-        {
-            get
-            {
-                return new OpenPanelCommand(() =>
-                {
                     return new DualControlPanelContainer(
                         new ProductDictionaryViewer(), 
                         new EditProductPanel(null),

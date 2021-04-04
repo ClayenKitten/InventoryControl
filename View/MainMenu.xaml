@@ -37,8 +37,6 @@
         </MenuItem>
         <MenuItem Header="Номенклатура">
             <MenuItem Header="Просмотр" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>
-            <MenuItem Header="Добавить товар" Icon="{iconPacks:FontAwesome Kind=PlusSquareSolid}" Command="{Binding OpenProductViewAdd}"/>
-            <Separator/>
             <MenuItem Header="Экспорт в ККТ..." Icon="{iconPacks:Material Kind=Export}">
                 <MenuItem Header="Меркурий 185-Ф"/>
             </MenuItem>
