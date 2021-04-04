@@ -25,21 +25,7 @@ namespace InventoryControl.View
         public EditProductPanel(int? productId)
         {
             InitializeComponent();
-            if (productId.HasValue)
-            {
-                productData = Product.Table.Read(productId.Value);
-                TitleAT.Text = productData.Name;
-                AmountAT.Text = productData.Measurement.GetFormattedValue();
-                MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
-                BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
-                SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
-                ArticleAT.Text = productData.Article.ToString();
-            }
-            else
-            {
-                productData = null;
-            }
-            ArticleAT.Watermark = AutoincrementArticle;
+            Init(productId);
         }
 
         private string AutoincrementArticle
@@ -59,11 +45,29 @@ namespace InventoryControl.View
         {
             if (sender is ProductDictionaryViewer)
             {
-                
+                Init((int)message);
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void Init(int? productId)
+        {
+            if (productId.HasValue)
+            {
+                productData = Product.Table.Read(productId.Value);
+                TitleAT.Text = productData.Name;
+                AmountAT.Text = productData.Measurement.GetFormattedValue();
+                MeasurementCB.SelectedItem = productData.Measurement.GetPostfix();
+                BuyPriceAT.Text = productData.PurchasePrice.GetFormattedValue();
+                SalePriceAT.Text = productData.SalePrice.GetFormattedValue();
+                ArticleAT.Text = productData.Article.ToString();
+            }
+            else
+            {
+                productData = null;
+            }
+            ArticleAT.Watermark = AutoincrementArticle;
+        }
 
         private void FormConfirmed(object sender, EventArgs e)
         {
