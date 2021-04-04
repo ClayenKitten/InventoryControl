@@ -33,9 +33,11 @@
         <TextBox Grid.Row="0" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
             x:Name="Searchbox"
             Style="{StaticResource SearchTextbox}" BorderThickness="1, 0, 0, 1"/>
-        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
-                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" IsReadOnly="True"
-                  ItemsSource="{Binding Content}" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked">
+        <c:AdvancedDataGrid x:Name="MainDataGrid"
+                Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
+                ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" IsReadOnly="True"
+                SelectionChanged="MainDataGrid_SelectionChanged"
+                ItemsSource="{Binding Content}" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
