@@ -20,7 +20,14 @@ namespace InventoryControl.View
         }
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {
-            SendMessage(((ProductPresenter)row.Item).Id);
+            if (e.ClickCount == 1)
+            {
+                SendMessage(typeof(EditProductPanel), ((ProductPresenter)row.Item).Id);
+            }
+            else if (e.ClickCount >= 2)
+            {
+                SendMessage(typeof(TransactionProductsViewer), ((ProductPresenter)row.Item).Id);
+            }
         }
     }
 }

@@ -44,8 +44,20 @@ namespace InventoryControl.View.Controls
 
         public DualControlPanelContainer(ControlPanel firstControlPanel, ControlPanel secondControlPanel)
         {
-            firstControlPanel.MessageSent += (sender, e) => secondControlPanel.ReceiveMessage(sender, e);
-            secondControlPanel.MessageSent += (sender, e) => firstControlPanel.ReceiveMessage(sender, e);
+            firstControlPanel.MessageSent += (s, t, e) =>
+            {
+                if (secondControlPanel.GetType() == t)
+                {
+                    secondControlPanel.ReceiveMessage(s, e);
+                }
+            };
+            secondControlPanel.MessageSent += (s, t, e) =>
+            {
+                if (firstControlPanel.GetType() == t)
+                {
+                    firstControlPanel.ReceiveMessage(s, e);
+                }
+            };
 
             this.firstControlPanel = firstControlPanel;
             this.secondControlPanel = secondControlPanel;

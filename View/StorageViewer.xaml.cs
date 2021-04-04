@@ -70,7 +70,7 @@ namespace InventoryControl.View
         {
             if(e.ClickCount == 2)
             {
-                SendMessage(((StockProductPresenter)row.Item).Id);
+                SendMessage(typeof(TransactionProductsViewer), ((StockProductPresenter)row.Item).Id);
             }
         }
         private void MainDataGrid_HeaderClicked(object sender, MouseButtonEventArgs e, System.Windows.Controls.Primitives.DataGridColumnHeader header)

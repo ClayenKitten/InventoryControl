@@ -4,13 +4,14 @@ using System.Windows.Controls;
 
 namespace InventoryControl.View.Controls
 {
+    public delegate void ControlPanelMessageHandler(ControlPanel sender, Type targetType, object message);
     public class ControlPanel : UserControl, IDisposable
     {
-        public virtual event EventHandler<object> MessageSent;
+        public virtual event ControlPanelMessageHandler MessageSent;
         public virtual void ReceiveMessage(object sender, object message) { }
-        public void SendMessage(object message)
+        public void SendMessage(Type targetType, object message)
         {
-            MessageSent?.Invoke(this, message);
+            MessageSent?.Invoke(this, targetType, message);
         }
 
         public virtual void Dispose()
@@ -19,7 +20,7 @@ namespace InventoryControl.View.Controls
             {
                 foreach (Delegate d in MessageSent.GetInvocationList())
                 {
-                    MessageSent -= (EventHandler<object>)d;
+                    MessageSent -= (ControlPanelMessageHandler)d;
                 }
             }
 

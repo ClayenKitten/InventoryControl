@@ -55,6 +55,13 @@ namespace InventoryControl.View
                 return val.ToString();
             }
         }
+        public override void ReceiveMessage(object sender, object message)
+        {
+            if (sender is ProductDictionaryViewer)
+            {
+                
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
