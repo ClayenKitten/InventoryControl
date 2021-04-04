@@ -28,7 +28,11 @@ namespace InventoryControl.View
 
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SendMessage(typeof(EditProductPanel), ((ProductPresenter)MainDataGrid.SelectedItem).Id);
+            var product = (ProductPresenter)MainDataGrid.SelectedItem;
+            if (product != null)
+            {
+                SendMessage(typeof(EditProductPanel), product.Id);
+            }
         }
     }
 }
