@@ -20,6 +20,5 @@ namespace InventoryControl.View.Controls
         {
             this.controlPanel = controlPanel;
         }
-        public override void Dispose() => controlPanel.Dispose();
     }
 }

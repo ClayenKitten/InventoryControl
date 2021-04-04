@@ -30,6 +30,13 @@ namespace InventoryControl.View
             TransferSpotCombobox1.SelectedIndex = 0;
             TransferSpotCombobox2.SelectedIndex = 0;
         }
+        public override void ReceiveMessage(object sender, object message)
+        {
+            if (sender is StorageViewer || sender is ProductDictionaryViewer)
+            {
+                ((TransactionProductsViewerVM)DataContext).AddProduct((int)message);
+            }
+        }
 
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {

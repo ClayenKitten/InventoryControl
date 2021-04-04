@@ -1,4 +1,5 @@
 ﻿using InventoryControl.Model;
+using InventoryControl.ORM;
 using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System;
@@ -69,15 +70,7 @@ namespace InventoryControl.View
         {
             if(e.ClickCount == 2)
             {
-                var panels = ((MainWindow)App.Current.MainWindow).Panel.ControlPanels;
-                panels.Remove(this);
-                foreach(var panel in panels)
-                {
-                    if (panel.DataContext is TransactionProductsViewerVM vm)
-                    {
-                        vm.AddProduct(((StockProductPresenter)row.Item).Id);
-                    }
-                }
+                SendMessage(((StockProductPresenter)row.Item).Id);
             }
         }
         private void MainDataGrid_HeaderClicked(object sender, MouseButtonEventArgs e, System.Windows.Controls.Primitives.DataGridColumnHeader header)

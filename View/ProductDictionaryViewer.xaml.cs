@@ -20,18 +20,7 @@ namespace InventoryControl.View
         }
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {
-            if (e.ClickCount == 2)
-            {
-                var panels = ((MainWindow)App.Current.MainWindow).Panel.ControlPanels;
-                panels.Remove(this);
-                foreach (var panel in panels)
-                {
-                    if (panel.DataContext is TransactionProductsViewerVM vm)
-                    {
-                        vm.AddProduct(((ProductPresenter)row.Item).Id);
-                    }
-                }
-            }
+            SendMessage(((ProductPresenter)row.Item).Id);
         }
     }
 }

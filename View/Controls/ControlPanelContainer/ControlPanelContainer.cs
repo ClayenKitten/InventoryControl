@@ -29,6 +29,13 @@ namespace InventoryControl.View.Controls
 
         public abstract override void OnApplyTemplate();
         public abstract IList<ControlPanel> ControlPanels { get; }
-        public abstract void Dispose();
+
+        public virtual void Dispose()
+        {
+            foreach(var controlPanel in ControlPanels)
+            {
+                controlPanel.Dispose();
+            }
+        }
     }
 }

@@ -14,12 +14,6 @@ namespace InventoryControl.View.Controls
         public override IList<ControlPanel> ControlPanels
            => new List<ControlPanel>() { firstControlPanel, secondControlPanel };
 
-        public override void Dispose()
-        {
-            firstControlPanel.Dispose();
-            secondControlPanel.Dispose();
-        }
-
         public override void OnApplyTemplate()
         {
             //Specify columns
@@ -50,6 +44,9 @@ namespace InventoryControl.View.Controls
 
         public DualControlPanelContainer(ControlPanel firstControlPanel, ControlPanel secondControlPanel)
         {
+            firstControlPanel.MessageSent += (sender, e) => secondControlPanel.ReceiveMessage(sender, e);
+            secondControlPanel.MessageSent += (sender, e) => firstControlPanel.ReceiveMessage(sender, e);
+
             this.firstControlPanel = firstControlPanel;
             this.secondControlPanel = secondControlPanel;
         }
