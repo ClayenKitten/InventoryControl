@@ -46,5 +46,9 @@
         {
             return new ProductPresenter(productData);
         }
+        public static implicit operator Product(ProductPresenter product)
+        {
+            return product.Product;
+        }
     }
 }
