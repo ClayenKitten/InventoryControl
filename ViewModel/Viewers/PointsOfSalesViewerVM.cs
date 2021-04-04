@@ -1,8 +1,10 @@
 using InventoryControl.Model;
 using Microsoft.Xaml.Behaviors.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace InventoryControl.ViewModel
 {
@@ -34,5 +36,10 @@ namespace InventoryControl.ViewModel
             });
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Action<DataGridRowEditEndingEventArgs> OnRowEditEnded => (e) =>
+        {
+            PointOfSales.Table.Update((PointOfSales)e.Row.Item);
+        };
     }
 }

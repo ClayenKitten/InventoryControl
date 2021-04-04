@@ -19,12 +19,6 @@ namespace InventoryControl.View
                 AddButtonClick();
             };
         }
-
-        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-
-        }
-
         private void AddButtonClick()
         {
             PointOfSales.Table.Create(new PointOfSales
