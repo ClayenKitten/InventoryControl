@@ -83,22 +83,7 @@ namespace InventoryControl.View.Controls
         public string ValidValue { get; set; }
         static DependencyProperty ValidValueProperty =
             DependencyProperty.Register("ValidValue", typeof(string), typeof(AdvancedTextbox),
-            new FrameworkPropertyMetadata("", ValidValueChanged, ValidValueCoerced) { BindsTwoWayByDefault = true });
-        private static void ValidValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
-        private static object ValidValueCoerced(DependencyObject d, object baseValue)
-        {
-            var at = d as AdvancedTextbox;
-            if (at.Validator.Validate(baseValue.ToString()))
-            {
-                return baseValue;
-            }
-            else
-            {
-                return d.GetValue(ValidValueProperty);
-            }
-        }
+            new FrameworkPropertyMetadata("") { BindsTwoWayByDefault = true });
         // Label
         string label; public string Label
         {
