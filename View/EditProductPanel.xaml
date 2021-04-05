@@ -22,7 +22,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <c:AdvancedTextbox x:Name="ArticleAT" Margin="5" Grid.Column="0"
-                                Label="Артикул" ValidValue="{Binding Article}"/>
+                                Label="Артикул" ValidValue="{Binding Article}"
+                                Watermark="{Binding Path=AutoincrementArticle, UpdateSourceTrigger=PropertyChanged, 
+                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=c:ControlPanel}}"/>
                             <c:AdvancedTextbox x:Name="BarcodeAT" Margin="5" Grid.Column="1"
                                 Label="Штрихкод" Watermark="-- НЕ УКАЗАНО --"/>
                         </Grid>

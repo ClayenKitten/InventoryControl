@@ -35,12 +35,12 @@ namespace InventoryControl.View
             Init(productId);
         }
 
-        private string AutoincrementArticle
+        public string AutoincrementArticle
         {
             get
             {
                 int val = 0;
-                var products = Product.Table.ReadAll();
+                var products = Product.Table.ReadAll().Where(x => x.Id != ProductData?.Id).ToList();
                 while (products.Any(x => x.Article == val.ToString()))
                 {
                     val += 1;
@@ -63,7 +63,6 @@ namespace InventoryControl.View
             {
                 ProductData = Product.Table.Read(productId.Value);
             }
-            ArticleAT.Watermark = AutoincrementArticle;
         }
 
         private void FormConfirmed(object sender, RoutedEventArgs e)

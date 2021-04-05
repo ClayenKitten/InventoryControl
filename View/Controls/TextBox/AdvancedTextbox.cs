@@ -206,6 +206,7 @@ namespace InventoryControl.View.Controls
             {
                 SetCurrentValue(ValidValueProperty, GetValue(TextProperty));
             }
+            GetBindingExpression(WatermarkProperty)?.UpdateTarget();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
