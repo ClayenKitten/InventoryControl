@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InventoryControl.Model
 {
@@ -16,9 +17,14 @@ namespace InventoryControl.Model
         public ProductCategory(string value)
         {
             Name = value.Split('/')[value.Split('/').Length - 1].Trim();
-            if (value != Name)
+            if (Name != value)
             {
-                Parent = new ProductCategory(value.Replace($" / {Name}", string.Empty));
+                var Left = value
+                    .Split('/')
+                    .Where(x => x.Trim() != Name)
+                    .Aggregate((x, y) => $"{x}/{y}")
+                    .Trim();
+                Parent = new ProductCategory(Left);
             }
         }
     }
