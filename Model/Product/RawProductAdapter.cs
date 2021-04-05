@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryControl.Model
 {
-    public class RawProductPresenter
+    public class RawProductAdapter
     {
         public readonly Product Product;
 
@@ -52,13 +52,13 @@ namespace InventoryControl.Model
             set => Product.Measurement.Unit = new Unit(value);
         }
 
-        public RawProductPresenter(Product product)
+        public RawProductAdapter(Product product)
         {
             Product = product;
         }
-        public static implicit operator RawProductPresenter(Product productData)
-            => new RawProductPresenter(productData);
-        public static implicit operator Product(RawProductPresenter product)
+        public static implicit operator RawProductAdapter(Product productData)
+            => new RawProductAdapter(productData);
+        public static implicit operator Product(RawProductAdapter product)
             => product.Product;
     }
 }

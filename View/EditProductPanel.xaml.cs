@@ -16,13 +16,13 @@ namespace InventoryControl.View
     /// </summary>
     public partial class EditProductPanel : ControlPanel, INotifyPropertyChanged
     {
-        public RawProductPresenter ProductData
+        public RawProductAdapter ProductData
         {
-            get => (RawProductPresenter)GetValue(ProductDataProperty);
+            get => (RawProductAdapter)GetValue(ProductDataProperty);
             set => SetCurrentValue(ProductDataProperty, value);
         }
         static DependencyProperty ProductDataProperty =
-            DependencyProperty.Register("ProductData", typeof(RawProductPresenter), typeof(EditProductPanel));
+            DependencyProperty.Register("ProductData", typeof(RawProductAdapter), typeof(EditProductPanel));
 
         public List<string> PossibleMeasurments 
         { 
