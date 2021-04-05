@@ -63,7 +63,7 @@ namespace InventoryControl.Model
                 this.Measurement = new Piece((int)unitValue);
 
             this.Article = article;
-            this.Category = new ProductCategory("Молоко и молочные товары / Молоко");
+            this.Category = new ProductCategory(category);
         }
     }
 }
