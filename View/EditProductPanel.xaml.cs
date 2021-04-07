@@ -50,6 +50,10 @@ namespace InventoryControl.View
 
         private void FormConfirmed(object sender, RoutedEventArgs e)
         {
+            if (ProductData.Article.Trim() == "")
+                ProductData.Article = new Product().Article;
+            if (ProductData.Category.Trim() == "")
+                ProductData.Category = "Без категории";
             Product.Table.Update(ProductData);
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();

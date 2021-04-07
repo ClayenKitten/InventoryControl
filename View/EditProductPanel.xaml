@@ -31,7 +31,7 @@
                         <c:AdvancedTextbox Margin="5" ValidValue="{Binding Name}"
                                 Label="Наименование" Validation="None" IsRequired="True"/>
                         <c:AdvancedTextbox Margin="5" ValidValue="{Binding Category}"
-                                Label="Категория" Watermark="-- НЕ УКАЗАНО --"/>
+                                Label="Категория" Watermark="Без категории"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Фасовка" BorderThickness="0">
@@ -40,7 +40,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <c:AdvancedTextbox Margin="5" Grid.Column="0"
+                        <c:AdvancedTextbox Margin="5" Grid.Column="0" Watermark="1"
                             Label="Количество в месте" ValidValue="{Binding Packing}"/>
                         <StackPanel Margin="5" Grid.Column="1">
                             <TextBlock Text="Тип упаковки" Margin="0,0,0,5"/>
@@ -61,12 +61,12 @@
                         </Grid.ColumnDefinitions>
                         <c:AdvancedTextbox x:Name="BuyPriceAT" Margin="5" Grid.Column="0"
                             ValidValue="{Binding PurchasePrice}"
-                            Label="Закупочная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                            Label="Закупочная цена" Validation="Money" Watermark="0.00₽"/>
                         <c:AdvancedTextbox x:Name="SalePriceAT" Margin="5" Grid.Column="1"
                             ValidValue="{Binding SalePrice}"
-                            Label="Продажная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                            Label="Продажная цена" Validation="Money" Watermark="0.00₽"/>
                         <c:AdvancedTextbox x:Name="RetailPriceAT" Margin="5" Grid.Column="2"
-                            Label="Розничная цена" Validation="Money" Watermark="-- НЕ УКАЗАНО --"/>
+                            Label="Розничная цена" Validation="Money" Watermark="0.00₽"/>
                     </Grid>
                 </GroupBox>
             </StackPanel>

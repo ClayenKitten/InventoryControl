@@ -37,7 +37,7 @@ namespace InventoryControl.Model
         public Money SalePrice { get; set; } = new Money(0);
         public IMeasurement Measurement { get; set; } = new Weight(1);
         public string Article { get; set; } = "";
-        public ProductCategory Category { get; set; } = new ProductCategory("");
+        public ProductCategory Category { get; set; } = new ProductCategory("Без категории");
 
         private long manufacturerId { get; set; }
         public Manufacturer Manufacturer
