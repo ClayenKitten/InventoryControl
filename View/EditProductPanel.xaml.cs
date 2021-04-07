@@ -63,19 +63,15 @@ namespace InventoryControl.View
             {
                 ProductData = Product.Table.Read(productId.Value);
             }
+            else
+            {
+                ProductData = new Product();
+            }
         }
 
         private void FormConfirmed(object sender, RoutedEventArgs e)
         {
-            if (ProductData == null)
-            {
-                Product.Table.Create(ProductData);
-            }
-            else
-            {
-                Product.Table.Update(ProductData);
-            }
-
+            Product.Table.Update(ProductData);
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
             PM.OpenProductView.Execute();

@@ -30,12 +30,12 @@ namespace InventoryControl.Model
         );
 
         public long Id { get; set; }
-        public string Name { get; set; }
-        public Money PurchasePrice { get; set; }
-        public Money SalePrice { get; set; }
-        public IMeasurement Measurement { get; set; }
-        public string Article { get; set; }
-        public ProductCategory Category { get; set; }
+        public string Name { get; set; } = "";
+        public Money PurchasePrice { get; set; } = new Money(0);
+        public Money SalePrice { get; set; } = new Money(0);
+        public IMeasurement Measurement { get; set; } = new Weight(1);
+        public string Article { get; set; } = "";
+        public ProductCategory Category { get; set; } = new ProductCategory("");
 
         private long manufacturerId { get; set; }
         public Manufacturer Manufacturer
@@ -43,9 +43,10 @@ namespace InventoryControl.Model
             get => Manufacturer.Table.ReadOr(manufacturerId, new Manufacturer(-1, ""));
             set => manufacturerId = value.Id;
         }
-            
+
 
         //Database-oriented constructor
+        public Product() { }
         public Product(long id, string name,
             int unit, double unitValue,
             double purchasePrice, double salePrice,

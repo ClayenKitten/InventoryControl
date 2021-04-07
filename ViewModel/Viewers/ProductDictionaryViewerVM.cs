@@ -1,4 +1,5 @@
 ﻿using InventoryControl.Model;
+using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -23,6 +24,13 @@ namespace InventoryControl.ViewModel
         {
             GlobalCommands.ModelUpdated.Executed += (_) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content")); };
         }
+
+        public ActionCommand CreateNewProductCommand { get; }
+            = new ActionCommand(() =>
+                {
+                    Product.Table.Create(new Product());
+                    GlobalCommands.ModelUpdated.Execute(null);
+                });
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

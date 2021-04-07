@@ -63,6 +63,12 @@
                     Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}"
                     Style="{StaticResource MahApps.Styles.Button.MetroSquare}"/>
             </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right" Padding="0">
+                <Button Content="Новый" BorderThickness="0"
+                    Margin="15,0" VerticalAlignment="Center"
+                    Style="{StaticResource MahApps.Styles.Button.Flat}"
+                    Command="{Binding CreateNewProductCommand}"/>
+            </StatusBarItem>
         </StatusBar>
     </Grid>
 </c:ControlPanel>
