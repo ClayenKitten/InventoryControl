@@ -29,7 +29,7 @@ namespace InventoryControl.View
             get { return Unit.GetPossibleValues(); } 
         }
 
-        public EditProductPanel(int? productId)
+        public EditProductPanel(long? productId)
         {
             InitializeComponent();
             Init(productId);
@@ -52,12 +52,12 @@ namespace InventoryControl.View
         {
             if (sender is ProductDictionaryViewer)
             {
-                Init((int)message);
+                Init((long)message);
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void Init(int? productId)
+        private void Init(long? productId)
         {
             if (productId.HasValue)
             {
