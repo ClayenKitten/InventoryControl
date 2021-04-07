@@ -25,6 +25,10 @@ namespace InventoryControl.ORM
         {
             if(CLRType == typeof(int))
             {
+                return "INT";
+            }
+            else if (CLRType == typeof(long))
+            {
                 return "INTEGER";
             }
             else if(CLRType == typeof(double) || CLRType == typeof(float) || CLRType == typeof(decimal))
@@ -51,8 +55,10 @@ namespace InventoryControl.ORM
 
         public static SqlType BOOLEAN
             => new SqlType(typeof(bool), "BOOLEAN");
-        public static SqlType INTEGER
-            => new SqlType(typeof(int), "INTEGER");
+        public static SqlType INT
+            => new SqlType(typeof(int), "INT");
+        public static SqlType LONG
+            => new SqlType(typeof(long), "INTEGER");
         public static SqlType REAL
             => new SqlType(typeof(double), "REAL");
         public static SqlType TEXT

@@ -9,15 +9,15 @@ namespace InventoryControl.Model
     public class Transfer : IEntity
     {
         public static JoinTable TransferProducts { get; }
-            = new JoinTable("TransferProducts", typeof(Transfer), typeof(Product), SqlType.INTEGER);
+            = new JoinTable("TransferProducts", typeof(Transfer), typeof(Product), SqlType.INT);
         public static Table<Transfer> Table { get; } = new Table<Transfer>
         (
             new Column<Transfer>("DateTime", SqlType.DATETIME, (x) => x.DateTime,
                 Constraint.NotNull),
-            new Column<Transfer>("Type", SqlType.INTEGER, (x) => (int)x.Type),
-            new Column<Transfer>("TransferSpot1", SqlType.INTEGER, (x) => x.TransferSpot1.Id,
+            new Column<Transfer>("Type", SqlType.INT, (x) => (int)x.Type),
+            new Column<Transfer>("TransferSpot1", SqlType.LONG, (x) => x.TransferSpot1.Id,
                 Constraint.NotNull | Constraint.ForeighnKey("Counterparty")),
-            new Column<Transfer>("TransferSpot2", SqlType.INTEGER, (x) => x.TransferSpot2.Id,
+            new Column<Transfer>("TransferSpot2", SqlType.LONG, (x) => x.TransferSpot2.Id,
                 Constraint.NotNull | Constraint.ForeighnKey("Storage"))
         );
 
@@ -28,7 +28,7 @@ namespace InventoryControl.Model
         public ITransferSpot TransferSpot2 { get; set; }
         public List<TransactionProductPresenter> Products { get; private set; }
 
-        public Transfer(int id, DateTime dateTime, int type, int transferSpot1Id, int transferSpot2Id)
+        public Transfer(long id, DateTime dateTime, int type, long transferSpot1Id, long transferSpot2Id)
         {
             Id = id;
             DateTime = dateTime;

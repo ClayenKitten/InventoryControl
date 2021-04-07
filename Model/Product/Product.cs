@@ -10,7 +10,7 @@ namespace InventoryControl.Model
         (
             new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
-            new Column<Product>("Measurement", SqlType.INTEGER, (x) => x.Measurement.Unit.value,
+            new Column<Product>("Measurement", SqlType.INT, (x) => x.Measurement.Unit.value,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
             new Column<Product>("Packing", SqlType.REAL, (x) => x.Measurement.RawValue,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
@@ -22,9 +22,9 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.Unique),
             new Column<Product>("IsArchived", SqlType.BOOLEAN, (x) => false,
                 Constraint.NotNull | Constraint.DefaultValue(0)),
-            new Column<Product>("SupplierId", SqlType.INTEGER, (x) => "-1",
+            new Column<Product>("SupplierId", SqlType.LONG, (x) => "-1",
                 Constraint.ForeighnKey("Counterparty")),
-            new Column<Product>("ManufacturerId", SqlType.INTEGER, (x) => x.manufacturerId,
+            new Column<Product>("ManufacturerId", SqlType.LONG, (x) => x.manufacturerId,
                 Constraint.ForeighnKey("Manufacturer")),
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
@@ -46,11 +46,11 @@ namespace InventoryControl.Model
             
 
         //Database-oriented constructor
-        public Product(int id, string name,
+        public Product(long id, string name,
             int unit, double unitValue,
             double purchasePrice, double salePrice,
             string article, bool isArchived = false,
-            int supplierId = -1, int manufacturerId = -1, string category = "")
+            long supplierId = -1, long manufacturerId = -1, string category = "")
         {
             this.Id = id;
             this.Name = name;

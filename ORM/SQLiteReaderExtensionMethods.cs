@@ -44,11 +44,7 @@ namespace InventoryControl.ORM
             var objs = new List<object>();
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                if(reader.GetFieldType(i).Name == typeof(long).Name)
-                {
-                    objs.Add((int)(long)reader.GetValue(i));
-                }
-                else if(reader.GetFieldType(i).Name == typeof(string).Name)
+                if(reader.GetFieldType(i).Name == typeof(string).Name)
                 {
                     objs.Add(reader.GetStringOrEmpty(i));
                 }
@@ -61,9 +57,14 @@ namespace InventoryControl.ORM
         }
 
         public static Int32 GetInt32(this SQLiteDataReader reader, string colName)
-            => (int)(long)GetValue<object>(reader, colName);
+            => (int)GetValue<object>(reader, colName);
         public static Int32 GetInt32OrDefault(this SQLiteDataReader reader, string colName, int defaultValue)
-            => (int)(long)GetValueOrDefault<object>(reader, colName, defaultValue);
+            => (int)GetValueOrDefault<object>(reader, colName, defaultValue);
+
+        public static Int64 GetInt64(this SQLiteDataReader reader, string colName)
+            => (long)GetValue<object>(reader, colName);
+        public static Int64 GetInt64OrDefault(this SQLiteDataReader reader, string colName, long defaultValue)
+            => (long)GetValueOrDefault<object>(reader, colName, defaultValue);
 
         public static Double GetDouble(this SQLiteDataReader reader, string colName)
             => (double)GetValue<object>(reader, colName);

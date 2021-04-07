@@ -26,7 +26,7 @@ namespace InventoryControl.Model
                 Constraint.NotNull),
             new Column<Counterparty>("AccountingCode", SqlType.TEXT, (x) => x.AccountingCode),
             new Column<Counterparty>("BankDetails",    SqlType.TEXT, (x) => x.BankDetails),
-            new Column<Counterparty>("Role", SqlType.INTEGER, (x) => x.Role,
+            new Column<Counterparty>("Role", SqlType.INT, (x) => x.Role,
                 Constraint.NotNull | Constraint.DefaultValue(0))
         );
 
@@ -39,7 +39,7 @@ namespace InventoryControl.Model
         public string BankDetails { get; set; }
         public int Role { get; }
 
-        public Counterparty(int id, string name, string address, string contacts, 
+        public Counterparty(long id, string name, string address, string contacts, 
                             string taxpayerNumber, string accountingCode, string bankDetails,
                             int role)
         {

@@ -16,7 +16,7 @@ namespace InventoryControl.Model
         public string Name { get; set; }
         public string Address { get; set; }
 
-        public PointOfSales(int id, string name, string address)
+        public PointOfSales(long id, string name, string address)
         {
             Id = id;
             Name = name;

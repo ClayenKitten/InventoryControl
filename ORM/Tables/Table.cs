@@ -35,7 +35,7 @@ namespace InventoryControl.ORM
         {
             this.InitValues = InitValues;
             Columns = columns.ToList();
-            Columns.Insert(0, new Column<EntityType>("Id", SqlType.INTEGER, (x) => x.Id, Constraint.PrimaryKey));
+            Columns.Insert(0, new Column<EntityType>("Id", SqlType.LONG, (x) => x.Id, Constraint.PrimaryKey));
         }
         public Table(params Column<EntityType>[] columns)
             : this(new List<EntityType>(), columns) { }

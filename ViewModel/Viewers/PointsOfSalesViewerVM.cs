@@ -31,7 +31,7 @@ namespace InventoryControl.ViewModel
                 {
                     return;
                 }
-                PointOfSales.Table.TryDelete((int)x);
+                PointOfSales.Table.TryDelete((long)x);
                 GlobalCommands.ModelUpdated.Execute(null);
             });
 

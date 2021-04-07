@@ -12,7 +12,7 @@ namespace InventoryControl.Model
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public Manufacturer(int id, string name)
+        public Manufacturer(long id, string name)
         {
             Id = id;
             Name = name;
