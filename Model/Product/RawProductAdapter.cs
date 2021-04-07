@@ -26,11 +26,6 @@ namespace InventoryControl.Model
             get => Product.Category.FullPath;
             set => Product.Category = new ProductCategory(value);
         }
-        public long Manufacturer
-        {
-            get => Product.Manufacturer.Id;
-            set => Product.Manufacturer = Model.Manufacturer.Table.Read(value);
-        }
         public double PurchasePrice
         {
             get => Product.PurchasePrice.RawValue;

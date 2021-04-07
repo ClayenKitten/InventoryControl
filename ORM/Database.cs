@@ -15,7 +15,6 @@ namespace InventoryControl.ORM
             Storage.Table,
             Transfer.Table,
             Counterparty.Table,
-            Manufacturer.Table,
             PointOfSales.Table,
             Transfer.TransferProducts,
         };

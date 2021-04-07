@@ -48,7 +48,6 @@
                 <c:HighlightColumn Header="Наименование" MinWidth="100" Width="8*" CanUserReorder="False" SortMemberPath="Name"
                     Binding="{Binding Name}" HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
                 <DataGridTextColumn Header="Категория" MinWidth="50" Width="4*" Binding="{Binding Category}"/>
-                <DataGridTextColumn Header="Производитель" MinWidth="50" Width="4*" Binding="{Binding Manufacturer}"/>
                 <DataGridTextColumn Header="Кол" MinWidth="50" Width="1*" Binding="{Binding Packing}"/>
                 <DataGridTextColumn Header="Ед" MinWidth="50" Width="1*" Binding="{Binding Measurement}"/>
                 <DataGridTextColumn Header="Закуп. цена" MinWidth="100" Width="2*" Binding="{Binding PurchasePrice}"/>

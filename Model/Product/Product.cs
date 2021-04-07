@@ -22,12 +22,6 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.DefaultValue(0.0)),
             new Column<Product>("Article", SqlType.TEXT, (x) => x.Article.ToString(),
                 Constraint.NotNull | Constraint.Unique),
-            new Column<Product>("IsArchived", SqlType.BOOLEAN, (x) => false,
-                Constraint.NotNull | Constraint.DefaultValue(0)),
-            new Column<Product>("SupplierId", SqlType.LONG, (x) => "-1",
-                Constraint.ForeighnKey("Counterparty")),
-            new Column<Product>("ManufacturerId", SqlType.LONG, (x) => x.manufacturerId,
-                Constraint.ForeighnKey("Manufacturer")),
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
 
@@ -38,14 +32,6 @@ namespace InventoryControl.Model
         public IMeasurement Measurement { get; set; } = new Weight(1);
         public string Article { get; set; } = "";
         public ProductCategory Category { get; set; } = new ProductCategory("Без категории");
-
-        private long manufacturerId { get; set; }
-        public Manufacturer Manufacturer
-        {
-            get => Manufacturer.Table.ReadOr(manufacturerId, new Manufacturer(-1, ""));
-            set => manufacturerId = value.Id;
-        }
-
 
         //Database-oriented constructor
         public Product()
@@ -61,8 +47,7 @@ namespace InventoryControl.Model
         public Product(long id, string name,
             int unit, double unitValue,
             double purchasePrice, double salePrice,
-            string article, bool isArchived = false,
-            long supplierId = -1, long manufacturerId = -1, string category = "")
+            string article, string category = "")
         {
             this.Id = id;
             this.Name = name;

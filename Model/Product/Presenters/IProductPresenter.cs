@@ -4,7 +4,6 @@
     {
         public string Name { get; }
         public string Category { get; }
-        public string Manufacturer { get; }
         public string PurchasePrice { get; }
         public string SalePrice { get; }
         public string Measurement { get; }

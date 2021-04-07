@@ -46,7 +46,6 @@
             <Separator/>
             <MenuItem Header="Поставщики" Icon="{iconPacks:FontAwesome Kind=TruckLoadingSolid}" Command="{Binding OpenSuppliers}"/>
             <MenuItem Header="Покупатели" Icon="{iconPacks:Material Kind=TruckDelivery}" Command="{Binding OpenPurchasers}"/>
-            <MenuItem Header="Производители" Icon="{iconPacks:Material Kind=Factory}" Command="{Binding OpenManufacturers}"/>
             <Separator/>
             <MenuItem Header="Точки сбыта" Icon="{iconPacks:Material Kind=PointOfSale}" Command="{Binding OpenPointsOfSales}"/>
         </MenuItem>
