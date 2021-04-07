@@ -10,31 +10,21 @@ namespace InventoryControl.Model
             = new JoinTable("ProductsNumber", typeof(Product), typeof(Storage), SqlType.INT);
         public static Table<Storage> Table { get; } = new Table<Storage>
         (
-            new List<Storage>() { new Storage(0, "Стандартный склад", "", 0) },
+            new List<Storage>() { new Storage(0, "Стандартный склад", "") },
             new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),
-            new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address),
-            new Column<Storage>("OwnerId", SqlType.LONG, (x) => x.ownerId,
-                Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
+            new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address)
         );
 
         public long Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-
-        private long ownerId;
-        public Counterparty Owner
-        {
-            get => CounterpartyMapper.Get(ownerId);
-            set => ownerId = value.Id;
-        }
-        
-        public Storage(long id, string name, string address, long ownerId)
+                
+        public Storage(long id, string name, string address)
         {
             this.Id = id;
             this.Name = name;
             this.Address = address;
-            this.ownerId = ownerId;
         }
     }
 }
