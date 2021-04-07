@@ -60,8 +60,6 @@ namespace InventoryControl.ORM
             return objs.ToArray();
         }
 
-        public static Int32 GetInt32Safe(this SQLiteDataReader reader, int i)
-            => (int)(long)reader.GetValue(i);
         public static Int32 GetInt32(this SQLiteDataReader reader, string colName)
             => (int)(long)GetValue<object>(reader, colName);
         public static Int32 GetInt32OrDefault(this SQLiteDataReader reader, string colName, int defaultValue)
