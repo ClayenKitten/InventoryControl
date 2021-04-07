@@ -10,13 +10,13 @@ namespace InventoryControl.Model
             => Storage.Table.Create(storage);
         public static void Update(Storage storage)
             => Storage.Table.Update(storage);
-        public static Storage Read(int id)
+        public static Storage Read(long id)
             => Storage.Table.Read(id);
 
         public static List<Storage> GetAllStorages()
             => (List<Storage>)Storage.Table.ReadAll();
 
-        public static int GetProductAmount(int productId, int storageId)
+        public static int GetProductAmount(long productId, long storageId)
         {
             var s = Storage.Table.ReadAll();
             object num = Storage.ProductsNumberTable.Read(productId, storageId);

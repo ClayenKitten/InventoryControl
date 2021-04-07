@@ -18,11 +18,11 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.ForeighnKey("Counterparty"))
         );
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
 
-        private int ownerId;
+        private long ownerId;
         public Counterparty Owner
         {
             get => CounterpartyMapper.Get(ownerId);

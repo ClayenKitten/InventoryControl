@@ -2,7 +2,7 @@
 {
     public class StockProductPresenter : ProductPresenter, INamed
     {
-        private readonly int storageId;
+        private readonly long storageId;
 
         public int Remain
         {
@@ -16,7 +16,7 @@
             get { return Remain > 0; }
         }
 
-        public StockProductPresenter(Product product, int storageId) : base(product)
+        public StockProductPresenter(Product product, long storageId) : base(product)
         {
             this.storageId = storageId;
         }

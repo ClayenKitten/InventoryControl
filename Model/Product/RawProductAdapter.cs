@@ -10,7 +10,7 @@ namespace InventoryControl.Model
     {
         public readonly Product Product;
 
-        public int Id { get { return Product.Id; } }
+        public long Id { get { return Product.Id; } }
         public string Article
         {
             get => Product.Article;
@@ -26,7 +26,7 @@ namespace InventoryControl.Model
             get => Product.Category.FullPath;
             set => Product.Category = new ProductCategory(value);
         }
-        public int Manufacturer
+        public long Manufacturer
         {
             get => Product.Manufacturer.Id;
             set => Product.Manufacturer = Model.Manufacturer.Table.Read(value);

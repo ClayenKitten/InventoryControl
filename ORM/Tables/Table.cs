@@ -79,7 +79,7 @@ namespace InventoryControl.ORM
             command.Parameters.AddRange(parameters);
             command.ExecuteScalar();
         }
-        public EntityType Read(int id)
+        public EntityType Read(long id)
         {
             var commandText = $"SELECT * FROM {Name} WHERE Id=$id";
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
@@ -95,11 +95,11 @@ namespace InventoryControl.ORM
                 throw new ArgumentOutOfRangeException($"Record of {typeof(EntityType).Name} with id {id} not found!");
             }
         }
-        public EntityType ReadOr(int id, EntityType or)
+        public EntityType ReadOr(long id, EntityType or)
         {
             return Exists(id) ? Read(id) : or;
         }
-        public bool Exists(int id)
+        public bool Exists(long id)
         {
             var commandText = $"SELECT COUNT(1) FROM {Name} WHERE Id=$id;";
             long res = (long)Database.CommitScalarTransaction(commandText, new SQLiteParameter("$id", id));
@@ -123,7 +123,7 @@ namespace InventoryControl.ORM
             }
             return res;
         }
-        public bool TryDelete(int id)
+        public bool TryDelete(long id)
         {
             try
             {

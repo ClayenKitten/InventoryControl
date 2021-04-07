@@ -29,7 +29,7 @@ namespace InventoryControl.Model
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public Money PurchasePrice { get; set; }
         public Money SalePrice { get; set; }
@@ -37,7 +37,7 @@ namespace InventoryControl.Model
         public string Article { get; set; }
         public ProductCategory Category { get; set; }
 
-        private int manufacturerId { get; set; }
+        private long manufacturerId { get; set; }
         public Manufacturer Manufacturer
         {
             get => Manufacturer.Table.ReadOr(manufacturerId, new Manufacturer(-1, ""));

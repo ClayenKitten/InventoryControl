@@ -9,7 +9,7 @@ namespace InventoryControl.Model
 {
     public class CounterpartyMapper
     {
-        public static Counterparty Get(int id)
+        public static Counterparty Get(long id)
             => Counterparty.Table.Read(id);
         public static List<String> GetPurchasersNames()
             => GetAll().Select(x => x.Name).ToList();

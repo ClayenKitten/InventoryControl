@@ -28,21 +28,21 @@ namespace InventoryControl.ORM
             }
         }
 
-        public void Create(int firstId, int secondId, object value)
+        public void Create(long firstId, long secondId, object value)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
             var commandText = $"INSERT INTO {Name} ({fname}Id, {sname}Id, Value) VALUES ({firstId}, {secondId}, $value);";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
-        public void Update(int firstId, int secondId, object value)
+        public void Update(long firstId, long secondId, object value)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
             var commandText = $"UPDATE {Name} SET Value=$value WHERE {fname}Id={firstId} AND {sname}Id={secondId};";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
-        public object Read(int firstId, int secondId)
+        public object Read(long firstId, long secondId)
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
@@ -55,20 +55,20 @@ namespace InventoryControl.ORM
                 new SQLiteParameter("$secondId", secondId)
             );
         }
-        public IList<Tuple<int, int, object>> ReadAll()
+        public IList<Tuple<long, long, object>> ReadAll()
         {
             var fname = firstType.Name;
             var sname = secondType.Name;
             var commandText = $"SELECT * FROM {Name};";
             var rdr = Database.CommitReaderTransaction(commandText);
 
-            List<Tuple<int, int, object>> res = new List<Tuple<int, int, object>>();
+            List<Tuple<long, long, object>> res = new List<Tuple<long, long, object>>();
             while(rdr.Read())
             {
-                int id1 = rdr.GetInt32Safe(0);
-                int id2 = rdr.GetInt32Safe(1);
+                long id1 = rdr.GetInt64(0);
+                long id2 = rdr.GetInt64(1);
                 var val = rdr.GetValue(2);
-                res.Add(new Tuple<int, int, object>(id1, id2, val));
+                res.Add(new Tuple<long, long, object>(id1, id2, val));
             }
             return res;
         }

@@ -21,7 +21,7 @@ namespace InventoryControl.Model
                 Constraint.NotNull | Constraint.ForeighnKey("Storage"))
         );
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public DateTime DateTime { get; set; }
         public TransferType Type { get; set; }
         public ITransferSpot TransferSpot1 { get; set; }

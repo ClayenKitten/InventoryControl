@@ -9,7 +9,7 @@ namespace InventoryControl.Model
             new Column<Manufacturer>("Name", SqlType.TEXT, (x) => x.Name)
         );
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
 
         public Manufacturer(int id, string name)

@@ -9,7 +9,7 @@ namespace InventoryControl.ViewModel
 {
     public class StorageViewerVM : INotifyPropertyChanged, IDisposable
     {
-        public int StorageId { get; set; }
+        public long StorageId { get; set; }
         private ViewOptions options = new ViewOptions();
         public ViewOptions Options
         {
