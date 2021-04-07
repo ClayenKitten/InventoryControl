@@ -372,6 +372,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Counterparty\Counterparty.cs" />
+    <Compile Include="Model\Counterparty\ValueTypes\OrganizationalForm.cs" />
     <Compile Include="Model\Product\RawProductAdapter.cs" />
     <Compile Include="Model\Transfer\ITransferSpot.cs" />
     <Compile Include="ORM\Constraints\ForeighnKeyConstraint.cs" />
