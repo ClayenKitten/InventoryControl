@@ -61,7 +61,7 @@ namespace InventoryControl.ORM
 
             var command = new SQLiteCommand(commandText, Database.Connect());
             command.Parameters.AddRange(parameters);
-            item.Id = (int)(long)command.ExecuteScalar();
+            item.Id = (long)command.ExecuteScalar();
             return item;
         }
         public void Update(EntityType item)

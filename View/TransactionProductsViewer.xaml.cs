@@ -34,7 +34,7 @@ namespace InventoryControl.View
         {
             if (sender is StorageViewer || sender is ProductDictionaryViewer)
             {
-                ((TransactionProductsViewerVM)DataContext).AddProduct((int)message);
+                ((TransactionProductsViewerVM)DataContext).AddProduct((long)message);
             }
         }
 

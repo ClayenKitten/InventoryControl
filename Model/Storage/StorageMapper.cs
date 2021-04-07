@@ -26,7 +26,7 @@ namespace InventoryControl.Model
             }
             else
             {
-                return (int)(long)num;
+                return (int)num;
             }
         }
     }

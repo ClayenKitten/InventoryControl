@@ -56,7 +56,7 @@ namespace InventoryControl.Model
 
             Products = TransferProducts.ReadAll()
                         .Where(x => x.Item1 == Id)
-                        .Select(x => new TransactionProductPresenter(Product.Table.Read(x.Item2), (int)(long)x.Item3))
+                        .Select(x => new TransactionProductPresenter(Product.Table.Read(x.Item2), (int)x.Item3))
                         .ToList();
         }
         public Transfer(

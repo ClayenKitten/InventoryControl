@@ -151,7 +151,7 @@ namespace InventoryControl.ViewModel
                 pm.OpenStorageView.Execute();
             };
         }
-        public void AddProduct(int id)
+        public void AddProduct(long id)
         {
             foreach (var product in Content)
             {
