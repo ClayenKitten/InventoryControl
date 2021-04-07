@@ -52,9 +52,17 @@ namespace InventoryControl.Model
             set => Product.Measurement.Unit = new Unit(value);
         }
 
+        public RawProductAdapter() : this(null) { }
         public RawProductAdapter(Product product)
         {
-            Product = product;
+            if (product is null)
+            {
+                Product = new Product();
+            }
+            else
+            {
+                Product = product;
+            }
         }
         public static implicit operator RawProductAdapter(Product productData)
             => new RawProductAdapter(productData);

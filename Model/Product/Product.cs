@@ -1,6 +1,8 @@
 ﻿using InventoryControl.ORM;
 using InventoryControl.Util;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InventoryControl.Model
 {
@@ -46,7 +48,16 @@ namespace InventoryControl.Model
 
 
         //Database-oriented constructor
-        public Product() { }
+        public Product()
+        {
+            int val = 0;
+            var products = Table.ReadAll();
+            while (products.Any(x => x.Article == val.ToString()))
+            {
+                val += 1;
+            }
+            Article = val.ToString();
+        }
         public Product(long id, string name,
             int unit, double unitValue,
             double purchasePrice, double salePrice,

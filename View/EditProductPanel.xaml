@@ -29,7 +29,7 @@
                                 Label="Штрихкод" Watermark="-- НЕ УКАЗАНО --"/>
                         </Grid>
                         <c:AdvancedTextbox Margin="5" ValidValue="{Binding Name}"
-                                Label="Наименование" Validation="None"/>
+                                Label="Наименование" Validation="None" IsRequired="True"/>
                         <c:AdvancedTextbox Margin="5" ValidValue="{Binding Category}"
                                 Label="Категория" Watermark="-- НЕ УКАЗАНО --"/>
                     </StackPanel>

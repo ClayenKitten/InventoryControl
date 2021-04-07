@@ -29,24 +29,10 @@ namespace InventoryControl.View
             get { return Unit.GetPossibleValues(); } 
         }
 
-        public EditProductPanel(long? productId)
+        public EditProductPanel(long productId)
         {
             InitializeComponent();
             Init(productId);
-        }
-
-        public string AutoincrementArticle
-        {
-            get
-            {
-                int val = 0;
-                var products = Product.Table.ReadAll().Where(x => x.Id != ProductData?.Id).ToList();
-                while (products.Any(x => x.Article == val.ToString()))
-                {
-                    val += 1;
-                }
-                return val.ToString();
-            }
         }
         public override void ReceiveMessage(object sender, object message)
         {
@@ -57,16 +43,9 @@ namespace InventoryControl.View
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void Init(long? productId)
+        private void Init(long productId)
         {
-            if (productId.HasValue)
-            {
-                ProductData = Product.Table.Read(productId.Value);
-            }
-            else
-            {
-                ProductData = new Product();
-            }
+            ProductData = Product.Table.ReadOr(productId, null);
         }
 
         private void FormConfirmed(object sender, RoutedEventArgs e)
