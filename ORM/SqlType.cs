@@ -15,6 +15,11 @@ namespace InventoryControl.ORM
             UnderlyingType = underlyingType;
             StringRepresentation = stringRepresentation;
         }
+        public SqlType(Type type)
+        {
+            StringRepresentation = ToSqlType(type);
+            UnderlyingType = type;
+        }
 
         public static string ToSqlType(Type CLRType)
         {
