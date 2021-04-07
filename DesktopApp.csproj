@@ -431,6 +431,9 @@
     <Compile Include="View\Controls\TextBox\InlineValidatingTextBox.cs" />
     <Compile Include="View\Controls\TextBox\IValidatable.cs" />
     <Compile Include="View\Controls\TextBox\WatermarkTextboxAdorner.cs" />
+    <Compile Include="View\EditOrganizationPanel.xaml.cs">
+      <DependentUpon>EditOrganizationPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CounterpartyViewer.xaml.cs">
       <DependentUpon>CounterpartyViewer.xaml</DependentUpon>
     </Compile>
@@ -464,6 +467,10 @@
       <DependentUpon>TransactionProductsViewer.xaml</DependentUpon>
     </Compile>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\EditOrganizationPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

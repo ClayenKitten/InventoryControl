@@ -101,13 +101,26 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        public OpenPanelCommand OpenManagedOrg
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new SingleControlPanelContainer(new EditOrganizationPanel());
+                });
+            }
+        }
         public OpenPanelCommand OpenSuppliers
         {
             get
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new SingleControlPanelContainer(new CounterpartyViewer(false));
+                    return new DualControlPanelContainer(
+                        new CounterpartyViewer(false),
+                        new EditOrganizationPanel(),
+                        0.5f);
                 });
             }
         }
@@ -117,7 +130,10 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new SingleControlPanelContainer(new CounterpartyViewer(true));
+                    return new DualControlPanelContainer(
+                        new CounterpartyViewer(true),
+                        new EditOrganizationPanel(),
+                        0.5f);
                 });
             }
         }
