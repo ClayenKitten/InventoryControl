@@ -96,7 +96,7 @@ namespace InventoryControl.ViewModel
             );
         }
         // Grouping
-        private string group;
+        private string group = "";
         public string Group
         {
             get
