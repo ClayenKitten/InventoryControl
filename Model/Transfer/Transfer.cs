@@ -10,7 +10,7 @@ namespace InventoryControl.Model
     {
         public static JoinTable TransferProducts { get; }
             = new JoinTable("TransferProducts", typeof(Transfer), typeof(Product), SqlType.INT);
-        public static Table<Transfer> Table { get; } = new Table<Transfer>
+        public static ConstructorEntityTable<Transfer> Table { get; } = new ConstructorEntityTable<Transfer>
         (
             new Column<Transfer>("DateTime", SqlType.DATETIME, (x) => x.DateTime,
                 Constraint.NotNull),

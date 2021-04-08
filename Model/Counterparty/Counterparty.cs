@@ -10,47 +10,59 @@ namespace InventoryControl.Model
 {
     public class Counterparty : IEntity, INamed, ITransferSpot
     {
-        public static Table<Counterparty> Table { get; } = new Table<Counterparty>
+        public static PropertyEntityTable<Counterparty> Table { get; } = new PropertyEntityTable<Counterparty>
         (
             new List<Counterparty>()
             {
-                new Counterparty(0, "Управляемая организация", "", "", "", "", "", -1)
+                new Counterparty()
+                {
+                    Id = 0,
+                    Name = "Управляемая организация",
+                    Role = -1,
+                }
             },
-            new Column<Counterparty>("Name",           SqlType.TEXT, (x) => x.Name,
-                Constraint.NotNull),
-            new Column<Counterparty>("Address",        SqlType.TEXT, (x) => x.Address,
-                Constraint.NotNull),
-            new Column<Counterparty>("Contacts",       SqlType.TEXT, (x) => x.Contacts,
-                Constraint.NotNull),
-            new Column<Counterparty>("TaxpayerNumber", SqlType.TEXT, (x) => x.TaxpayerNumber,
-                Constraint.NotNull),
-            new Column<Counterparty>("AccountingCode", SqlType.TEXT, (x) => x.AccountingCode),
-            new Column<Counterparty>("BankDetails",    SqlType.TEXT, (x) => x.BankDetails),
-            new Column<Counterparty>("Role", SqlType.INT, (x) => x.Role,
-                Constraint.NotNull | Constraint.DefaultValue(0))
+            // Main
+            new PropertyColumn<Counterparty, string>("FullName"),
+            new PropertyColumn<Counterparty, string>("Name"),
+            new PropertyColumn<Counterparty, string>("LegalAddress"),
+            new PropertyColumn<Counterparty, string>("ActualAddress"),
+            // Contacts
+            new PropertyColumn<Counterparty, string>("Phone"),
+            new PropertyColumn<Counterparty, string>("Fax"),
+            new PropertyColumn<Counterparty, string>("Email"),
+            new PropertyColumn<Counterparty, string>("Website"),
+            // Legal
+            new PropertyColumn<Counterparty, string>("MSRN"),
+            new PropertyColumn<Counterparty, string>("TIN"),
+            new PropertyColumn<Counterparty, string>("CRR"),
+            // Banking
+            new PropertyColumn<Counterparty, string>("BIC"),
+            new PropertyColumn<Counterparty, string>("PaymentAccount"),
+            new PropertyColumn<Counterparty, string>("CorrespondentAccount"),
+            new PropertyColumn<Counterparty, int>("Role", Constraint.NotNull | Constraint.DefaultValue(0))
         );
 
         public long Id { get; set; }
+        
+        public string FullName { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string Contacts { get; set; }
-        public string TaxpayerNumber { get; set; }
-        public string AccountingCode { get; set; }
-        public string BankDetails { get; set; }
-        public int Role { get; }
+        public string LegalAddress { get; set; }
+        public string ActualAddress { get; set; }
 
-        public Counterparty(long id, string name, string address, string contacts, 
-                            string taxpayerNumber, string accountingCode, string bankDetails,
-                            int role)
-        {
-            Id = id;
-            Name = name;
-            Address = address;
-            Contacts = contacts;
-            TaxpayerNumber = taxpayerNumber;
-            AccountingCode = accountingCode;
-            BankDetails = bankDetails;
-            Role = role;
-        }
+        public string Phone { get; set; }
+        public string Fax { get; set; }
+        public string Email { get; set; }
+        public string Website { get; set; }
+
+        public string MSRN { get; set; } // ОГРН
+        public string TIN { get; set; } // ИНН
+        public string CRR { get; set; } // КПП
+        public string BIC { get; set; } // БИК
+        public string PaymentAccount { get; set; } // Р/С
+        public string CorrespondentAccount { get; set; } // К/С
+
+        public int Role { get; set; }
+
+        public Counterparty() {}
     }
 }

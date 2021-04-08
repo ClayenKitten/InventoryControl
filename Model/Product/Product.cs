@@ -8,7 +8,7 @@ namespace InventoryControl.Model
 {
     public class Product : IEntity, INamed
     {
-        public static Table<Product> Table { get; } = new Table<Product>
+        public static ConstructorEntityTable<Product> Table { get; } = new ConstructorEntityTable<Product>
         (
             new Column<Product>("Name", SqlType.TEXT, (x) => x.Name,
                 Constraint.NotNull),

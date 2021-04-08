@@ -8,7 +8,7 @@ namespace InventoryControl.Model
     {
         public static JoinTable ProductsNumberTable { get; }
             = new JoinTable("ProductsNumber", typeof(Product), typeof(Storage), SqlType.INT);
-        public static Table<Storage> Table { get; } = new Table<Storage>
+        public static ConstructorEntityTable<Storage> Table { get; } = new ConstructorEntityTable<Storage>
         (
             new List<Storage>() { new Storage(0, "Стандартный склад", "") },
             new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,

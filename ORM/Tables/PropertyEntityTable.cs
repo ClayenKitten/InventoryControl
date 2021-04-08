@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 
 namespace InventoryControl.ORM
 {
-    public class Table<EntityType> : TableBase where EntityType : IEntity
+    public class PropertyEntityTable<EntityType> : TableBase where EntityType : IEntity
     {
         public override string Name
             => typeof(EntityType).Name;
-        public IList<Column<EntityType>> Columns { get; }
+        public IList<IColumn<EntityType>> Columns { get; }
         protected override string CreationString
         {
             get
@@ -31,13 +31,13 @@ namespace InventoryControl.ORM
         /// Creates new table
         /// </summary>
         /// <param name="columns">List of columns table consists of</param>
-        public Table(IList<EntityType> InitValues, params Column<EntityType>[] columns)
+        public PropertyEntityTable(IList<EntityType> InitValues, params IColumn<EntityType>[] columns)
         {
             this.InitValues = InitValues;
             Columns = columns.ToList();
-            Columns.Insert(0, new Column<EntityType>("Id", SqlType.LONG, (x) => x.Id, Constraint.PrimaryKey));
+            Columns.Insert(0, new PropertyColumn<EntityType, long>("Id", Constraint.PrimaryKey));
         }
-        public Table(params Column<EntityType>[] columns)
+        public PropertyEntityTable(params IColumn<EntityType>[] columns)
             : this(new List<EntityType>(), columns) { }
 
         public EntityType Create(EntityType item)
@@ -85,10 +85,14 @@ namespace InventoryControl.ORM
             using var rdr = Database.CommitReaderTransaction(commandText, new SQLiteParameter("$id", id));
             if (rdr.Read())
             {
-                return (EntityType)typeof(EntityType)
-                    .GetConstructor(Columns.Select((x) => x.Type.UnderlyingType)
-                    .ToArray())
-                    .Invoke(rdr.GetAllValues());
+                var instance = (EntityType)typeof(EntityType)
+                    .GetConstructor(new Type[0])
+                    .Invoke(new object[0]);
+                for (int i = 0; i < Columns.Count; i++)
+                {
+                    Columns[i].SetValue(instance, rdr.GetValue(i));
+                }
+                return instance;
             }
             else
             {
@@ -113,13 +117,14 @@ namespace InventoryControl.ORM
             List<EntityType> res = new List<EntityType>();
             while(rdr.Read())
             {
-                res.Add
-                (
-                    (EntityType)typeof(EntityType)
-                    .GetConstructor(Columns.Select((x) => x.Type.UnderlyingType)
-                    .ToArray())
-                    .Invoke(rdr.GetAllValues())
-                );
+                var instance = (EntityType)typeof(EntityType)
+                    .GetConstructor(new Type[0])
+                    .Invoke(new object[0]);
+                for (int i = 0; i < Columns.Count; i++)
+                {
+                    Columns[i].SetValue(instance, rdr.GetValue(i));
+                }
+                res.Add(instance);
             }
             return res;
         }
