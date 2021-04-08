@@ -26,18 +26,21 @@
             <!--Cell-->
             <Style TargetType="DataGridCell" x:Key="DataGridCellDefaultStyle" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
                 <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0.1">
-                                    <Grid Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" />
-                                    </Grid>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0.1">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="RightAlignedCell" TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellDefaultStyle}">
+                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+            </Style>
             <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellDefaultStyle}"/>
         </ResourceDictionary>
     </Application.Resources>
