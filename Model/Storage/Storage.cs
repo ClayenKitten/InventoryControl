@@ -8,18 +8,18 @@ namespace InventoryControl.Model
     {
         public static JoinTable ProductsNumberTable { get; }
             = new JoinTable("ProductsNumber", typeof(Product), typeof(Storage), SqlType.INT);
-        public static ConstructorEntityTable<Storage> Table { get; } = new ConstructorEntityTable<Storage>
+        public static PropertyEntityTable<Storage> Table { get; } = new PropertyEntityTable<Storage>
         (
             new List<Storage>() { new Storage(0, "Стандартный склад", "") },
-            new Column<Storage>("Name", SqlType.TEXT, (x) => x.Name,
-                Constraint.NotNull),
-            new Column<Storage>("Address", SqlType.TEXT, (x) => x.Address)
+            new PropertyColumn<Storage, string>("Name"),
+            new PropertyColumn<Storage, string>("Address")
         );
 
         public long Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-                
+        
+        public Storage() { }
         public Storage(long id, string name, string address)
         {
             this.Id = id;
