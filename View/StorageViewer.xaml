@@ -57,20 +57,10 @@
             Grid.ColumnSpan="2" Grid.Row="1" SelectedValue="{Binding SelectedProduct}"
             
             RowClicked="MainDataGrid_RowClicked" HeaderClicked="MainDataGrid_HeaderClicked"
-            GroupingPropertyPath="{Binding GroupingPropertyPath}" Options="{Binding Options, UpdateSourceTrigger=Explicit}">
+            Options="{Binding Options, UpdateSourceTrigger=Explicit}">
             <DataGrid.Resources>
                 <Style x:Key="GroupItemStyle" TargetType="{x:Type GroupItem}">
                     <Style.Triggers>
-                        <!--InStock-->
-                        <DataTrigger Binding="{Binding Name}" Value="True">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <ItemsPresenter />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
                         <!--Grouped OutOfStock-->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -96,6 +86,23 @@
                             </Setter>
                         </MultiDataTrigger>
                     </Style.Triggers>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                <StackPanel>
+                                    <Border BorderBrush="{StaticResource BorderColor}" 
+                                                    BorderThickness="0, 0.1, 0, 0.1">
+                                        <TextBlock Text='{Binding Name}'
+                                                    FontSize="15" FontWeight="Light"
+                                                    Padding="8,4,0,4"
+                                                    Foreground="{StaticResource MahApps.Brushes.Text}"
+                                                    Background="{StaticResource MahApps.Brushes.Gray10}"    />
+                                    </Border>
+                                    <ItemsPresenter />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
                 <Style TargetType="Button" x:Key="ControllingButton" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
                     <Setter Property="BorderThickness" Value="0.1"/>

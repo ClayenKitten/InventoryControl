@@ -30,7 +30,7 @@ namespace InventoryControl.View.Controls
         {
             foreach (var clicked in radioGroups)
             {
-                clicked.Item2.Checked += (_, _1) =>
+                clicked.Item2.Click += (_, _1) =>
                 {
                     if (!clicked.Item2.IsChecked)
                     {

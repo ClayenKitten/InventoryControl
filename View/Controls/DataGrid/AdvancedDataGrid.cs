@@ -28,12 +28,6 @@ namespace InventoryControl.View.Controls
             typeof(string), typeof(AdvancedDataGrid),
             new PropertyMetadata(""));
 
-        public string GroupingPropertyPath { get; set; }
-        public static DependencyProperty GroupingPropertyPathProperty =
-            DependencyProperty.Register("GroupingPropertyPath",
-            typeof(string), typeof(AdvancedDataGrid),
-            new PropertyMetadata(""));
-
         public string EmptyHint { get; set; }
         public static DependencyProperty EmptyHintProperty =
             DependencyProperty.Register("EmptyHint",
@@ -103,13 +97,13 @@ namespace InventoryControl.View.Controls
             {
                 Items.Filter = Items.Filter;
             }
-            if (e.Property == GroupingPropertyPathProperty && (string)e.NewValue != "")
-            {
-                Items.GroupDescriptions.Remove(new PropertyGroupDescription((string)e.OldValue));
-                Items.GroupDescriptions.Add(new PropertyGroupDescription((string)e.NewValue));
-            }
             if (e.Property == OptionsProperty)
             {
+                Items.GroupDescriptions.Clear();
+                if (((ViewOptions)e.NewValue).Group != "")
+                {
+                    Items.GroupDescriptions.Add(new PropertyGroupDescription(((ViewOptions)e.NewValue).Group));
+                }
                 foreach (var column in Columns)
                 {
                     if (column is DataGridBoundColumn)

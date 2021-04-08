@@ -10,7 +10,6 @@ namespace InventoryControl.ViewModel
     public class ViewOptions
     {
         private HashSet<Tuple<string, object>> Filters { get; } = new HashSet<Tuple<string, object>>();
-        private HashSet<string> Groupings { get; } = new HashSet<string>();
 
         // Limiting control over filtering and grouping from GUI
         private bool hideFilteringSettings = false;
@@ -96,35 +95,19 @@ namespace InventoryControl.ViewModel
                 }
             );
         }
-        // Grouping methods
-        public void AddGroup(string propertyPath)
+        // Grouping
+        private string group;
+        public string Group
         {
-            if (Groupings.Add(propertyPath))
+            get
             {
+                return group;
+            }
+            set
+            {
+                group = value;
                 Update();
             }
-        }
-        public void RemoveGroup(string propertyPath)
-        {
-            if (Groupings.Remove(propertyPath))
-            {
-                Update();
-            }
-        }
-        public void SetGroup(bool enabled, string propertyPath)
-        {
-            if (enabled)
-            {
-                AddGroup(propertyPath);
-            }
-            else
-            {
-                RemoveGroup(propertyPath);
-            }
-        }
-        public bool DoesGroup(string propertyPath)
-        {
-            return Groupings.Contains(propertyPath);
         }
         // Column visibility
         private HashSet<string> CollapsedColumns { get; } = new HashSet<string>();
@@ -164,7 +147,7 @@ namespace InventoryControl.ViewModel
             this.hideGroupingSettings = viewOptions.HideGroupingSettings;
             this.CollapsedColumns = viewOptions.CollapsedColumns;
             this.Filters = viewOptions.Filters;
-            this.Groupings = viewOptions.Groupings;
+            this.group = viewOptions.group;
         }
         public ViewOptions()
         {

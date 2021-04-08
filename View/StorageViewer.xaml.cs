@@ -44,11 +44,13 @@ namespace InventoryControl.View
                     .Check(o.DoesFilter("IsInStock", true));
             }
             builder
-                .BeginGroup("Группировать...")
-                    .AddRadio("По категории", "grouping", x => o.SetGroup(x, "Category"))
-                        .Check(o.DoesGroup("Category"))
-                    .AddRadio("По наличию", "grouping", x => o.SetGroup(x, "IsInStock"))
-                        .Check(o.DoesGroup("IsInStock"))
+                .BeginGroup("Группировка...")
+                    .AddRadio("Отсутствует", "grouping", x => { if (x) o.Group = string.Empty; })
+                        .Check(o.Group == string.Empty)
+                    .AddRadio("По категории", "grouping", x => { if (x) o.Group = "Category"; })
+                        .Check(o.Group == "Category")
+                    .AddRadio("По наличию", "grouping", x => { if (x) o.Group = "IsInStock"; })
+                        .Check(o.Group == "IsInStock")
                     .AsRadioGroup()
                 .EndGroup()
                 .AddSeparator()

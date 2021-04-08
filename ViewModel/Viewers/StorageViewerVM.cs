@@ -28,9 +28,11 @@ namespace InventoryControl.ViewModel
 
         // Group
         public bool GroupOutOfStockProducts
-            => Options.DoesGroup("IsInStock");
+            => GroupingPropertyPath == "IsInStock";
+        public bool GroupPrintable
+            => GroupingPropertyPath == "Category";
         public string GroupingPropertyPath
-            => GroupOutOfStockProducts ? "IsInStock" : string.Empty;
+            => Options.Group;
 
         public List<StockProductPresenter> Content
         {
