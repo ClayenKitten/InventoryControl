@@ -140,6 +140,10 @@ namespace InventoryControl.ViewModel
             }
             Update();
         }
+        public bool IsColumnCollapsed(string bindingPath)
+        {
+            return CollapsedColumns.Contains(bindingPath);
+        }
         public Visibility ColumnVisibility(Type itemsSourceType, DataGridBoundColumn column)
         {
             var path = ((Binding)column.Binding).Path.Path;
