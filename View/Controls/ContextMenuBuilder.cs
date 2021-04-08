@@ -84,7 +84,8 @@ namespace InventoryControl.View.Controls
             {
                 Header = header,
                 IsCheckable = true,
-                StaysOpenOnClick = true,
+                // TODO: Fix bug and set it to true
+                StaysOpenOnClick = false,
                 IsEnabled = isEnabled,
             };
             radioGroups.Add(new Tuple<string, MenuItem, Action<bool>>(radioGroup, menuItem, OnSet));
