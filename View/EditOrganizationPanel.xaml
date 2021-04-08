@@ -9,16 +9,15 @@
              xmlns:c="clr-namespace:InventoryControl.View.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <c:ControlPanel.DataContext><vm:CounterpatyViewerVM/></c:ControlPanel.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel DataContext="{Binding CounterpartyData}">
                 <StackPanel.Resources>
                     <Style TargetType="c:AdvancedTextbox">
                         <Setter Property="Margin" Value="0,4"/>
@@ -30,10 +29,10 @@
                 </StackPanel.Resources>
                 <GroupBox Header="Основное">
                     <StackPanel>
-                        <c:AdvancedTextbox Label="Полное наименование"/>
-                        <c:AdvancedTextbox Label="Сокращённое наименование"/>
-                        <c:AdvancedTextbox Label="Юридический адрес"/>
-                        <c:AdvancedTextbox Label="Фактический адрес"/>
+                        <c:AdvancedTextbox Label="Полное наименование" ValidValue="{Binding FullName}"/>
+                        <c:AdvancedTextbox Label="Сокращённое наименование" ValidValue="{Binding Name}"/>
+                        <c:AdvancedTextbox Label="Юридический адрес" ValidValue="{Binding LegalAddress}"/>
+                        <c:AdvancedTextbox Label="Фактический адрес" ValidValue="{Binding ActualAddress}"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Контактная информация">
@@ -44,12 +43,12 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <c:AdvancedTextbox Label="Телефон"/>
-                            <c:AdvancedTextbox Label="Электронная почта"/>
+                            <c:AdvancedTextbox Label="Телефон" ValidValue="{Binding Phone}"/>
+                            <c:AdvancedTextbox Label="Электронная почта" ValidValue="{Binding Email}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <c:AdvancedTextbox Label="Факс"/>
-                            <c:AdvancedTextbox Label="Веб-сайт"/>
+                            <c:AdvancedTextbox Label="Факс" ValidValue="{Binding Fax}"/>
+                            <c:AdvancedTextbox Label="Веб-сайт" ValidValue="{Binding Website}"/>
                         </StackPanel>
                     </Grid>
                 </GroupBox>
@@ -62,9 +61,9 @@
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <c:AdvancedTextbox Label="ОГРН" Grid.Column="0"/>
-                        <c:AdvancedTextbox Label="ИНН" Grid.Column="2"/>
-                        <c:AdvancedTextbox Label="КПП" Grid.Column="4"/>
+                        <c:AdvancedTextbox Label="ОГРН" Grid.Column="0" ValidValue="{Binding MSRN}"/>
+                        <c:AdvancedTextbox Label="ИНН" Grid.Column="2" ValidValue="{Binding TIN}"/>
+                        <c:AdvancedTextbox Label="КПП" Grid.Column="4" ValidValue="{Binding CRR}"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Банковские реквизиты">
@@ -78,16 +77,16 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <c:AdvancedTextbox Label="БИК" Grid.ColumnSpan="3"/>
+                        <c:AdvancedTextbox Label="БИК" Grid.ColumnSpan="3" ValidValue="{Binding BIC}"/>
                         <c:AdvancedTextbox Label="Расчётный счёт"
-                            Grid.Column="0" Grid.Row="1"/>
+                            Grid.Column="0" Grid.Row="1" ValidValue="{Binding PaymentAccount}"/>
                         <c:AdvancedTextbox Label="Корреспондентский счёт"
-                            Grid.Column="2" Grid.Row="1"/>
+                            Grid.Column="2" Grid.Row="1" ValidValue="{Binding CorrespondentAccount}"/>
                     </Grid>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>
         <Button Style="{StaticResource MahApps.Styles.Button.Flat}"
-            Content="Подтвердить" Grid.Row="1"/>
+            Content="Подтвердить" Click="ConfirmClick" Grid.Row="1"/>
     </Grid>
 </c:ControlPanel>

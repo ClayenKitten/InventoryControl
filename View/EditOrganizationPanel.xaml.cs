@@ -15,19 +15,25 @@ namespace InventoryControl.View
             InitializeComponent();
         }
 
-        private void ConfirmForm()
+        public Counterparty CounterpartyData
         {
-            //CounterpartyMapper.Update(new Counterparty
-            //(
-            //    id: 0,
-            //    name: NameTB.Text,
-            //    address: AddressTB.Text,
-            //    contacts: ContactsTB.Text,
-            //    taxpayerNumber: TaxpayerTB.Text,
-            //    accountingCode: AccountTB.Text,
-            //    bankDetails: BankIdTB.Text,
-            //    role: ((CounterpatyViewerVM)DataContext).ShowPurchasers ? 0 : 1
-            //));
+            get => (Counterparty)GetValue(CounterpartyDataProperty);
+            set => SetCurrentValue(CounterpartyDataProperty, value);
+        }
+        static DependencyProperty CounterpartyDataProperty =
+            DependencyProperty.Register("CounterpartyData", typeof(Counterparty), typeof(EditOrganizationPanel));
+
+        public override void ReceiveMessage(object sender, object message)
+        {
+            if(sender is CounterpartyViewer)
+            {
+                CounterpartyData = Counterparty.Table.Read((long)message);
+            }
+        }
+
+        private void ConfirmClick(object sender, RoutedEventArgs e)
+        {
+            Counterparty.Table.Update(CounterpartyData);
             GlobalCommands.ModelUpdated.Execute(null);
         }
     }

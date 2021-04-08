@@ -39,10 +39,5 @@ namespace InventoryControl.ViewModel
         public string Header { get => ShowPurchasers ? "Покупатели" : "Поставщики"; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public Action<DataGridRowEditEndingEventArgs> OnRowEditEnded => (e) =>
-        {
-            CounterpartyMapper.Update((Counterparty)e.Row.Item);
-        };
     }
 }

@@ -2,6 +2,8 @@
 using InventoryControl.View.Controls;
 using InventoryControl.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace InventoryControl.View
 {
@@ -41,6 +43,15 @@ namespace InventoryControl.View
                 );
             }
             GlobalCommands.ModelUpdated.Execute(null);
+        }
+
+        private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var counterparty = (Counterparty)MainDataGrid.SelectedItem;
+            if (counterparty != null)
+            {
+                SendMessage(typeof(EditOrganizationPanel), counterparty.Id);
+            }
         }
     }
 }

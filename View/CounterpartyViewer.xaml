@@ -12,6 +12,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <c:ControlPanel.DataContext><vm:CounterpatyViewerVM/></c:ControlPanel.DataContext>
+    <c:ControlPanel.Resources>
+        <ContextMenu x:Key="RowContextMenu">
+            <MenuItem Header="Удалить" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" Click="DeleteButtonClick"/>
+        </ContextMenu>
+    </c:ControlPanel.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -25,27 +30,20 @@
         <Label BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,1" Content="{Binding Header}"/>
         <TextBox  x:Name="Searchbox" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
                   Style="{StaticResource SearchTextbox}" BorderThickness="0,0,0,1"/>
-        <c:AdvancedDataGrid Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
-            RowEditEndHandler="{Binding OnRowEditEnded}"
-            ItemsSource="{Binding Content}">
+        <c:AdvancedDataGrid x:Name="MainDataGrid" Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
+            IsReadOnly="True"
+            ItemsSource="{Binding Content}" SelectionChanged="MainDataGrid_SelectionChanged">
+            <c:AdvancedDataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                </Style>
+            </c:AdvancedDataGrid.RowStyle>
             <c:AdvancedDataGrid.Columns>
-                <c:EditableDataGridHighlightColumn x:Name="NameC" Header="Наименование" Width="4*" Binding="{Binding Name}"
+                <c:HighlightColumn Header="Сокращённое наименование" Width="2*" Binding="{Binding Name}"
                     HighlightPhrase="{Binding ElementName=Searchbox, Path=Text}"/>
-                <c:EditableDataGridTextColumn x:Name="AddressC" Header="Юр. адрес" Width="2*" Binding="{Binding Address}"/>
-                <c:EditableDataGridTextColumn x:Name="PhoneC" Header="Телефон" Width="2*" Binding="{Binding Contacts}"/>
-                <c:EditableDataGridTextColumn x:Name="TaxpayerC" Header="ИНН" Width="2*" Binding="{Binding TaxpayerNumber}"/>
-                <c:EditableDataGridTextColumn x:Name="AccountC" Header="Расч. счёт" Width="2*" Binding="{Binding AccountingCode}"/>
-                <c:EditableDataGridTextColumn x:Name="BankIdC" Header="БИК" Width="1.5*" Binding="{Binding BankDetails}"/>
-                <DataGridTemplateColumn x:Name="DeleteC" Width="40" 
-                    CanUserResize="False" CanUserSort="False" CanUserReorder="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Style="{StaticResource MahApps.Styles.Button.Chromeless}"
-                                    Content="{iconPacks:FontAwesome Kind=TrashAltRegular}"
-                                    HorizontalAlignment="Stretch" Click="DeleteButtonClick"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Телефон" Width="*" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="E-mail" Width="*" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Вебсайт" Width="*" Binding="{Binding Website}"/>
             </c:AdvancedDataGrid.Columns>
         </c:AdvancedDataGrid>
 
