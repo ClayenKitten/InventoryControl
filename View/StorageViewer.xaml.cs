@@ -36,33 +36,33 @@ namespace InventoryControl.View
 
         private void ShowHeaderContextMenu()
         {
-            var VM = (StorageViewerVM)DataContext;
-            var builder = new ContextMenuBuilder()
-                .BeginGroup("Группировать...")
-                    .AddCheckable("По категории", null)
-                    .AddCheckable("По производителю", null)
-                    .AddCheckable("По наличию", null)
-                .EndGroup();
+            var o = ((StorageViewerVM)DataContext).Options;
+            var builder = new ContextMenuBuilder();
             if (!((StorageViewerVM)DataContext).Options.HideFilteringSettings)
             {
-                builder
-                    .BeginGroup("Фильтровать...")
-                        .AddCheckable("Закончившиеся", x => VM.Options.SetFilter(x, "IsInStock", true))
-                        .AddCheckable("Удалённые", null)
-                    .EndGroup();
+                builder.AddCheckable("Скрывать закончившиеся", x => o.SetFilter(x, "IsInStock", true))
+                    .Check(o.DoesFilter("IsInStock", true));
             }
             builder
+                .BeginGroup("Группировать...")
+                    .AddRadio("По категории", "grouping", x => o.SetGroup(x, "Category"))
+                        .Check(o.DoesGroup("Category"))
+                    .AddRadio("По наличию", "grouping", x => o.SetGroup(x, "IsInStock"))
+                        .Check(o.DoesGroup("IsInStock"))
+                    .AsRadioGroup()
+                .EndGroup()
                 .AddSeparator()
                 .BeginGroup("Показывать поле...")
-                    .AddCheckable("Артикула", x => VM.Options.SetCollapsedColumn(!x, "Article"), isEnabled: false)
-                    .AddCheckable("Наименования", x => VM.Options.SetCollapsedColumn(!x, "Name"), isEnabled: false)
-                    .AddCheckable("Категории", x => VM.Options.SetCollapsedColumn(!x, "Category"))
-                    .AddCheckable("Производителя", x => VM.Options.SetCollapsedColumn(!x, "Manufacturer"))
-                    .AddCheckable("Количества", x => VM.Options.SetCollapsedColumn(!x, "Packing"))
-                    .AddCheckable("Единиц измерения", x => VM.Options.SetCollapsedColumn(!x, "Measurement"))
-                    .AddCheckable("Закупочной цены", x => VM.Options.SetCollapsedColumn(!x, "PurchasePrice"))
-                    .AddCheckable("Продажной цены", x => VM.Options.SetCollapsedColumn(!x, "SalePrice"))
-                    .AddCheckable("Остатка", x => VM.Options.SetCollapsedColumn(!x, "Remain"))
+                    .AddCheckable("Категории", x => o.SetCollapsedColumn(!x, "Category"))
+                        .Check(!o.IsColumnCollapsed("Category"))
+                    .AddCheckable("Количества", x => o.SetCollapsedColumn(!x, "Packing"))
+                        .Check(!o.IsColumnCollapsed("Packing"))
+                    .AddCheckable("Единиц измерения", x => o.SetCollapsedColumn(!x, "Measurement"))
+                        .Check(!o.IsColumnCollapsed("Measurement"))
+                    .AddCheckable("Закупочной цены", x => o.SetCollapsedColumn(!x, "PurchasePrice"))
+                        .Check(!o.IsColumnCollapsed("PurchasePrice"))
+                    .AddCheckable("Продажной цены", x => o.SetCollapsedColumn(!x, "SalePrice"))
+                        .Check(!o.IsColumnCollapsed("SalePrice"))
                 .EndGroup();
             builder.Build().IsOpen = true;
         }
