@@ -48,27 +48,15 @@
                 </DataGridTemplateColumn>
             </c:AdvancedDataGrid.Columns>
         </c:AdvancedDataGrid>
-        
-        <c:Form Grid.Row="2" Grid.ColumnSpan="2" x:Name="InputForm">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding ElementName=NameC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=AddressC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=PhoneC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=TaxpayerC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=AccountC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=BankIdC, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=DeleteC, Path=ActualWidth}"/>
-            </Grid.ColumnDefinitions>
-            <c:InlineValidatingTextBox x:Name="NameTB"      Grid.Column="0" Watermark="Наименование..." IsRequired="True"/>
-            <c:InlineValidatingTextBox x:Name="AddressTB"   Grid.Column="1" Watermark="Юридический адрес..."/>
-            <c:InlineValidatingTextBox x:Name="ContactsTB"  Grid.Column="2" Watermark="Телефонный номер..."/>
-            <c:InlineValidatingTextBox x:Name="TaxpayerTB"  Grid.Column="3" Watermark="ИНН..."/>
-            <c:InlineValidatingTextBox x:Name="AccountTB"   Grid.Column="4" Watermark="Расчётный счёт..."/>
-            <c:InlineValidatingTextBox x:Name="BankIdTB"    Grid.Column="5" Watermark="БИК..."/>
-            <c:FormConfirmButton Grid.Column="6" Style="{StaticResource MahApps.Styles.Button.Flat}"
-                    Background="Transparent" BorderBrush="Black" BorderThickness="0,0.25">
-                <iconPacks:PackIconFontAwesome Kind="PlusSolid" />
-            </c:FormConfirmButton>
-        </c:Form>
+
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
+            <StatusBarItem Padding="0">
+                <Button x:Name="ReloadContent"
+                    Height="30" Width="30" Margin="0" Padding="0" Command="vm:GlobalCommands.ModelUpdated"
+                    Focusable="False" BorderThickness="0" Content="{iconPacks:FontAwesome Kind=SyncSolid}"
+                    Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}"
+                    Style="{StaticResource MahApps.Styles.Button.MetroSquare}"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </c:ControlPanel>

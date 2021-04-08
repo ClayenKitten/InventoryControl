@@ -14,24 +14,6 @@ namespace InventoryControl.View
         {            
             InitializeComponent();
             ((CounterpatyViewerVM)DataContext).ShowPurchasers = showPurchasers;
-            InputForm.Confirmed += (_, _1) => { ConfirmForm(); };
-        }
-
-        private void ConfirmForm()
-        {
-            //CounterpartyMapper.Create(new Counterparty
-            //(
-            //    id: -1,
-            //    name: NameTB.Text,
-            //    address: AddressTB.Text,
-            //    contacts: ContactsTB.Text,
-            //    taxpayerNumber: TaxpayerTB.Text,
-            //    accountingCode: AccountTB.Text,
-            //    bankDetails: BankIdTB.Text,
-            //    role: ((CounterpatyViewerVM)DataContext).ShowPurchasers ? 0 : 1
-            //));
-            InputForm.ClearAllTextBoxes();
-            GlobalCommands.ModelUpdated.Execute(null);
         }
 
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
