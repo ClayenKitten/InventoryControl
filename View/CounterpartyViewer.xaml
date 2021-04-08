@@ -51,11 +51,7 @@
 
         <StatusBar Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
             <StatusBarItem Padding="0">
-                <Button x:Name="ReloadContent"
-                    Height="30" Width="30" Margin="0" Padding="0" Command="vm:GlobalCommands.ModelUpdated"
-                    Focusable="False" BorderThickness="0" Content="{iconPacks:FontAwesome Kind=SyncSolid}"
-                    Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}"
-                    Style="{StaticResource MahApps.Styles.Button.MetroSquare}"/>
+                <c:UpdateModelButton/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

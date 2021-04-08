@@ -469,6 +469,9 @@
     <Compile Include="View\TransactionProductsViewer.xaml.cs">
       <DependentUpon>TransactionProductsViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\UpdateModelButton.xaml.cs">
+      <DependentUpon>UpdateModelButton.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -518,6 +521,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\TransactionProductsViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\UpdateModelButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
