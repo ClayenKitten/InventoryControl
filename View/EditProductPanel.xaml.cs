@@ -58,7 +58,7 @@ namespace InventoryControl.View
         public EditProductPanel(long productId)
         {
             InitializeComponent();
-            Init(productId);
+            Init(Product.Table.ReadOr(productId, null));
             adorner = new TextAdorner(this);
             adorner.Text = "Выберите товар из списка";
         }
@@ -71,16 +71,17 @@ namespace InventoryControl.View
         {
             if (sender is ProductDictionaryViewer)
             {
-                Init((long)message);
+                Init(Product.Clone((Product)message));
                 ContentVisibility = Visibility.Visible;
                 adorner.Text = "";
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void Init(long productId)
+        private void Init(Product product)
         {
-            ProductData = Product.Table.ReadOr(productId, null);
+            //ProductData = Product.Table.ReadOr(productId, null);
+            ProductData = product;
         }
 
         private void FormConfirmed(object sender, RoutedEventArgs e)
@@ -89,7 +90,15 @@ namespace InventoryControl.View
                 ProductData.Article = new Product().Article;
             if (ProductData.Category.Trim() == "")
                 ProductData.Category = "Без категории";
-            Product.Table.Update(ProductData);
+
+            if (ProductData.Id == -1)
+            {
+                Product.Table.Create(ProductData);
+            }
+            else
+            {
+                Product.Table.Update(ProductData);
+            }
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
             PM.OpenProductView.Execute();

@@ -18,20 +18,13 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
-        private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
-        {
-            if (e.ClickCount >= 2)
-            {
-                SendMessage(typeof(TransactionProductsViewer), ((ProductPresenter)row.Item).Id);
-            }
-        }
 
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var product = (ProductPresenter)MainDataGrid.SelectedItem;
             if (product != null)
             {
-                SendMessage(typeof(EditProductPanel), product.Id);
+                SendMessage(typeof(EditProductPanel), product.Product);
             }
         }
     }

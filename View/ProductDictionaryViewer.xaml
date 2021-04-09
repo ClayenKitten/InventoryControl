@@ -40,7 +40,7 @@
                 Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
                 ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" IsReadOnly="True"
                 SelectionChanged="MainDataGrid_SelectionChanged"
-                ItemsSource="{Binding Content}" AutoGenerateColumns="False" RowClicked="MainDataGrid_RowClicked">
+                ItemsSource="{Binding Content}" AutoGenerateColumns="False">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
