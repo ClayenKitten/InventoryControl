@@ -414,6 +414,7 @@
     <Compile Include="ORM\Tables\JoinTable.cs" />
     <Compile Include="ORM\SqlType.cs" />
     <Compile Include="ORM\Tables\PropertyEntityTable.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Util\BooleanToVisibilityInvConverter.cs" />
     <Compile Include="Util\LogicalTreeHelperExt.cs" />
     <Compile Include="Util\PropertyInfoExtensionMethods.cs" />

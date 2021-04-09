@@ -18,6 +18,9 @@ namespace InventoryControl.View
         {
             InitializeComponent();
         }
+        public StorageViewer(int storageId) 
+            : this(storageId,
+                Properties.Settings.Default.StorageViewerViewOptions ?? new ViewOptions()) { }
         public StorageViewer(int storageId, ViewOptions options) : this()
         {
             var dataContext = (StorageViewerVM)DataContext;
@@ -30,9 +33,9 @@ namespace InventoryControl.View
                 dataContext.StorageId = storageId;
             }
             dataContext.Options = options;
+            dataContext.OnOptionsUpdated(null, null);
             GlobalCommands.ModelUpdated.Execute(null);
         }
-        public StorageViewer(int storageId) : this(storageId, new ViewOptions()) {}
 
         private void ShowHeaderContextMenu()
         {
@@ -53,7 +56,13 @@ namespace InventoryControl.View
                         .Check(o.Group == "IsInStock")
                     .AsRadioGroup()
                 .EndGroup();
-            builder.Build().IsOpen = true;
+            var cm = builder.Build();
+            cm.IsOpen = true;
+            cm.Closed += (_, _1) =>
+            {
+                Properties.Settings.Default.StorageViewerViewOptions = (DataContext as StorageViewerVM).Options;
+                Properties.Settings.Default.Save();
+            };
         }
         private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
         {

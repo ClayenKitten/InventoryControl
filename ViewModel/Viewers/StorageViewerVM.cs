@@ -90,7 +90,7 @@ namespace InventoryControl.ViewModel
             Options.ViewOptionsChanged -= OnOptionsUpdated;
         }
 
-        protected void OnOptionsUpdated(object _, object _1)
+        public void OnOptionsUpdated(object _, object _1)
         {
             Options = new ViewOptions(Options);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Options"));
