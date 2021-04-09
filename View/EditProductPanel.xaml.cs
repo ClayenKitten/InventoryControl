@@ -40,6 +40,19 @@ namespace InventoryControl.View
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ContentVisibility"));
             }
         }
+        public string AutoincrementArticle
+        {
+            get
+            {
+                int val = 0;
+                var products = Product.Table.ReadAll().Where(x => x.Id != ProductData?.Id).ToList();
+                while (products.Any(x => x.Article == val.ToString()))
+                {
+                    val += 1;
+                }
+                return val.ToString();
+            }
+        }
 
         private TextAdorner adorner;
         public EditProductPanel(long productId)
