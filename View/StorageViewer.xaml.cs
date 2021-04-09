@@ -52,19 +52,6 @@ namespace InventoryControl.View
                     .AddRadio("По наличию", "grouping", x => { if (x) o.Group = "IsInStock"; })
                         .Check(o.Group == "IsInStock")
                     .AsRadioGroup()
-                .EndGroup()
-                .AddSeparator()
-                .BeginGroup("Показывать поле...")
-                    .AddCheckable("Категории", x => o.SetCollapsedColumn(!x, "Category"))
-                        .Check(!o.IsColumnCollapsed("Category"))
-                    .AddCheckable("Количества", x => o.SetCollapsedColumn(!x, "Packing"))
-                        .Check(!o.IsColumnCollapsed("Packing"))
-                    .AddCheckable("Единиц измерения", x => o.SetCollapsedColumn(!x, "Measurement"))
-                        .Check(!o.IsColumnCollapsed("Measurement"))
-                    .AddCheckable("Закупочной цены", x => o.SetCollapsedColumn(!x, "PurchasePrice"))
-                        .Check(!o.IsColumnCollapsed("PurchasePrice"))
-                    .AddCheckable("Продажной цены", x => o.SetCollapsedColumn(!x, "SalePrice"))
-                        .Check(!o.IsColumnCollapsed("SalePrice"))
                 .EndGroup();
             builder.Build().IsOpen = true;
         }
