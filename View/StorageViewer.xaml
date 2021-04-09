@@ -14,10 +14,9 @@
     <c:ControlPanel.DataContext><vm:StorageViewerVM/></c:ControlPanel.DataContext>
     <c:ControlPanel.Resources>
         <ContextMenu x:Key="RowContextMenu">
-            <MenuItem Header="Показать в прайс-листе" Icon="{iconPacks:Material Kind=ClipboardListOutline}" IsEnabled="False"/>
-            <MenuItem Header="Изменить" Icon="{iconPacks:FontAwesome Kind=PenSolid}" 
+            <MenuItem Header="В прайс-листе" Icon="{iconPacks:Material Kind=ClipboardListOutline}" 
                       Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
-            <MenuItem Header="Архивировать" Icon="{iconPacks:FontAwesome Kind=ArchiveSolid}" IsEnabled="False"/>
+            <MenuItem Header="Списать" Icon="{iconPacks:Material Kind=CubeOff}" IsEnabled="False"/>
         </ContextMenu>
     </c:ControlPanel.Resources>
     <Grid>
