@@ -31,6 +31,12 @@ namespace InventoryControl.ViewModel
                     Product.Table.Create(new Product());
                     GlobalCommands.ModelUpdated.Execute(null);
                 });
+        public ActionCommand DeleteProductCommand { get; }
+            = new ActionCommand((id) =>
+            {
+                Product.Table.TryDelete((long)id);
+                GlobalCommands.ModelUpdated.Execute(null);
+            });
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

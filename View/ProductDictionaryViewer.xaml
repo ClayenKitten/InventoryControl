@@ -14,7 +14,12 @@
     <c:ControlPanel.DataContext><vm:ProductDictionaryViewerVM/></c:ControlPanel.DataContext>
     <c:ControlPanel.Resources>
         <ContextMenu x:Key="RowContextMenu">
-            <MenuItem Header="Удалить" Icon="{iconPacks:FontAwesome Kind=TrashAltSolid}" Command=""/>
+            <MenuItem Header="Удалить" Icon="{iconPacks:FontAwesome Kind=TrashAltSolid}"
+                Command="{Binding DataContext.DeleteProductCommand,
+                    RelativeSource={RelativeSource
+                        Mode=FindAncestor,
+                        AncestorType=c:ControlPanel}}"
+                CommandParameter="{Binding Id}"/>
         </ContextMenu>
     </c:ControlPanel.Resources>
     <Grid>
