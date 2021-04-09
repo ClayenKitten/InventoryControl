@@ -45,7 +45,7 @@ namespace InventoryControl.View
             saveFileDialog.InitialDirectory = AppContext.BaseDirectory + "Backups\\";
             saveFileDialog.Filter = "Database (*.db)|*.db|All files (*.*)|*.*";
             saveFileDialog.ValidateNames = true;
-            saveFileDialog.FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-dd") + ".db";
+            saveFileDialog.FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".db";
             if (saveFileDialog.ShowDialog() == true)
             {
                 File.Copy("Database.db", saveFileDialog.FileName);
