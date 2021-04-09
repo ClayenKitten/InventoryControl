@@ -482,6 +482,7 @@
     <Compile Include="View\UserControls\UpdateModelButton.xaml.cs">
       <DependentUpon>UpdateModelButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TextAdorner.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
