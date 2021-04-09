@@ -42,27 +42,31 @@ namespace InventoryControl.Model
             new PropertyColumn<Counterparty, int>("Role", Constraint.NotNull | Constraint.DefaultValue(0))
         );
 
-        public long Id { get; set; }
+        public long Id { get; set; } = -1;
         
-        public string FullName { get; set; }
-        public string Name { get; set; }
-        public string LegalAddress { get; set; }
-        public string ActualAddress { get; set; }
+        public string FullName { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string LegalAddress { get; set; } = "";
+        public string ActualAddress { get; set; } = "";
 
-        public string Phone { get; set; }
-        public string Fax { get; set; }
-        public string Email { get; set; }
-        public string Website { get; set; }
+        public string Phone { get; set; } = "";
+        public string Fax { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Website { get; set; } = "";
 
-        public string MSRN { get; set; } // ОГРН
-        public string TIN { get; set; } // ИНН
-        public string CRR { get; set; } // КПП
-        public string BIC { get; set; } // БИК
-        public string PaymentAccount { get; set; } // Р/С
-        public string CorrespondentAccount { get; set; } // К/С
+        public string MSRN { get; set; } = ""; // ОГРН
+        public string TIN { get; set; } = ""; // ИНН
+        public string CRR { get; set; } = ""; // КПП
+        public string BIC { get; set; } = ""; // БИК
+        public string PaymentAccount { get; set; } = ""; // Р/С
+        public string CorrespondentAccount { get; set; } = ""; // К/С
 
         public int Role { get; set; }
 
         public Counterparty() {}
+        public static Counterparty Clone(Counterparty origin)
+        {
+            return (Counterparty)origin.MemberwiseClone();
+        }
     }
 }

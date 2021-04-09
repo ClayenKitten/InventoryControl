@@ -50,7 +50,7 @@ namespace InventoryControl.View
             var counterparty = (Counterparty)MainDataGrid.SelectedItem;
             if (counterparty != null)
             {
-                SendMessage(typeof(EditOrganizationPanel), counterparty.Id);
+                SendMessage(typeof(EditOrganizationPanel), counterparty);
             }
         }
     }

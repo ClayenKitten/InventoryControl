@@ -37,7 +37,7 @@ namespace InventoryControl.View
         {
             if(sender is CounterpartyViewer)
             {
-                CounterpartyData = Counterparty.Table.Read((long)message);
+                CounterpartyData = Counterparty.Clone((Counterparty)message);
                 ContentVisibility = Visibility.Visible;
                 adorner.Text = "";
             }
@@ -55,8 +55,19 @@ namespace InventoryControl.View
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            Counterparty.Table.Update(CounterpartyData);
+            if (CounterpartyData.Id < 0)
+            {
+                Counterparty.Table.Create(CounterpartyData);
+            }
+            else
+            {
+                Counterparty.Table.Update(CounterpartyData);
+            }
             GlobalCommands.ModelUpdated.Execute(null);
+            var PM = new PanelManager();
+            if (CounterpartyData.Role == -1) PM.OpenManagedOrg.Execute();
+            else if (CounterpartyData.Role == 0) PM.OpenPurchasers.Execute();
+            else PM.OpenSuppliers.Execute();
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }
