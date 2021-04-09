@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using InventoryControl.View.Controls;
+using System.Windows.Documents;
 
 namespace InventoryControl.View
 {
@@ -29,16 +30,37 @@ namespace InventoryControl.View
             get { return Unit.GetPossibleValues(); } 
         }
 
+        private Visibility visibility = Visibility.Collapsed;
+        public Visibility ContentVisibility
+        {
+            get => visibility;
+            set
+            {
+                visibility = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ContentVisibility"));
+            }
+        }
+
+        private TextAdorner adorner;
         public EditProductPanel(long productId)
         {
             InitializeComponent();
             Init(productId);
+            adorner = new TextAdorner(this);
+            adorner.Text = "Выберите товар из списка";
+        }
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            AdornerLayer.GetAdornerLayer(this).Add(adorner);
         }
         public override void ReceiveMessage(object sender, object message)
         {
             if (sender is ProductDictionaryViewer)
             {
                 Init((long)message);
+                ContentVisibility = Visibility.Visible;
+                adorner.Text = "";
             }
         }
 
