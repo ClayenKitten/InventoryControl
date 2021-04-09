@@ -62,5 +62,17 @@ namespace InventoryControl.Model
             this.Article = article;
             this.Category = new ProductCategory(category);
         }
+        public static Product Clone(Product origin)
+        {
+            return new Product(
+                origin.Id,
+                origin.Name,
+                origin.Measurement.Unit.value,
+                origin.Measurement.RawValue,
+                origin.PurchasePrice.RawValue,
+                origin.SalePrice.RawValue,
+                origin.Article,
+                origin.Category.FullPath);
+        }
     }
 }
