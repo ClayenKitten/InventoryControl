@@ -25,7 +25,7 @@ namespace InventoryControl.Model
             new Column<Product>("Category", SqlType.TEXT, (x) => x.Category.FullPath)
         );
 
-        public long Id { get; set; }
+        public long Id { get; set; } = -1;
         public string Name { get; set; } = "";
         public Money PurchasePrice { get; set; } = new Money(0);
         public Money SalePrice { get; set; } = new Money(0);
