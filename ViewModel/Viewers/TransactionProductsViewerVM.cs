@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using InventoryControl.Model;
 using InventoryControl.View.Controls;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace InventoryControl.ViewModel
 {
@@ -81,7 +82,7 @@ namespace InventoryControl.ViewModel
 
         public ObservableCollection<TransactionProductPresenter> Content { get; }
             = new ObservableCollection<TransactionProductPresenter>();
-        
+
         //Transaction info
         public IList<ITransferSpot> TransferSpots1
         {
@@ -112,7 +113,7 @@ namespace InventoryControl.ViewModel
         public ITransferSpot SelectedTransferSpot2 { get; set; }
 
         private TransferType type;
-        public TransferType Type 
+        public TransferType Type
         {
             get => type;
             set
@@ -141,7 +142,7 @@ namespace InventoryControl.ViewModel
                 (
                     new Transfer
                     (
-                        dateTime: DateTime.Now, 
+                        dateTime: DateTime.Now,
                         transferSpot1: SelectedTransferSpot1,
                         transferSpot2: SelectedTransferSpot2,
                         products: new List<TransactionProductPresenter>(Content)
@@ -165,6 +166,15 @@ namespace InventoryControl.ViewModel
                 .AddAction("Удалить", () => Content.Remove(product))
             .Build()
             .IsOpen = true;
+        }
+        public ActionCommand ConfirmTransactionCommand
+            => new ActionCommand(Confirm);
+        public void Confirm()
+        {
+            new Invoice(0, DateTime.Now, SelectedTransferSpot1.Name, SelectedTransferSpot2.Name)
+            {
+                Products = new List<InvoiceProduct>()
+            }.GetDocument();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -55,6 +55,6 @@
         <c:FormConfirmButton Grid.Row="3" Grid.ColumnSpan="2"
             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
             Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить"
-            Command="vm:GlobalCommands.CreateTransaction"/>
+            Command="{Binding ConfirmTransactionCommand}"/>
     </c:Form>
 </c:ControlPanel>
