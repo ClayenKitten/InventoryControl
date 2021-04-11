@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace InventoryControl.Model
 {
-    public class Invoice
+    public class ProductInvoice
     {
         public long Number { get; set; }
         public DateTime CreationDateTime { get; set; }
@@ -20,7 +20,7 @@ namespace InventoryControl.Model
         public string Cause { get; set; }
         public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
 
-        public Invoice(long number, DateTime creationDateTime, string sender, string receiver, string payer, string cause)
+        public ProductInvoice(long number, DateTime creationDateTime, string sender, string receiver, string payer, string cause)
         {
             Number = number;
             CreationDateTime = creationDateTime;
