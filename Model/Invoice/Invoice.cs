@@ -16,14 +16,18 @@ namespace InventoryControl.Model
         public DateTime CreationDateTime { get; set; }
         public string Sender { get; set; }
         public string Receiver { get; set; }
+        public string Payer { get; set; }
+        public string Cause { get; set; }
         public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
 
-        public Invoice(long number, DateTime creationDateTime, string sender, string receiver)
+        public Invoice(long number, DateTime creationDateTime, string sender, string receiver, string payer, string cause)
         {
             Number = number;
             CreationDateTime = creationDateTime;
             Sender = sender;
             Receiver = receiver;
+            Payer = payer;
+            Cause = cause;
         }
 
         #region Document generation
@@ -120,9 +124,11 @@ namespace InventoryControl.Model
             section.Add(headerPar);
             #endregion
             #region Counterparties
+            var rPar = section.AddParagraph($"Грузополучатель: {Receiver}");
             var sPar = section.AddParagraph($"Поставщик: {Sender}");
-            var rPar = section.AddParagraph($"Покупатель: {Receiver}");
-            rPar.Format.SpaceAfter = 10;
+            var pPar = section.AddParagraph($"Плательщик: {Payer}");
+            var cPar = section.AddParagraph($"Покупатель: {Cause}");
+            cPar.Format.SpaceAfter = 10;
             #endregion
             #region Table
             var table = AddProductTable(section);

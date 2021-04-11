@@ -171,10 +171,6 @@ namespace InventoryControl.ViewModel
             => new ActionCommand(Confirm);
         public void Confirm()
         {
-            new Invoice(0, DateTime.Now, SelectedTransferSpot1.Name, SelectedTransferSpot2.Name)
-            {
-                Products = new List<InvoiceProduct>()
-            }.GetDocument();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
