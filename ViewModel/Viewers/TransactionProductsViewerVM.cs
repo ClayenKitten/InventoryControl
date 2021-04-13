@@ -118,7 +118,7 @@ namespace InventoryControl.ViewModel
         public void Confirm()
         {
             var pm = new PanelManager();
-            pm.OpenStorageView.Execute();
+            pm.OpenTransferHistoryViewer.Execute();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
