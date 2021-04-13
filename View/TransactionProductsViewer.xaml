@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -39,8 +40,10 @@
                 ItemsSource="{Binding TransferSpots2}" DisplayMemberPath="Name"
                 SelectedItem="{Binding SelectedTransferSpot2}"/>
         </StackPanel>
+        <c:AdvancedTextbox Label="Основание" ValidValue="{Binding Cause}"
+            Grid.Row="2" Grid.ColumnSpan="2" Margin="7"/>
 
-        <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0" Grid.Row="2" Grid.ColumnSpan="2"
+        <c:AdvancedDataGrid ItemsSource="{Binding Content}" Margin="0,10,0,0" Grid.Row="3" Grid.ColumnSpan="2"
                     x:Name="MainDataGrid" CanUserDeleteRows="True"
                     CanUserResizeColumns="False" CanUserReorderColumns="False"
                     CellStyle="{StaticResource DataGridCellDefaultStyle}"
@@ -52,7 +55,7 @@
                 <DataGridTextColumn Header="КОЛ" Width="50" Binding="{Binding TransmitNumber}" IsReadOnly="False"/>
             </DataGrid.Columns>
         </c:AdvancedDataGrid>
-        <c:FormConfirmButton Grid.Row="3" Grid.ColumnSpan="2"
+        <c:FormConfirmButton Grid.Row="4" Grid.ColumnSpan="2"
             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
             Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Подтвердить"
             Command="{Binding ConfirmTransactionCommand}"/>

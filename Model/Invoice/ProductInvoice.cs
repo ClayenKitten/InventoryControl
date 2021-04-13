@@ -33,8 +33,20 @@ namespace InventoryControl.Model
         public string Receiver { get; set; } = "";
         public string Payer { get; set; } = "";
         public string Cause { get; set; } = "";
-        public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
+        public IList<InvoiceProduct> Products
+            => InvoiceProduct.Table.ReadAll().Where(x => x.InvoiceId == Id).ToList();
 
+        public ProductInvoice(TransferType type, string sender, string receiver, string payer, string cause)
+        {
+            Id = -1;
+            Number = Table.ReadAll().Select(x => x.Number).DefaultIfEmpty(0).Max();
+            CreationDateTime = DateTime.Now;
+            Type = type;
+            Sender = sender;
+            Receiver = receiver;
+            Payer = payer;
+            Cause = cause;
+        }
         public ProductInvoice(long id, long number, DateTime creationDateTime, int type, string sender, string receiver, string payer, string cause)
         {
             Id = id;
@@ -45,9 +57,6 @@ namespace InventoryControl.Model
             Receiver = receiver;
             Payer = payer;
             Cause = cause;
-            Products = InvoiceProduct.Table.ReadAll()
-                .Where(x => x.InvoiceId == Id)
-                .ToList();
         }
 
         #region Document generation

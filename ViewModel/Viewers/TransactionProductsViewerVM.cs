@@ -52,6 +52,7 @@ namespace InventoryControl.ViewModel
                 }
             }
         }
+        public string Cause { get; set; }
 
         public ObservableCollection<TransactionProductPresenter> Content { get; }
             = new ObservableCollection<TransactionProductPresenter>();
@@ -117,6 +118,48 @@ namespace InventoryControl.ViewModel
             => new ActionCommand(Confirm);
         public void Confirm()
         {
+            string sender = ""; string receiver = ""; string payer = "";
+            if (Type == TransferType.Buy)
+            {
+                sender = (SelectedTransferSpot1 as Counterparty).DisplayName;
+                receiver = CounterpartyMapper.GetManaged().DisplayName;
+            }
+            else if (Type == TransferType.Sell)
+            {
+                sender = CounterpartyMapper.GetManaged().DisplayName;
+                receiver = (SelectedTransferSpot1 as Counterparty).DisplayName;
+            }
+            else if (Type == TransferType.Supply)
+            {
+                sender = CounterpartyMapper.GetManaged().DisplayName;
+                receiver = CounterpartyMapper.GetManaged().DisplayName;
+            }
+            else if (Type == TransferType.Transport)
+            {
+                sender = CounterpartyMapper.GetManaged().DisplayName;
+                receiver = CounterpartyMapper.GetManaged().DisplayName;
+            }
+            payer = receiver;
+            var invoice = new ProductInvoice(Type, sender, receiver, payer, Cause);
+            var initedInvoice = ProductInvoice.Table.Create(invoice);
+
+            foreach (var product in Content)
+            {
+                var invoiceProduct = new InvoiceProduct()
+                {
+                    Id = -1,
+                    InvoiceId = initedInvoice.Id,
+                    Name = product.Name,
+                    Measurement = product.Product.Measurement.Postfix,
+                    NumberInPackage = product.Product.Measurement.RawValue,
+                    NumberOfPackages = product.TransmitNumber,
+                    Price = Type == TransferType.Buy ? 
+                                    product.Product.PurchasePrice.RawValue :
+                                    product.Product.SalePrice.RawValue
+                };
+                InvoiceProduct.Table.Create(invoiceProduct);
+            }
+
             var pm = new PanelManager();
             pm.OpenTransferHistoryViewer.Execute();
         }
