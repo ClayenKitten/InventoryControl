@@ -27,5 +27,14 @@ namespace InventoryControl.View
                 SendMessage(typeof(EditProductPanel), product.Product);
             }
         }
+
+        private void MainDataGrid_RowClicked(object sender, MouseButtonEventArgs e, DataGridRow row)
+        {
+            var product = (ProductPresenter)row.Item;
+            if (e.ClickCount >= 2 && product != null)
+            {
+                SendMessage(typeof(TransactionProductsViewer), product.Product.Id);
+            }
+        }
     }
 }

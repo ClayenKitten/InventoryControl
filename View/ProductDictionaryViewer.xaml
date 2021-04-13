@@ -39,7 +39,7 @@
         <c:AdvancedDataGrid x:Name="MainDataGrid"
                 Grid.Row="1" Grid.ColumnSpan="2" FilterString="{Binding ElementName=Searchbox, Path=Text}"
                 ColumnHeaderStyle="{StaticResource DataGridColumnHeader}" IsReadOnly="True"
-                SelectionChanged="MainDataGrid_SelectionChanged"
+                SelectionChanged="MainDataGrid_SelectionChanged" RowClicked="MainDataGrid_RowClicked"
                 ItemsSource="{Binding Content}" AutoGenerateColumns="False">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
