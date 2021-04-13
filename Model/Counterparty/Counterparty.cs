@@ -36,6 +36,7 @@ namespace InventoryControl.Model
             new PropertyColumn<Counterparty, string>("TIN"),
             new PropertyColumn<Counterparty, string>("CRR"),
             // Banking
+            new PropertyColumn<Counterparty, string>("BankName"),
             new PropertyColumn<Counterparty, string>("BIC"),
             new PropertyColumn<Counterparty, string>("PaymentAccount"),
             new PropertyColumn<Counterparty, string>("CorrespondentAccount"),
@@ -58,11 +59,17 @@ namespace InventoryControl.Model
         public string MSRN { get; set; } = ""; // ОГРН
         public string TIN { get; set; } = ""; // ИНН
         public string CRR { get; set; } = ""; // КПП
+
+        public string BankName { get; set; } = "";
         public string BIC { get; set; } = ""; // БИК
         public string PaymentAccount { get; set; } = ""; // Р/С
         public string CorrespondentAccount { get; set; } = ""; // К/С
 
         public int Role { get; set; }
+
+        public string DisplayName
+            => $"{Name}, ИНН {TIN}, {LegalAddress}, тел.: {Phone}, " +
+            $"р/с {PaymentAccount}, в банке {BankName}, БИК {BIC}, к/с {CorrespondentAccount}";
 
         public Counterparty() {}
         public static Counterparty Clone(Counterparty origin)
