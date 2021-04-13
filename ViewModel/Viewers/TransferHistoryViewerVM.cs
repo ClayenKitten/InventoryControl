@@ -2,6 +2,7 @@
 using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace InventoryControl.ViewModel
 {
@@ -59,5 +60,21 @@ namespace InventoryControl.ViewModel
             public ProductInvoicePresenter(ProductInvoice item) => Item = item;
         }
         public ObservableCollection<ProductInvoicePresenter> Content { get; } = new ObservableCollection<ProductInvoicePresenter>();
+
+        public TransferHistoryViewerVM()
+        {
+            GlobalCommands.ModelUpdated.Executed += (_) => UpdateContent();
+            UpdateContent();
+        }
+
+        public void UpdateContent()
+        {
+            Content.Clear();
+            var presenters = ProductInvoice.Table.ReadAll().Select(x => new ProductInvoicePresenter(x));
+            foreach (var presenter in presenters)
+            {
+                Content.Add(presenter);
+            }
+        }
     }
 }
