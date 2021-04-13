@@ -76,12 +76,16 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <c:AdvancedTextbox Label="БИК" Grid.ColumnSpan="3" ValidValue="{Binding BIC}"/>
+                        <c:AdvancedTextbox Label="Наименование банка"
+                            Grid.ColumnSpan="3" Grid.Row="0" ValidValue="{Binding BankName}"/>
+                        <c:AdvancedTextbox Label="БИК" 
+                            Grid.ColumnSpan="3" Grid.Row="1" ValidValue="{Binding BIC}"/>
                         <c:AdvancedTextbox Label="Расчётный счёт"
-                            Grid.Column="0" Grid.Row="1" ValidValue="{Binding PaymentAccount}"/>
+                            Grid.Column="0" Grid.Row="2" ValidValue="{Binding PaymentAccount}"/>
                         <c:AdvancedTextbox Label="Корреспондентский счёт"
-                            Grid.Column="2" Grid.Row="1" ValidValue="{Binding CorrespondentAccount}"/>
+                            Grid.Column="2" Grid.Row="2" ValidValue="{Binding CorrespondentAccount}"/>
                     </Grid>
                 </GroupBox>
             </StackPanel>
