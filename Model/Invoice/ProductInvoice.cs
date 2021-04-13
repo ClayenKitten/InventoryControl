@@ -156,7 +156,7 @@ namespace InventoryControl.Model
             var rPar = section.AddParagraph($"Грузополучатель: {Receiver}");
             var sPar = section.AddParagraph($"Поставщик: {Sender}");
             var pPar = section.AddParagraph($"Плательщик: {Payer}");
-            var cPar = section.AddParagraph($"Покупатель: {Cause}");
+            var cPar = section.AddParagraph($"Основание: {Cause}");
             cPar.Format.SpaceAfter = 10;
             #endregion
             #region Table
