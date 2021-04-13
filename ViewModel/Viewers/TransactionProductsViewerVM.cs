@@ -98,15 +98,6 @@ namespace InventoryControl.ViewModel
             }
         }
 
-        public TransactionProductsViewerVM()
-        {
-            GlobalCommands.CreateTransaction.Executed += (parameter) =>
-            {
-                // TODO
-                var pm = new PanelManager();
-                pm.OpenStorageView.Execute();
-            };
-        }
         public void AddProduct(long id)
         {
             foreach (var product in Content)
@@ -126,6 +117,8 @@ namespace InventoryControl.ViewModel
             => new ActionCommand(Confirm);
         public void Confirm()
         {
+            var pm = new PanelManager();
+            pm.OpenStorageView.Execute();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
