@@ -32,10 +32,10 @@ namespace InventoryControl.Model
         public long Number { get; set; }
         public DateTime CreationDateTime { get; set; }
         public TransferType Type { get; set; }
-        public string Sender { get; set; }
-        public string Receiver { get; set; }
-        public string Payer { get; set; }
-        public string Cause { get; set; }
+        public string Sender { get; set; } = "";
+        public string Receiver { get; set; } = "";
+        public string Payer { get; set; } = "";
+        public string Cause { get; set; } = "";
         public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
 
         public ProductInvoice(long id, long number, DateTime creationDateTime, int type, string sender, string receiver, string payer, string cause)
