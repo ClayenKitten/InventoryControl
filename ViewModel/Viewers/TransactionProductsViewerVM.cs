@@ -11,15 +11,6 @@ using Microsoft.Xaml.Behaviors.Core;
 
 namespace InventoryControl.ViewModel
 {
-    public enum TransferType
-    {
-        Buy,
-        Sell,
-        Return,
-        Supply,
-        Transport
-    }
-
     public class TransactionProductsViewerVM : INotifyPropertyChanged
     {
         //Titles
@@ -27,42 +18,24 @@ namespace InventoryControl.ViewModel
         {
             get
             {
-                switch (Type)
-                {
-                    case TransferType.Buy:
-                        return "ÇÀÊÓÏÊÀ ÒÎÂÀĞÀ";
-                    case TransferType.Sell:
-                        return "ÏĞÎÄÀÆÀ ÒÎÂÀĞÀ";
-                    case TransferType.Return:
-                        return "ÂÎÇÂĞÀÒ ÒÎÂÀĞÀ";
-                    case TransferType.Supply:
-                        return "ÏÎÑÒÀÂÊÀ ÒÎÂÀĞÀ";
-                    case TransferType.Transport:
-                        return "ÏÅĞÅÂÎÇÊÀ ÒÎÂÀĞÀ";
-                    default:
-                        return "Bad transaction type";
-                }
+                if (Type == TransferType.Buy) return "ÇÀÊÓÏÊÀ ÒÎÂÀĞÀ";
+                else if (Type == TransferType.Sell) return "ÏĞÎÄÀÆÀ ÒÎÂÀĞÀ";
+                else if (Type == TransferType.Return) return "ÂÎÇÂĞÀÒ ÒÎÂÀĞÀ";
+                else if (Type == TransferType.Supply) return "ÏÎÑÒÀÂÊÀ ÒÎÂÀĞÀ";
+                else if (Type == TransferType.Transport) return "ÏÅĞÅÂÎÇÊÀ ÒÎÂÀĞÀ";
+                else return "Given transaction type isn't implemented";
             }
         }
         public string TransferSpots1Title
         {
             get
             {
-                switch (Type)
-                {
-                    case TransferType.Buy:
-                        return "Ïîñòàâùèê";
-                    case TransferType.Sell:
-                        return "Ïîêóïàòåëü";
-                    case TransferType.Return:
-                        return "Ïîñòàâùèê";
-                    case TransferType.Supply:
-                        return "Òî÷êà ïğîäàæ";
-                    case TransferType.Transport:
-                        return "Ñêëàä 1";
-                    default:
-                        return "Bad transaction type";
-                }
+                if (Type == TransferType.Buy) return "Ïîñòàâùèê";
+                else if (Type == TransferType.Sell) return "Ïîêóïàòåëü";
+                else if (Type == TransferType.Return) return "Ïîñòàâùèê";
+                else if (Type == TransferType.Supply) return "Òî÷êà ïğîäàæ";
+                else if (Type == TransferType.Transport) return "Ñêëàä 1";
+                else return "Given transaction type isn't implemented";
             }
         }
         public string TransferSpots2Title
@@ -88,21 +61,12 @@ namespace InventoryControl.ViewModel
         {
             get
             {
-                switch (Type)
-                {
-                    case TransferType.Buy:
-                        return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
-                    case TransferType.Sell:
-                        return CounterpartyMapper.GetPurchasers().Cast<ITransferSpot>().ToList();
-                    case TransferType.Return:
-                        return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
-                    case TransferType.Supply:
-                        return PointOfSales.Table.ReadAll().Cast<ITransferSpot>().ToList();
-                    case TransferType.Transport:
-                        return Storage.Table.ReadAll().Cast<ITransferSpot>().ToList();
-                    default:
-                        return new List<ITransferSpot>();
-                }
+                if (Type == TransferType.Buy) return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
+                else if (Type == TransferType.Sell) return CounterpartyMapper.GetPurchasers().Cast<ITransferSpot>().ToList();
+                else if (Type == TransferType.Return) return CounterpartyMapper.GetSuppliers().Cast<ITransferSpot>().ToList();
+                else if (Type == TransferType.Supply) return PointOfSales.Table.ReadAll().Cast<ITransferSpot>().ToList();
+                else if (Type == TransferType.Transport) return Storage.Table.ReadAll().Cast<ITransferSpot>().ToList();
+                else return new List<ITransferSpot>();
             }
         }
         public IList<ITransferSpot> TransferSpots2

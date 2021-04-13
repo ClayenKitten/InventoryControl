@@ -384,6 +384,7 @@
     <Compile Include="Model\Invoice\InvoiceProduct.cs" />
     <Compile Include="Model\Product\RawProductAdapter.cs" />
     <Compile Include="Model\Transfer\ITransferSpot.cs" />
+    <Compile Include="Model\Transfer\TransferType.cs" />
     <Compile Include="ORM\Columns\Column.cs" />
     <Compile Include="ORM\Columns\PropertyColumn.cs" />
     <Compile Include="ORM\Columns\IColumn.cs" />
