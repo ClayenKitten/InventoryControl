@@ -13,10 +13,10 @@ namespace InventoryControl.ORM
             Storage.ProductsNumberTable,
             Product.Table,
             Storage.Table,
-            Transfer.Table,
             Counterparty.Table,
             PointOfSales.Table,
-            Transfer.TransferProducts,
+            InvoiceProduct.Table,
+            ProductInvoice.Table
         };
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {

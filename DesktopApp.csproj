@@ -394,7 +394,6 @@
     <Compile Include="Model\Product\Presenters\StockProductPresenter.cs" />
     <Compile Include="Model\Product\Presenters\TransactionProductPresenter.cs" />
     <Compile Include="Model\Product\ProductCategory.cs" />
-    <Compile Include="Model\Transfer\TransferMapper.cs" />
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Piece.cs" />
     <Compile Include="Model\ValueTypes\Measurements\Weight.cs" />

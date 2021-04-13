@@ -6,66 +6,18 @@ using System.Linq;
 
 namespace InventoryControl.Model
 {
-    public class Transfer : IEntity
+    public class Transfer
     {
-        public static JoinTable TransferProducts { get; }
-            = new JoinTable("TransferProducts", typeof(Transfer), typeof(Product), SqlType.INT);
-        public static ConstructorEntityTable<Transfer> Table { get; } = new ConstructorEntityTable<Transfer>
-        (
-            new Column<Transfer>("DateTime", SqlType.DATETIME, (x) => x.DateTime,
-                Constraint.NotNull),
-            new Column<Transfer>("Type", SqlType.INT, (x) => (int)x.Type),
-            new Column<Transfer>("TransferSpot1", SqlType.LONG, (x) => x.TransferSpot1.Id,
-                Constraint.NotNull | Constraint.ForeighnKey("Counterparty")),
-            new Column<Transfer>("TransferSpot2", SqlType.LONG, (x) => x.TransferSpot2.Id,
-                Constraint.NotNull | Constraint.ForeighnKey("Storage"))
-        );
-
-        public long Id { get; set; }
         public DateTime DateTime { get; set; }
         public TransferType Type { get; set; }
         public ITransferSpot TransferSpot1 { get; set; }
         public ITransferSpot TransferSpot2 { get; set; }
         public List<TransactionProductPresenter> Products { get; private set; }
 
-        public Transfer(long id, DateTime dateTime, int type, long transferSpot1Id, long transferSpot2Id)
+        public Transfer(DateTime dateTime, TransferType type, ITransferSpot transferSpot1, ITransferSpot transferSpot2, List<TransactionProductPresenter> products)
         {
-            Id = id;
             DateTime = dateTime;
-            Type = (TransferType)type;
-            if (Type == TransferType.Buy)
-            {
-                TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
-                TransferSpot2 = Storage.Table.Read(transferSpot1Id);
-            }
-            else if (Type == TransferType.Sell)
-            {
-                TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
-                TransferSpot2 = Storage.Table.Read(transferSpot1Id);
-            }
-            else if (Type == TransferType.Return)
-            {
-                TransferSpot1 = Counterparty.Table.Read(transferSpot1Id);
-                TransferSpot2 = Storage.Table.Read(transferSpot1Id);
-            }
-            else if (Type == TransferType.Supply)
-            {
-                TransferSpot1 = Storage.Table.Read(transferSpot1Id);
-                TransferSpot2 = PointOfSales.Table.Read(transferSpot1Id);
-            }
-
-            Products = TransferProducts.ReadAll()
-                        .Where(x => x.Item1 == Id)
-                        .Select(x => new TransactionProductPresenter(Product.Table.Read(x.Item2), (int)x.Item3))
-                        .ToList();
-        }
-        public Transfer(
-            DateTime dateTime, 
-            ITransferSpot transferSpot1, ITransferSpot transferSpot2,
-            List<TransactionProductPresenter> products)
-        {
-            Id = -1;
-            DateTime = dateTime;
+            Type = type;
             TransferSpot1 = transferSpot1;
             TransferSpot2 = transferSpot2;
             Products = products;

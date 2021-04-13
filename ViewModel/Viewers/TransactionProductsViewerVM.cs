@@ -102,16 +102,7 @@ namespace InventoryControl.ViewModel
         {
             GlobalCommands.CreateTransaction.Executed += (parameter) =>
             {
-                TransferMapper.Create
-                (
-                    new Transfer
-                    (
-                        dateTime: DateTime.Now,
-                        transferSpot1: SelectedTransferSpot1,
-                        transferSpot2: SelectedTransferSpot2,
-                        products: new List<TransactionProductPresenter>(Content)
-                    )
-                );
+                // TODO
                 var pm = new PanelManager();
                 pm.OpenStorageView.Execute();
             };

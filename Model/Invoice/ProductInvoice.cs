@@ -1,4 +1,5 @@
-﻿using InventoryControl.ViewModel;
+﻿using InventoryControl.ORM;
+using InventoryControl.ViewModel;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
@@ -11,8 +12,23 @@ using System.Linq;
 
 namespace InventoryControl.Model
 {
-    public class ProductInvoice
+    public class ProductInvoice : IEntity
     {
+        // TODO: Create new JoinTable
+        public static JoinTable ProductsTable { get; }
+            = new JoinTable("InvoiceProducts", typeof(long), typeof(long), SqlType.BOOLEAN);
+        public static ConstructorEntityTable<ProductInvoice> Table { get; } = new ConstructorEntityTable<ProductInvoice>
+        (
+            new Column<ProductInvoice>("Number", SqlType.LONG, x => x.Number),
+            new Column<ProductInvoice>("CreationDateTime", SqlType.DATETIME, x => x.CreationDateTime),
+            new Column<ProductInvoice>("Type", SqlType.INT, x => (int)x.Type),
+            new Column<ProductInvoice>("Sender", SqlType.TEXT, x => x.Sender),
+            new Column<ProductInvoice>("Receiver", SqlType.TEXT, x => x.Receiver),
+            new Column<ProductInvoice>("Payer", SqlType.TEXT, x => x.Payer),
+            new Column<ProductInvoice>("Cause", SqlType.TEXT, x => x.Cause)
+        );
+
+        public long Id { get; set; }
         public long Number { get; set; }
         public DateTime CreationDateTime { get; set; }
         public TransferType Type { get; set; }
@@ -22,15 +38,20 @@ namespace InventoryControl.Model
         public string Cause { get; set; }
         public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
 
-        public ProductInvoice(long number, DateTime creationDateTime, TransferType type, string sender, string receiver, string payer, string cause)
+        public ProductInvoice(long id, long number, DateTime creationDateTime, int type, string sender, string receiver, string payer, string cause)
         {
             Number = number;
             CreationDateTime = creationDateTime;
-            Type = type;
+            Type = new TransferType(type);
             Sender = sender;
             Receiver = receiver;
             Payer = payer;
             Cause = cause;
+            Products = ProductsTable
+                            .ReadAll()
+                            .Where(x => x.Item1 == Id)
+                            .Select(x => InvoiceProduct.Table.Read(x.Item2))
+                            .ToList();
         }
 
         #region Document generation
