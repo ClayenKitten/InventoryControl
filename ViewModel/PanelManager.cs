@@ -113,7 +113,7 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new SingleControlPanelContainer(new EditOrganizationPanel());
+                    return new SingleControlPanelContainer(new EditOrganizationPanel(CounterpartyMapper.GetManaged()));
                 });
             }
         }

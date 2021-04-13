@@ -18,11 +18,27 @@ namespace InventoryControl.View
             InitializeComponent();
             adorner = new TextAdorner(this);
         }
+        public EditOrganizationPanel(Counterparty item) : this()
+        {
+            SetValue(CounterpartyDataProperty, item);
+        }
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property == CounterpartyDataProperty)
+            {
+                if ((e.NewValue as Counterparty).Role == -1)
+                {
+                    adorner.Text = "";
+                    ContentVisibility = Visibility.Visible;
+                }
+            };
+        }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             AdornerLayer.GetAdornerLayer(this).Add(adorner);
-            adorner.Text = "Выберите организацию из списка";
+            if (CounterpartyData.Role != -1) adorner.Text = "Выберите организацию из списка";
         }
 
         public Counterparty CounterpartyData
@@ -65,7 +81,7 @@ namespace InventoryControl.View
             }
             GlobalCommands.ModelUpdated.Execute(null);
             var PM = new PanelManager();
-            if (CounterpartyData.Role == -1) PM.OpenManagedOrg.Execute();
+            if (CounterpartyData.Role == -1) PM.OpenStorageView.Execute();
             else if (CounterpartyData.Role == 0) PM.OpenPurchasers.Execute();
             else PM.OpenSuppliers.Execute();
         }
