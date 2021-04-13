@@ -14,9 +14,6 @@ namespace InventoryControl.Model
 {
     public class ProductInvoice : IEntity
     {
-        // TODO: Create new JoinTable
-        public static JoinTable ProductsTable { get; }
-            = new JoinTable("InvoiceProducts", typeof(long), typeof(long), SqlType.BOOLEAN);
         public static ConstructorEntityTable<ProductInvoice> Table { get; } = new ConstructorEntityTable<ProductInvoice>
         (
             new Column<ProductInvoice>("Number", SqlType.LONG, x => x.Number),
@@ -48,11 +45,9 @@ namespace InventoryControl.Model
             Receiver = receiver;
             Payer = payer;
             Cause = cause;
-            Products = ProductsTable
-                            .ReadAll()
-                            .Where(x => x.Item1 == Id)
-                            .Select(x => InvoiceProduct.Table.Read(x.Item2))
-                            .ToList();
+            Products = InvoiceProduct.Table.ReadAll()
+                .Where(x => x.InvoiceId == Id)
+                .ToList();
         }
 
         #region Document generation
