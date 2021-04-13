@@ -20,6 +20,8 @@ namespace InventoryControl.Model
             => GetAll().Where(x => x.Role == 0).ToList();
         public static List<Counterparty> GetSuppliers()
             => GetAll().Where(x => x.Role == 1).ToList();
+        public static Counterparty GetManaged()
+            => Counterparty.Table.Read(1);
 
         public static Counterparty Create(Counterparty counterparty)
             => Counterparty.Table.Create(counterparty);
