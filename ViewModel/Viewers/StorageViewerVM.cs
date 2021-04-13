@@ -1,4 +1,7 @@
 ﻿using InventoryControl.Model;
+using InventoryControl.View;
+using InventoryControl.View.Controls;
+using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -90,6 +93,12 @@ namespace InventoryControl.ViewModel
             Options.ViewOptionsChanged -= OnOptionsUpdated;
         }
 
+        public static ActionCommand ShowProductInDictionaryCommand { get; }
+            = new ActionCommand
+            (
+                x => (App.Current.MainWindow as MainWindow).Panel =
+                    new DualControlPanelContainer(new ProductDictionaryViewer(), new EditProductPanel((long)x), 0.5f)
+            );
         public void OnOptionsUpdated(object _, object _1)
         {
             Options = new ViewOptions(Options);

@@ -10,10 +10,6 @@ namespace InventoryControl.ViewModel
     {
         //Executed when view must be refreshed due to updates in model
         public static EventCommand ModelUpdated { get; } = new EventCommand();
-        //Executed when product is edited from StorageViewer
-        public static EventCommand EditProduct { get; } = new EventCommand();
-        //Executed when product is sent from StorageViewer to TransactionProductsViewer
-        public static EventCommand SendProduct { get; } = new EventCommand();
         //Executed when transaction is created
         public static EventCommand CreateTransaction { get; } = new EventCommand();
     }

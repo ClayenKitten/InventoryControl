@@ -15,7 +15,8 @@
     <c:ControlPanel.Resources>
         <ContextMenu x:Key="RowContextMenu">
             <MenuItem Header="В прайс-листе" Icon="{iconPacks:Material Kind=ClipboardListOutline}" 
-                      Command="vm:GlobalCommands.EditProduct" CommandParameter="{Binding Id}"/>
+                      Command="vm:StorageViewerVM.ShowProductInDictionaryCommand"
+                      CommandParameter="{Binding Id}"/>
             <MenuItem Header="Списать" Icon="{iconPacks:Material Kind=CubeOff}" IsEnabled="False"/>
         </ContextMenu>
     </c:ControlPanel.Resources>

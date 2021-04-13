@@ -20,14 +20,6 @@ namespace InventoryControl
             InitializeComponent();
 
             Panel = Panel; //set init panel
-            GlobalCommands.EditProduct.Executed += (productId) =>
-            {
-                Panel = new DualControlPanelContainer(
-                    new ProductDictionaryViewer(),
-                    new EditProductPanel((long)productId),
-                    0.5f
-                );
-            };
         }
 
         public ControlPanelContainer Panel 
