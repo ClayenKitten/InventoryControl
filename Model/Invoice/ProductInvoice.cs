@@ -39,7 +39,7 @@ namespace InventoryControl.Model
         public ProductInvoice(TransferType type, string sender, string receiver, string payer, string cause)
         {
             Id = -1;
-            Number = Table.ReadAll().Select(x => x.Number).DefaultIfEmpty(0).Max();
+            Number = Table.ReadAll().Select(x => x.Number).DefaultIfEmpty(0).Max() + 1;
             CreationDateTime = DateTime.Now;
             Type = type;
             Sender = sender;
