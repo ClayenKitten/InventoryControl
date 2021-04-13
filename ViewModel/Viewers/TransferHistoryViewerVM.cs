@@ -58,12 +58,6 @@ namespace InventoryControl.ViewModel
 
             public ProductInvoicePresenter(ProductInvoice item) => Item = item;
         }
-        public ObservableCollection<ProductInvoicePresenter> Content { get; }
-            = new ObservableCollection<ProductInvoicePresenter>()
-            {
-                new ProductInvoicePresenter(new ProductInvoice(0, DateTime.Now.AddDays(-2), TransferType.Buy, "SENDER1", "RECEIVER1", "PAYER1", "CAUSE1")),
-                new ProductInvoicePresenter(new ProductInvoice(1, DateTime.Now.AddDays(-1), TransferType.Supply, "SENDER2", "RECEIVER2", "PAYER2", "CAUSE2")),
-                new ProductInvoicePresenter(new ProductInvoice(2, DateTime.Now, TransferType.Transport, "SENDER3", "RECEIVER3", "PAYER3", "CAUSE3"))
-            };
+        public ObservableCollection<ProductInvoicePresenter> Content { get; } = new ObservableCollection<ProductInvoicePresenter>();
     }
 }
