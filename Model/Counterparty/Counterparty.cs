@@ -48,6 +48,7 @@ namespace InventoryControl.Model
         public string Name { get; set; } = "";
         public string LegalAddress { get; set; } = "";
         public string ActualAddress { get; set; } = "";
+        public string Address => ActualAddress;
 
         public string Phone { get; set; } = "";
         public string Fax { get; set; } = "";
