@@ -36,6 +36,7 @@ namespace InventoryControl.ORM
             this.InitValues = InitValues;
             Columns = columns.ToList();
             Columns.Insert(0, new PropertyColumn<EntityType, long>("Id", Constraint.PrimaryKey));
+            Database.RegisterTable(this);
         }
         public PropertyEntityTable(params IColumn<EntityType>[] columns)
             : this(new List<EntityType>(), columns) { }

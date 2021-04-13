@@ -8,16 +8,7 @@ namespace InventoryControl.ORM
 {
     static class Database
     {
-        private static List<TableBase> Tables = new List<TableBase>()
-        {
-            Storage.ProductsNumberTable,
-            Product.Table,
-            Storage.Table,
-            Counterparty.Table,
-            PointOfSales.Table,
-            InvoiceProduct.Table,
-            ProductInvoice.Table
-        };
+        private static List<TableBase> Tables = new List<TableBase>();
         static public object CommitScalarTransaction(string commandText, params SQLiteParameter[] parameters)
         {
             using var con = Database.Connect();
@@ -65,7 +56,13 @@ namespace InventoryControl.ORM
             return con;
         }
 
-        static Database()
+        public static void RegisterTable(TableBase table)
+        {
+            Tables.Add(table);
+            UpdateSchema();
+        }
+
+        public static void UpdateSchema()
         {
             if (!File.Exists("Database.db"))
             {
@@ -79,7 +76,7 @@ namespace InventoryControl.ORM
             };
 
             var con = new SQLiteConnection(builder.ConnectionString).OpenAndReturn();
-            foreach(var table in Tables)
+            foreach (var table in Tables)
             {
                 table.Create(con);
             }

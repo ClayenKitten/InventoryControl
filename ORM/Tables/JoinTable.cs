@@ -81,6 +81,7 @@ namespace InventoryControl.ORM
             firstType = first;
             secondType = second;
             valueType = value;
+            Database.RegisterTable(this);
         }
     }
 }
