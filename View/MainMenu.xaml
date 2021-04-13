@@ -32,8 +32,7 @@
                       Icon="{iconPacks:FontAwesome Kind=PeopleCarrySolid}" IsEnabled="True"
                       ToolTip="Перевезти товар между складами"/>
             <Separator/>
-            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" IsEnabled="False"/>
-            <MenuItem Header="Накладные" Icon="{iconPacks:FontAwesome Kind=FileInvoiceDollarSolid}" Command="{Binding OpenInvoiceEditor}"/>
+            <MenuItem Header="История" Icon="{iconPacks:FontAwesome Kind=HistorySolid}" Command="{Binding OpenTransferHistoryViewer}"/>
         </MenuItem>
         <MenuItem Header="Номенклатура">
             <MenuItem Header="Просмотр" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>

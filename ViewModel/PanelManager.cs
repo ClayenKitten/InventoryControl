@@ -101,6 +101,12 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        public OpenPanelCommand OpenTransferHistoryViewer
+            => new OpenPanelCommand(() => new DualControlPanelContainer
+                                          (
+                                            new TransferHistoryViewer(),
+                                            new TransferInvoiceViewer())
+                                          );
         public OpenPanelCommand OpenManagedOrg
         {
             get

@@ -1,4 +1,5 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using InventoryControl.ViewModel;
+using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -14,16 +15,18 @@ namespace InventoryControl.Model
     {
         public long Number { get; set; }
         public DateTime CreationDateTime { get; set; }
+        public TransferType Type { get; set; }
         public string Sender { get; set; }
         public string Receiver { get; set; }
         public string Payer { get; set; }
         public string Cause { get; set; }
         public IList<InvoiceProduct> Products { get; set; } = new List<InvoiceProduct>();
 
-        public ProductInvoice(long number, DateTime creationDateTime, string sender, string receiver, string payer, string cause)
+        public ProductInvoice(long number, DateTime creationDateTime, TransferType type, string sender, string receiver, string payer, string cause)
         {
             Number = number;
             CreationDateTime = creationDateTime;
+            Type = type;
             Sender = sender;
             Receiver = receiver;
             Payer = payer;
