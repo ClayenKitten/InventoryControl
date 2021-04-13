@@ -15,7 +15,11 @@ namespace InventoryControl.View
 
         private void ListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SendMessage(typeof(TransferInvoiceViewer), (e.AddedItems[0] as ProductInvoicePresenter).Item);
+            try
+            {
+                SendMessage(typeof(TransferInvoiceViewer), (e.AddedItems[0] as ProductInvoicePresenter).Item);
+            }
+            catch(System.Exception) { }
         }
     }
 }
