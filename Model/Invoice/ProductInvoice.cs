@@ -40,6 +40,7 @@ namespace InventoryControl.Model
 
         public ProductInvoice(long id, long number, DateTime creationDateTime, int type, string sender, string receiver, string payer, string cause)
         {
+            Id = id;
             Number = number;
             CreationDateTime = creationDateTime;
             Type = new TransferType(type);
