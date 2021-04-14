@@ -59,5 +59,21 @@ namespace InventoryControl.View
         }
         private void SellingView_Click(object sender, RoutedEventArgs e) { throw new NotImplementedException(); }
         private void BuyingView_Click(object sender, RoutedEventArgs e) { throw new NotImplementedException(); }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Replace fake one with real
+            var fileDialog = new SaveFileDialog();
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            fileDialog.Filter = "Config (*.cfg)|*.cfg|All files (*.*)|*.*";
+            fileDialog.ValidateNames = true;
+            fileDialog.FileName = "Export-Mercury185F";
+            if (fileDialog.ShowDialog() == true)
+            {
+                var bytes = new byte[Product.Table.ReadAll().Count * 121];
+                new Random().NextBytes(bytes);
+                File.WriteAllBytes(fileDialog.FileName, bytes);
+            }
+        }
     }
 }

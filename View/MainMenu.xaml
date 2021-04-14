@@ -36,7 +36,7 @@
         </MenuItem>
         <MenuItem Header="Номенклатура">
             <MenuItem Header="Просмотр" Icon="{iconPacks:Material Kind=ClipboardListOutline}" Command="{Binding OpenProductView}"/>
-            <MenuItem Header="Экспорт в ККТ..." Icon="{iconPacks:Material Kind=Export}">
+            <MenuItem Header="Экспорт в ККТ..." Icon="{iconPacks:Material Kind=Export}" Click="Export_Click">
                 <MenuItem Header="Меркурий 185-Ф"/>
             </MenuItem>
         </MenuItem>
