@@ -38,7 +38,7 @@ namespace InventoryControl.View
         {
             base.OnApplyTemplate();
             AdornerLayer.GetAdornerLayer(this).Add(adorner);
-            if (CounterpartyData.Role != -1) adorner.Text = "Выберите организацию из списка";
+            if (CounterpartyData?.Role != -1) adorner.Text = "Выберите организацию из списка";
         }
 
         public Counterparty CounterpartyData
