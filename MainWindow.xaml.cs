@@ -37,6 +37,7 @@ namespace InventoryControl
             }
             set 
             {
+                if (value is null) return;
                 //Dispose if container already set
                 var cur = MainWindowGrid.Children[MainWindowGrid.Children.Count - 1];
                 if (cur is ControlPanelContainer adaptiveStackControl)
