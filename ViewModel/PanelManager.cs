@@ -2,6 +2,7 @@
 using InventoryControl.View;
 using InventoryControl.View.Controls;
 using System;
+using System.Windows;
 using System.Windows.Media;
 
 namespace InventoryControl.ViewModel
@@ -45,17 +46,30 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
-        //Transaction
+        //Transfer
         public OpenPanelCommand OpenTransactionProductsViewerBuy
         {
             get
             {
                 return new OpenPanelCommand(() =>
-                {
-                    return new DualControlPanelContainer(
-                        new ProductDictionaryViewer(),
-                        new TransactionProductsViewer(TransferType.Buy)
-                    );
+                {                
+                    if (CounterpartyMapper.GetSuppliers().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления закупки необходим как минимум один поставщик", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else if (Storage.Table.ReadAll().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления закупки необходим как минимум один склад", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else
+                    {
+                        return new DualControlPanelContainer(
+                            new ProductDictionaryViewer(),
+                            new TransactionProductsViewer(TransferType.Buy)
+                        );
+                    }
                 });
             }
         }
@@ -65,23 +79,22 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new DualControlPanelContainer(
-                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransferType.Sell)
-                    );
-                });
-            }
-        }
-        public OpenPanelCommand OpenTransactionProductsViewerReturn
-        {
-            get
-            {
-                return new OpenPanelCommand(() =>
-                {
-                    return new DualControlPanelContainer(
-                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransferType.Return)
-                    );
+                    if (CounterpartyMapper.GetPurchasers().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления продажи необходим как минимум один покупатель", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else if (Storage.Table.ReadAll().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления продажи необходим как минимум один склад", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else
+                    {
+                        return new DualControlPanelContainer(
+                            new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
+                            new TransactionProductsViewer(TransferType.Sell));
+                    }
                 });
             }
         }
@@ -91,10 +104,23 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new DualControlPanelContainer(
-                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransferType.Supply)
-                    );
+                    if (PointOfSales.Table.ReadAll().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления поставки необходима как минимум одна точка продаж", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else if (Storage.Table.ReadAll().Count < 1)
+                    {
+                        MessageBox.Show("Для оформления поставки необходим как минимум один склад", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else
+                    {
+                        return new DualControlPanelContainer(
+                            new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
+                            new TransactionProductsViewer(TransferType.Supply)
+                        );
+                    }
                 });
             }
         }
@@ -104,10 +130,18 @@ namespace InventoryControl.ViewModel
             {
                 return new OpenPanelCommand(() =>
                 {
-                    return new DualControlPanelContainer(
-                        new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
-                        new TransactionProductsViewer(TransferType.Transport)
-                    );
+                    if (Storage.Table.ReadAll().Count < 2)
+                    {
+                        MessageBox.Show("Для оформления перевозки необходимо как минимум два склада", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return null;
+                    }
+                    else
+                    {
+                        return new DualControlPanelContainer(
+                            new StorageViewer(-1, new ViewOptions() { HideStorageSelector = true }),
+                            new TransactionProductsViewer(TransferType.Transport)
+                        );
+                    }
                 });
             }
         }
@@ -117,6 +151,7 @@ namespace InventoryControl.ViewModel
                                             new TransferHistoryViewer(),
                                             new TransferInvoiceViewer())
                                           );
+        // Organizations
         public OpenPanelCommand OpenManagedOrg
         {
             get
