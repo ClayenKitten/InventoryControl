@@ -20,6 +20,16 @@ namespace InventoryControl.ViewModel
                 });
             }
         }
+        public OpenPanelCommand OpenStorageEdit
+        {
+            get
+            {
+                return new OpenPanelCommand(() =>
+                {
+                    return new SingleControlPanelContainer(new StorageListViewer());
+                });
+            }
+        }
         //Product
         public OpenPanelCommand OpenProductView
         {

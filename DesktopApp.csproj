@@ -425,6 +425,7 @@
     <Compile Include="ViewModel\Command\EventCommand.cs" />
     <Compile Include="ViewModel\Command\GlobalCommands.cs" />
     <Compile Include="ViewModel\Viewers\CounterpatyViewerVM.cs" />
+    <Compile Include="ViewModel\Viewers\StorageListViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\PointsOfSalesViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\TransferHistoryViewerVM.cs" />
     <Compile Include="ViewModel\Viewers\ViewOptions.cs" />
@@ -463,6 +464,9 @@
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\PanelManager.cs" />
+    <Compile Include="View\StorageListViewer.xaml.cs">
+      <DependentUpon>StorageListViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PointsOfSalesViewer.xaml.cs">
       <DependentUpon>PointsOfSalesViewer.xaml</DependentUpon>
     </Compile>
@@ -509,6 +513,10 @@
     <Page Include="View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StorageListViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\PointsOfSalesViewer.xaml">
       <SubType>Designer</SubType>
