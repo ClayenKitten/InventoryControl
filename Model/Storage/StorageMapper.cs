@@ -16,6 +16,10 @@ namespace InventoryControl.Model
         public static List<Storage> GetAllStorages()
             => (List<Storage>)Storage.Table.ReadAll();
 
+        public static void AddProductAmount(long productId, long storageId, int amount)
+            => SetProductAmount(productId, storageId, GetProductAmount(productId, storageId) + amount);
+        public static void SetProductAmount(long productId, long storageId, int amount)
+            => Storage.ProductsNumberTable.CreateOrUpdate(productId, storageId, amount);
         public static int GetProductAmount(long productId, long storageId)
         {
             var s = Storage.Table.ReadAll();

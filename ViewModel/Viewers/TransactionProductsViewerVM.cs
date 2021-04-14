@@ -123,22 +123,44 @@ namespace InventoryControl.ViewModel
             {
                 sender = (SelectedTransferSpot1 as Counterparty).DisplayName;
                 receiver = CounterpartyMapper.GetManaged().DisplayName;
+
+                foreach (var product in Content)
+                {
+                    StorageMapper.AddProductAmount(product.Id, (SelectedTransferSpot2 as Storage).Id, product.TransmitNumber);
+                }
             }
             else if (Type == TransferType.Sell)
             {
                 sender = CounterpartyMapper.GetManaged().DisplayName;
                 receiver = (SelectedTransferSpot1 as Counterparty).DisplayName;
+
+                foreach (var product in Content)
+                {
+                    StorageMapper.AddProductAmount(product.Id, (SelectedTransferSpot2 as Storage).Id, -product.TransmitNumber);
+                }
             }
             else if (Type == TransferType.Supply)
             {
                 sender = CounterpartyMapper.GetManaged().DisplayName;
                 receiver = CounterpartyMapper.GetManaged().DisplayName;
+
+                foreach (var product in Content)
+                {
+                    StorageMapper.AddProductAmount(product.Id, (SelectedTransferSpot2 as Storage).Id, -product.TransmitNumber);
+                }
             }
             else if (Type == TransferType.Transport)
             {
                 sender = CounterpartyMapper.GetManaged().DisplayName;
                 receiver = CounterpartyMapper.GetManaged().DisplayName;
+
+                foreach (var product in Content)
+                {
+                    StorageMapper.AddProductAmount(product.Id, (SelectedTransferSpot1 as Storage).Id, -product.TransmitNumber);
+                    StorageMapper.AddProductAmount(product.Id, (SelectedTransferSpot2 as Storage).Id, product.TransmitNumber);
+                }
             }
+
             payer = receiver;
             var invoice = new ProductInvoice(Type, sender, receiver, payer, Cause);
             var initedInvoice = ProductInvoice.Table.Create(invoice);

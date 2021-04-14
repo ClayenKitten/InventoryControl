@@ -42,6 +42,18 @@ namespace InventoryControl.ORM
             var commandText = $"UPDATE {Name} SET Value=$value WHERE {fname}Id={firstId} AND {sname}Id={secondId};";
             Database.CommitScalarTransaction(commandText, new SQLiteParameter("$value", value));
         }
+        public void CreateOrUpdate(long firstId, long secondId, object value)
+        {
+            if (Read(firstId, secondId) is null)
+            {
+                Create(firstId, secondId, value);
+            }
+            else
+            {
+                Update(firstId, secondId, value);
+            }
+        }
+
         public object Read(long firstId, long secondId)
         {
             var fname = firstType.Name;
