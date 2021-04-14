@@ -74,10 +74,29 @@ namespace InventoryControl.ViewModel
         {
             get => StorageMapper.GetAllStorages().Cast<ITransferSpot>().ToList();
         }
-        public ITransferSpot SelectedTransferSpot1 { get; set; }
-        public ITransferSpot SelectedTransferSpot2 { get; set; }
+        public ITransferSpot SelectedTransferSpot1
+        {
+            get => selectedTransferSpot1;
+            set
+            {
+                selectedTransferSpot1 = value;
+                Content.Clear();
+            }
+        }
+        public ITransferSpot SelectedTransferSpot2
+        {
+            get => selectedTransferSpot2;
+            set
+            {
+                selectedTransferSpot2 = value;
+                Content.Clear();
+            }
+        }
 
         private TransferType type;
+        private ITransferSpot selectedTransferSpot1;
+        private ITransferSpot selectedTransferSpot2;
+
         public TransferType Type
         {
             get => type;
@@ -184,7 +203,7 @@ namespace InventoryControl.ViewModel
                     Measurement = product.Product.Measurement.Postfix,
                     NumberInPackage = product.Product.Measurement.RawValue,
                     NumberOfPackages = product.TransmitNumber,
-                    Price = Type == TransferType.Buy ? 
+                    Price = Type == TransferType.Buy ?
                                     product.Product.PurchasePrice.RawValue :
                                     product.Product.SalePrice.RawValue
                 };
