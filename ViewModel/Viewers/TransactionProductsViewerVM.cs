@@ -104,6 +104,15 @@ namespace InventoryControl.ViewModel
             foreach (var product in Content)
             {
                 if (product.Id == id) return;
+                // If type is transport
+                if (SelectedTransferSpot1 is Storage s)
+                {
+                    if (StorageMapper.GetProductAmount(product.Id, s.Id) < product.TransmitNumber) return;
+                }
+                else if (Type != TransferType.Buy)
+                {
+                    if (StorageMapper.GetProductAmount(product.Id, (SelectedTransferSpot2 as Storage).Id) < product.TransmitNumber) return;
+                }
             }
             Content.Add(new TransactionProductPresenter(Product.Table.Read(id), 1));
         }
