@@ -21,9 +21,6 @@
             <MenuItem Header="Продать товар" Command="{Binding OpenTransactionProductsViewerSell}" 
                       Icon="{iconPacks:FontAwesome Kind=TruckSolid}" IsEnabled="True"
                       ToolTip="Оформить оптовую продажу товара"/>
-            <MenuItem Header="Вернуть товар" Command="{Binding OpenTransactionProductsViewerReturn}" 
-                      Icon="{iconPacks:Material Kind=CashRefund}" IsEnabled="True"
-                      ToolTip="Оформить возврат товара поставщику"/>
             <Separator/>
             <MenuItem Header="Поставить товар" Command="{Binding OpenTransactionProductsViewerSupply}" 
                       Icon="{iconPacks:FontAwesome Kind=ShippingFastSolid}" IsEnabled="True"
