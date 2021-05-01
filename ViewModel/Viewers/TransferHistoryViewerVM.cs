@@ -3,6 +3,7 @@ using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace InventoryControl.ViewModel
 {
@@ -56,6 +57,7 @@ namespace InventoryControl.ViewModel
             }
             public string Content => $"{Item.Products.Count} наименований на сумму {Sum.ToString("0.00")}₽";
             public string Footer => $"По основанию {Item.Cause}";
+            public Visibility FooterVisibility => Item.Cause == "" ? Visibility.Collapsed : Visibility.Visible;
 
             public ProductInvoicePresenter(ProductInvoice item) => Item = item;
         }

@@ -37,7 +37,7 @@
                                 FontSize="16" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Content}"
                                 FontSize="14" FontWeight="Normal"/>
-                            <TextBlock Text="{Binding Footer}"
+                            <TextBlock Text="{Binding Footer}" Visibility="{Binding FooterVisibility}"
                                 FontSize="12" FontWeight="Light" FontStyle="Italic"/>
                         </StackPanel>
                     </Border>
