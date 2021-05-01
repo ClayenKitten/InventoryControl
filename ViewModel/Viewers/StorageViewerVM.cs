@@ -117,6 +117,8 @@ namespace InventoryControl.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Content"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("View"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentStorageName"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SaleSum"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PurchaseSum"));
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }
