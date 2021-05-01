@@ -1,4 +1,5 @@
 ﻿using InventoryControl.Model;
+using MahApps.Metro.IconPacks;
 using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.ObjectModel;
@@ -43,6 +44,23 @@ namespace InventoryControl.ViewModel
                 }
             }
             public string Header => $"{InvoiceType} №{Item.Number} от {Item.CreationDateTime.ToShortDateString()}";
+            public PackIconFontAwesomeKind IconKind
+            {
+                get
+                {
+                    if (Item.Type == TransferType.Buy)
+                        return PackIconFontAwesomeKind.TruckLoadingSolid;
+                    else if (Item.Type == TransferType.Sell)
+                        return PackIconFontAwesomeKind.TruckSolid;
+                    else if (Item.Type == TransferType.Supply)
+                        return PackIconFontAwesomeKind.ShippingFastSolid;
+                    else if (Item.Type == TransferType.Transport)
+                        return PackIconFontAwesomeKind.PeopleCarrySolid;
+                    else
+                        return PackIconFontAwesomeKind.None;
+                }
+            }
+
             private double Sum
             {
                 get
@@ -56,7 +74,7 @@ namespace InventoryControl.ViewModel
                 }
             }
             public string Content => $"{Item.Products.Count} наименований на сумму {Sum.ToString("0.00")}₽";
-            public string Footer => $"По основанию {Item.Cause}";
+            public string Footer => $"По основанию \"{Item.Cause}\"";
             public Visibility FooterVisibility => Item.Cause == "" ? Visibility.Collapsed : Visibility.Visible;
 
             public ProductInvoicePresenter(ProductInvoice item) => Item = item;

@@ -6,22 +6,20 @@
              xmlns:c="clr-namespace:InventoryControl.View.Controls"
              xmlns:vm="clr-namespace:InventoryControl.ViewModel"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:InventoryControl.View"
              mc:Ignorable="d">
     <c:ControlPanel.DataContext><vm:TransferHistoryViewerVM/></c:ControlPanel.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label BorderThickness="0, 0, 0, 1" BorderBrush="Black" Content="Прайс-лист"/>
-        <TextBox Grid.Row="0" Grid.Column="1" mah:TextBoxHelper.Watermark="Поиск..."
-            x:Name="Searchbox" Style="{StaticResource SearchTextbox}" BorderThickness="1, 0, 0, 1"/>
+        <Label BorderThickness="0, 0, 0, 1" BorderBrush="Black" Content="История"/>
         <ListView ItemsSource="{Binding Content}" SelectionMode="Single" SelectionChanged="ListView_SelectionChanged"
             Grid.Row="1" Grid.ColumnSpan="2" Padding="0" Margin="0">
             <ListView.ItemContainerStyle>
@@ -31,10 +29,14 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="0,0,0,0.125">
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,0.125" Padding="10,7">
                         <StackPanel>
-                            <TextBlock Text="{Binding Header}"
-                                FontSize="16" FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,7">
+                                <iconPacks:PackIconFontAwesome Kind="{Binding IconKind}"
+                                    Margin="0,4,10,0"/>
+                                <TextBlock Text="{Binding Header}"
+                                    FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
                             <TextBlock Text="{Binding Content}"
                                 FontSize="14" FontWeight="Normal"/>
                             <TextBlock Text="{Binding Footer}" Visibility="{Binding FooterVisibility}"
