@@ -1,5 +1,6 @@
 ﻿using InventoryControl.ORM;
 using InventoryControl.Util;
+using System;
 using System.Collections.Generic;
 
 namespace InventoryControl.Model
@@ -26,5 +27,32 @@ namespace InventoryControl.Model
             this.Name = name;
             this.Address = address;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Storage st)
+            {
+                return Id == st.Id &&
+                       Name == st.Name &&
+                       Address == st.Address;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            int hashCode = 1983353833;
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Address);
+            return hashCode;
+        }
+
+        public static bool operator ==(Storage a, Storage b)
+            => a.Equals(b);
+        public static bool operator !=(Storage a, Storage b)
+            => !a.Equals(b);
     }
 }
