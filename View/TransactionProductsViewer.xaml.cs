@@ -27,8 +27,16 @@ namespace InventoryControl.View
         {
             InitializeComponent();
             ((TransactionProductsViewerVM)DataContext).Type = type;
-            TransferSpotCombobox1.SelectedIndex = 0;
-            TransferSpotCombobox2.SelectedIndex = 0;
+            if (type == TransferType.Transport)
+            {
+                TransferSpotCombobox1.SelectedIndex = 0;
+                TransferSpotCombobox2.SelectedIndex = 1;
+            }
+            else
+            {
+                TransferSpotCombobox1.SelectedIndex = 0;
+                TransferSpotCombobox2.SelectedIndex = 0;
+            }
         }
         public override void ReceiveMessage(object sender, object message)
         {
@@ -43,6 +51,18 @@ namespace InventoryControl.View
             if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Released)
             {
                 ((TransactionProductsViewerVM)DataContext).ShowContextMenu((TransactionProductPresenter)row.Item);
+            }
+        }
+
+        private void TransferSpotCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TransferSpotCombobox1.SelectedItem != null && TransferSpotCombobox2.SelectedItem != null)
+            {
+                if (TransferSpotCombobox1.SelectedItem.Equals(TransferSpotCombobox2.SelectedItem))
+                {
+                    System.Media.SystemSounds.Hand.Play();
+                    ((ComboBox)e.Source).SelectedItem = e.RemovedItems[0];
+                }
             }
         }
     }
