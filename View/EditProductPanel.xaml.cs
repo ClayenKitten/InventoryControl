@@ -84,7 +84,7 @@ namespace InventoryControl.View
             ProductData = product;
         }
 
-        private void FormConfirmed(object sender, RoutedEventArgs e)
+        private void FormConfirmed(object sender, EventArgs e)
         {
             if (ProductData.Article.Trim() == "")
                 ProductData.Article = new Product().Article;
