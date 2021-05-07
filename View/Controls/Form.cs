@@ -1,43 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace InventoryControl.View.Controls
 {
     public class Form : Grid, INotifyPropertyChanged
     {
-        public bool IsValid
+        private List<IValidatable> GetValidatableChildren(DependencyObject elem)
         {
-            get
+            List<IValidatable> res = new List<IValidatable>();
+            foreach (var child in LogicalTreeHelper.GetChildren(elem))
             {
-                bool areAllValid = true;
-                foreach (var elem in Children)
+                if (child is IValidatable validatable)
                 {
-                    if (elem is IValidatable)
-                    {
-                        areAllValid &= (elem as IValidatable).IsValid;
-                    }
+                    res.Add(validatable);
                 }
-                return areAllValid;
+                else if (child is DependencyObject childDO)
+                {
+                    res.AddRange(GetValidatableChildren(childDO));
+                }
             }
+            return res;
         }
+        public bool IsValid => GetValidatableChildren(this).All(x => x.IsValid);
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            foreach (var elem in Children)
+            foreach (var elem in GetValidatableChildren(this).OfType<INotifyPropertyChanged>())
             {
-                if (elem is INotifyPropertyChanged && elem is IValidatable)
+                elem.PropertyChanged += (_, e) =>
                 {
-                    (elem as INotifyPropertyChanged).PropertyChanged += (_, e) =>
+                    if (e.PropertyName == "IsValid")
                     {
-                        if (e.PropertyName == "IsValid")
-                        {
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
-                        }
-                    };
-                }
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
+                    }
+                };
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
         }
