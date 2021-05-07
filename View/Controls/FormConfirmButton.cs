@@ -7,10 +7,6 @@ namespace InventoryControl.View.Controls
 {
     public class FormConfirmButton : Button
     {
-        static FormConfirmButton()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FormConfirmButton), new FrameworkPropertyMetadata(typeof(FormConfirmButton)));
-        }
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
